@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
+        // Применить тему ДО отрисовки страницы чтобы избежать мигания
+        (function() {
+            const darkMode = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if (darkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+        
         tailwind.config = {
             darkMode: 'class',
             theme: {
