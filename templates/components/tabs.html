@@ -27,14 +27,16 @@
 
     <!-- Вкладка конфигов -->
     <div x-show="activeTab === 'configs'" 
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 translate-y-2"
-         x-transition:enter-end="opacity-100 translate-y-0">
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {% for config in configs %}
-            <div class="bg-white dark:bg-brand-panel rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm hover:shadow-md transition relative flex flex-col" x-data="{ copied: false }">
+            <!-- ДОБАВЛЕН КЛАСС overflow-hidden -->
+            <div class="bg-white dark:bg-brand-panel rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm hover:shadow-md transition relative flex flex-col overflow-hidden" x-data="{ copied: false }">
                 
                 {% if config.is_recommended %}
+                <!-- Блок теперь будет обрезаться по форме родителя -->
                 <div class="absolute top-0 right-0 bg-yellow-400/20 text-yellow-700 dark:text-yellow-400 text-xs font-bold px-2 py-1 rounded-bl-lg border-l border-b border-yellow-400/30">
                     Рекомендованный
                 </div>
@@ -46,6 +48,7 @@
                 </div>
                 {% endif %}
 
+                <!-- Остальной контент карточки... -->
                 <div class="font-mono font-bold text-lg mb-1">#{{ config.id }}</div>
                 <div class="text-xs text-gray-500 break-all bg-gray-50 dark:bg-black/30 p-2 rounded mb-3 font-mono border border-gray-100 dark:border-gray-800">
                     {{ config.url }}
