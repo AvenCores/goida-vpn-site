@@ -19,10 +19,12 @@
                 </a>
             </div>
 
-            <button @click="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                <i class="fa-solid" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-gray-500'"></i>
+            <button @click="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition hover:shadow-md hover:shadow-gray-600/30 dark:hover:shadow-gray-400/20">
+                <i class="fa-solid text-lg" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-gray-500'"></i>
             </button>
-            <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-700 transition">GitHub</a>
+            <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-700 transition border-2 border-white hover:shadow-md hover:shadow-gray-600/30 dark:hover:shadow-gray-400/20">
+                GitHub
+            </a>
         </div>
     </div>
 </header>
