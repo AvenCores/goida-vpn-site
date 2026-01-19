@@ -1,7 +1,8 @@
 ├── app.py                  # Точка входа в приложение
 ├── services.py             # Логика генерации данных (конфигов)
-├── media/                  # Папка для статики (картинки), бывшая static_folder
-│   └── (сюда положите ваши файлы: dzen-white.png, sber-icon.png и т.д.)
+├── static/                 # Статические данные
+│   └── media # Медиа файлы
+│   └── js # JS файлы
 └── templates/              # HTML шаблоны
     ├── base.html           # Основной каркас (Head, Scripts, Body wrapper)
     ├── index.html          # Главная страница (собирает компоненты)
