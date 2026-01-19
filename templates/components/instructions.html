@@ -14,7 +14,7 @@
             <div x-show="activeGuide === 'android'" x-collapse x-cloak>
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50">
                     <div class="mb-8">
-                        <a href="https://github.com/2dust/v2rayNG/releases/download/1.10.32/v2rayNG_1.10.32_universal.apk" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700 mb-4 shadow">
+                        <a href="#" data-link-type="v2rayng-apk" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700 mb-4 shadow">
                             <i class="fa-solid fa-download mr-2"></i> Скачать v2rayNG (APK)
                         </a>
                         <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
@@ -117,7 +117,7 @@
             
             <div x-show="activeGuide === 'androidtv'" x-collapse x-cloak>
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50">
-                    <a href="https://github.com/2dust/v2rayNG/releases/download/1.10.32/v2rayNG_1.10.32_universal.apk" class="inline-block bg-teal-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-teal-700 mb-6 shadow">
+                    <a href="#" data-link-type="v2rayng-apk" class="inline-block bg-teal-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-teal-700 mb-6 shadow">
                         <i class="fa-solid fa-download mr-2"></i> Скачать v2rayNG (APK)
                     </a>
                     
@@ -158,9 +158,9 @@
             <div x-show="activeGuide === 'windows'" x-collapse x-cloak>
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50">
                     <div class="flex flex-wrap gap-3 mb-6">
-                        <a href="https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-windows64.zip" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 text-sm font-bold">Скачать для Win 10/11</a>
-                        <a href="https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-windowslegacy64.zip" class="bg-gray-600 text-white px-4 py-2 rounded shadow hover:bg-gray-700 text-sm">Скачать для Win 7/8</a>
-                        <a href="https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-linux-amd64.zip" class="bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-black text-sm">Скачать для Linux</a>
+                        <a href="#" data-link-type="throne-win10" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 text-sm font-bold">Скачать для Win 10/11</a>
+                        <a href="#" data-link-type="throne-win7" class="bg-gray-600 text-white px-4 py-2 rounded shadow hover:bg-gray-700 text-sm">Скачать для Win 7/8</a>
+                        <a href="#" data-link-type="throne-linux" class="bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-black text-sm">Скачать для Linux</a>
                     </div>
 
                     <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
@@ -265,3 +265,5 @@
 
     </div>
 </section>
+
+<script src="{{ url_for('static', filename='js/update-download-links.js') }}"></script>
