@@ -12,10 +12,19 @@
                     ⚠️ Этот конфиг специально настроен для обхода систем с белыми списками SNI/CIDR, 
                     которые используются некоторыми провайдерами для глубокого анализа трафика.
                 </div>
-                <button @click="navigator.clipboard.writeText('https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/26.txt'); alert('Ссылка скопирована!')"
-                        class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-medium">
-                    <i class="fa-regular fa-copy"></i> Копировать ссылку
-                </button>
+                
+                <!-- Контейнер с flex-col для вертикального расположения -->
+                <div class="flex flex-col gap-3 items-start">
+                    <button @click="navigator.clipboard.writeText('https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/26.txt'); alert('Ссылка скопирована!')"
+                            class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-medium">
+                        <i class="fa-regular fa-copy"></i> Копировать ссылку
+                    </button>
+                    
+                    <a href="https://youtu.be/uz6JmOO7sGU" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
+                        <i class="fa-brands fa-youtube"></i> YouTube
+                    </a>
+                </div>
+                
             </div>
             <div class="rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-600">
                 <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/uz6JmOO7sGU" title="Video Guide SNI/CIDR Bypass" frameborder="0" allowfullscreen></iframe>
