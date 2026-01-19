@@ -1,0 +1,18 @@
+<footer class="bg-white dark:bg-brand-panel border-t border-gray-200 dark:border-gray-700 mt-12 py-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        
+        <div class="inline-block bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-6 mb-8 transform hover:scale-105 transition">
+            <h3 class="text-xl font-bold text-green-700 dark:text-green-400 mb-2">💰 Поддержать автора</h3>
+            <div class="flex items-center justify-center gap-3 bg-white dark:bg-black/20 px-4 py-2 rounded-lg border border-green-100 dark:border-green-900/50 cursor-pointer"
+                @click="navigator.clipboard.writeText('2202 2050 1464 4675'); alert('Номер карты скопирован!')">
+                <img src="/media/sber-icon.png" class="h-6 w-auto" alt="Sber">
+                <span class="font-mono text-lg font-bold">2202 2050 1464 4675</span>
+                <i class="fa-regular fa-copy text-gray-400"></i>
+            </div>
+        </div>
+
+        <div class="text-gray-500 text-sm space-y-2">
+            <p>Проект распространяется под лицензией <a href="https://github.com/AvenCores/goida-vpn-configs/blob/main/LICENSE" class="underline hover:text-brand-blue">GPL-3.0</a>.</p>
+        </div>
+    </div>
+</footer>

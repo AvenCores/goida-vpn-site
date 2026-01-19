@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goida VPN Configs - Web Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#3670A0',
+                            yellow: '#ffdd54',
+                            dark: '#0f172a',
+                            panel: '#1e293b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        
+        /* Custom Details Marker Style */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-brand-dark dark:text-gray-100 transition-colors duration-300 font-sans"
+      x-data="{ 
+          darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+          toggleTheme() {
+              this.darkMode = !this.darkMode;
+              localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
+              if (this.darkMode) document.documentElement.classList.add('dark');
+              else document.documentElement.classList.remove('dark');
+          },
+          activeTab: 'configs'
+      }"
+      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark');"
+>
+
+    {% include 'components/header.html' %}
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'components/footer.html' %}
+</body>
+</html>

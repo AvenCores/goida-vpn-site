@@ -1,0 +1,267 @@
+<section>
+    <h2 class="text-3xl font-bold mb-8 text-center">📚 Подробные инструкции</h2>
+    
+    <div class="space-y-4 max-w-4xl mx-auto" x-data="{ activeGuide: null }">
+
+        <!-- 1. ANDROID (V2RayNG) -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+            <button @click="activeGuide = activeGuide === 'android' ? null : 'android'" 
+                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
+                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-brands fa-android text-green-500 text-2xl"></i> Android (v2rayNG)</span>
+                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'android' ? 'rotate-180' : ''"></i>
+            </button>
+            
+            <div x-show="activeGuide === 'android'" x-collapse x-cloak>
+                <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50">
+                    <div class="mb-8">
+                        <a href="https://github.com/2dust/v2rayNG/releases/download/1.10.32/v2rayNG_1.10.32_universal.apk" class="inline-block bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700 mb-4 shadow">
+                            <i class="fa-solid fa-download mr-2"></i> Скачать v2rayNG (APK)
+                        </a>
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                            <li>Скопируйте ссылку на конфиг из списка выше.</li>
+                            <li>Откройте <strong>v2rayNG</strong>, нажмите ➕ (справа сверху) → <strong>Импорт из буфера обмена</strong>.</li>
+                            <li>Нажмите три точки (справа сверху) → <strong>Проверка профилей группы</strong>.</li>
+                            <li>После проверки там же выберите <strong>Сортировка по результатам теста</strong>.</li>
+                            <li>Выберите сервер (зеленый пинг) и нажмите кнопку ▶️ (Подключить) в правом нижнем углу.</li>
+                        </ol>
+                    </div>
+
+                    <!-- Проблемы Android -->
+                    <div class="space-y-3 mb-6">
+                        <h4 class="font-bold text-red-500 border-b border-red-200 dark:border-red-800 pb-2 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Решение проблем
+                        </h4>
+                        
+                        <!-- Нет интернета -->
+                        <div x-data="{ open: false }" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <button @click="open = !open" class="w-full p-4 font-bold flex items-center justify-between hover:text-brand-blue text-left transition">
+                                <span>⚠️ Нет интернета при подключении</span>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-collapse>
+                                <div class="px-4 pb-4 text-sm text-gray-600 dark:text-gray-400 pl-4 border-l-2 border-red-400 ml-4 mb-2">
+                                    Посмотрите <a href="https://t.me/avencoreschat/25254" target="_blank" class="text-blue-500 underline hover:text-blue-600">видео с фиксом в Telegram</a>.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Конфиги не появились -->
+                        <div x-data="{ open: false }" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <button @click="open = !open" class="w-full p-4 font-bold flex items-center justify-between hover:text-brand-blue text-left transition">
+                                <span>⚠️ Конфиги не появились</span>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-collapse>
+                                <div class="px-4 pb-4 text-sm text-gray-600 dark:text-gray-400 pl-4 border-l-2 border-red-400 ml-4 mb-2 space-y-1">
+                                    <p>1. Нажмите на <strong>три полоски</strong> (меню) в левом верхнем углу.</p>
+                                    <p>2. Выберите <strong>«Группы»</strong>.</p>
+                                    <p>3. Нажмите иконку обновления (кружок со стрелкой) справа сверху.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Handshake timeout -->
+                        <div x-data="{ open: false }" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <button @click="open = !open" class="w-full p-4 font-bold flex items-center justify-between hover:text-brand-blue text-left transition">
+                                <span>⚠️ Ошибка "Handshake timeout"</span>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-collapse>
+                                <div class="px-4 pb-4 text-sm text-gray-600 dark:text-gray-400 pl-4 border-l-2 border-red-400 ml-4 mb-2 space-y-1">
+                                    <p>1. Долгий тап по иконке приложения <strong>v2rayNG</strong> на рабочем столе → <strong>О приложении</strong>.</p>
+                                    <p>2. Нажмите <strong>Остановить</strong>.</p>
+                                    <p>3. Запустите заново.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Closed pipe -->
+                        <div x-data="{ open: false }" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <button @click="open = !open" class="w-full p-4 font-bold flex items-center justify-between hover:text-brand-blue text-left transition">
+                                <span>⚠️ Ошибка "Closed pipe"</span>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                            </button>
+                            <div x-show="open" x-collapse>
+                                <div class="px-4 pb-4 text-sm text-gray-600 dark:text-gray-400 pl-4 border-l-2 border-red-400 ml-4 mb-2 space-y-1">
+                                    <p>1. Долгий тап по иконке приложения → <strong>О приложении</strong>.</p>
+                                    <p>2. Нажмите <strong>Остановить</strong> и запустите заново.</p>
+                                    <p>3. В приложении: три точки → <strong>Проверка профилей группы</strong> → <strong>Сортировка по результатам</strong>.</p>
+                                    <p>4. Выберите новый сервер.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Как обновить -->
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-rotate"></i> Как обновить конфиги?
+                        </h4>
+                        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li>Нажмите на <strong>три полоски</strong> (меню) в левом верхнем углу.</li>
+                            <li>Выберите вкладку <strong>«Группы»</strong>.</li>
+                            <li>Нажмите на иконку обновления (кружок со стрелкой) в <strong>правом верхнем углу</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. ANDROID TV (V2RayNG) -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+            <button @click="activeGuide = activeGuide === 'androidtv' ? null : 'androidtv'" 
+                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
+                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-solid fa-tv text-teal-500 text-2xl"></i> Android TV (v2rayNG)</span>
+                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'androidtv' ? 'rotate-180' : ''"></i>
+            </button>
+            
+            <div x-show="activeGuide === 'androidtv'" x-collapse x-cloak>
+                <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50">
+                    <a href="https://github.com/2dust/v2rayNG/releases/download/1.10.32/v2rayNG_1.10.32_universal.apk" class="inline-block bg-teal-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-teal-700 mb-6 shadow">
+                        <i class="fa-solid fa-download mr-2"></i> Скачать v2rayNG (APK)
+                    </a>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-bold mb-2">Инструкция по настройке:</h4>
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                            <li>Скачайте нужный <strong>QR-код</strong> из вкладки "QR-коды" выше.</li>
+                            <li>Зайдите в приложение <strong>v2rayNG</strong> на телевизоре.</li>
+                            <li>Нажмите ➕ (справа сверху) → <strong>Импорт из QR-кода</strong>.</li>
+                            <li>Выберите скачанную картинку (нажмите на иконку фото).</li>
+                            <li>Нажмите три точки (справа сверху) → <strong>Проверка профилей группы</strong>.</li>
+                            <li>После проверки там же выберите <strong>Сортировка по результатам теста</strong>.</li>
+                            <li>Выберите сервер и нажмите кнопку ▶️ для подключения.</li>
+                        </ol>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800 mt-4">
+                            <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-rotate"></i> Как обновить конфиги?
+                            </h4>
+                            <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                <li>Нажмите на <strong>три полоски</strong> (меню) в левом верхнем углу.</li>
+                                <li>Выберите вкладку <strong>«Группы»</strong>.</li>
+                                <li>Нажмите на иконку обновления (кружок со стрелкой) в <strong>правом верхнем углу</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. WINDOWS / LINUX (Throne) -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+            <button @click="activeGuide = activeGuide === 'windows' ? null : 'windows'" 
+                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
+                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-brands fa-windows text-blue-500 text-2xl"></i> Windows / Linux (Throne)</span>
+                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'windows' ? 'rotate-180' : ''"></i>
+            </button>
+            
+            <div x-show="activeGuide === 'windows'" x-collapse x-cloak>
+                <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50">
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <a href="https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-windows64.zip" class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 text-sm font-bold">Скачать для Win 10/11</a>
+                        <a href="https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-windowslegacy64.zip" class="bg-gray-600 text-white px-4 py-2 rounded shadow hover:bg-gray-700 text-sm">Скачать для Win 7/8</a>
+                        <a href="https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-linux-amd64.zip" class="bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-black text-sm">Скачать для Linux</a>
+                    </div>
+
+                    <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                        <li>Скопируйте ссылку на конфиг.</li>
+                        <li>В программе Throne: нажмите <strong>«Профили»</strong> → <strong>«Добавить профиль из буфера обмена»</strong>.</li>
+                        <li>Выделите все конфиги (Ctrl+A).</li>
+                        <li>Меню <strong>«Профили»</strong> → <strong>«Тест задержки (пинга) выбранного профиля»</strong>.</li>
+                        <li>Дождитесь завершения (в логах появится надпись <em>«Тест задержек завершён!»</em>).</li>
+                        <li>Нажмите на заголовок колонки <strong>«Задержка (пинг)»</strong> для сортировки.</li>
+                        <li>Включите галочку <strong>«Режим TUN»</strong> вверху окна.</li>
+                        <li>ПКМ по серверу с минимальным пингом → <strong>Запустить</strong>.</li>
+                    </ol>
+
+                    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4 rounded-lg mb-6">
+                        <h4 class="font-bold text-red-600 dark:text-red-400 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> Ошибка MSVCP / VCRUNTIME?</h4>
+                        <p class="text-sm mb-3">Если программа не запускается, удалите старые версии Visual C++ и установите пакет:</p>
+                        <a href="https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Jul-2025.zip" class="inline-block px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded">
+                            Скачать Visual C++ Runtimes (All-in-One)
+                        </a>
+                        <p class="text-xs text-gray-500 mt-2">Распакуйте и запустите <code>install_bat.all</code> от имени администратора.</p>
+                    </div>
+                    
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-rotate"></i> Как обновить подписки?
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Для NekoRay / Throne:</strong> Нажмите кнопку <strong>«Настройки»</strong> → <strong>«Группы»</strong> → <strong>«Обновить все подписки»</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. iOS / iPadOS (V2Box) -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+            <button @click="activeGuide = activeGuide === 'ios' ? null : 'ios'" 
+                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
+                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-brands fa-apple text-gray-800 dark:text-white text-2xl"></i> iOS / iPadOS (V2Box)</span>
+                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'ios' ? 'rotate-180' : ''"></i>
+            </button>
+            
+            <div x-show="activeGuide === 'ios'" x-collapse x-cloak>
+                <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50">
+                    <a href="https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690" class="inline-block bg-black text-white px-6 py-2 rounded-lg font-bold hover:bg-gray-800 mb-4 shadow">
+                        <i class="fa-brands fa-app-store-ios mr-2"></i> Скачать V2Box
+                    </a>
+                    <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                        <li>Скопируйте конфиг.</li>
+                        <li>В приложении перейдите во вкладку <strong>Config</strong>.</li>
+                        <li>Нажмите <strong>«+»</strong> (справа сверху) → <strong>Добавить подписку</strong>.</li>
+                        <li>Введите любое название, а в поле <strong>URL</strong> вставьте ссылку.</li>
+                        <li>Дождитесь проверки и нажмите на название конфига для выбора.</li>
+                        <li>Нажмите переключатель внизу для подключения.</li>
+                    </ol>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-rotate"></i> Как обновить конфиги?
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Перейдите во вкладку <strong>«Config»</strong> и нажмите на иконку обновления слева от названия вашей подписки.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. MacOS (Hiddify) -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+            <button @click="activeGuide = activeGuide === 'mac' ? null : 'mac'" 
+                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
+                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-solid fa-laptop text-gray-500 text-2xl"></i> MacOS (Hiddify)</span>
+                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'mac' ? 'rotate-180' : ''"></i>
+            </button>
+            
+            <div x-show="activeGuide === 'mac'" x-collapse x-cloak>
+                <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50">
+                    <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg" class="inline-block bg-gray-700 text-white px-6 py-2 rounded-lg font-bold hover:bg-gray-600 mb-4 shadow">
+                        <i class="fa-solid fa-download mr-2"></i> Скачать Hiddify
+                    </a>
+                    <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                        <li>Скопируйте конфиг.</li>
+                        <li>Нажмите <strong>Новый профиль</strong> → <strong>Добавить из буфера обмена</strong>.</li>
+                        <li><strong>Важно:</strong> Перейдите в настройки и измените "Вариант маршрутизации" на <strong>"Индонезия"</strong>.</li>
+                        <li>В настройках выберите "VPN сервис".</li>
+                        <li>Нажмите большую кнопку подключения.</li>
+                        <li>Для смены сервера (при включенном VPN) перейдите во вкладку <strong>«Прокси»</strong>.</li>
+                    </ol>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-rotate"></i> Как обновить конфиги?
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Выберите профиль и нажмите на иконку обновления <strong>слева от названия профиля</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,25 @@
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-brand-dark/80 border-b border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-shield-virus text-brand-blue text-2xl"></i>
+            <h1 class="font-bold text-xl tracking-tight hidden sm:block">Goida VPN <span class="text-brand-blue">Configs</span></h1>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 mr-2 border-r border-gray-300 dark:border-gray-600 pr-4">
+                <a href="https://www.youtube.com/@avencores/" target="_blank" class="text-red-600 hover:scale-110 transition"><i class="fa-brands fa-youtube text-2xl"></i></a>
+                <a href="https://t.me/avencoresyt" target="_blank" class="text-blue-500 hover:scale-110 transition"><i class="fa-brands fa-telegram text-2xl"></i></a>
+                <a href="https://vk.com/avencoresvk" target="_blank" class="text-blue-700 hover:scale-110 transition"><i class="fa-brands fa-vk text-2xl"></i></a>
+                
+                <a href="https://dzen.ru/avencores" target="_blank" class="hover:scale-110 transition w-6 h-6 flex items-center justify-center ml-1">
+                    <img :src="darkMode ? '/media/dzen-white.png' : '/media/dzen-black.png'" alt="Dzen" class="w-full h-full object-contain">
+                </a>
+            </div>
+
+            <button @click="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                <i class="fa-solid" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-gray-500'"></i>
+            </button>
+            <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-700 transition">GitHub</a>
+        </div>
+    </div>
+</header>

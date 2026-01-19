@@ -1,0 +1,15 @@
+├── app.py                  # Точка входа в приложение
+├── services.py             # Логика генерации данных (конфигов)
+├── media/                  # Папка для статики (картинки), бывшая static_folder
+│   └── (сюда положите ваши файлы: dzen-white.png, sber-icon.png и т.д.)
+└── templates/              # HTML шаблоны
+    ├── base.html           # Основной каркас (Head, Scripts, Body wrapper)
+    ├── index.html          # Главная страница (собирает компоненты)
+    └── components/         # Папка для частей страницы
+        ├── header.html     # Шапка сайта
+        ├── hero.html       # Заголовок и 3 шага
+        ├── tabs.html       # Вкладки с конфигами и QR
+        ├── bypass.html     # Блок обхода SNI/CIDR
+        ├── video.html      # Блок с видео
+        ├── instructions.html # Аккордеоны с инструкциями
+        └── footer.html     # Подвал
