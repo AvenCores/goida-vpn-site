@@ -12,7 +12,6 @@
       <img src="https://github.com/user-attachments/assets/bd55f5cf-963c-4eb8-9029-7b80c8c11411" alt="Dzen" height="40">
     </a>
 </div>
----
 
 ## 📝 Описание проекта
 
