@@ -17,6 +17,8 @@
 
 Сайт для goida-vpn-configs
 
+<img width="2560" height="1271" alt="chrome_Clw0sbBHpw" src="https://github.com/user-attachments/assets/a075983d-4107-42b4-8b99-194f6f24b94d" />
+
 ### Основные возможности:
 
 - 🔗 Актуальные ссылки на скачивание VPN приложений
