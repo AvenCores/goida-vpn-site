@@ -44,11 +44,11 @@ cd goida-vpn-site
 
 2. **Создайте виртуальное окружение** (рекомендуется):
 ```bash
-python -m venv venv
+python -m venv .env
 # Для Windows:
-venv\Scripts\activate
+.env\Scripts\activate
 # Для macOS/Linux:
-source venv/bin/activate
+source .env/bin/activate
 ```
 
 3. **Установите зависимости**:
