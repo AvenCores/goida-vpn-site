@@ -1,0 +1,36 @@
+name: Auto Build & Deploy Goida VPN Site
+
+on:
+  # Запуск при пуше в ветку main (когда вы обновляете код)
+  push:
+    branches: [ "main" ]
+  
+  # Запуск по расписанию (каждый час), чтобы обновлять конфиги
+  schedule:
+    - cron: '0 * * * *'
+  
+  # Кнопка для ручного запуска из вкладки Actions
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir -r requirements.txt
+
+      - name: Run Build and Deploy Script
+        env:
+          # Сюда передаем токен из секретов репозитория
+          MY_TOKEN: ${{ secrets.MY_TOKEN }}
+        run: python build.py
