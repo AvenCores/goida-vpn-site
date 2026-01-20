@@ -13,8 +13,8 @@
                     которые используются некоторыми провайдерами для глубокого анализа трафика.
                 </div>
                 
-                <!-- Контейнер с логикой копирования -->
-                <div class="flex flex-col gap-3 items-start"
+                <!-- Основной контейнер (вертикальный): Сначала Копировать, потом блок соцсетей -->
+                <div class="flex flex-col gap-4 items-start"
                      x-data="{ 
                         showNotification: false, 
                         copyLink() { 
@@ -24,14 +24,14 @@
                         } 
                      }">
                     
-                    <!-- Обертка relative для позиционирования уведомления -->
+                    <!-- 1. Кнопка копирования (сверху) -->
                     <div class="relative">
                         <button @click="copyLink()"
-                                class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                                class="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 w-full sm:w-auto justify-center">
                             <i class="fa-regular fa-copy"></i> Копировать ссылку списка
                         </button>
 
-                        <!-- Всплывающее уведомление -->
+                        <!-- Всплывающее уведомление (исправлено на rounded) -->
                         <div x-show="showNotification"
                              style="display: none;"
                              x-transition:enter="transition ease-out duration-200"
@@ -40,15 +40,25 @@
                              x-transition:leave="transition ease-in duration-150"
                              x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                              x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                             class="absolute left-0 top-full mt-2 z-10 flex items-center gap-2 bg-green-500 dark:bg-green-600 text-white px-3 py-2 rounded-lg shadow-lg font-medium text-sm whitespace-nowrap">
+                             class="absolute left-0 top-full mt-2 z-10 flex items-center gap-2 bg-green-500 dark:bg-green-600 text-white px-3 py-2 rounded shadow-lg font-medium text-sm whitespace-nowrap">
                             <i class="fa-solid fa-check"></i>
                             <span>Ссылка скопирована!</span>
                         </div>
                     </div>
                     
-                    <a href="https://youtu.be/uz6JmOO7sGU" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
-                        <i class="fa-brands fa-youtube"></i> YouTube
-                    </a>
+                    <!-- 2. Блок соцсетей (снизу, в ряд) -->
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://youtu.be/uz6JmOO7sGU" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition font-medium">
+                            <i class="fa-brands fa-youtube"></i> YouTube
+                        </a>
+                        <a href="https://vk.ru/video-234234162_456239052" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition font-medium">
+                            <i class="fa-brands fa-vk"></i> VK Video
+                        </a>
+                        <a href="https://t.me/avencoreschat/346024" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded hover:bg-blue-500 transition font-medium">
+                            <i class="fa-brands fa-telegram"></i> Telegram
+                        </a>
+                    </div>
+                    
                 </div>
                 
             </div>
