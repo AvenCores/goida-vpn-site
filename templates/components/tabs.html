@@ -64,8 +64,8 @@
                 {% endif %}
 
                 <button @click="navigator.clipboard.writeText('{{ config.url }}'); copied = true; setTimeout(() => copied = false, 2000)"
-                        class="mt-auto w-full py-2 rounded font-semibold text-sm transition-all flex items-center justify-center gap-2"
-                        :class="copied ? 'bg-green-500 text-white' : 'bg-brand-blue text-white hover:bg-blue-700'">
+                        class="mt-auto w-full py-2 rounded font-semibold text-sm flex items-center justify-center gap-2 transition-colors duration-300 ease-in-out"
+                        :class="copied ? 'bg-green-500 text-white shadow-md' : 'bg-brand-blue text-white hover:bg-blue-700 hover:shadow-sm'">
                     <i class="fa-regular" :class="copied ? 'fa-circle-check' : 'fa-copy'"></i>
                     <span x-text="copied ? 'Скопировано!' : 'Копировать ссылку'"></span>
                 </button>
@@ -132,18 +132,12 @@
                 </div>
                 {% endif %}
                 
-                <div class="flex gap-2">
-                    <a href="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
-                       target="_blank"
-                       class="flex-1 py-2 bg-green-600 text-white hover:bg-green-700 rounded text-sm font-medium transition text-center">
-                        Открыть
-                    </a>
-                    <a href="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
-                       download="goida-vpn-config-{{ config.id }}.png"
-                       class="flex-1 py-2 bg-brand-blue text-white hover:bg-blue-700 rounded text-sm font-medium transition text-center">
-                        Скачать
-                    </a>
-                </div>
+                <a href="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
+                   download="goida-vpn-config-{{ config.id }}.png"
+                   class="w-full flex items-center justify-center gap-2 py-2 bg-brand-blue text-white hover:bg-blue-700 rounded text-sm font-medium transition-colors shadow-sm hover:shadow-md">
+                   <i class="fa-solid fa-download"></i>
+                   <span>Скачать</span>
+                </a>
 
                 {% if config.sources %}
                 <div class="mt-2 w-full">
