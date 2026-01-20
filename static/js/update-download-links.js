@@ -1,7 +1,7 @@
 // Функция для получения ссылок на скачивание с нашего API
 async function updateDownloadLinks() {
     try {
-        const response = await fetch('/api/download-links');
+        const response = await fetch('api/download-links.json');
         
         if (!response.ok) {
             console.warn('✗ API сервер недоступен, используются локальные ссылки');

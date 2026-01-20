@@ -21,6 +21,8 @@ def build_site():
     if os.path.exists(DIST_DIR):
         shutil.rmtree(DIST_DIR)
     os.makedirs(DIST_DIR)
+    
+    # Создаем папку api внутри dist
     os.makedirs(os.path.join(DIST_DIR, 'api'))
 
     # 2. Копирование статики
@@ -29,7 +31,6 @@ def build_site():
         print("✅ Папка static скопирована")
 
     # 3. Генерация HTML через Flask
-    # ИСПОЛЬЗУЕМ test_request_context (Фикс ошибки URL)
     with app.test_request_context():
         print("⏳ Получение конфигов и рендеринг шаблона...")
         configs = get_vpn_configs()
@@ -39,20 +40,26 @@ def build_site():
             f.write(rendered_html)
         print("✅ Файл index.html создан")
 
-    # 4. Генерация API
+    # 4. Генерация API (JSON)
     print("⏳ Получение ссылок на скачивание...")
     links = fetch_download_links()
     if not links:
+        print("⚠️ Не удалось получить ссылки с GitHub, используются резервные")
         links = FALLBACK_LINKS
     
     api_path = os.path.join(DIST_DIR, 'api')
-    with open(os.path.join(api_path, 'download-links'), 'w', encoding='utf-8') as f:
-        json.dump(links, f)
+    
+    # Сохраняем файл именно как .json для корректной отдачи GitHub Pages
     with open(os.path.join(api_path, 'download-links.json'), 'w', encoding='utf-8') as f:
         json.dump(links, f)
+        
+    # На всякий случай сохраняем и без расширения (хотя JS теперь ищет .json)
+    with open(os.path.join(api_path, 'download-links'), 'w', encoding='utf-8') as f:
+        json.dump(links, f)
+        
     print("✅ API файлы созданы")
 
-    # 5. Создаем .nojekyll
+    # 5. Создаем .nojekyll (чтобы GitHub не игнорировал папки с подчеркиванием, если есть)
     with open(os.path.join(DIST_DIR, '.nojekyll'), 'w') as f:
         pass
 
@@ -67,16 +74,15 @@ def deploy_to_github():
     auth_url = f"https://{token}@github.com/{REPO_USER}/{REPO_NAME}.git"
 
     # Создаем новый репозиторий внутри папки dist
-    # Это безопасно, так как мы пушим ТОЛЬКО в ветку gh-pages
     commands = [
         ['git', 'init'],
         ['git', 'config', 'user.name', 'Auto Builder'],
         ['git', 'config', 'user.email', 'actions@github.com'],
         ['git', 'add', '.'],
         ['git', 'commit', '-m', 'Deploy site update'],
-        ['git', 'branch', '-M', BRANCH], # Переименовываем локальную ветку в gh-pages
+        ['git', 'branch', '-M', BRANCH],
         ['git', 'remote', 'add', 'origin', auth_url],
-        ['git', 'push', '-f', 'origin', BRANCH] # Перезаписываем только ветку gh-pages
+        ['git', 'push', '-f', 'origin', BRANCH]
     ]
 
     cwd = os.path.abspath(DIST_DIR)
@@ -85,10 +91,11 @@ def deploy_to_github():
         for cmd in commands:
             subprocess.run(cmd, cwd=cwd, check=True, capture_output=True) 
         print(f"\n🎉 УСПЕШНО! Сайт обновлен в ветке {BRANCH}")
-        print(f"Ветка main осталась нетронутой.")
         
     except subprocess.CalledProcessError as e:
         print(f"\n❌ Ошибка Git: {e}")
+        if e.stderr:
+            print(f"Детали: {e.stderr.decode('utf-8')}")
 
 if __name__ == '__main__':
     build_site()

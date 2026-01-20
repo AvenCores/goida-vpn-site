@@ -4,11 +4,12 @@
             licenseText: 'Загрузка текста лицензии...',
             async loadLicense() {
                 try {
-                    const response = await fetch('/LICENSE');
+                    // ИСПРАВЛЕНИЕ: Путь к лицензии относительно корня (она в папке static)
+                    const response = await fetch('static/LICENSE');
                     if (response.ok) {
                         this.licenseText = await response.text();
                     } else {
-                        this.licenseText = 'Ошибка 404: Файл LICENSE не найден. Убедитесь, что маршрут @app.route(\'/LICENSE\') добавлен в app.py';
+                        this.licenseText = 'Ошибка 404: Файл LICENSE не найден в папке static.';
                     }
                 } catch (e) {
                     this.licenseText = 'Ошибка сети при загрузке лицензии.';
@@ -25,7 +26,8 @@
             <h3 class="text-xl font-bold text-green-700 dark:text-green-400 mb-2">💰 Поддержать автора</h3>
             <div class="flex items-center justify-center gap-3 bg-white dark:bg-black/20 px-4 py-2 rounded-lg border border-green-100 dark:border-green-900/50 cursor-pointer"
                 @click="copyToClipboard()">
-                <img src="/static/media/sber-icon.png" class="h-6 w-auto" alt="Sber">
+                <!-- ИСПРАВЛЕНИЕ: Убран слэш в начале -->
+                <img src="static/media/sber-icon.png" class="h-6 w-auto" alt="Sber">
                 <span class="font-mono text-lg font-bold">2202 2050 1464 4675</span>
                 <i class="fa-regular fa-copy text-gray-400"></i>
             </div>
