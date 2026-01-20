@@ -74,7 +74,6 @@
                 <div class="mt-2 w-full flex gap-2">
                     {% if config.sources is iterable and config.sources is not string %}
                     <!-- Несколько источников (для конфига 26) -->
-                    <!-- ИСПРАВЛЕНИЕ: Заменены внешние кавычки на одинарные (') чтобы JSON работал внутри -->
                     <button @click='showSourcesModal = true; currentSources = {{ config.sources|tojson }}; currentConfigId = {{ config.id }}'
                             class="flex-1 py-2 rounded font-semibold text-sm bg-purple-600 text-white hover:bg-purple-700 transition-all flex items-center justify-center gap-2">
                         <i class="fa-solid fa-book"></i>
@@ -150,7 +149,6 @@
                 <div class="mt-2 w-full">
                     {% if config.sources is iterable and config.sources is not string %}
                     <!-- Несколько источников (для конфига 26) -->
-                    <!-- ИСПРАВЛЕНИЕ: Заменены внешние кавычки на одинарные (') чтобы JSON работал внутри -->
                     <button @click='showSourcesModal = true; currentSources = {{ config.sources|tojson }}; currentConfigId = {{ config.id }}'
                             class="w-full py-2 rounded font-semibold text-sm bg-purple-600 text-white hover:bg-purple-700 transition-all flex items-center justify-center gap-2">
                         <i class="fa-solid fa-book"></i>
