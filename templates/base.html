@@ -142,7 +142,10 @@
               if (this.darkMode) document.documentElement.classList.add('dark');
               else document.documentElement.classList.remove('dark');
           },
-          activeTab: 'configs'
+          activeTab: 'configs',
+          showSourcesModal: false,
+          currentSources: [],
+          currentConfigId: null
       }"
       x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark');"
 >
@@ -152,6 +155,60 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {% block content %}{% endblock %}
     </main>
+
+    <!-- Модальное окно с источниками -->
+    <div x-show="showSourcesModal" 
+         @keydown.escape="showSourcesModal = false"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+         @click.self="showSourcesModal = false">
+        <div x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="bg-white dark:bg-brand-panel rounded-xl shadow-xl max-w-md w-full max-h-[80vh] overflow-y-auto">
+            
+            <div class="sticky top-0 bg-white dark:bg-brand-panel border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-book text-orange-600"></i>
+                    <span>Источники конфига <span x-text="currentConfigId"></span></span>
+                </h3>
+                <button @click="showSourcesModal = false"
+                        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-3">
+                <template x-for="(source, index) in currentSources" :key="index">
+                    <a :href="source"
+                       target="_blank"
+                       class="block p-3 bg-gray-50 dark:bg-black/30 hover:bg-gray-100 dark:hover:bg-black/50 rounded-lg border border-gray-200 dark:border-gray-700 transition">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-semibold text-brand-blue dark:text-blue-400 truncate" x-text="source"></p>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square flex-shrink-0 text-gray-400"></i>
+                        </div>
+                    </a>
+                </template>
+            </div>
+
+            <div class="sticky bottom-0 bg-white dark:bg-brand-panel border-t border-gray-200 dark:border-gray-700 p-4">
+                <button @click="showSourcesModal = false"
+                        class="w-full py-2 rounded font-semibold bg-red-600 hover:bg-red-700 text-white transition">
+                    Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
 
     {% include 'components/footer.html' %}
 </body>

@@ -7,6 +7,41 @@ UPDATE_TABLE_CACHE = None
 UPDATE_TABLE_CACHE_TIME = None
 CACHE_DURATION = timedelta(hours=1)
 
+# Маппинг источников для каждого конфига
+SOURCES_MAP = {
+    1: "https://github.com/sakha1370/OpenRay",
+    2: "https://github.com/sevcator/5ubscrpt10n",
+    3: "https://github.com/yitong2333/proxy-minging",
+    4: "https://github.com/acymz/AutoVPN",
+    5: "https://github.com/miladtahanian/V2RayCFGDumper",
+    6: "https://github.com/roosterkid/openproxylist",
+    7: "https://github.com/Epodonios/v2ray-configs",
+    8: "https://github.com/YasserDivaR/pr0xy",
+    9: "https://github.com/mohamadfg-dev/telegram-v2ray-configs-collector",
+    10: "https://github.com/mheidari98/.proxy",
+    11: "https://github.com/youfoundamin/V2rayCollector",
+    12: "https://github.com/mheidari98/.proxy",
+    13: "https://github.com/Kwinshadow/TelegramV2rayCollector",
+    14: "https://github.com/LalatinaHub/Mineral",
+    15: "https://github.com/miladtahanian/multi-proxy-config-fetcher",
+    16: "https://github.com/Pawdroid/Free-servers",
+    17: "https://github.com/MhdiTaheri/V2rayCollector_Py",
+    18: "https://github.com/Epodonios/v2ray-configs",
+    19: "https://github.com/MhdiTaheri/V2rayCollector",
+    20: "https://github.com/Argh94/Proxy-List",
+    21: "https://github.com/shabane/kamaji",
+    22: "https://github.com/wuqb2i4f/xray-config-toolkit",
+    23: "https://github.com/AzadNetCH/Clash",
+    24: "https://github.com/STR97/STRUGOV",
+    25: "https://github.com/V2RayRoot/V2RayConfig",
+    26: [
+        "https://github.com/igareck/vpn-configs-for-russia",
+        "https://github.com/zieng2/wl",
+        "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
+        "https://s3c3.001.gpucloud.ru/dixsm/htxml"
+    ]
+}
+
 def parse_update_table():
     """Парсит таблицу обновлений из README.md репозитория"""
     global UPDATE_TABLE_CACHE, UPDATE_TABLE_CACHE_TIME
@@ -72,6 +107,10 @@ def get_vpn_configs():
             "is_sni": i == 26, # Обход SNI/CIDR
             "qr_link": f"https://github.com/AvenCores/goida-vpn-configs/blob/main/qr-codes/{i}.png"
         }
+        
+        # Добавляем источники если есть
+        if i in SOURCES_MAP:
+            config['sources'] = SOURCES_MAP[i]
         
         # Добавляем информацию об обновлении если есть
         if i in update_info:

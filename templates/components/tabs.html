@@ -69,6 +69,28 @@
                     <i class="fa-regular" :class="copied ? 'fa-circle-check' : 'fa-copy'"></i>
                     <span x-text="copied ? 'Скопировано!' : 'Копировать ссылку'"></span>
                 </button>
+
+                {% if config.sources %}
+                <div class="mt-2 w-full flex gap-2">
+                    {% if config.sources is iterable and config.sources is not string %}
+                    <!-- Несколько источников (для конфига 26) -->
+                    <!-- ИСПРАВЛЕНИЕ: Заменены внешние кавычки на одинарные (') чтобы JSON работал внутри -->
+                    <button @click='showSourcesModal = true; currentSources = {{ config.sources|tojson }}; currentConfigId = {{ config.id }}'
+                            class="flex-1 py-2 rounded font-semibold text-sm bg-purple-600 text-white hover:bg-purple-700 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book"></i>
+                        <span>Источники</span>
+                    </button>
+                    {% else %}
+                    <!-- Один источник -->
+                    <a href="{{ config.sources }}"
+                       target="_blank"
+                       class="flex-1 py-2 rounded font-semibold text-sm bg-orange-600 text-white hover:bg-orange-700 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book"></i>
+                        <span>Источник</span>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -114,7 +136,7 @@
                 <div class="flex gap-2">
                     <a href="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
                        target="_blank"
-                       class="flex-1 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-sm font-medium transition text-center">
+                       class="flex-1 py-2 bg-green-600 text-white hover:bg-green-700 rounded text-sm font-medium transition text-center">
                         Открыть
                     </a>
                     <a href="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
@@ -123,6 +145,28 @@
                         Скачать
                     </a>
                 </div>
+
+                {% if config.sources %}
+                <div class="mt-2 w-full">
+                    {% if config.sources is iterable and config.sources is not string %}
+                    <!-- Несколько источников (для конфига 26) -->
+                    <!-- ИСПРАВЛЕНИЕ: Заменены внешние кавычки на одинарные (') чтобы JSON работал внутри -->
+                    <button @click='showSourcesModal = true; currentSources = {{ config.sources|tojson }}; currentConfigId = {{ config.id }}'
+                            class="w-full py-2 rounded font-semibold text-sm bg-purple-600 text-white hover:bg-purple-700 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book"></i>
+                        <span>Источники</span>
+                    </button>
+                    {% else %}
+                    <!-- Один источник -->
+                    <a href="{{ config.sources }}"
+                       target="_blank"
+                       class="block w-full py-2 rounded font-semibold text-sm bg-orange-600 text-white hover:bg-orange-700 transition-all text-center">
+                        <i class="fa-solid fa-book"></i>
+                        <span>Источник</span>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
