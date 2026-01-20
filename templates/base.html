@@ -46,9 +46,91 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .dark ::-webkit-scrollbar-thumb { background: #475569; }
         
-        /* Custom Details Marker Style */
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
+
+        /* Базовые настройки для обоих пятен света */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(100px); /* Сильное размытие для мягкости */
+            opacity: 0.6;
+            will-change: transform; /* Оптимизация производительности */
+        }
+
+        /* --- СИНЕЕ ПЯТНО (Goida Blue) --- */
+        body::before {
+            width: 70vw;
+            height: 70vw;
+            background: radial-gradient(circle, rgba(54, 112, 160, 0.4) 0%, rgba(54, 112, 160, 0) 70%);
+            top: -20%;
+            left: -20%;
+            animation: driftBlue 25s infinite alternate ease-in-out;
+        }
+
+        /* --- ЖЕЛТОЕ ПЯТНО (Goida Yellow) --- */
+        body::after {
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(255, 221, 84, 0.25) 0%, rgba(255, 221, 84, 0) 70%);
+            bottom: -20%;
+            right: -20%;
+            animation: driftYellow 30s infinite alternate-reverse ease-in-out;
+        }
+
+        /* --- НАСТРОЙКИ ДЛЯ ТЕМНОЙ ТЕМЫ --- */
+        /* В темной теме делаем цвета чуть менее прозрачными, чтобы они светились на черном фоне */
+        body.dark::before {
+            opacity: 0.5;
+            background: radial-gradient(circle, rgba(54, 112, 160, 0.5) 0%, rgba(54, 112, 160, 0) 70%);
+        }
+
+        body.dark::after {
+            opacity: 0.3;
+            background: radial-gradient(circle, rgba(255, 221, 84, 0.3) 0%, rgba(255, 221, 84, 0) 70%);
+        }
+
+        /* --- АНИМАЦИИ --- */
+        
+        /* Движение синего пятна: Слева-Сверху -> Вниз -> Вправо */
+        @keyframes driftBlue {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(40vw, 20vh) scale(1.2);
+            }
+            66% {
+                transform: translate(10vw, 50vh) scale(0.9);
+            }
+            100% {
+                transform: translate(0, 30vh) scale(1.1);
+            }
+        }
+
+        /* Движение желтого пятна: Справа-Снизу -> Вверх -> Влево */
+        @keyframes driftYellow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(-30vw, -20vh) scale(1.3);
+            }
+            66% {
+                transform: translate(-50vw, 10vh) scale(0.8);
+            }
+            100% {
+                transform: translate(-20vw, -40vh) scale(1.1);
+            }
+        }
+
+        main {
+            position: relative;
+            z-index: 0;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-brand-dark dark:text-gray-100 transition-colors duration-300 font-sans"
