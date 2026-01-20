@@ -17,16 +17,7 @@
 
 Сайт для [**goida-vpn-configs**](https://github.com/AvenCores/goida-vpn-configs/).
 
-<img width="2560" height="1271" alt="chrome_Clw0sbBHpw" src="https://github.com/user-attachments/assets/a075983d-4107-42b4-8b99-194f6f24b94d" />
-
-### Основные возможности:
-
-- 🔗 Актуальные ссылки на скачивание VPN приложений
-- 🚀 Быстрая загрузка страницы
-- 🔄 Автоматическое обновление ссылок
-- 📱 Адаптивный дизайн для мобильных устройств
-
----
+<img width="2560" height="1271" alt="1" src="https://github.com/user-attachments/assets/4999543b-55c0-45d1-a4ee-32b38fdfca6c" />
 
 ## 🛠️ Установка
 
