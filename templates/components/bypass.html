@@ -13,12 +13,38 @@
                     которые используются некоторыми провайдерами для глубокого анализа трафика.
                 </div>
                 
-                <!-- Контейнер с flex-col для вертикального расположения -->
-                <div class="flex flex-col gap-3 items-start">
-                    <button @click="navigator.clipboard.writeText('https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/26.txt'); alert('Ссылка скопирована!')"
-                            class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-medium">
-                        <i class="fa-regular fa-copy"></i> Копировать ссылку
-                    </button>
+                <!-- Контейнер с логикой копирования -->
+                <div class="flex flex-col gap-3 items-start"
+                     x-data="{ 
+                        showNotification: false, 
+                        copyLink() { 
+                            navigator.clipboard.writeText('https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/26.txt'); 
+                            this.showNotification = true; 
+                            setTimeout(() => this.showNotification = false, 2000); 
+                        } 
+                     }">
+                    
+                    <!-- Обертка relative для позиционирования уведомления -->
+                    <div class="relative">
+                        <button @click="copyLink()"
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                            <i class="fa-regular fa-copy"></i> Копировать ссылку списка
+                        </button>
+
+                        <!-- Всплывающее уведомление -->
+                        <div x-show="showNotification"
+                             style="display: none;"
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                             x-transition:leave-end="opacity-0 translate-y-2 scale-95"
+                             class="absolute left-0 top-full mt-2 z-10 flex items-center gap-2 bg-green-500 dark:bg-green-600 text-white px-3 py-2 rounded-lg shadow-lg font-medium text-sm whitespace-nowrap">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Ссылка скопирована!</span>
+                        </div>
+                    </div>
                     
                     <a href="https://youtu.be/uz6JmOO7sGU" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
                         <i class="fa-brands fa-youtube"></i> YouTube
