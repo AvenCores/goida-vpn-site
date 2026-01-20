@@ -15,29 +15,50 @@
 
 ## 📝 Описание проекта
 
-Сайт для [**goida-vpn-configs**](https://github.com/AvenCores/goida-vpn-configs/).
+[![GPL-3.0 License](https://img.shields.io/badge/License-GPL--3.0-blue?style=for-the-badge)](./LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/AvenCores/goida-vpn-site?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/stargazers)
+![GitHub forks](https://img.shields.io/github/forks/AvenCores/goida-vpn-site?style=for-the-badge)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/AvenCores/goida-vpn-site?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/pulls)
+[![GitHub issues](https://img.shields.io/github/issues/AvenCores/goida-vpn-site?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/issues)
 
-<img width="2560" height="1271" alt="1" src="https://github.com/user-attachments/assets/4999543b-55c0-45d1-a4ee-32b38fdfca6c" />
+Это веб-интерфейс для проекта [**goida-vpn-configs**](https://github.com/AvenCores/goida-vpn-configs/). 
+Сайт автоматически парсит актуальные конфигурации, генерирует удобные ссылки для копирования, QR-коды и предоставляет инструкции по подключению.
 
-## 🛠️ Установка
+Проект поддерживает работу в двух режимах:
+1. **Локальный сервер** (Flask + Waitress)
+2. **Генератор статического сайта** (для GitHub Pages)
+
+<img width="2560" height="1271" alt="Screenshot" src="https://github.com/user-attachments/assets/4999543b-55c0-45d1-a4ee-32b38fdfca6c" />
+
+## 🛠️ Технологии
+
+- **Backend:** Python, Flask
+- **Frontend:** HTML5, TailwindCSS (CDN), Alpine.js (CDN)
+- **Server:** Waitress (WSGI)
+- **Deployment:** Custom Python script (`build.py`)
+
+## ⚙️ Установка
 
 ### Требования:
-- Python 3.14+
+- Python 3.10+
 - pip (менеджер пакетов Python)
+- Git
 
 ### Шаги установки:
 
 1. **Клонируйте репозиторий**:
 ```bash
-git clone https://github.com/yourusername/goida-vpn-site.git
+git clone https://github.com/AvenCores/goida-vpn-site.git
 cd goida-vpn-site
 ```
 
 2. **Создайте виртуальное окружение** (рекомендуется):
 ```bash
 python -m venv .env
+
 # Для Windows:
 .env\Scripts\activate
+
 # Для macOS/Linux:
 source .env/bin/activate
 ```
@@ -49,22 +70,26 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Запуск
+## 🚀 Использование
 
-Запустите приложение командой:
+### 1. Локальный запуск (Development)
+Запускает веб-сервер на локальной машине. Идеально для разработки и проверки изменений.
+
 ```bash
 python main.py
 ```
-
 Приложение будет доступно по адресу: `http://localhost:5000`
 
----
+### 2. Сборка статического сайта (Build)
+Генерирует статические HTML файлы в папку `dist/`. Используется для хостинга без поддержки Python (например, GitHub Pages).
 
-## 📦 Зависимости
+```bash
+python build.py
+```
 
-- **Flask** — веб-фреймворк для создания веб-приложения
-- **waitress** - высокопроизводительный, простой в настройке WSGI-сервер для Python-приложений
-- **requests** — библиотека для работы с HTTP запросами к GitHub API
+### 3. Автоматический деплой (GitHub Actions)
+Скрипт `build.py` поддерживает автоматическую отправку собранного сайта в ветку `gh-pages`.
+Для этого необходима переменная окружения `MY_TOKEN` с правами на запись в репозиторий.
 
 ---
 ## 💰 Поддержать автора
