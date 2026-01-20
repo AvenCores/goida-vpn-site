@@ -53,6 +53,13 @@
                 <div class="text-xs text-gray-500 break-all bg-gray-50 dark:bg-black/30 p-2 rounded mb-3 font-mono border border-gray-100 dark:border-gray-800">
                     {{ config.url }}
                 </div>
+                
+                {% if config.last_update %}
+                <div class="text-xs text-gray-500 mb-3 flex items-center gap-1">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Обновлено: <span class="font-semibold text-gray-700 dark:text-gray-300">{{ config.last_update.datetime_str }}</span></span>
+                </div>
+                {% endif %}
 
                 <button @click="navigator.clipboard.writeText('{{ config.url }}'); copied = true; setTimeout(() => copied = false, 2000)"
                         class="mt-auto w-full py-2 rounded font-semibold text-sm transition-all flex items-center justify-center gap-2"
@@ -94,6 +101,14 @@
                 <img src="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
                      alt="QR код конфига {{ config.id }}"
                      class="w-full aspect-square rounded-lg border border-gray-100 dark:border-gray-800 mb-3">
+                
+                {% if config.last_update %}
+                <div class="text-[10px] text-gray-500 mb-2">
+                    <i class="fa-solid fa-clock"></i>
+                    {{ config.last_update.datetime_str }}
+                </div>
+                {% endif %}
+                
                 <div class="flex gap-2">
                     <a href="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
                        target="_blank"
