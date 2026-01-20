@@ -1,6 +1,7 @@
 <section class="mb-16 bg-white dark:bg-brand-panel rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg">
-    <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div>
+    <div class="grid md:grid-cols-2 gap-8">
+        
+        <div class="flex flex-col justify-center h-full">
             <h2 class="text-2xl font-bold mb-4">📺 Видео гайд по использованию</h2>
             <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 text-sm text-yellow-800 dark:text-yellow-200 mb-6 rounded-r">
                 ⚠️ Видео актуально только для <strong>Android, Android TV, Windows, Linux, MacOS</strong>. <br>
@@ -12,7 +13,6 @@
                 </a>
                 <a href="https://dzen.ru/video/watch/680d58f28c6d3504e953bd6d" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition">
                     <span class="w-5 h-5 flex items-center justify-center">
-                        <!-- ИСПРАВЛЕНИЕ: Убран слэш в начале -->
                         <img src="static/media/dzen-white.png" alt="Dzen" class="w-full h-full object-contain">
                     </span>
                     Dzen
@@ -25,7 +25,8 @@
                 </a>
             </div>
         </div>
-        <div class="rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-600">
+
+        <div class="h-full flex flex-col justify-center rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-600 bg-black">
             <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/sagz2YluM70" title="Video Guide" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
