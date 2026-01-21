@@ -38,7 +38,9 @@ SOURCES_MAP = {
         "https://github.com/igareck/vpn-configs-for-russia",
         "https://github.com/zieng2/wl",
         "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
-        "https://s3c3.001.gpucloud.ru/dixsm/htxml"
+        "https://s3c3.001.gpucloud.ru/dixsm/htxml",
+        "https://bp.wl.free.nf/confs/wl.txt",
+        "https://nowmeow.pw/8ybBd3fdCAQ6Ew5H0d66Y1hMbh63GpKUtEXQClIu/whitelist"
     ]
 }
 
