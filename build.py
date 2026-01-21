@@ -53,11 +53,7 @@ def build_site():
     with open(os.path.join(api_path, 'download-links.json'), 'w', encoding='utf-8') as f:
         json.dump(links, f)
         
-    # На всякий случай сохраняем и без расширения (хотя JS теперь ищет .json)
-    with open(os.path.join(api_path, 'download-links'), 'w', encoding='utf-8') as f:
-        json.dump(links, f)
-        
-    print("✅ API файлы созданы")
+    print("✅ API файл создан")
 
     # 5. Создаем .nojekyll (чтобы GitHub не игнорировал папки с подчеркиванием, если есть)
     with open(os.path.join(DIST_DIR, '.nojekyll'), 'w') as f:
