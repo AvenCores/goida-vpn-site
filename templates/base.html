@@ -17,6 +17,7 @@
 
     <script defer src="static/js/update-download-links.js"></script>
     <script defer src="static/js/statistics.js"></script>
+    <script defer src="static/js/link-confirmation.js"></script>
 
     <script>
         // Применить тему ДО отрисовки страницы чтобы избежать мигания
@@ -152,10 +153,32 @@
           activeTab: 'configs',
           showSourcesModal: false,
           showStatsModal: false,
+          showExitModal: false,
+          targetUrl: '',
           currentSources: [],
-          currentConfigId: null
+          currentConfigId: null,
+          formatUrl(url) {
+              if (!url) return '';
+              try {
+                  const urlObj = new URL(url);
+                  let display = urlObj.hostname + (urlObj.pathname.length > 1 ? urlObj.pathname : '');
+                  if (display.length > 40) {
+                      return display.substring(0, 20) + '...' + display.substring(display.length - 15);
+                  }
+                  return display;
+              } catch (e) {
+                  return url.length > 40 ? url.substring(0, 35) + '...' : url;
+              }
+          },
+          openTargetUrl() {
+              if (this.targetUrl) {
+                  window.open(this.targetUrl, '_blank');
+                  this.showExitModal = false;
+              }
+          }
       }"
-      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { if (value) { document.body.classList.add('body--lock'); loadGitHubStats(); } else { document.body.classList.remove('body--lock'); } });"
+      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { if (value) { document.body.classList.add('body--lock'); loadGitHubStats(); } else { document.body.classList.remove('body--lock'); } }); $watch('showExitModal', value => { document.body.classList.toggle('body--lock', value); });"
+      x-on:open-exit-modal.window="targetUrl = $event.detail.url; showExitModal = true"
 >
 
     {% include 'components/header.html' %}
@@ -260,6 +283,50 @@
                 <button @click="showSourcesModal = false"
                         class="w-full py-2 rounded font-semibold bg-red-600 hover:bg-red-700 text-white transition">
                     Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения перехода -->
+    <div x-show="showExitModal"
+         @keydown.escape="showExitModal = false"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+         @click.self="showExitModal = false">
+        <div x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="bg-white dark:bg-brand-panel rounded-xl shadow-xl max-w-md w-full p-6 text-center">
+            
+            <div class="mb-4">
+                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-900">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-brand-blue dark:text-blue-400 text-xl"></i>
+                </div>
+            </div>
+            
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Переход на внешний сайт</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                Вы собираетесь перейти на сайт: <br>
+                <span class="font-mono text-brand-blue dark:text-blue-400 break-all" x-text="formatUrl(targetUrl)" :title="targetUrl"></span>
+            </p>
+
+            <div class="flex gap-3 justify-center">
+                <button @click="showExitModal = false"
+                        class="px-4 py-2 rounded-lg font-semibold bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 transition">
+                    Отмена
+                </button>
+                <button @click="openTargetUrl()"
+                        class="px-4 py-2 rounded-lg font-semibold bg-brand-blue hover:bg-blue-600 text-white transition">
+                    Перейти
                 </button>
             </div>
         </div>
