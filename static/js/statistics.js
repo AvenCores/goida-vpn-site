@@ -63,7 +63,7 @@ async function loadGitHubStats() {
                         </div>
                     </div>
                      <div class="p-3 bg-gray-50 dark:bg-black/30 rounded-lg text-center">
-                        <div class="text-xs text-gray-500 uppercase font-bold mb-1">Просмотры</div>
+                        <div class="text-xs text-gray-500 uppercase font-bold mb-1">Просмотры (14д)</div>
                         <div class="text-xl font-bold text-purple-400">
                             <i class="fa-solid fa-eye mr-1"></i> ${formatNumber(data.views.count)}
                         </div>
@@ -71,17 +71,17 @@ async function loadGitHubStats() {
                 </div>
 
                 <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-download text-green-500"></i> Клоны</span>
+                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-download text-green-500"></i> Клоны (14д)</span>
                     <span class="font-bold text-lg">${formatNumber(data.clones.count)}</span>
                 </div>
                 
                 <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-user-check text-orange-400"></i> Уникальные клоны</span>
+                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-user-check text-orange-400"></i> Уникальные клоны (14д)</span>
                     <span class="font-bold text-lg">${formatNumber(data.clones.uniques)}</span>
                 </div>
                  
                  <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-users text-indigo-400"></i> Уникальные посетители</span>
+                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-users text-indigo-400"></i> Уникальные посетители (14д)</span>
                     <span class="font-bold text-lg">${formatNumber(data.views.uniques)}</span>
                 </div>
             </div>
