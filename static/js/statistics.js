@@ -9,11 +9,12 @@ async function loadGitHubStats() {
         </div>`;
 
     try {
-        const repo = 'AvenCores/goida-vpn-configs';
-        const response = await fetch(`https://api.github.com/repos/${repo}`);
+        const response = await fetch(`/api/github-stats`);
         
         if (!response.ok) {
-            throw new Error(`Ошибка GitHub API: ${response.status}`);
+            const errorData = await response.json().catch(() => ({})); // Попытка получить тело ошибки
+            const errorMessage = errorData.error || `Ошибка HTTP: ${response.status}`;
+            throw new Error(errorMessage);
         }
         
         const data = await response.json();

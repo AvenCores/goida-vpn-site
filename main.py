@@ -119,6 +119,57 @@ def get_download_links():
     save_links_cache(FALLBACK_LINKS)
     return jsonify(FALLBACK_LINKS)
 
+# Кэш для статистики GitHub
+STATS_CACHE_FILE = 'github_stats_cache.json'
+STATS_CACHE_DURATION = timedelta(hours=1)
+
+def get_cached_stats():
+    """Получить кэшированную статистику, если она актуальна"""
+    if os.path.exists(STATS_CACHE_FILE):
+        try:
+            with open(STATS_CACHE_FILE, 'r') as f:
+                cache = json.load(f)
+                cache_time = datetime.fromisoformat(cache.get('timestamp', ''))
+                if datetime.now() - cache_time < STATS_CACHE_DURATION:
+                    return cache.get('data')
+        except Exception as e:
+            print(f"Ошибка при чтении кэша статистики: {e}")
+    return None
+
+def save_stats_cache(data):
+    """Сохранить статистику в кэш"""
+    cache = {
+        'timestamp': datetime.now().isoformat(),
+        'data': data
+    }
+    try:
+        with open(STATS_CACHE_FILE, 'w') as f:
+            json.dump(cache, f)
+    except Exception as e:
+        print(f"Ошибка при сохранении кэша статистики: {e}")
+
+@app.route('/api/github-stats')
+def get_github_stats():
+    """API endpoint для получения статистики репозитория с кэшированием"""
+    # Сначала проверяем кэш
+    cached_stats = get_cached_stats()
+    if cached_stats:
+        print("Возвращаем кэшированную статистику GitHub")
+        return jsonify(cached_stats)
+
+    # Если кэша нет, делаем запрос
+    print("Получаем новую статистику с GitHub")
+    repo = 'AvenCores/goida-vpn-configs'
+    try:
+        response = requests.get(f'https://api.github.com/repos/{repo}', timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        save_stats_cache(data) # Сохраняем в кэш
+        return jsonify(data)
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка при получении статистики с GitHub: {e}")
+        return jsonify(error=str(e)), getattr(e.response, 'status_code', 500)
+
 @app.route('/LICENSE')
 def serve_license():
     return send_from_directory('static', 'LICENSE')
