@@ -80,7 +80,7 @@ def fetch_and_save_github_stats(api_path):
 
     try:
         # 1. Получаем общую информацию (Дату пуша, Звезды)
-        print(f"Запрос общей информации о {STATS_REPO_NAME}...")
+        print(f"ℹ️ Запрос общей информации о {STATS_REPO_NAME}...")
         repo_response = requests.get(base_url, headers=headers, timeout=10)
         repo_response.raise_for_status()
         repo_data = repo_response.json()
@@ -89,7 +89,7 @@ def fetch_and_save_github_stats(api_path):
         stats["stargazers_count"] = repo_data.get("stargazers_count", 0)
 
         # 2. Получаем данные о клонах (Нужны права push/admin)
-        print("Запрос статистики клонирования...")
+        print("ℹ️ Запрос статистики клонирования...")
         clones_response = requests.get(f'{base_url}/traffic/clones', headers=headers, timeout=10)
         if clones_response.ok:
             clones_data = clones_response.json()
@@ -99,7 +99,7 @@ def fetch_and_save_github_stats(api_path):
             print(f"⚠️ Warning: Clones API returned {clones_response.status_code}")
 
         # 3. Получаем данные о просмотрах
-        print("Запрос статистики просмотров...")
+        print("ℹ️ Запрос статистики просмотров...")
         views_response = requests.get(f'{base_url}/traffic/views', headers=headers, timeout=10)
         if views_response.ok:
             views_data = views_response.json()
@@ -124,7 +124,7 @@ def deploy_to_github():
         print("❌ ОШИБКА: Нет токена MY_TOKEN")
         return
 
-    print(f"\n🚀 Публикация в ветку {BRANCH}...")
+    print(f"🚀 Публикация в ветку {BRANCH}...")
     auth_url = f"https://{token}@github.com/{REPO_USER}/{REPO_NAME}.git"
 
     commands = [
@@ -142,9 +142,9 @@ def deploy_to_github():
     try:
         for cmd in commands:
             subprocess.run(cmd, cwd=cwd, check=True, capture_output=True) 
-        print(f"\n🎉 УСПЕШНО! Сайт обновлен в ветке {BRANCH}")
+        print(f"🎉 УСПЕШНО! Сайт обновлен в ветке {BRANCH}")
     except subprocess.CalledProcessError as e:
-        print(f"\n❌ Ошибка Git: {e}")
+        print(f"❌ Ошибка Git: {e}")
         if e.stderr:
             print(f"Детали: {e.stderr.decode('utf-8')}")
 
