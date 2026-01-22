@@ -4,7 +4,6 @@
             licenseText: 'Загрузка текста лицензии...',
             async loadLicense() {
                 try {
-                    // ИСПРАВЛЕНИЕ: Путь к лицензии относительно корня (она в папке static)
                     const response = await fetch('static/LICENSE');
                     if (response.ok) {
                         this.licenseText = await response.text();
@@ -16,7 +15,7 @@
                 }
             }
         }"
-        x-init="loadLicense()">
+        x-init="loadLicense(); $watch('showLicense', value => { if (value) { document.body.classList.add('body--lock'); } else { document.body.classList.remove('body--lock'); } });">
         
     <div class="max-w-7xl mx-auto px-4 text-center">
         

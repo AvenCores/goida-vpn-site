@@ -48,7 +48,7 @@ async function loadGitHubStats() {
         statsContent.innerHTML = `
             <div class="space-y-4">
                 <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-                    <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Последнее обновление конфигов</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Последнее обновление</div>
                     <div class="font-bold text-lg flex items-center gap-2">
                         <i class="fa-regular fa-clock text-blue-500"></i>
                         ${dateString}
@@ -57,13 +57,13 @@ async function loadGitHubStats() {
 
                 <div class="grid grid-cols-2 gap-4">
                      <div class="p-3 bg-gray-50 dark:bg-black/30 rounded-lg text-center">
-                        <div class="text-xs text-gray-500 uppercase font-bold mb-1">Stars</div>
+                        <div class="text-xs text-gray-500 uppercase font-bold mb-1">Звёзды</div>
                         <div class="text-xl font-bold text-yellow-500">
                             <i class="fa-solid fa-star mr-1"></i> ${formatNumber(data.stargazers_count)}
                         </div>
                     </div>
                      <div class="p-3 bg-gray-50 dark:bg-black/30 rounded-lg text-center">
-                        <div class="text-xs text-gray-500 uppercase font-bold mb-1">Views (14d)</div>
+                        <div class="text-xs text-gray-500 uppercase font-bold mb-1">Просмотры (14д)</div>
                         <div class="text-xl font-bold text-purple-400">
                             <i class="fa-solid fa-eye mr-1"></i> ${formatNumber(data.views.count)}
                         </div>
@@ -71,17 +71,17 @@ async function loadGitHubStats() {
                 </div>
 
                 <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-download text-green-500"></i> Clones (14d)</span>
+                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-download text-green-500"></i> Клоны (14д)</span>
                     <span class="font-bold text-lg">${formatNumber(data.clones.count)}</span>
                 </div>
                 
                 <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-user-check text-orange-400"></i> Unique Cloners</span>
+                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-user-check text-orange-400"></i> Уникальные клоны</span>
                     <span class="font-bold text-lg">${formatNumber(data.clones.uniques)}</span>
                 </div>
                  
                  <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-users text-indigo-400"></i> Unique Visitors</span>
+                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-users text-indigo-400"></i> Уникальные посетители</span>
                     <span class="font-bold text-lg">${formatNumber(data.views.uniques)}</span>
                 </div>
             </div>

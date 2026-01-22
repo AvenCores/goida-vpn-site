@@ -135,6 +135,9 @@
             position: relative;
             z-index: 0;
         }
+        .body--lock {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-brand-dark dark:text-gray-100 transition-colors duration-300 font-sans"
@@ -152,7 +155,7 @@
           currentSources: [],
           currentConfigId: null
       }"
-      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { if (value) { loadGitHubStats(); } });"
+      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { if (value) { document.body.classList.add('body--lock'); loadGitHubStats(); } else { document.body.classList.remove('body--lock'); } });"
 >
 
     {% include 'components/header.html' %}
