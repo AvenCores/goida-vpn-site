@@ -22,8 +22,13 @@
             <button @click="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 transition hover:shadow-md hover:shadow-gray-600/30 dark:hover:shadow-gray-400/20">
                 <i class="fa-solid text-lg" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-gray-500'"></i>
             </button>
-            <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-700 transition border-2 border-white hover:shadow-md hover:shadow-gray-600/30 dark:hover:shadow-gray-400/20">
-                GitHub
+            <button @click="showStatsModal = true" class="bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition border-2 border-white hover:shadow-md hover:shadow-blue-600/30 dark:hover:shadow-blue-400/20 flex items-center justify-center w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2">
+                <i class="fa-solid fa-chart-simple text-lg sm:mr-1"></i>
+                <span class="hidden sm:inline">Статистика</span>
+            </button>
+            <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" class="bg-gray-900 text-white rounded-lg text-sm font-bold hover:bg-gray-700 transition border-2 border-white hover:shadow-md hover:shadow-gray-600/30 dark:hover:shadow-gray-400/20 flex items-center justify-center w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2">
+                <i class="fa-brands fa-github text-xl sm:mr-1"></i>
+                <span class="hidden sm:inline">GitHub</span>
             </a>
         </div>
     </div>

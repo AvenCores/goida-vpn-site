@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script defer src="static/js/update-download-links.js"></script>
+    <script defer src="static/js/statistics.js"></script>
 
     <script>
         // Применить тему ДО отрисовки страницы чтобы избежать мигания
@@ -147,10 +148,11 @@
           },
           activeTab: 'configs',
           showSourcesModal: false,
+          showStatsModal: false,
           currentSources: [],
           currentConfigId: null
       }"
-      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark');"
+      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { if (value) { loadGitHubStats(); } });"
 >
 
     {% include 'components/header.html' %}
@@ -158,6 +160,53 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {% block content %}{% endblock %}
     </main>
+
+    <!-- Модальное окно статистики -->
+    <div x-show="showStatsModal"
+         @keydown.escape="showStatsModal = false"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+         @click.self="showStatsModal = false">
+        <div x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="bg-white dark:bg-brand-panel rounded-xl shadow-xl max-w-lg w-full max-h-[80vh] flex flex-col">
+
+            <div class="border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between flex-shrink-0">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-chart-simple text-blue-500"></i>
+                    <span>Статистика репозитория</span>
+                </h3>
+                <button @click="showStatsModal = false"
+                        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto" id="stats-content">
+                <!-- Сюда будет загружаться статистика -->
+                <div class="text-center">
+                    <i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400"></i>
+                    <p class="mt-2 text-sm text-gray-500">Загрузка данных...</p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex-shrink-0">
+                <button @click="showStatsModal = false"
+                        class="w-full py-2 rounded font-semibold bg-red-600 hover:bg-red-700 text-white transition">
+                    Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Модальное окно с источниками -->
     <div x-show="showSourcesModal" 

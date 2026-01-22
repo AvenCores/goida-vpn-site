@@ -1,3 +1,4 @@
 .env/
+.gemini/
 __pycache__/
 download_links_cache.json
