@@ -9,29 +9,23 @@ from main import app, get_vpn_configs, fetch_download_links, FALLBACK_LINKS
 # НАСТРОЙКИ
 REPO_USER = "AvenCores"
 REPO_NAME = "goida-vpn-site"
+STATS_REPO_NAME = "goida-vpn-configs" # Репозиторий, чью статистику мы хотим видеть
 TARGET_REPO = f"https://github.com/{REPO_USER}/{REPO_NAME}.git"
 DIST_DIR = "dist"
-
-# ВАЖНО: Пушим в отдельную ветку, чтобы не стереть исходный код в main
 BRANCH = "gh-pages" 
 
 def build_site():
     print(f"🚀 Начинаем сборку сайта в папку ./{DIST_DIR}...")
 
-    # 1. Очистка и создание папки dist
     if os.path.exists(DIST_DIR):
         shutil.rmtree(DIST_DIR)
     os.makedirs(DIST_DIR)
-    
-    # Создаем папку api внутри dist
     os.makedirs(os.path.join(DIST_DIR, 'api'))
 
-    # 2. Копирование статики
     if os.path.exists('static'):
         shutil.copytree('static', os.path.join(DIST_DIR, 'static'))
         print("✅ Папка static скопирована")
 
-    # 3. Генерация HTML через Flask
     with app.test_request_context():
         print("⏳ Получение конфигов и рендеринг шаблона...")
         configs = get_vpn_configs()
@@ -41,7 +35,6 @@ def build_site():
             f.write(rendered_html)
         print("✅ Файл index.html создан")
 
-    # 4. Генерация API (JSON)
     print("⏳ Получение ссылок на скачивание...")
     links = fetch_download_links()
     if not links:
@@ -50,77 +43,80 @@ def build_site():
     
     api_path = os.path.join(DIST_DIR, 'api')
     
-    # Сохраняем файл именно как .json для корректной отдачи GitHub Pages
     with open(os.path.join(api_path, 'download-links.json'), 'w', encoding='utf-8') as f:
         json.dump(links, f)
-        
-    print("✅ API файл создан")
+    print("✅ API файл ссылок создан")
 
-    # 4.5. Генерация статистики
     print("⏳ Получение статистики репозитория...")
     fetch_and_save_github_stats(api_path)
 
-    # 5. Создаем .nojekyll (чтобы GitHub не игнорировал папки с подчеркиванием, если есть)
     with open(os.path.join(DIST_DIR, '.nojekyll'), 'w') as f:
         pass
 
 def fetch_and_save_github_stats(api_path):
-    """Получает статистику трафика с GitHub и сохраняет в JSON"""
-    repo_name = 'goida-vpn-configs'
-    base_url = f'https://api.github.com/repos/{REPO_USER}/{repo_name}'
+    """Получает статистику трафика и общую инфо с GitHub"""
+    base_url = f'https://api.github.com/repos/{REPO_USER}/{STATS_REPO_NAME}'
     token = os.getenv('MY_TOKEN')
+    
+    stats = {
+        "pushed_at": None,
+        "stargazers_count": 0,
+        "clones": {"count": 0, "uniques": 0},
+        "views": {"count": 0, "uniques": 0},
+        "error": None
+    }
 
     if not token:
         print("❌ ОШИБКА: Для доступа к статистике трафика необходим MY_TOKEN.")
+        stats["error"] = "Token not configured"
         with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
-            json.dump({"error": "MY_TOKEN is not configured"}, f)
+            json.dump(stats, f)
         return
 
     headers = {
         'Authorization': f'token {token}',
         'Accept': 'application/vnd.github.v3+json'
     }
-    print("Используется токен для запроса к GitHub API (трафик)")
 
     try:
-        # Получаем данные о клонах
+        # 1. Получаем общую информацию (Дату пуша, Звезды)
+        print(f"Запрос общей информации о {STATS_REPO_NAME}...")
+        repo_response = requests.get(base_url, headers=headers, timeout=10)
+        repo_response.raise_for_status()
+        repo_data = repo_response.json()
+        
+        stats["pushed_at"] = repo_data.get("pushed_at")
+        stats["stargazers_count"] = repo_data.get("stargazers_count", 0)
+
+        # 2. Получаем данные о клонах (Нужны права push/admin)
+        print("Запрос статистики клонирования...")
         clones_response = requests.get(f'{base_url}/traffic/clones', headers=headers, timeout=10)
-        clones_response.raise_for_status()
-        clones_data = clones_response.json()
+        if clones_response.ok:
+            clones_data = clones_response.json()
+            stats["clones"]["count"] = clones_data.get('count', 0)
+            stats["clones"]["uniques"] = clones_data.get('uniques', 0)
+        else:
+            print(f"⚠️ Warning: Clones API returned {clones_response.status_code}")
 
-        # Получаем данные о просмотрах
+        # 3. Получаем данные о просмотрах
+        print("Запрос статистики просмотров...")
         views_response = requests.get(f'{base_url}/traffic/views', headers=headers, timeout=10)
-        views_response.raise_for_status()
-        views_data = views_response.json()
-
-        stats = {
-            "clones": {
-                "count": clones_data.get('count', 0),
-                "uniques": clones_data.get('uniques', 0)
-            },
-            "views": {
-                "count": views_data.get('count', 0),
-                "uniques": views_data.get('uniques', 0)
-            }
-        }
-
-        with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
-            json.dump(stats, f)
-        print("✅ Файл статистики трафика github-stats.json создан")
+        if views_response.ok:
+            views_data = views_response.json()
+            stats["views"]["count"] = views_data.get('count', 0)
+            stats["views"]["uniques"] = views_data.get('uniques', 0)
+        else:
+            print(f"⚠️ Warning: Views API returned {views_response.status_code}")
 
     except requests.exceptions.RequestException as e:
         error_message = str(e)
-        if e.response is not None:
-             # Попытка извлечь сообщение об ошибке от GitHub
-            try:
-                gh_error = e.response.json().get('message', 'No details')
-                error_message = f"{e.response.status_code} - {gh_error}"
-            except json.JSONDecodeError:
-                pass
-        
-        print(f"❌ ОШИБКА: Не удалось получить статистику трафика с GitHub: {error_message}")
-        with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
-            json.dump({"error": error_message}, f)
+        print(f"❌ ОШИБКА при запросе к GitHub: {error_message}")
+        stats["error"] = error_message
+
+    # Сохраняем результат
+    with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
+        json.dump(stats, f)
+    print("✅ Файл статистики github-stats.json создан")
 
 def deploy_to_github():
     token = os.getenv('MY_TOKEN')
@@ -129,10 +125,8 @@ def deploy_to_github():
         return
 
     print(f"\n🚀 Публикация в ветку {BRANCH}...")
-    
     auth_url = f"https://{token}@github.com/{REPO_USER}/{REPO_NAME}.git"
 
-    # Создаем новый репозиторий внутри папки dist
     commands = [
         ['git', 'init'],
         ['git', 'config', 'user.name', 'Auto Builder'],
@@ -145,12 +139,10 @@ def deploy_to_github():
     ]
 
     cwd = os.path.abspath(DIST_DIR)
-
     try:
         for cmd in commands:
             subprocess.run(cmd, cwd=cwd, check=True, capture_output=True) 
         print(f"\n🎉 УСПЕШНО! Сайт обновлен в ветке {BRANCH}")
-        
     except subprocess.CalledProcessError as e:
         print(f"\n❌ Ошибка Git: {e}")
         if e.stderr:
