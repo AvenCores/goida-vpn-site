@@ -39,32 +39,26 @@ async function loadGitHubStats() {
             minute: '2-digit'
         });
 
-        statsContent.innerHTML = `
-            <div class="space-y-4">
-                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400"></i> Звёзды</span>
-                    <span class="font-bold text-lg">${formatNumber(data.stargazers_count)}</span>
-                </div>
-                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2"><i class="fa-solid fa-code-fork text-blue-400"></i> Форки</span>
-                    <span class="font-bold text-lg">${formatNumber(data.forks_count)}</span>
-                </div>
-                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2"><i class="fa-solid fa-eye text-green-400"></i> Наблюдатели</span>
-                    <span class="font-bold text-lg">${formatNumber(data.watchers_count)}</span>
-                </div>
-                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2"><i class="fa-solid fa-bug text-red-400"></i> Открытые проблемы</span>
-                    <span class="font-bold text-lg">${data.open_issues_count}</span>
-                </div>
-                 <div class="pt-2 text-center">
-                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                        Последнее обновление: ${lastUpdate}
-                    </p>
-                </div>
-            </div>
-        `;
-
+                statsContent.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
+                            <span class="font-semibold flex items-center gap-2"><i class="fa-solid fa-download text-blue-400"></i> Clones in last 14 days</span>
+                            <span class="font-bold text-lg">${data.clones.count}</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
+                            <span class="font-semibold flex items-center gap-2"><i class="fa-solid fa-user-check text-green-400"></i> Unique cloners in last 14 days</span>
+                            <span class="font-bold text-lg">${data.clones.uniques}</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
+                            <span class="font-semibold flex items-center gap-2"><i class="fa-solid fa-eye text-yellow-400"></i> Total views in last 14 days</span>
+                            <span class="font-bold text-lg">${data.views.count}</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
+                            <span class="font-semibold flex items-center gap-2"><i class="fa-solid fa-users text-purple-400"></i> Unique visitors in last 14 days</span>
+                            <span class="font-bold text-lg">${data.views.uniques}</span>
+                        </div>
+                    </div>
+                `;
     } catch (error) {
         statsContent.innerHTML = `
             <div class="text-center text-red-500">

@@ -65,26 +65,62 @@ def build_site():
         pass
 
 def fetch_and_save_github_stats(api_path):
-    """Получает статистику с GitHub и сохраняет в JSON"""
-    repo = f'{REPO_USER}/goida-vpn-configs'
+    """Получает статистику трафика с GitHub и сохраняет в JSON"""
+    repo_name = 'goida-vpn-configs'
+    base_url = f'https://api.github.com/repos/{REPO_USER}/{repo_name}'
     token = os.getenv('MY_TOKEN')
-    headers = {}
-    if token:
-        headers['Authorization'] = f'token {token}'
-        print("Используется токен для запроса к GitHub API")
+
+    if not token:
+        print("❌ ОШИБКА: Для доступа к статистике трафика необходим MY_TOKEN.")
+        with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
+            json.dump({"error": "MY_TOKEN is not configured"}, f)
+        return
+
+    headers = {
+        'Authorization': f'token {token}',
+        'Accept': 'application/vnd.github.v3+json'
+    }
+    print("Используется токен для запроса к GitHub API (трафик)")
 
     try:
-        response = requests.get(f'https://api.github.com/repos/{repo}', headers=headers, timeout=10)
-        response.raise_for_status()
-        stats = response.json()
+        # Получаем данные о клонах
+        clones_response = requests.get(f'{base_url}/traffic/clones', headers=headers, timeout=10)
+        clones_response.raise_for_status()
+        clones_data = clones_response.json()
+
+        # Получаем данные о просмотрах
+        views_response = requests.get(f'{base_url}/traffic/views', headers=headers, timeout=10)
+        views_response.raise_for_status()
+        views_data = views_response.json()
+
+        stats = {
+            "clones": {
+                "count": clones_data.get('count', 0),
+                "uniques": clones_data.get('uniques', 0)
+            },
+            "views": {
+                "count": views_data.get('count', 0),
+                "uniques": views_data.get('uniques', 0)
+            }
+        }
+
         with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
             json.dump(stats, f)
-        print("✅ Файл статистики github-stats.json создан")
-    except Exception as e:
-        print(f"❌ ОШИБКА: Не удалось получить статистику с GitHub: {e}")
-        # Создаем пустой файл, чтобы сборка не падала
+        print("✅ Файл статистики трафика github-stats.json создан")
+
+    except requests.exceptions.RequestException as e:
+        error_message = str(e)
+        if e.response is not None:
+             # Попытка извлечь сообщение об ошибке от GitHub
+            try:
+                gh_error = e.response.json().get('message', 'No details')
+                error_message = f"{e.response.status_code} - {gh_error}"
+            except json.JSONDecodeError:
+                pass
+        
+        print(f"❌ ОШИБКА: Не удалось получить статистику трафика с GitHub: {error_message}")
         with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
-            json.dump({"error": str(e)}, f)
+            json.dump({"error": error_message}, f)
 
 def deploy_to_github():
     token = os.getenv('MY_TOKEN')
