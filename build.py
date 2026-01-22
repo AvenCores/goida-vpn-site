@@ -55,9 +55,35 @@ def build_site():
         
     print("✅ API файл создан")
 
+    # 4.5. Генерация статистики
+    print("⏳ Получение статистики репозитория...")
+    fetch_and_save_github_stats(api_path)
+
     # 5. Создаем .nojekyll (чтобы GitHub не игнорировал папки с подчеркиванием, если есть)
     with open(os.path.join(DIST_DIR, '.nojekyll'), 'w') as f:
         pass
+
+def fetch_and_save_github_stats(api_path):
+    """Получает статистику с GitHub и сохраняет в JSON"""
+    repo = f'{REPO_USER}/goida-vpn-configs'
+    token = os.getenv('MY_TOKEN')
+    headers = {}
+    if token:
+        headers['Authorization'] = f'token {token}'
+        print("Используется токен для запроса к GitHub API")
+
+    try:
+        response = requests.get(f'https://api.github.com/repos/{repo}', headers=headers, timeout=10)
+        response.raise_for_status()
+        stats = response.json()
+        with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
+            json.dump(stats, f)
+        print("✅ Файл статистики github-stats.json создан")
+    except Exception as e:
+        print(f"❌ ОШИБКА: Не удалось получить статистику с GitHub: {e}")
+        # Создаем пустой файл, чтобы сборка не падала
+        with open(os.path.join(api_path, 'github-stats.json'), 'w', encoding='utf-8') as f:
+            json.dump({"error": str(e)}, f)
 
 def deploy_to_github():
     token = os.getenv('MY_TOKEN')

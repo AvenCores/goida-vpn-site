@@ -9,12 +9,16 @@ async function loadGitHubStats() {
         </div>`;
 
     try {
-        const response = await fetch(`/api/github-stats`);
+        const response = await fetch(`/api/github-stats.json`);
         
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({})); // Попытка получить тело ошибки
-            const errorMessage = errorData.error || `Ошибка HTTP: ${response.status}`;
-            throw new Error(errorMessage);
+            throw new Error(`Ошибка загрузки файла: ${response.status}`);
+        }
+        
+        const data = await response.json();
+
+        if (data.error) {
+            throw new Error(`Ошибка API: ${data.error}`);
         }
         
         const data = await response.json();
