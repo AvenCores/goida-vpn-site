@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 import json
+import requests
 from flask import render_template
 from main import app, get_vpn_configs, fetch_download_links, FALLBACK_LINKS
 
