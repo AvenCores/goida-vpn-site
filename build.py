@@ -142,7 +142,7 @@ def deploy_to_github():
     try:
         for cmd in commands:
             subprocess.run(cmd, cwd=cwd, check=True, capture_output=True) 
-        print(f"🎉 УСПЕШНО! Сайт обновлен в ветке {BRANCH}")
+        print(f"🎉 Успешно! Сайт обновлен в ветке {BRANCH}")
     except subprocess.CalledProcessError as e:
         print(f"❌ Ошибка Git: {e}")
         if e.stderr:
