@@ -24,8 +24,8 @@
         <!-- Блок доната -->
         <div class="inline-block w-full max-w-md bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10 border border-green-100 dark:border-green-800/30 rounded-3xl p-6 sm:p-8 mb-10 shadow-sm hover:shadow-md transition-all duration-300 group"
              x-data="{ showNotification: false, copyToClipboard() { navigator.clipboard.writeText('2202 2050 1464 4675'); this.showNotification = true; setTimeout(() => this.showNotification = false, 2000); } }">
-            <h3 class="text-xl sm:text-2xl text-green-700 dark:text-green-400 mb-4 flex items-center justify-center gap-3">
-                <span class="inline-block" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif !important; font-weight: normal !important;">💰</span> <span class="font-black">Поддержать автора</span>
+            <h3 class="text-xl sm:text-2xl font-black text-green-700 dark:text-green-400 mb-4 flex items-center justify-center gap-3">
+                <i class="fa-solid fa-sack-dollar"></i> Поддержать автора
             </h3>
             <div class="flex items-center justify-center gap-2 sm:gap-3 bg-white/80 dark:bg-black/40 px-3 sm:px-5 py-3 rounded-2xl border border-green-200/50 dark:border-green-700/30 cursor-pointer overflow-hidden hover:border-green-400 dark:hover:border-green-500/50 transition-all active:scale-95 shadow-inner"
                 @click="copyToClipboard()">
