@@ -1,27 +1,43 @@
-<section class="mb-16 bg-white dark:bg-brand-panel rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg">
-    <div class="grid md:grid-cols-2 gap-8">
+<section class="mb-16 bg-white dark:bg-brand-panel rounded-3xl p-8 border border-gray-200 dark:border-white/10 shadow-xl relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-red-500/5 blur-[100px] pointer-events-none"></div>
+    <div class="grid md:grid-cols-2 gap-10 relative z-10">
         
-        <div class="flex flex-col justify-center h-full">
-            <h2 class="text-2xl font-bold mb-4">📺 Видео гайд по использованию</h2>
-            <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 text-sm text-yellow-800 dark:text-yellow-200 mb-6 rounded-r">
-                ⚠️ Видео актуально только для <strong>Android, Android TV, Windows, Linux, MacOS</strong>. <br>
-                Для iOS используйте текстовый гайд ниже.
+        <div class="flex flex-col justify-center">
+            <h2 class="text-3xl font-black mb-6 flex items-center gap-3 tracking-tight">
+                <div class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+                <span>Видео инструкция</span>
+            </h2>
+            
+            <div class="p-5 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/10 dark:to-orange-900/10 border border-amber-100 dark:border-amber-800/30 rounded-2xl mb-8 shadow-sm">
+                <div class="flex gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-500 text-lg mt-1"></i>
+                    <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+                        ⚠️ Видео актуально только для <strong class="font-bold">Android, Android TV, Windows, Linux, MacOS</strong>. 
+                        Для <strong class="font-bold">iOS</strong> используйте текстовый гайд ниже.
+                    </p>
+                </div>
             </div>
-            <div class="flex flex-wrap gap-3">
-                <a href="https://youtu.be/sagz2YluM70" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-                    <i class="fa-brands fa-youtube"></i> YouTube
+
+            <div class="flex flex-wrap gap-4">
+                <a href="https://youtu.be/sagz2YluM70" target="_blank" class="group flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-red-600 to-red-700 text-white rounded-xl hover:shadow-lg hover:shadow-red-600/30 transition-all duration-300 active:scale-95 font-bold border border-white/10">
+                    <i class="fa-brands fa-youtube text-xl group-hover:scale-110 transition-transform"></i> YouTube
                 </a>
-                <a href="https://vk.com/video-200297343_456239303" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                    <i class="fa-brands fa-vk"></i> VK Video
+                <a href="https://vk.com/video-200297343_456239303" target="_blank" class="group flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-xl hover:shadow-lg hover:shadow-blue-600/30 transition-all duration-300 active:scale-95 font-bold border border-white/10">
+                    <i class="fa-brands fa-vk text-xl group-hover:scale-110 transition-transform"></i> VK Video
                 </a>
-                <a href="https://t.me/avencoreschat/56595" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded hover:bg-blue-500 transition">
-                    <i class="fa-brands fa-telegram"></i> Telegram
+                <a href="https://t.me/avencoreschat/56595" target="_blank" class="group flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-blue-400 to-blue-500 text-white rounded-xl hover:shadow-lg hover:shadow-blue-400/30 transition-all duration-300 active:scale-95 font-bold border border-white/10">
+                    <i class="fa-brands fa-telegram text-xl group-hover:scale-110 transition-transform"></i> Telegram
                 </a>
             </div>
         </div>
 
-        <div class="h-full flex flex-col justify-center rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-600 bg-black">
-            <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/sagz2YluM70" title="Video Guide" frameborder="0" allowfullscreen></iframe>
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-white/10 bg-black aspect-video">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/sagz2YluM70" title="Video Guide" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 </section>

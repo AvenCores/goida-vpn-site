@@ -1,69 +1,87 @@
-<section id="bypass" class="mb-16 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-800 rounded-2xl p-8">
-    <div class="flex items-center gap-3 mb-6">
-        <i class="fa-solid fa-unlock text-purple-600 dark:text-purple-400 text-2xl"></i>
-        <h2 class="text-2xl font-bold">Обход SNI/CIDR белых списков</h2>
-    </div>
+<section id="bypass" class="mb-16 bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-purple-950/20 dark:via-brand-panel dark:to-pink-950/20 border border-purple-100 dark:border-purple-800/30 rounded-3xl p-1 relative overflow-hidden shadow-xl">
+    <div class="absolute -top-24 -left-24 w-64 h-64 bg-purple-500/10 blur-[100px] pointer-events-none"></div>
+    <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-pink-500/10 blur-[100px] pointer-events-none"></div>
     
-    <div class="bg-white dark:bg-brand-panel rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-md">
-        <div class="grid md:grid-cols-2 gap-8 items-center mb-6">
-            <div>
-                <h3 class="text-xl font-bold mb-2 text-purple-700 dark:text-purple-400">Специальный конфиг для сложных блокировок</h3>
-                <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 text-sm text-yellow-800 dark:text-yellow-200 mb-6 rounded-r">
-                    ⚠️ Этот конфиг специально настроен для обхода систем с белыми списками SNI/CIDR, 
-                    которые используются некоторыми провайдерами для глубокого анализа трафика.
-                </div>
-                
-                <!-- Основной контейнер (вертикальный): Сначала Копировать, потом блок соцсетей -->
-                <div class="flex flex-col gap-4 items-start"
-                     x-data="{ 
-                        showNotification: false, 
-                        copyLink() { 
-                            navigator.clipboard.writeText('https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/26.txt'); 
-                            this.showNotification = true; 
-                            setTimeout(() => this.showNotification = false, 2000); 
-                        } 
-                     }">
+    <div class="p-8 relative z-10">
+        <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-sm border border-purple-200 dark:border-purple-700/50">
+                <i class="fa-solid fa-unlock-keyhole text-xl"></i>
+            </div>
+            <h2 class="text-3xl font-black tracking-tight">Обход <span class="text-purple-600 dark:text-purple-400">SNI/CIDR</span> блоков</h2>
+        </div>
+        
+        <div class="bg-white/60 dark:bg-black/20 backdrop-blur-md rounded-2xl border border-white dark:border-white/5 p-8 shadow-inner">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100 leading-tight">Специальный конфиг для сложных блокировок</h3>
                     
-                    <!-- 1. Кнопка копирования (сверху) -->
-                    <div class="relative">
-                        <button @click="copyLink()"
-                                class="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 w-full sm:w-auto justify-center">
-                            <i class="fa-regular fa-copy"></i> Копировать ссылку списка
-                        </button>
-
-                        <!-- Всплывающее уведомление (исправлено на rounded) -->
-                        <div x-show="showNotification"
-                             style="display: none;"
-                             x-transition:enter="transition ease-out duration-200"
-                             x-transition:enter-start="opacity-0 translate-y-2 scale-95"
-                             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                             x-transition:leave="transition ease-in duration-150"
-                             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-                             x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                             class="absolute left-0 top-full mt-2 z-10 flex items-center gap-2 bg-green-500 dark:bg-green-600 text-white px-3 py-2 rounded shadow-lg font-medium text-sm whitespace-nowrap">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Ссылка скопирована!</span>
+                    <div class="p-5 bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-800/30 rounded-2xl shadow-sm">
+                        <div class="flex gap-3">
+                            <i class="fa-solid fa-shield-halved text-amber-500 text-lg mt-1"></i>
+                            <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
+                                ⚠️ Этот конфиг специально настроен для обхода систем с <strong class="font-bold">белыми списками SNI/CIDR</strong>, 
+                                которые используются некоторыми провайдерами для глубокого анализа трафика.
+                            </p>
                         </div>
                     </div>
                     
-                    <!-- 2. Блок соцсетей (снизу, в ряд) -->
-                    <div class="flex flex-wrap gap-3">
-                        <a href="https://youtu.be/uz6JmOO7sGU" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition font-medium">
-                            <i class="fa-brands fa-youtube"></i> YouTube
-                        </a>
-                        <a href="https://vk.ru/video-234234162_456239052" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition font-medium">
-                            <i class="fa-brands fa-vk"></i> VK Video
-                        </a>
-                        <a href="https://t.me/avencoreschat/346024" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded hover:bg-blue-500 transition font-medium">
-                            <i class="fa-brands fa-telegram"></i> Telegram
-                        </a>
+                    <div class="flex flex-col gap-6"
+                         x-data="{ 
+                            showNotification: false, 
+                            copyLink() { 
+                                navigator.clipboard.writeText('https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/26.txt'); 
+                                this.showNotification = true; 
+                                setTimeout(() => this.showNotification = false, 2000); 
+                            } 
+                         }">
+                        
+                        <!-- 1. Кнопка копирования -->
+                        <div class="relative group/copy w-full sm:w-fit">
+                            <button @click="copyLink()"
+                                    class="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-2xl hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 active:scale-95 font-black text-lg border border-white/20">
+                                <i class="fa-regular fa-copy text-xl group-hover/copy:rotate-6 transition-transform"></i> 
+                                <span>Копировать ссылку</span>
+                            </button>
+
+                            <!-- Всплывающее уведомление -->
+                            <div x-show="showNotification"
+                                 style="display: none;"
+                                 x-transition:enter="transition ease-out duration-200"
+                                 x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
+                                 x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                                 x-transition:leave="transition ease-in duration-150"
+                                 x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                                 x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
+                                 class="absolute left-1/2 sm:left-0 -translate-x-1/2 sm:translate-x-0 bottom-full mb-3 z-20 flex items-center gap-2 bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded-xl shadow-xl font-bold text-sm whitespace-nowrap">
+                                <i class="fa-solid fa-check-circle"></i>
+                                <span>Ссылка успешно скопирована!</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 2. Блок соцсетей -->
+                        <div class="space-y-3">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Видео-инструкции по обходу:</p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="https://youtu.be/uz6JmOO7sGU" target="_blank" class="group flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 transition-all duration-300 font-bold text-sm">
+                                    <i class="fa-brands fa-youtube text-red-600"></i> YouTube
+                                </a>
+                                <a href="https://vk.ru/video-234234162_456239052" target="_blank" class="group flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-700 transition-all duration-300 font-bold text-sm">
+                                    <i class="fa-brands fa-vk text-blue-700"></i> VK Video
+                                </a>
+                                <a href="https://t.me/avencoreschat/346024" target="_blank" class="group flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-500 transition-all duration-300 font-bold text-sm">
+                                    <i class="fa-brands fa-telegram text-blue-500"></i> Telegram
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    
                 </div>
                 
-            </div>
-            <div class="rounded-xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-600">
-                <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/uz6JmOO7sGU" title="Video Guide SNI/CIDR Bypass" frameborder="0" allowfullscreen></iframe>
+                <div class="relative group">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white dark:border-white/10 bg-black aspect-video">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/uz6JmOO7sGU" title="Video Guide SNI/CIDR Bypass" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
