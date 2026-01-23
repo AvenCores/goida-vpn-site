@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const href = link.getAttribute('href');
         if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
 
+        // Если ссылка помечена как загрузочная, открываем модалку скачивания ПЕРЕД проверкой на внешнюю ссылку
+        if (link.hasAttribute('data-is-download')) {
+            e.preventDefault();
+            window.dispatchEvent(new CustomEvent('open-download-modal', { detail: { url: href } }));
+            return;
+        }
+
         // Проверяем, является ли ссылка внешней
         let isExternal = false;
         try {
@@ -23,13 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isExternal) {
             e.preventDefault();
-            
-            // Если ссылка помечена как загрузочная, открываем модалку скачивания
-            if (link.hasAttribute('data-is-download')) {
-                window.dispatchEvent(new CustomEvent('open-download-modal', { detail: { url: href } }));
-            } else {
-                window.dispatchEvent(new CustomEvent('open-exit-modal', { detail: { url: href } }));
-            }
+            window.dispatchEvent(new CustomEvent('open-exit-modal', { detail: { url: href } }));
         }
     });
 });
