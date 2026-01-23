@@ -4,11 +4,18 @@
     <div class="space-y-4 max-w-4xl mx-auto" x-data="{ activeGuide: null }">
 
         <!-- 1. ANDROID (V2RayNG) -->
-        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'android' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'android' ? null : 'android'" 
-                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
-                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-brands fa-android text-black dark:text-white text-2xl"></i> Android (v2rayNG)</span>
-                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'android' ? 'rotate-180' : ''"></i>
+                    class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
+                <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-green-600 dark:text-green-400">
+                        <i class="fa-brands fa-android text-2xl"></i>
+                    </div>
+                    Android (v2rayNG)
+                </span>
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'android' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
+                    <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'android' ? 'rotate-180' : ''"></i>
+                </div>
             </button>
             
             <div x-show="activeGuide === 'android'" x-collapse x-cloak>
@@ -34,10 +41,13 @@
                         </h4>
                         
                         <!-- Нет интернета -->
-                        <div x-data="{ open: false }" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <button @click="open = !open" class="w-full p-4 font-bold flex items-center justify-between hover:text-brand-blue text-left transition">
-                                <span>⚠️ Нет интернета при подключении</span>
-                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                        <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                            <button @click="open = !open" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-sm sm:text-base">⚠️ Нет интернета при подключении</span>
+                                </span>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
@@ -49,10 +59,13 @@
                         </div>
 
                         <!-- Конфиги не появились -->
-                        <div x-data="{ open: false }" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <button @click="open = !open" class="w-full p-4 font-bold flex items-center justify-between hover:text-brand-blue text-left transition">
-                                <span>⚠️ Конфиги не появились</span>
-                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                        <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                            <button @click="open = !open" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-sm sm:text-base">⚠️ Конфиги не появились</span>
+                                </span>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
@@ -66,10 +79,13 @@
                         </div>
 
                         <!-- Handshake timeout -->
-                        <div x-data="{ open: false }" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <button @click="open = !open" class="w-full p-4 font-bold flex items-center justify-between hover:text-brand-blue text-left transition">
-                                <span>⚠️ Ошибка "Handshake timeout"</span>
-                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                        <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                            <button @click="open = !open" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-sm sm:text-base">⚠️ Ошибка "Handshake timeout"</span>
+                                </span>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
@@ -83,10 +99,13 @@
                         </div>
 
                         <!-- Closed pipe -->
-                        <div x-data="{ open: false }" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <button @click="open = !open" class="w-full p-4 font-bold flex items-center justify-between hover:text-brand-blue text-left transition">
-                                <span>⚠️ Ошибка "Closed pipe"</span>
-                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                        <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                            <button @click="open = !open" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-sm sm:text-base">⚠️ Ошибка "Closed pipe"</span>
+                                </span>
+                                <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
@@ -120,11 +139,18 @@
         </div>
 
         <!-- 2. ANDROID TV (V2RayNG) -->
-        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'androidtv' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'androidtv' ? null : 'androidtv'" 
-                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
-                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-solid fa-tv text-black dark:text-white text-2xl"></i> Android TV (v2rayNG)</span>
-                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'androidtv' ? 'rotate-180' : ''"></i>
+                    class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
+                <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-teal-600 dark:text-teal-400">
+                        <i class="fa-solid fa-tv text-2xl"></i>
+                    </div>
+                    Android TV (v2rayNG)
+                </span>
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'androidtv' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
+                    <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'androidtv' ? 'rotate-180' : ''"></i>
+                </div>
             </button>
             
             <div x-show="activeGuide === 'androidtv'" x-collapse x-cloak>
@@ -164,11 +190,18 @@
         </div>
 
         <!-- 3. WINDOWS / LINUX (Throne) -->
-        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'windows' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'windows' ? null : 'windows'" 
-                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
-                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-brands fa-windows text-black dark:text-white text-2xl"></i> Windows / Linux (Throne)</span>
-                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'windows' ? 'rotate-180' : ''"></i>
+                    class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
+                <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-blue-600 dark:text-blue-400">
+                        <i class="fa-brands fa-windows text-2xl"></i>
+                    </div>
+                    Windows / Linux (Throne)
+                </span>
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'windows' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
+                    <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'windows' ? 'rotate-180' : ''"></i>
+                </div>
             </button>
             
             <div x-show="activeGuide === 'windows'" x-collapse x-cloak>
@@ -223,11 +256,18 @@
         </div>
 
         <!-- 4. iOS / iPadOS (V2Box) -->
-        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'ios' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'ios' ? null : 'ios'" 
-                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
-                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-brands fa-apple text-black dark:text-white text-2xl"></i> iOS / iPadOS (V2Box)</span>
-                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'ios' ? 'rotate-180' : ''"></i>
+                    class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
+                <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-gray-900 dark:text-gray-100">
+                        <i class="fa-brands fa-apple text-2xl"></i>
+                    </div>
+                    iOS / iPadOS (V2Box)
+                </span>
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'ios' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
+                    <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'ios' ? 'rotate-180' : ''"></i>
+                </div>
             </button>
             
             <div x-show="activeGuide === 'ios'" x-collapse x-cloak>
@@ -261,11 +301,18 @@
         </div>
 
         <!-- 5. MacOS (Hiddify) -->
-        <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-brand-panel overflow-hidden">
+        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'mac' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'mac' ? null : 'mac'" 
-                    class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition z-10 relative">
-                <span class="font-bold text-lg flex items-center gap-3"><i class="fa-solid fa-laptop text-black dark:text-white text-2xl"></i> MacOS (Hiddify)</span>
-                <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'mac' ? 'rotate-180' : ''"></i>
+                    class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
+                <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-indigo-600 dark:text-indigo-400">
+                        <i class="fa-solid fa-laptop text-2xl"></i>
+                    </div>
+                    MacOS (Hiddify)
+                </span>
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'mac' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
+                    <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'mac' ? 'rotate-180' : ''"></i>
+                </div>
             </button>
             
             <div x-show="activeGuide === 'mac'" x-collapse x-cloak>
