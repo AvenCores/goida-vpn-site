@@ -175,9 +175,19 @@
                   window.open(this.targetUrl, '_blank');
                   this.showExitModal = false;
               }
+          },
+          lockBody(state) {
+              if (state) {
+                  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                  document.body.style.paddingRight = scrollbarWidth + 'px';
+                  document.body.classList.add('body--lock');
+              } else {
+                  document.body.classList.remove('body--lock');
+                  document.body.style.paddingRight = '';
+              }
           }
       }"
-      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { if (value) { document.body.classList.add('body--lock'); loadGitHubStats(); } else { document.body.classList.remove('body--lock'); } }); $watch('showExitModal', value => { document.body.classList.toggle('body--lock', value); }); $watch('showSourcesModal', value => { document.body.classList.toggle('body--lock', value); });"
+      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { lockBody(value); if (value) loadGitHubStats(); }); $watch('showExitModal', value => { lockBody(value); }); $watch('showSourcesModal', value => { lockBody(value); });"
       x-on:open-exit-modal.window="targetUrl = $event.detail.url; showExitModal = true"
 >
 
