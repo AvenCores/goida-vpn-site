@@ -1,12 +1,14 @@
 async function loadGitHubStats() {
     const statsContent = document.getElementById('stats-content');
     
-    // Показываем спиннер
-    statsContent.innerHTML = `
-        <div class="text-center py-6">
-            <i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400"></i>
-            <p class="mt-2 text-sm text-gray-500">Загрузка данных...</p>
-        </div>`;
+    // Показываем спиннер только если нет загруженных данных (проверяем наличие основного контейнера)
+    if (!statsContent.querySelector('.space-y-4')) {
+        statsContent.innerHTML = `
+            <div class="text-center py-6">
+                <i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400"></i>
+                <p class="mt-2 text-sm text-gray-500">Загрузка данных...</p>
+            </div>`;
+    }
 
     try {
         // Используем относительный путь, чтобы работало на GH Pages
