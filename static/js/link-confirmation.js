@@ -23,7 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isExternal) {
             e.preventDefault();
-            window.dispatchEvent(new CustomEvent('open-exit-modal', { detail: { url: href } }));
+            
+            // Если ссылка помечена как загрузочная, открываем модалку скачивания
+            if (link.hasAttribute('data-is-download')) {
+                window.dispatchEvent(new CustomEvent('open-download-modal', { detail: { url: href } }));
+            } else {
+                window.dispatchEvent(new CustomEvent('open-exit-modal', { detail: { url: href } }));
+            }
         }
     });
 });

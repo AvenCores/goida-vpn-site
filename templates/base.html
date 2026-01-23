@@ -157,6 +157,7 @@
           showSourcesModal: false,
           showStatsModal: false,
           showExitModal: false,
+          showDownloadModal: false,
           targetUrl: '',
           currentSources: [],
           currentConfigId: null,
@@ -178,6 +179,7 @@
               if (this.targetUrl) {
                   window.open(this.targetUrl, '_blank');
                   this.showExitModal = false;
+                  this.showDownloadModal = false;
               }
           },
           lockBody(state) {
@@ -192,8 +194,9 @@
               }
           }
       }"
-      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { lockBody(value); if (value) loadGitHubStats(); }); $watch('showExitModal', value => { lockBody(value); }); $watch('showSourcesModal', value => { lockBody(value); });"
+      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { lockBody(value); if (value) loadGitHubStats(); }); $watch('showExitModal', value => { lockBody(value); }); $watch('showDownloadModal', value => { lockBody(value); }); $watch('showSourcesModal', value => { lockBody(value); });"
       x-on:open-exit-modal.window="targetUrl = $event.detail.url; showExitModal = true"
+      x-on:open-download-modal.window="targetUrl = $event.detail.url; showDownloadModal = true"
 >
 
     {% include 'components/header.html' %}
@@ -342,6 +345,50 @@
                 <button @click="openTargetUrl()"
                         class="px-4 py-2 rounded-lg font-semibold bg-brand-blue hover:bg-blue-600 text-white transition">
                     Перейти
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения скачивания -->
+    <div x-show="showDownloadModal"
+         @keydown.escape="showDownloadModal = false"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+         @click.self="showDownloadModal = false">
+        <div x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="bg-white dark:bg-brand-panel rounded-xl shadow-xl max-w-md w-full p-6 text-center">
+            
+            <div class="mb-4">
+                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900">
+                    <i class="fa-solid fa-download text-green-600 dark:text-green-400 text-xl"></i>
+                </div>
+            </div>
+            
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Начать скачивание?</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                Вы собираетесь скачать файл с внешнего ресурса: <br>
+                <span class="font-mono text-green-600 dark:text-green-400 break-all" x-text="formatUrl(targetUrl)" :title="targetUrl"></span>
+            </p>
+
+            <div class="flex gap-3 justify-center">
+                <button @click="showDownloadModal = false"
+                        class="px-4 py-2 rounded-lg font-semibold bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 transition">
+                    Отмена
+                </button>
+                <button @click="openTargetUrl()"
+                        class="px-4 py-2 rounded-lg font-semibold bg-green-600 hover:bg-green-700 text-white transition">
+                    Скачать
                 </button>
             </div>
         </div>
