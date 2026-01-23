@@ -1,4 +1,5 @@
 .env/
+dist/
 .gemini/
 __pycache__/
 static/images/
