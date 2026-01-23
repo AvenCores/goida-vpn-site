@@ -37,20 +37,34 @@
     </p>
 </div>
 
-<div class="grid md:grid-cols-3 gap-6 mb-12">
-    <div class="bg-white dark:bg-brand-panel p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 relative overflow-hidden group hover:-translate-y-1 transition duration-300">
-        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition"><i class="fa-solid fa-copy text-6xl"></i></div>
-        <h3 class="text-xl font-bold mb-2">1. Скопируйте</h3>
-        <p class="text-gray-500 dark:text-gray-400">Выберите ссылку из списка ниже и скопируйте её.</p>
+<div class="grid sm:grid-cols-3 gap-6 mb-16">
+    <!-- Step 1 -->
+    <div class="group bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md p-8 rounded-3xl border border-gray-200 dark:border-white/5 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition-colors"></div>
+        <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+            <i class="fa-solid fa-copy text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-black mb-3 tracking-tight">1. Скопируйте</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Выберите ссылку из списка ниже и скопируйте её в один клик.</p>
     </div>
-    <div class="bg-white dark:bg-brand-panel p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 relative overflow-hidden group hover:-translate-y-1 transition duration-300">
-        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition"><i class="fa-solid fa-file-import text-6xl"></i></div>
-        <h3 class="text-xl font-bold mb-2">2. Импортируйте</h3>
-        <p class="text-gray-500 dark:text-gray-400">Вставьте ссылку в ваш VPN-клиент (v2rayNG, Throne и др.).</p>
+
+    <!-- Step 2 -->
+    <div class="group bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md p-8 rounded-3xl border border-gray-200 dark:border-white/5 shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-colors"></div>
+        <div class="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-6 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+            <i class="fa-solid fa-file-import text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-black mb-3 tracking-tight">2. Импортируйте</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Вставьте ссылку в ваш VPN-клиент (v2rayNG, Throne и др.).</p>
     </div>
-    <div class="bg-white dark:bg-brand-panel p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 relative overflow-hidden group hover:-translate-y-1 transition duration-300">
-        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition"><i class="fa-solid fa-bolt text-6xl"></i></div>
-        <h3 class="text-xl font-bold mb-2">3. Подключитесь</h3>
-        <p class="text-gray-500 dark:text-gray-400">Найдите сервер с минимальным пингом и жмите Start.</p>
+
+    <!-- Step 3 -->
+    <div class="group bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md p-8 rounded-3xl border border-gray-200 dark:border-white/5 shadow-sm hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl group-hover:bg-orange-500/10 transition-colors"></div>
+        <div class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400 mb-6 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+            <i class="fa-solid fa-bolt text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-black mb-3 tracking-tight">3. Подключитесь</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Найдите сервер с минимальным пингом и жмите <span class="font-bold text-orange-600 dark:text-orange-400">Start</span>.</p>
     </div>
 </div>
