@@ -45,6 +45,9 @@
         }
     </script>
     <style>
+        html {
+            scrollbar-gutter: stable;
+        }
         [x-cloak] { display: none !important; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -178,12 +181,9 @@
           },
           lockBody(state) {
               if (state) {
-                  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-                  document.body.style.paddingRight = scrollbarWidth + 'px';
                   document.body.classList.add('body--lock');
               } else {
                   document.body.classList.remove('body--lock');
-                  document.body.style.paddingRight = '';
               }
           }
       }"

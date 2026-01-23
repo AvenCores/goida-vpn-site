@@ -15,7 +15,7 @@
                 }
             }
         }"
-        x-init="loadLicense(); $watch('showLicense', value => { if (value) { document.body.classList.add('body--lock'); } else { document.body.classList.remove('body--lock'); } });">
+        x-init="loadLicense(); $watch('showLicense', value => { lockBody(value); });">
         
     <div class="max-w-7xl mx-auto px-4 text-center">
         
