@@ -29,7 +29,7 @@
 1. **Локальный сервер** (Flask + Waitress)
 2. **Генератор статического сайта** (для GitHub Pages)
 
-<img width="2560" height="1271" alt="Screenshot" src="https://github.com/user-attachments/assets/4999543b-55c0-45d1-a4ee-32b38fdfca6c" />
+<img width="2560" height="1271" alt="chrome_GQrPKf5lzU" src="https://github.com/user-attachments/assets/28fee72a-88f5-4419-b361-c4821c8fd0b7" />
 
 ## 🛠️ Технологии
 
