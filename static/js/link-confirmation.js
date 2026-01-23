@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const href = link.getAttribute('href');
         if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
 
+        // Проверяем, является ли ссылка скачиванием
+        const isDownload = link.hasAttribute('download') || 
+                           link.hasAttribute('data-link-type') ||
+                           /\.(apk|exe|dmg|zip|rar|7z|png|jpg|jpeg|pdf)$/i.test(href);
+
         // Проверяем, является ли ссылка внешней
         let isExternal = false;
         try {
@@ -19,6 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             // Некорректный URL или относительный путь -> внутренний
             isExternal = false;
+        }
+
+        if (isDownload) {
+            e.preventDefault();
+            window.dispatchEvent(new CustomEvent('open-download-modal', { detail: { url: href } }));
+            return;
         }
 
         if (isExternal) {
