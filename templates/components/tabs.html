@@ -1,166 +1,316 @@
-<div class="mb-16">
-    <div class="flex items-center justify-center mb-6 px-2 sm:px-0">
-        <div class="flex space-x-1 rounded-xl bg-gray-100 dark:bg-gray-800 p-1 w-full sm:w-auto">
+<div class="mb-16" 
+     x-data='{ 
+        searchQuery: "", 
+        filterType: "all",
+        configs: {{ configs|tojson }},
+        get filteredConfigs() {
+            return this.configs.filter(c => {
+                const query = this.searchQuery.toLowerCase();
+                const matchesSearch = c.id.toString().includes(query) || 
+                                    (c.url && c.url.toLowerCase().includes(query));
+                const matchesFilter = this.filterType === "all" || 
+                                     (this.filterType === "recommended" && c.is_recommended) ||
+                                     (this.filterType === "sni" && c.is_sni);
+                return matchesSearch && matchesFilter;
+            });
+        }
+     }'>
+
+    <!-- Переключатель вкладок -->
+    <div class="flex items-center justify-center mb-10 px-4 sm:px-0">
+        <div class="flex p-1.5 bg-gray-100 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl w-full sm:w-auto shadow-inner border border-gray-200/50 dark:border-gray-700/50">
             <button @click="activeTab = 'configs'" 
                     :class="activeTab === 'configs' 
-                        ? 'bg-white dark:bg-gray-700 shadow text-brand-blue dark:text-white' 
-                        : 'text-gray-500 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:text-gray-700 dark:hover:text-gray-200'"
-                    class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-2 rounded-lg font-bold transition duration-200 flex-1 sm:flex-none text-xs sm:text-base">
-                <i class="fa-solid fa-list-check"></i>
-                <span class="hidden sm:inline">Вечно актуальные конфиги</span>
-                <span class="sm:hidden">Конфиги</span>
+                        ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white' 
+                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+                    class="flex items-center justify-center gap-2.5 px-6 sm:px-10 py-3 rounded-xl font-bold transition-all duration-300 flex-1 sm:flex-none text-sm sm:text-base">
+                <i class="fa-solid fa-list-ul"></i>
+                <span>Списки</span>
             </button>
             <button @click="activeTab = 'qr'"
                     :class="activeTab === 'qr' 
-                        ? 'bg-white dark:bg-gray-700 shadow text-brand-blue dark:text-white' 
-                        : 'text-gray-500 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:text-gray-700 dark:hover:text-gray-200'"
-                    class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-2 rounded-lg font-bold transition duration-200 flex-1 sm:flex-none text-xs sm:text-base">
+                        ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white' 
+                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+                    class="flex items-center justify-center gap-2.5 px-6 sm:px-10 py-3 rounded-xl font-bold transition-all duration-300 flex-1 sm:flex-none text-sm sm:text-base">
                 <i class="fa-solid fa-qrcode"></i>
-                <span class="hidden sm:inline">QR-коды</span>
-                <span class="sm:hidden">QR</span>
+                <span>QR-коды</span>
             </button>
         </div>
     </div>
 
-    <div class="flex gap-4 mb-4 text-sm justify-center sm:justify-start">
-        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-yellow-400"></span> Рекомендованные</span>
-        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-purple-500"></span> Обход SNI/CIDR</span>
+    <!-- Панель инструментов (Поиск и Фильтры) -->
+    <div class="flex flex-col lg:flex-row gap-4 mb-10 items-stretch lg:items-center justify-between bg-white/80 dark:bg-brand-panel/80 backdrop-blur-lg p-4 sm:p-5 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm transition-all">
+        <!-- Поиск -->
+        <div class="relative flex-1 lg:max-w-md">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fa-solid fa-magnifying-glass text-brand-blue/50 dark:text-blue-400/50"></i>
+            </div>
+            <input type="text" 
+                   x-model="searchQuery"
+                   placeholder="Найти по ID или ссылке..." 
+                   class="block w-full pl-11 pr-12 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-black/20 focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all dark:text-white text-sm font-medium">
+            <div class="absolute inset-y-0 right-0 pr-4 flex items-center gap-2">
+                <button x-show="searchQuery" @click="searchQuery = ''" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Фильтры -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest hidden lg:block shrink-0">Фильтры:</span>
+            <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
+                <button @click="filterType = 'all'"
+                        :class="filterType === 'all' ? 'bg-brand-blue text-white shadow-md border-brand-blue' : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 shadow-sm'"
+                        class="px-4 py-2 rounded-xl text-xs font-bold transition-all border-2 col-span-2 sm:col-auto">
+                    Все
+                </button>
+                <button @click="filterType = 'recommended'"
+                        :class="filterType === 'recommended' ? 'bg-yellow-400 text-yellow-900 shadow-md border-yellow-400' : 'bg-yellow-400/10 text-yellow-700 dark:text-yellow-400 border-transparent'"
+                        class="px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 border-2">
+                    <i class="fa-solid fa-star text-[9px]"></i>
+                    <span>Рекомендованные</span>
+                </button>
+                <button @click="filterType = 'sni'"
+                        :class="filterType === 'sni' ? 'bg-purple-600 text-white shadow-md border-purple-600' : 'bg-purple-600/10 text-purple-600 dark:text-purple-400 border-transparent'"
+                        class="px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 border-2">
+                    <i class="fa-solid fa-bolt text-[9px]"></i>
+                    <span>Обход SNI/CIDR</span>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- Вкладка конфигов -->
+    <!-- Список конфигов -->
     <div x-show="activeTab === 'configs'" 
         x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 translate-y-2"
+        x-transition:enter-start="opacity-0 translate-y-4"
         x-transition:enter-end="opacity-100 translate-y-0">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {% for config in configs %}
-            <!-- ДОБАВЛЕН КЛАСС overflow-hidden -->
-            <div class="bg-white dark:bg-brand-panel rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm hover:shadow-md transition relative flex flex-col overflow-hidden" x-data="{ copied: false }">
-                
-                {% if config.is_recommended %}
-                <!-- Блок теперь будет обрезаться по форме родителя -->
-                <div class="absolute top-0 right-0 bg-yellow-400/20 text-yellow-700 dark:text-yellow-400 text-xs font-bold px-2 py-1 rounded-bl-lg border-l border-b border-yellow-400/30">
-                    Рекомендованный
-                </div>
-                {% endif %}
-                
-                {% if config.is_sni %}
-                <div class="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-bl-lg">
-                    Обход SNI/CIDR
-                </div>
-                {% endif %}
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <template x-for="config in filteredConfigs" :key="config.id">
+                <div class="group bg-white dark:bg-brand-panel rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative flex flex-col overflow-hidden" x-data="{ copied: false }">
+                    
+                    <div class="flex items-center justify-between mb-6 relative z-10">
+                        <div class="flex flex-col">
+                            <div class="font-extrabold text-4xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></div>
+                        </div>
+                        <div class="flex flex-col items-end gap-2">
+                            <template x-if="config.is_recommended">
+                                <span class="bg-yellow-400 text-yellow-900 text-[9px] font-bold px-2 py-1 rounded-lg shadow-sm uppercase tracking-wider">
+                                    Рекомендованный
+                                </span>
+                            </template>
+                            <template x-if="config.is_sni">
+                                <span class="bg-purple-600 text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-sm uppercase tracking-wider">
+                                    Обход SNI/CIDR
+                                </span>
+                            </template>
+                        </div>
+                    </div>
 
-                <!-- Остальной контент карточки... -->
-                <div class="font-mono font-bold text-lg mb-1">#{{ config.id }}</div>
-                <div class="text-xs text-gray-500 break-all bg-gray-50 dark:bg-black/30 p-2 rounded mb-3 font-mono border border-gray-100 dark:border-gray-800">
-                    {{ config.url }}
-                </div>
-                
-                {% if config.last_update %}
-                <div class="text-xs text-gray-500 mb-3 flex items-center gap-1">
-                    <i class="fa-solid fa-clock"></i>
-                    <span>Обновлено: <span class="font-semibold text-gray-700 dark:text-gray-300">{{ config.last_update.datetime_str }}</span></span>
-                </div>
-                {% endif %}
+                    <div class="relative mb-6">
+                        <div class="text-[11px] text-gray-500 break-all bg-gray-50 dark:bg-black/40 p-4 rounded-xl font-mono border border-gray-100 dark:border-gray-800 line-clamp-2 min-h-[4.5rem] flex items-center pr-10" x-text="config.url">
+                        </div>
+                        <button @click="
+                                    const url = config.url;
+                                    const copy = () => {
+                                        copied = true;
+                                        setTimeout(() => { copied = false; }, 2000);
+                                    };
+                                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                                        navigator.clipboard.writeText(url).then(copy).catch(() => {
+                                            const el = document.createElement('textarea');
+                                            el.value = url;
+                                            document.body.appendChild(el);
+                                            el.select();
+                                            document.execCommand('copy');
+                                            document.body.removeChild(el);
+                                            copy();
+                                        });
+                                    } else {
+                                        const el = document.createElement('textarea');
+                                        el.value = url;
+                                        document.body.appendChild(el);
+                                        el.select();
+                                        document.execCommand('copy');
+                                        document.body.removeChild(el);
+                                        copy();
+                                    }
+                                "
+                                class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg transition-all"
+                                :class="copied ? 'text-green-500 bg-green-50 dark:bg-green-900/20' : 'text-gray-400 hover:text-brand-blue hover:bg-gray-100 dark:hover:bg-gray-800'">
+                            <i class="fa-solid" :class="copied ? 'fa-check' : 'fa-copy'"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-auto flex flex-col gap-3 relative z-10">
+                        <div class="flex items-center justify-between px-1">
+                            <template x-if="config.last_update">
+                                <div class="text-[10px] text-gray-400 font-bold flex items-center gap-1.5 uppercase tracking-wide">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                                    <span x-text="config.last_update.datetime_str"></span>
+                                </div>
+                            </template>
+                            <template x-if="!config.last_update">
+                                <div></div>
+                            </template>
+                            
+                            <template x-if="config.sources">
+                                <div class="flex gap-1">
+                                    <template x-if="Array.isArray(config.sources)">
+                                        <button @click="showSourcesModal = true; currentSources = config.sources; currentConfigId = config.id"
+                                                class="text-[10px] font-bold text-brand-blue hover:underline uppercase tracking-widest">
+                                            Источники
+                                        </button>
+                                    </template>
+                                    <template x-if="!Array.isArray(config.sources)">
+                                        <a :href="config.sources" target="_blank"
+                                           class="text-[10px] font-bold text-brand-blue hover:underline uppercase tracking-widest">
+                                            Источник
+                                        </a>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
 
-                <button @click="navigator.clipboard.writeText('{{ config.url }}'); copied = true; setTimeout(() => copied = false, 2000)"
-                        class="mt-auto w-full py-2 rounded font-semibold text-sm flex items-center justify-center gap-2 transition-colors duration-300 ease-in-out"
-                        :class="copied ? 'bg-green-500 text-white shadow-md' : 'bg-brand-blue text-white hover:bg-blue-700 hover:shadow-sm'">
-                    <i class="fa-regular" :class="copied ? 'fa-circle-check' : 'fa-copy'"></i>
-                    <span x-text="copied ? 'Скопировано!' : 'Копировать ссылку'"></span>
-                </button>
-
-                {% if config.sources %}
-                <div class="mt-2 w-full flex gap-2">
-                    {% if config.sources is iterable and config.sources is not string %}
-                    <!-- Несколько источников (для конфига 26) -->
-                    <button @click='showSourcesModal = true; currentSources = {{ config.sources|tojson }}; currentConfigId = {{ config.id }}'
-                            class="flex-1 py-2 rounded font-semibold text-sm bg-purple-600 text-white hover:bg-purple-700 transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-book"></i>
-                        <span>Источники</span>
-                    </button>
-                    {% else %}
-                    <!-- Один источник -->
-                    <a href="{{ config.sources }}"
-                       target="_blank"
-                       class="flex-1 py-2 rounded font-semibold text-sm bg-orange-600 text-white hover:bg-orange-700 transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-book"></i>
-                        <span>Источник</span>
-                    </a>
-                    {% endif %}
+                        <button @click="
+                                    const url = config.url;
+                                    const copy = () => {
+                                        copied = true;
+                                        setTimeout(() => { copied = false; }, 2000);
+                                    };
+                                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                                        navigator.clipboard.writeText(url).then(copy).catch(() => {
+                                            const el = document.createElement('textarea');
+                                            el.value = url;
+                                            document.body.appendChild(el);
+                                            el.select();
+                                            document.execCommand('copy');
+                                            document.body.removeChild(el);
+                                            copy();
+                                        });
+                                    } else {
+                                        const el = document.createElement('textarea');
+                                        el.value = url;
+                                        document.body.appendChild(el);
+                                        el.select();
+                                        document.execCommand('copy');
+                                        document.body.removeChild(el);
+                                        copy();
+                                    }
+                                "
+                                class="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300"
+                                :class="copied ? 'bg-green-600 text-white shadow-md' : 'bg-brand-blue hover:bg-blue-600 text-white shadow-sm active:scale-95'">
+                            <i class="fa-solid" :class="copied ? 'fa-circle-check' : 'fa-copy'"></i>
+                            <span x-text="copied ? 'Скопировано!' : 'Копировать ссылку'"></span>
+                        </button>
+                    </div>
                 </div>
-                {% endif %}
-            </div>
-            {% endfor %}
+            </template>
         </div>
+
+        <!-- Пустое состояние -->
+        <template x-if="filteredConfigs.length === 0">
+            <div class="text-center py-20 bg-white dark:bg-brand-panel rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-800 transition-all">
+                <div class="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-magnifying-glass text-3xl text-gray-300 dark:text-gray-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Ничего не найдено</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-8">Попробуйте изменить запрос или фильтры</p>
+                <button @click="searchQuery = ''; filterType = 'all'" 
+                        class="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600 transition-all">
+                    Показать всё
+                </button>
+            </div>
+        </template>
     </div>
 
     <!-- Вкладка QR-кодов -->
     <div x-show="activeTab === 'qr'" 
          x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 translate-y-2"
+         x-transition:enter-start="opacity-0 translate-y-4"
          x-transition:enter-end="opacity-100 translate-y-0">
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {% for config in configs %}
-            <div class="bg-white dark:bg-brand-panel rounded-xl border border-gray-200 dark:border-gray-700 p-4 shadow-sm hover:shadow-md transition text-center relative">
-                
-                {% if config.is_recommended %}
-                <div class="absolute top-0 left-0 right-0 flex justify-center">
-                    <div class="bg-yellow-400/20 text-yellow-700 dark:text-yellow-400 text-[10px] font-bold px-2 py-0.5 rounded-b-lg border-l border-r border-b border-yellow-400/30 w-fit">
-                        Рекомендованный
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            <template x-for="config in filteredConfigs" :key="config.id">
+                <div class="group bg-white dark:bg-brand-panel rounded-2xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center relative flex flex-col">
+                    
+                    <div class="flex items-center justify-between mb-4 px-1">
+                        <div class="flex flex-col items-start">
+                            <span class="font-extrabold text-2xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></span>
+                        </div>
+                        <div class="flex flex-col items-end gap-1">
+                            <template x-if="config.is_recommended">
+                                <span class="bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
+                                    Рек.
+                                </span>
+                            </template>
+                            <template x-if="config.is_sni">
+                                <span class="bg-purple-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
+                                    SNI
+                                </span>
+                            </template>
+                        </div>
                     </div>
-                </div>
-                {% endif %}
-                
-                {% if config.is_sni %}
-                <div class="absolute top-0 left-0 right-0 flex justify-center">
-                    <div class="bg-purple-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-b-lg w-fit">
-                        Обход SNI/CIDR
+                    
+                    <div class="relative mb-5 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800">
+                        <img :src="'https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/' + config.id + '.png'" 
+                             :alt="'QR код конфига ' + config.id"
+                             class="w-full aspect-square transition-transform duration-500">
                     </div>
-                </div>
-                {% endif %}
-                
-                <div class="font-bold text-lg mb-2 pt-2">#{{ config.id }}</div>
-                <img src="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
-                     alt="QR код конфига {{ config.id }}"
-                     class="w-full aspect-square rounded-lg border border-gray-100 dark:border-gray-800 mb-3">
-                
-                {% if config.last_update %}
-                <div class="text-[10px] text-gray-500 mb-2">
-                    <i class="fa-solid fa-clock"></i>
-                    {{ config.last_update.datetime_str }}
-                </div>
-                {% endif %}
-                
-                <a href="https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/{{ config.id }}.png" 
-                   download="goida-vpn-config-{{ config.id }}.png"
-                   class="w-full flex items-center justify-center gap-2 py-2 bg-brand-blue text-white hover:bg-blue-700 rounded text-sm font-medium transition-colors shadow-sm hover:shadow-md">
-                   <i class="fa-solid fa-download"></i>
-                   <span>Скачать</span>
-                </a>
+                    
+                    <div class="mt-auto flex flex-col gap-2">
+                        <div class="flex flex-col items-center gap-1 mb-1">
+                            <template x-if="config.last_update">
+                                <div class="text-[9px] text-gray-400 font-bold flex items-center gap-1 uppercase tracking-tight">
+                                    <span class="w-1 h-1 rounded-full bg-green-500 animate-pulse"></span>
+                                    <span x-text="config.last_update.datetime_str"></span>
+                                </div>
+                            </template>
 
-                {% if config.sources %}
-                <div class="mt-2 w-full">
-                    {% if config.sources is iterable and config.sources is not string %}
-                    <!-- Несколько источников (для конфига 26) -->
-                    <button @click='showSourcesModal = true; currentSources = {{ config.sources|tojson }}; currentConfigId = {{ config.id }}'
-                            class="w-full py-2 rounded font-semibold text-sm bg-purple-600 text-white hover:bg-purple-700 transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-book"></i>
-                        <span>Источники</span>
-                    </button>
-                    {% else %}
-                    <!-- Один источник -->
-                    <a href="{{ config.sources }}"
-                       target="_blank"
-                       class="block w-full py-2 rounded font-semibold text-sm bg-orange-600 text-white hover:bg-orange-700 transition-all text-center">
-                        <i class="fa-solid fa-book"></i>
-                        <span>Источник</span>
-                    </a>
-                    {% endif %}
+                            <template x-if="config.sources">
+                                <div class="flex gap-1">
+                                    <template x-if="Array.isArray(config.sources)">
+                                        <button @click="showSourcesModal = true; currentSources = config.sources; currentConfigId = config.id"
+                                                class="text-[9px] font-bold text-brand-blue hover:underline uppercase tracking-widest">
+                                            Источники
+                                        </button>
+                                    </template>
+                                    <template x-if="!Array.isArray(config.sources)">
+                                        <a :href="config.sources" target="_blank"
+                                           class="text-[9px] font-bold text-brand-blue hover:underline uppercase tracking-widest">
+                                            Источник
+                                        </a>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+
+                        <a :href="'https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/' + config.id + '.png'" 
+                           download
+                           class="w-full flex items-center justify-center gap-2 py-2.5 bg-brand-blue text-white hover:bg-blue-600 rounded-xl text-xs font-bold transition-all shadow-sm">
+                           <i class="fa-solid fa-download"></i>
+                           <span>Скачать</span>
+                        </a>
+                    </div>
                 </div>
-                {% endif %}
-            </div>
-            {% endfor %}
+            </template>
         </div>
+
+        <!-- Пустое состояние -->
+        <template x-if="filteredConfigs.length === 0">
+            <div class="text-center py-20 bg-white dark:bg-brand-panel rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-800 transition-all">
+                <div class="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-qrcode text-3xl text-gray-300 dark:text-gray-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">QR-коды не найдены</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-8">Попробуйте изменить параметры поиска</p>
+                <button @click="searchQuery = ''; filterType = 'all'" 
+                        class="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600 transition-all">
+                    Сбросить всё
+                </button>
+            </div>
+        </template>
     </div>
 </div>
