@@ -177,7 +177,7 @@
               }
           }
       }"
-      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { if (value) { document.body.classList.add('body--lock'); loadGitHubStats(); } else { document.body.classList.remove('body--lock'); } }); $watch('showExitModal', value => { document.body.classList.toggle('body--lock', value); });"
+      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { if (value) { document.body.classList.add('body--lock'); loadGitHubStats(); } else { document.body.classList.remove('body--lock'); } }); $watch('showExitModal', value => { document.body.classList.toggle('body--lock', value); }); $watch('showSourcesModal', value => { document.body.classList.toggle('body--lock', value); });"
       x-on:open-exit-modal.window="targetUrl = $event.detail.url; showExitModal = true"
 >
 
