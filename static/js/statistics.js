@@ -105,7 +105,7 @@ async function loadGitHubStats() {
                 </div>
             </div>
             <div class="mt-6 text-center text-[10px] text-gray-400 uppercase tracking-widest font-bold opacity-60">
-                Обновлено при последней сборке
+                Статистика обновляется при каждой сборке сайта.
             </div>
         `;
     } catch (error) {
