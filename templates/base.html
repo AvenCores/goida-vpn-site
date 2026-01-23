@@ -160,6 +160,7 @@
           targetUrl: '',
           currentSources: [],
           currentConfigId: null,
+          lockTimeout: null,
           formatUrl(url) {
               if (!url) return '';
               try {
@@ -181,9 +182,13 @@
           },
           lockBody(state) {
               if (state) {
+                  if (this.lockTimeout) clearTimeout(this.lockTimeout);
                   document.body.classList.add('body--lock');
               } else {
-                  document.body.classList.remove('body--lock');
+                  // Задержка 300мс соответствует стандартной длительности x-transition
+                  this.lockTimeout = setTimeout(() => {
+                      document.body.classList.remove('body--lock');
+                  }, 300);
               }
           }
       }"
