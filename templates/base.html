@@ -225,27 +225,29 @@
              class="bg-white dark:bg-brand-panel rounded-xl shadow-xl max-w-lg w-full max-h-[80vh] flex flex-col">
 
             <div class="border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between flex-shrink-0">
-                <h3 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-chart-simple text-blue-500"></i>
+                <h3 class="text-xl font-black flex items-center gap-3 tracking-tight">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                        <i class="fa-solid fa-chart-simple"></i>
+                    </div>
                     <span>Статистика репозитория</span>
                 </h3>
                 <button @click="showStatsModal = false"
-                        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition">
+                        class="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
 
             <div class="p-6 overflow-y-auto" id="stats-content">
                 <!-- Сюда будет загружаться статистика -->
-                <div class="text-center">
-                    <i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400"></i>
-                    <p class="mt-2 text-sm text-gray-500">Загрузка данных...</p>
+                <div class="text-center py-10">
+                    <i class="fa-solid fa-circle-notch fa-spin text-4xl text-blue-500 mb-4"></i>
+                    <p class="text-sm font-bold text-gray-500 animate-pulse">Загрузка данных...</p>
                 </div>
             </div>
 
             <div class="border-t border-gray-200 dark:border-gray-700 p-4 flex-shrink-0">
                 <button @click="showStatsModal = false"
-                        class="w-full py-2 rounded font-semibold bg-red-600 hover:bg-red-700 text-white transition">
+                        class="w-full py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-[0.98]">
                     Закрыть
                 </button>
             </div>

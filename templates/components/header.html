@@ -19,15 +19,18 @@
                 </a>
             </div>
 
-            <button @click="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 transition hover:shadow-md hover:shadow-gray-600/30 dark:hover:shadow-gray-400/20">
-                <i class="fa-solid text-lg" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-gray-500'"></i>
+            <button @click="toggleTheme()" class="group w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/10 active:scale-90 relative overflow-hidden">
+                <div class="relative z-10">
+                    <i class="fa-solid text-lg transition-all duration-500" :class="darkMode ? 'fa-sun text-yellow-400 rotate-[360deg] scale-110' : 'fa-moon text-blue-600 rotate-0'"></i>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
             </button>
-            <button @click="showStatsModal = true" class="bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition border-2 border-white hover:shadow-md hover:shadow-blue-600/30 dark:hover:shadow-blue-400/20 flex items-center justify-center w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2">
-                <i class="fa-solid fa-chart-simple text-lg sm:mr-1"></i>
+            <button @click="showStatsModal = true" class="group bg-gradient-to-br from-blue-600 to-brand-blue text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-10 h-10 sm:w-auto sm:h-10 sm:px-5 border border-white/20">
+                <i class="fa-solid fa-chart-simple text-lg sm:mr-2 group-hover:rotate-12 transition-transform"></i>
                 <span class="hidden sm:inline">Статистика</span>
             </button>
-            <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" class="bg-gray-900 text-white rounded-lg text-sm font-bold hover:bg-gray-700 transition border-2 border-white hover:shadow-md hover:shadow-gray-600/30 dark:hover:shadow-gray-400/20 flex items-center justify-center w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2">
-                <i class="fa-brands fa-github text-xl sm:mr-1"></i>
+            <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" class="group bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-10 h-10 sm:w-auto sm:h-10 sm:px-5 border border-white/10">
+                <i class="fa-brands fa-github text-xl sm:mr-2 group-hover:scale-110 transition-transform"></i>
                 <span class="hidden sm:inline">GitHub</span>
             </a>
         </div>

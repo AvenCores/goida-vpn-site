@@ -49,46 +49,63 @@ async function loadGitHubStats() {
 
         statsContent.innerHTML = `
             <div class="space-y-4">
-                <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-                    <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Последнее обновление</div>
-                    <div class="font-bold text-lg flex items-center gap-2">
+                <div class="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
+                    <div class="text-xs text-blue-600 dark:text-blue-400 uppercase font-bold mb-1 tracking-wider">Последнее обновление</div>
+                    <div class="font-bold text-lg flex items-center gap-2 text-gray-800 dark:text-gray-100">
                         <i class="fa-regular fa-clock text-blue-500"></i>
                         ${dateString}
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                     <div class="p-3 bg-gray-50 dark:bg-black/30 rounded-lg text-center">
-                        <div class="text-xs text-gray-500 uppercase font-bold mb-1">Звёзды</div>
-                        <div class="text-xl font-bold text-yellow-500">
-                            <i class="fa-solid fa-star mr-1"></i> ${formatNumber(data.stargazers_count)}
+                     <div class="p-4 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-yellow-900/10 dark:to-amber-900/10 rounded-xl border border-yellow-100 dark:border-yellow-800/30 text-center shadow-sm">
+                        <div class="text-[10px] text-amber-700 dark:text-amber-500 uppercase font-bold mb-1 tracking-wider">Звёзды</div>
+                        <div class="text-2xl font-black text-amber-500">
+                            <i class="fa-solid fa-star mr-1 drop-shadow-sm"></i> ${formatNumber(data.stargazers_count)}
                         </div>
                     </div>
-                     <div class="p-3 bg-gray-50 dark:bg-black/30 rounded-lg text-center">
-                        <div class="text-xs text-gray-500 uppercase font-bold mb-1">Просмотры (14Д)</div>
-                        <div class="text-xl font-bold text-purple-400">
-                            <i class="fa-solid fa-eye mr-1"></i> ${formatNumber(data.views.count)}
+                     <div class="p-4 bg-gradient-to-br from-purple-50 to-fuchsia-50 dark:from-purple-900/10 dark:to-fuchsia-900/10 rounded-xl border border-purple-100 dark:border-purple-800/30 text-center shadow-sm">
+                        <div class="text-[10px] text-purple-700 dark:text-purple-400 uppercase font-bold mb-1 tracking-wider">Просмотры (14д)</div>
+                        <div class="text-2xl font-black text-purple-500 dark:text-purple-400">
+                            <i class="fa-solid fa-eye mr-1 drop-shadow-sm"></i> ${formatNumber(data.views.count)}
                         </div>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-download text-green-500"></i> Клоны (14Д)</span>
-                    <span class="font-bold text-lg">${formatNumber(data.clones.count)}</span>
-                </div>
-                
-                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-user-check text-orange-400"></i> Уникальные клоны (14Д)</span>
-                    <span class="font-bold text-lg">${formatNumber(data.clones.uniques)}</span>
-                </div>
-                 
-                 <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-black/30 rounded-lg">
-                    <span class="font-semibold flex items-center gap-2 text-sm"><i class="fa-solid fa-users text-indigo-400"></i> Уникальные посетители (14Д)</span>
-                    <span class="font-bold text-lg">${formatNumber(data.views.uniques)}</span>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm hover:bg-white dark:hover:bg-white/10 transition-colors">
+                        <span class="font-bold flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                            <div class="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+                                <i class="fa-solid fa-download"></i>
+                            </div>
+                            Клоны (14д)
+                        </span>
+                        <span class="font-black text-xl text-gray-800 dark:text-gray-100">${formatNumber(data.clones.count)}</span>
+                    </div>
+                    
+                    <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm hover:bg-white dark:hover:bg-white/10 transition-colors">
+                        <span class="font-bold flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                            <div class="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            Уникальные клоны
+                        </span>
+                        <span class="font-black text-xl text-gray-800 dark:text-gray-100">${formatNumber(data.clones.uniques)}</span>
+                    </div>
+                     
+                     <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm hover:bg-white dark:hover:bg-white/10 transition-colors">
+                        <span class="font-bold flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            Уникальные посетители
+                        </span>
+                        <span class="font-black text-xl text-gray-800 dark:text-gray-100">${formatNumber(data.views.uniques)}</span>
+                    </div>
                 </div>
             </div>
-            <div class="mt-4 text-center text-xs text-gray-400">
-                Статистика обновляется при каждой сборке сайта.
+            <div class="mt-6 text-center text-[10px] text-gray-400 uppercase tracking-widest font-bold opacity-60">
+                Обновлено при последней сборке
             </div>
         `;
     } catch (error) {
