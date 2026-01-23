@@ -123,6 +123,34 @@ def get_download_links():
 STATS_CACHE_FILE = 'github_stats_cache.json'
 STATS_CACHE_DURATION = timedelta(hours=1)
 
+BADGES = {
+    'python.svg': 'https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54',
+    'license.svg': 'https://img.shields.io/badge/License-GPL--3.0-blue?style=for-the-badge',
+    'stars.svg': 'https://img.shields.io/github/stars/AvenCores/goida-vpn-configs?style=for-the-badge',
+    'forks.svg': 'https://img.shields.io/github/forks/AvenCores/goida-vpn-configs?style=for-the-badge',
+    'prs.svg': 'https://img.shields.io/github/issues-pr/AvenCores/goida-vpn-configs?style=for-the-badge',
+    'issues.svg': 'https://img.shields.io/github/issues/AvenCores/goida-vpn-configs?style=for-the-badge'
+}
+
+def download_badges():
+    """Скачивает бэджи локально для кэширования"""
+    badges_dir = os.path.join('static', 'images', 'badges')
+    if not os.path.exists(badges_dir):
+        os.makedirs(badges_dir)
+    
+    print("Загрузка бэджей...")
+    for filename, url in BADGES.items():
+        try:
+            response = requests.get(url, timeout=10)
+            if response.status_code == 200:
+                with open(os.path.join(badges_dir, filename), 'wb') as f:
+                    f.write(response.content)
+                print(f"✅ Бэдж {filename} обновлен")
+            else:
+                print(f"⚠️ Не удалось загрузить бэдж {filename}: {response.status_code}")
+        except Exception as e:
+            print(f"❌ Ошибка при загрузке бэджа {filename}: {e}")
+
 def get_cached_stats():
     """Получить кэшированную статистику, если она актуальна"""
     if os.path.exists(STATS_CACHE_FILE):
@@ -177,6 +205,9 @@ def serve_license():
 if __name__ == '__main__':
     # Импортируем промышленный сервер
     from waitress import serve
+    
+    # Скачиваем бэджи при запуске
+    download_badges()
     
     print("Запуск локального сайта на http://127.0.0.1:5000")
     # Запускаем приложение через waitress

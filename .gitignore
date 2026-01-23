@@ -1,4 +1,5 @@
 .env/
 .gemini/
 __pycache__/
+static/images/
 download_links_cache.json

@@ -4,7 +4,7 @@ import subprocess
 import json
 import requests
 from flask import render_template
-from main import app, get_vpn_configs, fetch_download_links, FALLBACK_LINKS
+from main import app, get_vpn_configs, fetch_download_links, FALLBACK_LINKS, download_badges
 
 # НАСТРОЙКИ
 REPO_USER = "AvenCores"
@@ -16,6 +16,9 @@ BRANCH = "gh-pages"
 
 def build_site():
     print(f"🚀 Начинаем сборку сайта в папку ./{DIST_DIR}...")
+
+    # Скачиваем актуальные бэджи
+    download_badges()
 
     if os.path.exists(DIST_DIR):
         shutil.rmtree(DIST_DIR)
