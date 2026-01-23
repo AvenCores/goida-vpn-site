@@ -25,7 +25,7 @@
 Это веб-интерфейс для проекта [**goida-vpn-configs**](https://github.com/AvenCores/goida-vpn-configs/). 
 Сайт автоматически парсит актуальные конфигурации (V2Ray, VLESS, Hysteria, Trojan, VMess, Reality, Shadowsocks), генерирует удобные ссылки для копирования, QR-коды и предоставляет инструкции по подключению.
 
-<img width="2560" height="1271" alt="chrome_kPAeWOan12" src="https://github.com/user-attachments/assets/a60e9e68-07a6-4f7c-b831-75202e74d9bd" />
+<img width="2560" height="1271" alt="chrome_EK875EySNN" src="https://github.com/user-attachments/assets/5f5cad26-0c7a-48c4-8a15-8da1e4d4da51" />
 
 ## ✨ Ключевые особенности
 
