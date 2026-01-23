@@ -263,45 +263,50 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
-         class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+         class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
          @click.self="showSourcesModal = false">
         <div x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 scale-95"
-             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
              x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 scale-100"
-             x-transition:leave-end="opacity-0 scale-95"
-             class="bg-white dark:bg-brand-panel rounded-xl shadow-xl max-w-md w-full max-h-[80vh] overflow-y-auto">
+             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+             class="bg-white dark:bg-brand-panel rounded-3xl shadow-2xl max-w-md w-full max-h-[85vh] flex flex-col border border-gray-200 dark:border-white/10 overflow-hidden">
             
-            <div class="sticky top-0 bg-white dark:bg-brand-panel border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between">
-                <h3 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-book text-orange-600"></i>
-                    <span>Источники конфига <span x-text="currentConfigId"></span></span>
+            <div class="sticky top-0 bg-white/80 dark:bg-brand-panel/80 backdrop-blur-md border-b border-gray-200 dark:border-white/10 p-6 flex items-center justify-between z-10">
+                <h3 class="text-xl font-black flex items-center gap-3 tracking-tight">
+                    <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400 shadow-sm border border-orange-200 dark:border-orange-800/30">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                    </div>
+                    <span>Источники конфига <span class="text-orange-500" x-text="currentConfigId"></span></span>
                 </h3>
                 <button @click="showSourcesModal = false"
-                        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition">
+                        class="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
 
-            <div class="p-6 space-y-3">
+            <div class="p-6 space-y-4 overflow-y-auto">
                 <template x-for="(source, index) in currentSources" :key="index">
                     <a :href="source"
                        target="_blank"
-                       class="block p-3 bg-gray-50 dark:bg-black/30 hover:bg-gray-100 dark:hover:bg-black/50 rounded-lg border border-gray-200 dark:border-gray-700 transition">
-                        <div class="flex items-center justify-between gap-2">
+                       class="group block p-4 bg-gradient-to-br from-gray-50 to-white dark:from-white/5 dark:to-transparent rounded-2xl border border-gray-100 dark:border-white/10 hover:border-orange-200 dark:hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/5 transition-all duration-300">
+                        <div class="flex items-center justify-between gap-4">
                             <div class="flex-1 min-w-0">
-                                <p class="text-sm font-semibold text-brand-blue dark:text-blue-400 truncate" x-text="source"></p>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover:text-orange-500 transition-colors">Источник #<span x-text="index + 1"></span></p>
+                                <p class="text-sm font-bold text-brand-blue dark:text-blue-400 truncate leading-relaxed" x-text="source"></p>
                             </div>
-                            <i class="fa-solid fa-arrow-up-right-from-square flex-shrink-0 text-gray-400"></i>
+                            <div class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-orange-100 group-hover:text-orange-600 dark:group-hover:bg-orange-900/30 dark:group-hover:text-orange-400 transition-all">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </div>
                         </div>
                     </a>
                 </template>
             </div>
 
-            <div class="sticky bottom-0 bg-white dark:bg-brand-panel border-t border-gray-200 dark:border-gray-700 p-4">
+            <div class="sticky bottom-0 bg-white dark:bg-brand-panel border-t border-gray-200 dark:border-white/10 p-4">
                 <button @click="showSourcesModal = false"
-                        class="w-full py-2 rounded font-semibold bg-red-600 hover:bg-red-700 text-white transition">
+                        class="w-full py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-[0.98]">
                     Закрыть
                 </button>
             </div>
