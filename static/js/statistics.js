@@ -188,7 +188,7 @@ async function loadGitHubStats() {
 
                 <!-- Область контента (скроллируемая, фиксированной высоты) -->
                 <div class="relative overflow-hidden rounded-xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
-                     <div class="h-[400px] overflow-y-scroll p-4 custom-scrollbar">
+                     <div class="h-[500px] overflow-y-scroll p-4 custom-scrollbar">
                         <div id="stats-tab-general" class="stats-tab-content block h-full">
                             ${generalTabHtml}
                         </div>
