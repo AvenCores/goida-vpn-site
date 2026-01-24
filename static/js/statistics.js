@@ -49,7 +49,7 @@ async function loadGitHubStats() {
 
         // 1. General Tab HTML
         const generalTabHtml = `
-            <div class="space-y-4 animate-fade-in">
+            <div class="space-y-4">
                 <div class="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
                     <div class="text-xs text-blue-600 dark:text-blue-400 uppercase font-bold mb-1 tracking-wider">Последнее обновление</div>
                     <div class="font-bold text-lg flex items-center gap-2 text-gray-800 dark:text-gray-100">
@@ -111,8 +111,9 @@ async function loadGitHubStats() {
         `;
 
         // 2. Referrers Tab HTML
-        let referrersTabHtml = '<div class="space-y-3 animate-fade-in">';
+        let referrersTabHtml = '';
         if (data.referrers && data.referrers.length > 0) {
+            referrersTabHtml = '<div class="space-y-3">';
             data.referrers.forEach(ref => {
                 referrersTabHtml += `
                     <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-colors">
@@ -132,19 +133,20 @@ async function loadGitHubStats() {
                     </div>
                 `;
             });
+            referrersTabHtml += '</div>';
         } else {
-            referrersTabHtml += `
-                <div class="text-center py-10 opacity-60">
+            referrersTabHtml = `
+                <div class="flex flex-col items-center justify-center h-full opacity-60 pb-10">
                     <i class="fa-solid fa-link-slash text-4xl mb-3 text-gray-300 dark:text-gray-600"></i>
                     <p class="text-sm text-gray-500">Нет данных об источниках</p>
                 </div>
             `;
         }
-        referrersTabHtml += '</div>';
 
         // 3. Popular Content Tab HTML
-        let contentTabHtml = '<div class="space-y-3 animate-fade-in">';
+        let contentTabHtml = '';
         if (data.popular_content && data.popular_content.length > 0) {
+            contentTabHtml = '<div class="space-y-3">';
             data.popular_content.forEach(item => {
                 contentTabHtml += `
                     <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-colors">
@@ -164,15 +166,15 @@ async function loadGitHubStats() {
                     </div>
                 `;
             });
+            contentTabHtml += '</div>';
         } else {
-            contentTabHtml += `
-                 <div class="text-center py-10 opacity-60">
+            contentTabHtml = `
+                 <div class="flex flex-col items-center justify-center h-full opacity-60 pb-10">
                     <i class="fa-regular fa-folder-open text-4xl mb-3 text-gray-300 dark:text-gray-600"></i>
                     <p class="text-sm text-gray-500">Нет данных о популярном контенте</p>
                 </div>
             `;
         }
-        contentTabHtml += '</div>';
 
         // Итоговая структура
         statsContent.innerHTML = `
@@ -186,14 +188,14 @@ async function loadGitHubStats() {
 
                 <!-- Область контента (скроллируемая, фиксированной высоты) -->
                 <div class="relative overflow-hidden rounded-xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
-                     <div class="h-[400px] overflow-y-auto p-4 custom-scrollbar">
-                        <div id="stats-tab-general" class="stats-tab-content block">
+                     <div class="h-[400px] overflow-y-scroll p-4 custom-scrollbar">
+                        <div id="stats-tab-general" class="stats-tab-content block h-full">
                             ${generalTabHtml}
                         </div>
-                        <div id="stats-tab-referrers" class="stats-tab-content hidden">
+                        <div id="stats-tab-referrers" class="stats-tab-content hidden h-full">
                             ${referrersTabHtml}
                         </div>
-                        <div id="stats-tab-content" class="stats-tab-content hidden">
+                        <div id="stats-tab-content" class="stats-tab-content hidden h-full">
                             ${contentTabHtml}
                         </div>
                     </div>
@@ -201,13 +203,6 @@ async function loadGitHubStats() {
             </div>
             
             <style>
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(5px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                .animate-fade-in {
-                    animation: fadeIn 0.3s ease-out forwards;
-                }
                 /* Тонкий скроллбар для области контента */
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 4px;
