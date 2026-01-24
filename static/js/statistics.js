@@ -178,46 +178,32 @@ async function loadGitHubStats() {
 
         // Итоговая структура
         statsContent.innerHTML = `
-            <div class="stats-container flex flex-col h-full">
-                <!-- Меню вкладок (фиксированное) -->
-                <div class="flex-shrink-0 flex space-x-1 bg-gray-100 dark:bg-white/5 p-1 rounded-xl mb-4">
-                    <button onclick="switchStatsTab('general', this)" class="stats-tab-btn active flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white">Общее</button>
-                    <button onclick="switchStatsTab('referrers', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Источники</button>
-                    <button onclick="switchStatsTab('content', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Контент</button>
+            <div class="stats-container flex flex-col">
+                <!-- Меню вкладок (sticky) -->
+                <div class="sticky top-0 z-10 -mx-6 -mt-6 px-6 pt-6 pb-4 bg-white dark:bg-brand-panel border-b border-gray-100 dark:border-white/5 mb-4 shadow-sm transition-colors duration-300">
+                    <div class="flex space-x-1 bg-gray-100 dark:bg-white/5 p-1 rounded-xl">
+                        <button onclick="switchStatsTab('general', this)" class="stats-tab-btn active flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white">Общее</button>
+                        <button onclick="switchStatsTab('referrers', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Источники</button>
+                        <button onclick="switchStatsTab('content', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Контент</button>
+                    </div>
                 </div>
 
-                <!-- Область контента (скроллируемая, фиксированной высоты) -->
+                <!-- Область контента (автоматическая высота) -->
                 <div class="relative overflow-hidden rounded-xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
-                     <div class="h-[550px] sm:h-[480px] overflow-y-scroll p-4 custom-scrollbar">
-                        <div id="stats-tab-general" class="stats-tab-content block h-full">
+                     <div class="p-4">
+                        <div id="stats-tab-general" class="stats-tab-content block">
                             ${generalTabHtml}
                         </div>
-                        <div id="stats-tab-referrers" class="stats-tab-content hidden h-full">
+                        <div id="stats-tab-referrers" class="stats-tab-content hidden">
                             ${referrersTabHtml}
                         </div>
-                        <div id="stats-tab-content" class="stats-tab-content hidden h-full">
+                        <div id="stats-tab-content" class="stats-tab-content hidden">
                             ${contentTabHtml}
                         </div>
                     </div>
                 </div>
+                <div class="h-2"></div>
             </div>
-            
-            <style>
-                /* Тонкий скроллбар для области контента */
-                .custom-scrollbar::-webkit-scrollbar {
-                    width: 4px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-track {
-                    background: transparent;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background-color: #cbd5e1;
-                    border-radius: 20px;
-                }
-                .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background-color: #475569;
-                }
-            </style>
         `;
 
         // Функция переключения (глобальная область видимости, чтобы работал onclick)
