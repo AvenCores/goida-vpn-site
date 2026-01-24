@@ -184,9 +184,9 @@ async function loadGitHubStats() {
                     <button onclick="switchStatsTab('content', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Контент</button>
                 </div>
 
-                <!-- Область контента (скроллируемая, фиксированной высоты) -->
+                <!-- Область контента (скроллируемая) -->
                 <div class="relative overflow-hidden rounded-xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
-                     <div class="h-[400px] overflow-y-auto p-4 custom-scrollbar">
+                     <div class="max-h-[60vh] overflow-y-auto p-4 custom-scrollbar">
                         <div id="stats-tab-general" class="stats-tab-content block">
                             ${generalTabHtml}
                         </div>
