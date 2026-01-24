@@ -178,7 +178,7 @@ async function loadGitHubStats() {
 
         // Итоговая структура
         statsContent.innerHTML = `
-            <div class="stats-container flex flex-col h-full">
+            <div class="stats-container flex flex-col h-[600px] p-6">
                 <!-- Меню вкладок (фиксированное) -->
                 <div class="flex-shrink-0 flex space-x-1 bg-gray-100 dark:bg-white/5 p-1 rounded-xl mb-4">
                     <button onclick="switchStatsTab('general', this)" class="stats-tab-btn active flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white">Общее</button>
@@ -186,10 +186,10 @@ async function loadGitHubStats() {
                     <button onclick="switchStatsTab('content', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Контент</button>
                 </div>
 
-                <!-- Область контента (скроллируемая, фиксированной высоты) -->
-                <div class="relative overflow-hidden rounded-xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
-                     <div class="h-[500px] overflow-y-scroll p-4 custom-scrollbar">
-                        <div id="stats-tab-general" class="stats-tab-content block h-full">
+                <!-- Область контента (заполняет пространство, скроллится) -->
+                <div class="flex-1 min-h-0 overflow-hidden relative rounded-xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
+                     <div class="h-full overflow-y-auto p-4 custom-scrollbar">
+                        <div id="stats-tab-general" class="stats-tab-content block">
                             ${generalTabHtml}
                         </div>
                         <div id="stats-tab-referrers" class="stats-tab-content hidden h-full">
