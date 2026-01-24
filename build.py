@@ -113,8 +113,8 @@ def fetch_and_save_github_stats(api_path):
         else:
             print(f"⚠️ Warning: Views API returned {views_response.status_code}")
 
-        # 4. Получаем Referring sites
-        print("ℹ️ Запрос Referring sites...")
+        # 4. Получаем cайтов-источников переходов
+        print("ℹ️ Запрос cайтов-источников переходов...")
         referrers_response = requests.get(f'{base_url}/traffic/popular/referrers', headers=headers, timeout=10)
         if referrers_response.ok:
             stats["referrers"] = referrers_response.json()
@@ -122,8 +122,8 @@ def fetch_and_save_github_stats(api_path):
             print(f"⚠️ Warning: Referrers API returned {referrers_response.status_code}")
             stats["referrers"] = []
 
-        # 5. Получаем Popular paths
-        print("ℹ️ Запрос Popular paths...")
+        # 5. Получаем популярный контент
+        print("ℹ️ Запрос популярного контента...")
         paths_response = requests.get(f'{base_url}/traffic/popular/paths', headers=headers, timeout=10)
         if paths_response.ok:
             stats["popular_content"] = paths_response.json()
