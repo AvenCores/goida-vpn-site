@@ -49,7 +49,7 @@ async function loadGitHubStats() {
 
         // 1. General Tab HTML
         const generalTabHtml = `
-            <div class="space-y-4">
+            <div class="space-y-4 animate-fade-in">
                 <div class="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
                     <div class="text-xs text-blue-600 dark:text-blue-400 uppercase font-bold mb-1 tracking-wider">Последнее обновление</div>
                     <div class="font-bold text-lg flex items-center gap-2 text-gray-800 dark:text-gray-100">
@@ -111,9 +111,8 @@ async function loadGitHubStats() {
         `;
 
         // 2. Referrers Tab HTML
-        let referrersTabHtml = '';
+        let referrersTabHtml = '<div class="space-y-3 animate-fade-in">';
         if (data.referrers && data.referrers.length > 0) {
-            referrersTabHtml = '<div class="space-y-3">';
             data.referrers.forEach(ref => {
                 referrersTabHtml += `
                     <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-colors">
@@ -133,20 +132,19 @@ async function loadGitHubStats() {
                     </div>
                 `;
             });
-            referrersTabHtml += '</div>';
         } else {
-            referrersTabHtml = `
-                <div class="flex flex-col items-center justify-center h-full opacity-60 pb-10">
+            referrersTabHtml += `
+                <div class="text-center py-10 opacity-60">
                     <i class="fa-solid fa-link-slash text-4xl mb-3 text-gray-300 dark:text-gray-600"></i>
                     <p class="text-sm text-gray-500">Нет данных об источниках</p>
                 </div>
             `;
         }
+        referrersTabHtml += '</div>';
 
         // 3. Popular Content Tab HTML
-        let contentTabHtml = '';
+        let contentTabHtml = '<div class="space-y-3 animate-fade-in">';
         if (data.popular_content && data.popular_content.length > 0) {
-            contentTabHtml = '<div class="space-y-3">';
             data.popular_content.forEach(item => {
                 contentTabHtml += `
                     <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-colors">
@@ -166,31 +164,29 @@ async function loadGitHubStats() {
                     </div>
                 `;
             });
-            contentTabHtml += '</div>';
         } else {
-            contentTabHtml = `
-                 <div class="flex flex-col items-center justify-center h-full opacity-60 pb-10">
+            contentTabHtml += `
+                 <div class="text-center py-10 opacity-60">
                     <i class="fa-regular fa-folder-open text-4xl mb-3 text-gray-300 dark:text-gray-600"></i>
                     <p class="text-sm text-gray-500">Нет данных о популярном контенте</p>
                 </div>
             `;
         }
+        contentTabHtml += '</div>';
 
         // Итоговая структура
         statsContent.innerHTML = `
-            <div class="stats-container flex flex-col">
-                <!-- Меню вкладок (sticky) -->
-                <div class="sticky top-0 z-10 -mx-6 -mt-6 px-6 pt-6 pb-4 bg-white dark:bg-brand-panel border-b border-gray-100 dark:border-white/5 mb-4 shadow-sm transition-colors duration-300">
-                    <div class="flex space-x-1 bg-gray-100 dark:bg-white/5 p-1 rounded-xl">
-                        <button onclick="switchStatsTab('general', this)" class="stats-tab-btn active flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white">Общее</button>
-                        <button onclick="switchStatsTab('referrers', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Источники</button>
-                        <button onclick="switchStatsTab('content', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Контент</button>
-                    </div>
+            <div class="stats-container flex flex-col h-full">
+                <!-- Меню вкладок (фиксированное) -->
+                <div class="flex-shrink-0 flex space-x-1 bg-gray-100 dark:bg-white/5 p-1 rounded-xl mb-4">
+                    <button onclick="switchStatsTab('general', this)" class="stats-tab-btn active flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white">Общее</button>
+                    <button onclick="switchStatsTab('referrers', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Источники</button>
+                    <button onclick="switchStatsTab('content', this)" class="stats-tab-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Контент</button>
                 </div>
 
-                <!-- Область контента (автоматическая высота) -->
+                <!-- Область контента (скроллируемая, фиксированной высоты) -->
                 <div class="relative overflow-hidden rounded-xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
-                     <div class="p-4">
+                     <div class="h-[400px] overflow-y-auto p-4 custom-scrollbar">
                         <div id="stats-tab-general" class="stats-tab-content block">
                             ${generalTabHtml}
                         </div>
@@ -202,8 +198,31 @@ async function loadGitHubStats() {
                         </div>
                     </div>
                 </div>
-                <div class="h-2"></div>
             </div>
+            
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(5px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fade-in {
+                    animation: fadeIn 0.3s ease-out forwards;
+                }
+                /* Тонкий скроллбар для области контента */
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 4px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background-color: #cbd5e1;
+                    border-radius: 20px;
+                }
+                .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background-color: #475569;
+                }
+            </style>
         `;
 
         // Функция переключения (глобальная область видимости, чтобы работал onclick)
