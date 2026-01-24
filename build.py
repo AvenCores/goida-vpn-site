@@ -66,6 +66,8 @@ def fetch_and_save_github_stats(api_path):
         "stargazers_count": 0,
         "clones": {"count": 0, "uniques": 0},
         "views": {"count": 0, "uniques": 0},
+        "referrers": [],
+        "popular_content": [],
         "error": None
     }
 
@@ -110,6 +112,24 @@ def fetch_and_save_github_stats(api_path):
             stats["views"]["uniques"] = views_data.get('uniques', 0)
         else:
             print(f"⚠️ Warning: Views API returned {views_response.status_code}")
+
+        # 4. Получаем Referring sites
+        print("ℹ️ Запрос Referring sites...")
+        referrers_response = requests.get(f'{base_url}/traffic/popular/referrers', headers=headers, timeout=10)
+        if referrers_response.ok:
+            stats["referrers"] = referrers_response.json()
+        else:
+            print(f"⚠️ Warning: Referrers API returned {referrers_response.status_code}")
+            stats["referrers"] = []
+
+        # 5. Получаем Popular paths
+        print("ℹ️ Запрос Popular paths...")
+        paths_response = requests.get(f'{base_url}/traffic/popular/paths', headers=headers, timeout=10)
+        if paths_response.ok:
+            stats["popular_content"] = paths_response.json()
+        else:
+            print(f"⚠️ Warning: Paths API returned {paths_response.status_code}")
+            stats["popular_content"] = []
 
     except requests.exceptions.RequestException as e:
         error_message = str(e)
