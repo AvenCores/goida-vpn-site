@@ -58,7 +58,7 @@ async function loadGitHubStats() {
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                      <div class="p-4 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-yellow-900/10 dark:to-amber-900/10 rounded-xl border border-yellow-100 dark:border-yellow-800/30 text-center shadow-sm">
                         <div class="text-[10px] text-amber-700 dark:text-amber-500 uppercase font-bold mb-1 tracking-wider">Звёзды</div>
                         <div class="text-2xl font-black text-amber-500">
@@ -186,7 +186,7 @@ async function loadGitHubStats() {
 
                 <!-- Область контента (скроллируемая) -->
                 <div class="relative overflow-hidden rounded-xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
-                     <div class="h-[485px] overflow-y-auto p-4 custom-scrollbar">
+                     <div class="h-[60vh] sm:h-[485px] overflow-y-auto p-4 custom-scrollbar">
                         <div id="stats-tab-general" class="stats-tab-content block">
                             ${generalTabHtml}
                         </div>
