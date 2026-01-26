@@ -255,7 +255,7 @@
                     </div>
                     
                     <div class="relative mb-5 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800">
-                        <img :src="'https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/' + config.id + '.png'" 
+                        <img :src="'static/qr-codes/' + config.id + '.png'" 
                              :alt="'QR код конфига ' + config.id"
                              class="w-full aspect-square transition-transform duration-500">
                     </div>
@@ -287,7 +287,7 @@
                             </template>
                         </div>
 
-                        <a :href="'https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/main/qr-codes/' + config.id + '.png'" 
+                        <a :href="'static/qr-codes/' + config.id + '.png'" 
                            download
                            class="w-full flex items-center justify-center gap-2 py-2.5 bg-brand-blue text-white hover:bg-blue-600 rounded-xl text-xs font-bold transition-all shadow-sm">
                            <i class="fa-solid fa-download"></i>
