@@ -38,8 +38,8 @@ SOURCES_MAP = {
         "https://nowmeow.pw/8ybBd3fdCAQ6Ew5H0d66Y1hMbh63GpKUtEXQClIu/whitelist",
         "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
         "https://github.com/igareck/vpn-configs-for-russia",
-        "https://s3c3.001.gpucloud.ru/dixsm/htxml",
         "https://bp.wl.free.nf/confs/wl.txt",
+        "https://github.com/gbwltg/gbwl",
         "https://github.com/zieng2/wl"
     ]
 }
