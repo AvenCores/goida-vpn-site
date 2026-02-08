@@ -2,17 +2,21 @@
 <html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    {% if analytics_ids %}
+    {% set ga_id = analytics_ids.ga_id if analytics_ids else None %}
+    {% set ym_id = analytics_ids.ym_id if analytics_ids else None %}
+    {% if ga_id %}
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_ids.ga_id }}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     
-      gtag('config', '{{ analytics_ids.ga_id }}');
+      gtag('config', '{{ ga_id }}');
     </script>
+    {% endif %}
 
+    {% if ym_id %}
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
@@ -20,27 +24,31 @@
             m[i].l=1*new Date();
             for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
             k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id={{ analytics_ids.ym_id }}', 'ym');
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id={{ ym_id }}', 'ym');
     
-        ym('{{ analytics_ids.ym_id }}', 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+        ym('{{ ym_id }}', 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
     <!-- /Yandex.Metrika counter -->
+    {% endif %}
 
+    {% if ga_id or ym_id %}
     <script>
-        // Универсальная функция для трекинга событий
+        const YM_ID = '{{ ym_id or "" }}';
+        // Unified analytics event tracker
         window.trackEvent = function(eventName, params = {}) {
             // Google Analytics
             if (typeof gtag === 'function') {
                 gtag('event', eventName, params);
             }
             // Yandex Metrika
-            if (typeof ym === 'function') {
-                ym('{{ analytics_ids.ym_id }}', 'reachGoal', eventName, params);
+            if (YM_ID && typeof ym === 'function') {
+                ym(YM_ID, 'reachGoal', eventName, params);
             }
             console.log(`[Analytics] Tracked: ${eventName}`, params);
         }
     </script>
     {% endif %}
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goida VPN Configs</title>
@@ -298,8 +306,8 @@
       x-on:open-download-modal.window="targetUrl = $event.detail.url; showDownloadModal = true"
 >
     <!-- Yandex.Metrika counter (noscript) -->
-    {% if analytics_ids %}
-    <noscript><div><img src="https://mc.yandex.ru/watch/{{ analytics_ids.ym_id }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    {% if ym_id %}
+    <noscript><div><img src="https://mc.yandex.ru/watch/{{ ym_id }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     {% endif %}
     <!-- /Yandex.Metrika counter -->
 
