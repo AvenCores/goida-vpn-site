@@ -2,14 +2,15 @@
 <html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+    {% if analytics_ids %}
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7X291TR814"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_ids.ga_id }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     
-      gtag('config', 'G-7X291TR814');
+      gtag('config', '{{ analytics_ids.ga_id }}');
     </script>
 
     <!-- Yandex.Metrika counter -->
@@ -19,11 +20,27 @@
             m[i].l=1*new Date();
             for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
             k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106524083', 'ym');
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id={{ analytics_ids.ym_id }}', 'ym');
     
-        ym(106524083, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+        ym('{{ analytics_ids.ym_id }}', 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
     <!-- /Yandex.Metrika counter -->
+
+    <script>
+        // Универсальная функция для трекинга событий
+        window.trackEvent = function(eventName, params = {}) {
+            // Google Analytics
+            if (typeof gtag === 'function') {
+                gtag('event', eventName, params);
+            }
+            // Yandex Metrika
+            if (typeof ym === 'function') {
+                ym('{{ analytics_ids.ym_id }}', 'reachGoal', eventName, params);
+            }
+            console.log(`[Analytics] Tracked: ${eventName}`, params);
+        }
+    </script>
+    {% endif %}
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goida VPN Configs</title>
@@ -237,6 +254,10 @@
           },
           openTargetUrl() {
               if (this.targetUrl) {
+                  if (window.trackEvent) {
+                      const eventName = this.showDownloadModal ? 'confirm_download' : 'confirm_exit';
+                      window.trackEvent(eventName, { url: this.targetUrl });
+                  }
                   window.open(this.targetUrl, '_blank');
                   this.showExitModal = false;
                   this.showDownloadModal = false;
@@ -254,12 +275,32 @@
               }
           }
       }"
-      x-init="$watch('darkMode', val => val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { lockBody(value); if (value) loadGitHubStats(); }); $watch('showExitModal', value => { lockBody(value); }); $watch('showDownloadModal', value => { lockBody(value); }); $watch('showSourcesModal', value => { lockBody(value); });"
+      x-init="$watch('darkMode', val => {
+          val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark');
+          if (window.trackEvent) window.trackEvent('toggle_theme', { theme: val ? 'dark' : 'light' });
+      }); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { 
+          lockBody(value); 
+          if (value) {
+              loadGitHubStats();
+              if (window.trackEvent) window.trackEvent('open_stats');
+          }
+      }); $watch('showExitModal', value => { 
+          lockBody(value);
+          if (value && window.trackEvent) window.trackEvent('view_exit_modal', { url: targetUrl });
+      }); $watch('showDownloadModal', value => { 
+          lockBody(value);
+          if (value && window.trackEvent) window.trackEvent('view_download_modal', { url: targetUrl });
+      }); $watch('showSourcesModal', value => { 
+          lockBody(value);
+          if (value && window.trackEvent) window.trackEvent('view_sources', { config_id: currentConfigId });
+      });"
       x-on:open-exit-modal.window="targetUrl = $event.detail.url; showExitModal = true"
       x-on:open-download-modal.window="targetUrl = $event.detail.url; showDownloadModal = true"
 >
     <!-- Yandex.Metrika counter (noscript) -->
-    <noscript><div><img src="https://mc.yandex.ru/watch/106524083" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    {% if analytics_ids %}
+    <noscript><div><img src="https://mc.yandex.ru/watch/{{ analytics_ids.ym_id }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    {% endif %}
     <!-- /Yandex.Metrika counter -->
 
     <!-- Preloader Element -->

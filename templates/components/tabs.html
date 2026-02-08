@@ -19,7 +19,7 @@
     <!-- Переключатель вкладок -->
     <div class="flex items-center justify-center mb-10 px-4 sm:px-0">
         <div class="flex p-1.5 bg-gray-100 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl w-full sm:w-auto shadow-inner border border-gray-200/50 dark:border-gray-700/50">
-            <button @click="activeTab = 'configs'" 
+            <button @click="activeTab = 'configs'; if(window.trackEvent) window.trackEvent('switch_tab', { tab: 'configs' })" 
                     :class="activeTab === 'configs' 
                         ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white' 
                         : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
@@ -27,7 +27,7 @@
                 <i class="fa-solid fa-list-ul"></i>
                 <span>Списки</span>
             </button>
-            <button @click="activeTab = 'qr'"
+            <button @click="activeTab = 'qr'; if(window.trackEvent) window.trackEvent('switch_tab', { tab: 'qr' })"
                     :class="activeTab === 'qr' 
                         ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white' 
                         : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
@@ -47,6 +47,7 @@
             </div>
             <input type="text" 
                    x-model="searchQuery"
+                   @input.debounce.500ms="if(window.trackEvent && searchQuery) window.trackEvent('search', { query: searchQuery })"
                    placeholder="Найти по ID или ссылке..." 
                    class="block w-full pl-11 pr-12 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-black/20 focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all dark:text-white text-sm font-medium">
             <div class="absolute inset-y-0 right-0 pr-4 flex items-center gap-2">
@@ -60,18 +61,18 @@
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest hidden lg:block shrink-0">Фильтры:</span>
             <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
-                <button @click="filterType = 'all'"
+                <button @click="filterType = 'all'; if(window.trackEvent) window.trackEvent('filter', { type: 'all' })"
                         :class="filterType === 'all' ? 'bg-brand-blue text-white shadow-md border-brand-blue' : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 shadow-sm'"
                         class="px-4 py-2 rounded-xl text-xs font-bold transition-all border-2 col-span-2 sm:col-auto">
                     Все
                 </button>
-                <button @click="filterType = 'recommended'"
+                <button @click="filterType = 'recommended'; if(window.trackEvent) window.trackEvent('filter', { type: 'recommended' })"
                         :class="filterType === 'recommended' ? 'bg-yellow-400 text-yellow-900 shadow-md border-yellow-400' : 'bg-yellow-400/10 text-yellow-700 dark:text-yellow-400 border-transparent'"
                         class="px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 border-2">
                     <i class="fa-solid fa-star text-[9px]"></i>
                     <span>Рекомендованные</span>
                 </button>
-                <button @click="filterType = 'sni'"
+                <button @click="filterType = 'sni'; if(window.trackEvent) window.trackEvent('filter', { type: 'sni' })"
                         :class="filterType === 'sni' ? 'bg-purple-600 text-white shadow-md border-purple-600' : 'bg-purple-600/10 text-purple-600 dark:text-purple-400 border-transparent'"
                         class="px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 border-2">
                     <i class="fa-solid fa-bolt text-[9px]"></i>
@@ -116,6 +117,7 @@
                                     const url = config.url;
                                     const copy = () => {
                                         copied = true;
+                                        if (window.trackEvent) window.trackEvent('copy_config', { config_id: config.id });
                                         setTimeout(() => { copied = false; }, 2000);
                                     };
                                     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -178,6 +180,7 @@
                                     const url = config.url;
                                     const copy = () => {
                                         copied = true;
+                                        if (window.trackEvent) window.trackEvent('copy_config', { config_id: config.id });
                                         setTimeout(() => { copied = false; }, 2000);
                                     };
                                     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -289,6 +292,7 @@
 
                         <a :href="'static/qr-codes/' + config.id + '.png'" 
                            download
+                           @click="if(window.trackEvent) window.trackEvent('download_qr', { config_id: config.id })"
                            class="w-full flex items-center justify-center gap-2 py-2.5 bg-brand-blue text-white hover:bg-blue-600 rounded-xl text-xs font-bold transition-all shadow-sm">
                            <i class="fa-solid fa-download"></i>
                            <span>Скачать</span>

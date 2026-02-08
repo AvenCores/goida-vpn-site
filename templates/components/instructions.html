@@ -5,7 +5,7 @@
 
         <!-- 1. ANDROID (V2RayNG) -->
         <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'android' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
-            <button @click="activeGuide = activeGuide === 'android' ? null : 'android'" 
+            <button @click="activeGuide = activeGuide === 'android' ? null : 'android'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'android' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-green-600 dark:text-green-400">
@@ -42,7 +42,7 @@
                         
                         <!-- Нет интернета -->
                         <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
-                            <button @click="open = !open" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
+                            <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
                                     <span class="text-sm sm:text-base">⚠️ Нет интернета при подключении</span>
@@ -60,7 +60,7 @@
 
                         <!-- Конфиги не появились -->
                         <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
-                            <button @click="open = !open" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
+                            <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
                                     <span class="text-sm sm:text-base">⚠️ Конфиги не появились</span>
@@ -80,7 +80,7 @@
 
                         <!-- Handshake timeout -->
                         <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
-                            <button @click="open = !open" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
+                            <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
                                     <span class="text-sm sm:text-base">⚠️ Ошибка "Handshake timeout"</span>
@@ -100,7 +100,7 @@
 
                         <!-- Closed pipe -->
                         <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
-                            <button @click="open = !open" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
+                            <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
                                     <span class="text-sm sm:text-base">⚠️ Ошибка "Closed pipe"</span>
@@ -140,7 +140,7 @@
 
         <!-- 2. ANDROID TV (V2RayNG) -->
         <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'androidtv' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
-            <button @click="activeGuide = activeGuide === 'androidtv' ? null : 'androidtv'" 
+            <button @click="activeGuide = activeGuide === 'androidtv' ? null : 'androidtv'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'androidtv' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-teal-600 dark:text-teal-400">
@@ -191,7 +191,7 @@
 
         <!-- 3. WINDOWS / LINUX (Throne) -->
         <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'windows' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
-            <button @click="activeGuide = activeGuide === 'windows' ? null : 'windows'" 
+            <button @click="activeGuide = activeGuide === 'windows' ? null : 'windows'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'windows' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-blue-600 dark:text-blue-400">
@@ -257,7 +257,7 @@
 
         <!-- 4. iOS / iPadOS (V2Box) -->
         <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'ios' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
-            <button @click="activeGuide = activeGuide === 'ios' ? null : 'ios'" 
+            <button @click="activeGuide = activeGuide === 'ios' ? null : 'ios'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'ios' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-gray-900 dark:text-gray-100">
@@ -302,7 +302,7 @@
 
         <!-- 5. MacOS (Hiddify) -->
         <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'mac' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
-            <button @click="activeGuide = activeGuide === 'mac' ? null : 'mac'" 
+            <button @click="activeGuide = activeGuide === 'mac' ? null : 'mac'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'mac' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-indigo-600 dark:text-indigo-400">

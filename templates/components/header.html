@@ -15,17 +15,17 @@
         
         <div class="flex items-center gap-2 sm:gap-4">
             <div class="flex items-center gap-4 sm:gap-4 mr-1 sm:mr-2 border-r border-gray-200 dark:border-gray-600 pr-4 sm:pr-4">
-                <a href="https://www.youtube.com/@avencores/" target="_blank" class="text-red-600 hover:scale-125 transition-all duration-300">
+                <a href="https://www.youtube.com/@avencores/" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'youtube', location: 'header' })" class="text-red-600 hover:scale-125 transition-all duration-300">
                     <i class="fa-brands fa-youtube text-2xl sm:text-2xl"></i>
                 </a>
-                <a href="https://t.me/avencoresyt" target="_blank" class="text-blue-500 hover:scale-125 transition-all duration-300">
+                <a href="https://t.me/avencoresyt" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'telegram', location: 'header' })" class="text-blue-500 hover:scale-125 transition-all duration-300">
                     <i class="fa-brands fa-telegram text-2xl sm:text-2xl"></i>
                 </a>
-                <a href="https://vk.com/avencoresvk" target="_blank" class="text-blue-700 hover:scale-125 transition-all duration-300">
+                <a href="https://vk.com/avencoresvk" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'vk', location: 'header' })" class="text-blue-700 hover:scale-125 transition-all duration-300">
                     <i class="fa-brands fa-vk text-2xl sm:text-2xl"></i>
                 </a>
                 
-                <a href="https://dzen.ru/avencores" target="_blank" class="hover:scale-125 transition-all duration-300 w-[22px] h-[22px] sm:w-6 sm:h-6 flex items-center justify-center">
+                <a href="https://dzen.ru/avencores" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'dzen', location: 'header' })" class="hover:scale-125 transition-all duration-300 w-[22px] h-[22px] sm:w-6 sm:h-6 flex items-center justify-center">
                     <img :src="darkMode ? 'static/media/dzen-white.png' : 'static/media/dzen-black.png'" alt="Dzen" class="w-full h-full object-contain">
                 </a>
             </div>
@@ -41,7 +41,7 @@
                     <i class="fa-solid fa-chart-simple text-lg sm:mr-2 group-hover:rotate-12 transition-transform"></i>
                     <span class="hidden sm:inline">Статистика</span>
                 </button>
-                <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" class="group bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-10 h-10 sm:w-auto sm:h-10 sm:px-5 border border-white/10">
+                <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'github', location: 'header' })" class="group bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-10 h-10 sm:w-auto sm:h-10 sm:px-5 border border-white/10">
                     <i class="fa-brands fa-github text-xl sm:mr-2 group-hover:scale-110 transition-transform"></i>
                     <span class="hidden sm:inline">GitHub</span>
                 </a>

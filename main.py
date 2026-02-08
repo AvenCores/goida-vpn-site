@@ -94,7 +94,11 @@ def fetch_download_links():
 @app.route('/')
 def home():
     configs = get_vpn_configs()
-    return render_template('index.html', configs=configs)
+    analytics_ids = {
+        'ga_id': os.environ.get('GA_ID'),
+        'ym_id': os.environ.get('YM_ID')
+    }
+    return render_template('index.html', configs=configs, analytics_ids=analytics_ids)
 
 @app.route('/api/download-links')
 def get_download_links():
