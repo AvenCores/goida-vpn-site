@@ -32,7 +32,15 @@ def build_site():
     with app.test_request_context():
         print("⏳ Получение конфигов и рендеринг шаблона...")
         configs = get_vpn_configs()
-        rendered_html = render_template('index.html', configs=configs)
+        analytics_ids = None
+        ga_id = os.environ.get('GA_ID')
+        ym_id = os.environ.get('YM_ID')
+        if ga_id and ym_id:
+            analytics_ids = {
+                'ga_id': ga_id,
+                'ym_id': ym_id
+            }
+        rendered_html = render_template('index.html', configs=configs, analytics_ids=analytics_ids)
         
         with open(os.path.join(DIST_DIR, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(rendered_html)
