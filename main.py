@@ -179,10 +179,6 @@ def sitemap_xml():
     content = generate_sitemap_xml(site_url)
     return Response(content, mimetype='application/xml')
 
-@app.route('/yandex_<id>.html')
-def serve_yandex_verification(id):
-    return send_from_directory('.', f'yandex_{id}.html')
-
 @app.route('/api/download-links')
 def get_download_links():
     """API endpoint для получения ссылок на скачивание"""
