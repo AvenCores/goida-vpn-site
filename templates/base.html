@@ -52,6 +52,7 @@
 
     {% set meta_title = meta_title|default("Goida VPN Configs - Автоматические VPN-конфиги", true) %}
     {% set meta_description = meta_description|default("Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. Обновление каждые 9 минут, удобные ссылки и QR-коды.", true) %}
+    {% set meta_keywords = meta_keywords|default("vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок", true) %}
     {% set site_name = meta_site_name|default("Goida VPN Configs", true) %}
     {% set site_url = site_url|default("", true) %}
     {% set canonical_url = canonical_url|default(site_url, true) %}
@@ -60,6 +61,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ meta_title }}</title>
     <meta name="description" content="{{ meta_description }}">
+    <meta name="keywords" content="{{ meta_keywords }}">
     <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
     {% if canonical_url %}
     <link rel="canonical" href="{{ canonical_url }}">
@@ -84,14 +86,37 @@
     {% set structured_url = canonical_url or site_url %}
     {% if structured_url %}
     <script type="application/ld+json">
-        {{ {
+        {
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": site_name,
-            "url": structured_url,
-            "description": meta_description,
-            "inLanguage": "ru"
-        } | tojson }}
+            "name": "{{ site_name }}",
+            "url": "{{ structured_url }}",
+            "description": "{{ meta_description }}",
+            "inLanguage": "ru",
+            "publisher": {
+                "@type": "Organization",
+                "name": "{{ site_name }}",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ structured_url }}static/images/favicon.png"
+                }
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Goida VPN Configs",
+            "operatingSystem": "Android, Windows, iOS, Linux, MacOS",
+            "applicationCategory": "NetworkingApplication",
+            "description": "{{ meta_description }}",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        }
     </script>
     {% endif %}
     <link rel="icon" type="image/png" href="static/images/favicon.png">

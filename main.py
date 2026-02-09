@@ -14,6 +14,7 @@ DEFAULT_META_DESCRIPTION = (
     "Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. "
     "Обновление каждые 9 минут, удобные ссылки и QR-коды."
 )
+DEFAULT_META_KEYWORDS = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок"
 
 def normalize_site_url(value: str | None) -> str | None:
     if not value:
@@ -155,6 +156,7 @@ def home():
     site_url = get_site_url()
     meta_title = os.environ.get('META_TITLE', DEFAULT_META_TITLE)
     meta_description = os.environ.get('META_DESCRIPTION', DEFAULT_META_DESCRIPTION)
+    meta_keywords = os.environ.get('META_KEYWORDS', DEFAULT_META_KEYWORDS)
     og_image = os.environ.get('OG_IMAGE_URL')
     return render_template(
         'index.html',
@@ -164,6 +166,7 @@ def home():
         canonical_url=site_url,
         meta_title=meta_title,
         meta_description=meta_description,
+        meta_keywords=meta_keywords,
         og_image=og_image
     )
 
@@ -178,6 +181,11 @@ def sitemap_xml():
     site_url = get_site_url()
     content = generate_sitemap_xml(site_url)
     return Response(content, mimetype='application/xml')
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.png', mimetype='image/png')
 
 @app.route('/api/download-links')
 def get_download_links():
