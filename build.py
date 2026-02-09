@@ -95,6 +95,12 @@ def build_site():
     with open(os.path.join(DIST_DIR, 'sitemap.xml'), 'w', encoding='utf-8') as f:
         f.write(generate_sitemap_xml(site_url, lastmod=lastmod))
 
+    # Копируем файлы верификации (Yandex, Google и т.д.)
+    for file in os.listdir('.'):
+        if (file.startswith('yandex_') or file.startswith('google')) and file.endswith('.html'):
+            shutil.copy2(file, os.path.join(DIST_DIR, file))
+            print(f"✅ Файл верификации {file} скопирован")
+
 def fetch_and_save_github_stats(api_path):
     """Получает статистику трафика и общую инфо с GitHub"""
     base_url = f'https://api.github.com/repos/{REPO_USER}/{STATS_REPO_NAME}'
