@@ -1,11 +1,65 @@
-from flask import Flask, render_template, send_from_directory, jsonify
+from flask import Flask, render_template, send_from_directory, jsonify, request, Response
 from services import get_vpn_configs
 import requests
 import json
 from datetime import datetime, timedelta
+from urllib.parse import urljoin
 import os
 
 app = Flask(__name__)
+
+# SEO defaults (can be overridden via env in production)
+DEFAULT_META_TITLE = "Goida VPN Configs - Автоматические VPN-конфиги"
+DEFAULT_META_DESCRIPTION = (
+    "Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. "
+    "Обновление каждые 9 минут, удобные ссылки и QR-коды."
+)
+
+def normalize_site_url(value: str | None) -> str | None:
+    if not value:
+        return None
+    value = value.strip()
+    if not value:
+        return None
+    if not value.endswith('/'):
+        value += '/'
+    return value
+
+def get_site_url() -> str | None:
+    site_url = normalize_site_url(os.environ.get('SITE_URL'))
+    if site_url:
+        return site_url
+    try:
+        return normalize_site_url(request.url_root)
+    except RuntimeError:
+        return None
+
+def generate_robots_txt(site_url: str | None) -> str:
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+    ]
+    if site_url:
+        lines.append(f"Sitemap: {urljoin(site_url, 'sitemap.xml')}")
+    return "\n".join(lines) + "\n"
+
+def generate_sitemap_xml(site_url: str | None, lastmod: str | None = None) -> str:
+    if not lastmod:
+        lastmod = datetime.utcnow().date().isoformat()
+    loc = urljoin(site_url or "/", "")
+    if not loc.endswith('/'):
+        loc += '/'
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        "  <url>\n"
+        f"    <loc>{loc}</loc>\n"
+        f"    <lastmod>{lastmod}</lastmod>\n"
+        "    <changefreq>hourly</changefreq>\n"
+        "    <priority>1.0</priority>\n"
+        "  </url>\n"
+        "</urlset>\n"
+    )
 
 # Кэш для ссылок на скачивание
 CACHE_FILE = 'download_links_cache.json'
@@ -98,7 +152,32 @@ def home():
         'ga_id': os.environ.get('GA_ID'),
         'ym_id': os.environ.get('YM_ID')
     }
-    return render_template('index.html', configs=configs, analytics_ids=analytics_ids)
+    site_url = get_site_url()
+    meta_title = os.environ.get('META_TITLE', DEFAULT_META_TITLE)
+    meta_description = os.environ.get('META_DESCRIPTION', DEFAULT_META_DESCRIPTION)
+    og_image = os.environ.get('OG_IMAGE_URL')
+    return render_template(
+        'index.html',
+        configs=configs,
+        analytics_ids=analytics_ids,
+        site_url=site_url,
+        canonical_url=site_url,
+        meta_title=meta_title,
+        meta_description=meta_description,
+        og_image=og_image
+    )
+
+@app.route('/robots.txt')
+def robots_txt():
+    site_url = get_site_url()
+    content = generate_robots_txt(site_url)
+    return Response(content, mimetype='text/plain')
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    site_url = get_site_url()
+    content = generate_sitemap_xml(site_url)
+    return Response(content, mimetype='application/xml')
 
 @app.route('/api/download-links')
 def get_download_links():

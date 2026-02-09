@@ -3,8 +3,20 @@ import shutil
 import subprocess
 import json
 import requests
+from datetime import datetime
 from flask import render_template
-from main import app, get_vpn_configs, fetch_download_links, FALLBACK_LINKS, download_badges
+from main import (
+    app,
+    get_vpn_configs,
+    fetch_download_links,
+    FALLBACK_LINKS,
+    download_badges,
+    normalize_site_url,
+    generate_robots_txt,
+    generate_sitemap_xml,
+    DEFAULT_META_TITLE,
+    DEFAULT_META_DESCRIPTION
+)
 
 # НАСТРОЙКИ
 REPO_USER = "AvenCores"
@@ -29,6 +41,10 @@ def build_site():
         shutil.copytree('static', os.path.join(DIST_DIR, 'static'))
         print("✅ Папка static скопирована")
 
+    site_url = normalize_site_url(
+        os.getenv('SITE_URL') or f"https://{REPO_USER.lower()}.github.io/{REPO_NAME}/"
+    )
+
     with app.test_request_context():
         print("⏳ Получение конфигов и рендеринг шаблона...")
         configs = get_vpn_configs()
@@ -36,7 +52,19 @@ def build_site():
             'ga_id': os.environ.get('GA_ID'),
             'ym_id': os.environ.get('YM_ID')
         }
-        rendered_html = render_template('index.html', configs=configs, analytics_ids=analytics_ids)
+        meta_title = os.environ.get('META_TITLE', DEFAULT_META_TITLE)
+        meta_description = os.environ.get('META_DESCRIPTION', DEFAULT_META_DESCRIPTION)
+        og_image = os.environ.get('OG_IMAGE_URL')
+        rendered_html = render_template(
+            'index.html',
+            configs=configs,
+            analytics_ids=analytics_ids,
+            site_url=site_url,
+            canonical_url=site_url,
+            meta_title=meta_title,
+            meta_description=meta_description,
+            og_image=og_image
+        )
         
         with open(os.path.join(DIST_DIR, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(rendered_html)
@@ -59,6 +87,13 @@ def build_site():
 
     with open(os.path.join(DIST_DIR, '.nojekyll'), 'w') as f:
         pass
+
+    with open(os.path.join(DIST_DIR, 'robots.txt'), 'w', encoding='utf-8') as f:
+        f.write(generate_robots_txt(site_url))
+
+    lastmod = datetime.utcnow().date().isoformat()
+    with open(os.path.join(DIST_DIR, 'sitemap.xml'), 'w', encoding='utf-8') as f:
+        f.write(generate_sitemap_xml(site_url, lastmod=lastmod))
 
 def fetch_and_save_github_stats(api_path):
     """Получает статистику трафика и общую инфо с GitHub"""

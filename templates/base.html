@@ -50,8 +50,50 @@
     {% endif %}
 
 
+    {% set meta_title = meta_title|default("Goida VPN Configs - Автоматические VPN-конфиги", true) %}
+    {% set meta_description = meta_description|default("Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. Обновление каждые 9 минут, удобные ссылки и QR-коды.", true) %}
+    {% set site_name = meta_site_name|default("Goida VPN Configs", true) %}
+    {% set site_url = site_url|default("", true) %}
+    {% set canonical_url = canonical_url|default(site_url, true) %}
+    {% set og_image = og_image|default("", true) %}
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goida VPN Configs</title>
+    <title>{{ meta_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+    {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="{{ site_name }}">
+    <meta property="og:title" content="{{ meta_title }}">
+    <meta property="og:description" content="{{ meta_description }}">
+    {% if canonical_url %}
+    <meta property="og:url" content="{{ canonical_url }}">
+    {% endif %}
+    {% if og_image %}
+    <meta property="og:image" content="{{ og_image }}">
+    <meta name="twitter:image" content="{{ og_image }}">
+    <meta name="twitter:card" content="summary_large_image">
+    {% else %}
+    <meta name="twitter:card" content="summary">
+    {% endif %}
+    <meta name="twitter:title" content="{{ meta_title }}">
+    <meta name="twitter:description" content="{{ meta_description }}">
+    {% set structured_url = canonical_url or site_url %}
+    {% if structured_url %}
+    <script type="application/ld+json">
+        {{ {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": site_name,
+            "url": structured_url,
+            "description": meta_description,
+            "inLanguage": "ru"
+        } | tojson }}
+    </script>
+    {% endif %}
     <link rel="icon" type="image/png" href="static/images/favicon.png">
     <link rel="apple-touch-icon" href="static/images/favicon.png">
     
