@@ -41,10 +41,6 @@ def build_site():
         shutil.copytree('static', os.path.join(DIST_DIR, 'static'))
         print("✅ Папка static скопирована")
 
-    if os.path.exists('yandex_256912d35d85650d.html'):
-        shutil.copy2('yandex_256912d35d85650d.html', os.path.join(DIST_DIR, 'yandex_256912d35d85650d.html'))
-        print("вњ… Yandex verification файл скопирован")
-
     site_url = normalize_site_url(
         os.getenv('SITE_URL') or f"https://{REPO_USER.lower()}.github.io/{REPO_NAME}/"
     )

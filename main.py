@@ -285,10 +285,6 @@ def get_github_stats():
 def serve_license():
     return send_from_directory('static', 'LICENSE')
 
-@app.route('/yandex_256912d35d85650d.html')
-def yandex_verification():
-    return send_from_directory('.', 'yandex_256912d35d85650d.html')
-
 if __name__ == '__main__':
     # Импортируем промышленный сервер
     from waitress import serve
