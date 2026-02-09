@@ -30,6 +30,7 @@
                             showNotification: false, 
                             copyLink() { 
                                 navigator.clipboard.writeText('https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/26.txt'); 
+                                if (window.trackEvent) window.trackEvent('copy_bypass_link', { url: 'https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/26.txt' });
                                 this.showNotification = true; 
                                 setTimeout(() => this.showNotification = false, 2000); 
                             } 
