@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 
 # SEO defaults (can be overridden via env in production)
-DEFAULT_META_TITLE = "Goida VPN Configs - Автоматические VPN-конфиги"
+DEFAULT_META_TITLE = "Goida VPN Configs"
 DEFAULT_META_DESCRIPTION = (
     "Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. "
     "Обновление каждые 9 минут, удобные ссылки и QR-коды."
