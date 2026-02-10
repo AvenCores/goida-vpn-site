@@ -2,6 +2,9 @@
 <html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
     {% set ga_id = analytics_ids.ga_id if analytics_ids else None %}
     {% set ym_id = analytics_ids.ym_id if analytics_ids else None %}
     {% if ga_id %}
@@ -405,6 +408,16 @@
     {% include 'components/header.html' %}
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Yandex.RTB R-A-18694241-1 -->
+        <div id="yandex_rtb_R-A-18694241-1"></div>
+        <script>
+        window.yaContextCb.push(() => {
+            Ya.Context.AdvManager.render({
+                "blockId": "R-A-18694241-1",
+                "renderTo": "yandex_rtb_R-A-18694241-1"
+            })
+        })
+        </script>
         {% block content %}{% endblock %}
     </main>
 
