@@ -79,7 +79,7 @@ async function loadGitHubStats() {
                             <div class="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
                                 <i class="fa-solid fa-download"></i>
                             </div>
-                            Клоны (14д)
+                            Клоны (14Д)
                         </span>
                         <span class="font-black text-xl text-gray-800 dark:text-gray-100">${formatNumber(data.clones.count)}</span>
                     </div>
@@ -89,7 +89,7 @@ async function loadGitHubStats() {
                             <div class="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
                                 <i class="fa-solid fa-user-check"></i>
                             </div>
-                            Уникальные клоны
+                            Уникальные клоны (14Д)
                         </span>
                         <span class="font-black text-xl text-gray-800 dark:text-gray-100">${formatNumber(data.clones.uniques)}</span>
                     </div>
@@ -99,7 +99,7 @@ async function loadGitHubStats() {
                             <div class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                                 <i class="fa-solid fa-users"></i>
                             </div>
-                            Уникальные посетители
+                            Уникальные посетители (14Д)
                         </span>
                         <span class="font-black text-xl text-gray-800 dark:text-gray-100">${formatNumber(data.views.uniques)}</span>
                     </div>
