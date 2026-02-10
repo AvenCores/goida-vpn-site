@@ -21,7 +21,7 @@ SOURCES_MAP = {
     10: "https://github.com/mheidari98/.proxy",
     11: "https://github.com/youfoundamin/V2rayCollector",
     12: "https://github.com/mheidari98/.proxy",
-    13: "https://github.com/Kwinshadow/TelegramV2rayCollector",
+    13: "https://github.com/MahsaNetConfigTopic/config",
     14: "https://github.com/LalatinaHub/Mineral",
     15: "https://github.com/miladtahanian/Config-Collector",
     16: "https://github.com/Pawdroid/Free-servers",
