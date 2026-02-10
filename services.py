@@ -31,7 +31,7 @@ SOURCES_MAP = {
     20: "https://github.com/Argh94/Proxy-List",
     21: "https://github.com/shabane/kamaji",
     22: "https://github.com/wuqb2i4f/xray-config-toolkit",
-    23: "https://github.com/AzadNetCH/Clash",
+    23: "https://github.com/Delta-Kronecker/Xray/",
     24: "https://github.com/STR97/STRUGOV",
     25: "https://github.com/V2RayRoot/V2RayConfig",
     26: [
