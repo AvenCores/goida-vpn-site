@@ -16,7 +16,7 @@ SOURCES_MAP = {
     5: "https://github.com/miladtahanian/V2RayCFGDumper",
     6: "https://github.com/roosterkid/openproxylist",
     7: "https://github.com/Epodonios/v2ray-configs",
-    8: "https://github.com/YasserDivaR/pr0xy",
+    8: "https://github.com/CidVpn/cid-vpn-config/",
     9: "https://github.com/mohamadfg-dev/telegram-v2ray-configs-collector",
     10: "https://github.com/mheidari98/.proxy",
     11: "https://github.com/youfoundamin/V2rayCollector",
