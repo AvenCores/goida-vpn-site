@@ -26,7 +26,7 @@ SOURCES_MAP = {
     15: "https://github.com/miladtahanian/Config-Collector",
     16: "https://github.com/Pawdroid/Free-servers",
     17: "https://github.com/MhdiTaheri/V2rayCollector_Py",
-    18: "https://github.com/Epodonios/v2ray-configs",
+    18: "https://raw.githubusercontent.com/free18/v2ray/refs/heads/main/v.txt",
     19: "https://github.com/MhdiTaheri/V2rayCollector",
     20: "https://github.com/Argh94/Proxy-List",
     21: "https://github.com/shabane/kamaji",
