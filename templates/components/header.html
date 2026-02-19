@@ -2,35 +2,35 @@
 <div x-cloak class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-blue via-blue-600 to-brand-blue animate-pulse z-50"></div>
 
 <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-brand-dark/80 border-b border-gray-200 dark:border-gray-700 transition-colors shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-3 group cursor-default">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-2 sm:gap-3 group cursor-default">
             <div class="relative">
                 <div class="absolute inset-0 bg-brand-blue/20 blur-lg rounded-full scale-0 group-hover:scale-150 transition-transform duration-500"></div>
-                <img src="static/images/favicon.png" alt="Логотип Goida VPN - Автоматические конфиги" class="w-9 h-9 object-contain relative z-10 group-hover:rotate-12 transition-transform duration-300">
+                <img src="static/images/favicon.png" alt="Логотип Goida VPN - Автоматические конфиги" class="w-8 h-8 sm:w-9 sm:h-9 object-contain relative z-10 group-hover:rotate-12 transition-transform duration-300">
             </div>
             <h1 class="font-black text-xl tracking-tighter hidden sm:block">
                 Goida VPN <span class="bg-gradient-to-r from-blue-600 to-brand-blue bg-clip-text text-transparent">Configs</span>
             </h1>
         </div>
         
-        <div class="flex items-center gap-2 sm:gap-4">
-            <div class="flex items-center gap-4 sm:gap-4 mr-1 sm:mr-2 border-r border-gray-200 dark:border-gray-600 pr-4 sm:pr-4">
+        <div class="flex items-center gap-1 sm:gap-4">
+            <div class="flex items-center gap-1.5 sm:gap-4 mr-0.5 sm:mr-2 border-r border-gray-200 dark:border-gray-600 pr-2 sm:pr-4">
                 <a href="https://www.youtube.com/@avencores/" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'youtube', location: 'header' })" class="text-red-600 hover:scale-125 transition-all duration-300">
-                    <i class="fa-brands fa-youtube text-2xl sm:text-2xl"></i>
+                    <i class="fa-brands fa-youtube text-2xl"></i>
                 </a>
                 <a href="https://t.me/avencoresyt" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'telegram', location: 'header' })" class="text-blue-500 hover:scale-125 transition-all duration-300">
-                    <i class="fa-brands fa-telegram text-2xl sm:text-2xl"></i>
+                    <i class="fa-brands fa-telegram text-2xl"></i>
                 </a>
                 <a href="https://vk.com/avencoresvk" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'vk', location: 'header' })" class="text-blue-700 hover:scale-125 transition-all duration-300">
-                    <i class="fa-brands fa-vk text-2xl sm:text-2xl"></i>
+                    <i class="fa-brands fa-vk text-2xl"></i>
                 </a>
                 
-                <a href="https://dzen.ru/avencores" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'dzen', location: 'header' })" class="hover:scale-125 transition-all duration-300 w-[22px] h-[22px] sm:w-6 sm:h-6 flex items-center justify-center">
+                <a href="https://dzen.ru/avencores" target="_blank" @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'dzen', location: 'header' })" class="hover:scale-125 transition-all duration-300 w-6 h-6 flex items-center justify-center">
                     <img :src="darkMode ? 'static/media/dzen-white.png' : 'static/media/dzen-black.png'" alt="Dzen" class="w-full h-full object-contain">
                 </a>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1 sm:gap-2">
                 <button @click="toggleTheme()" class="group w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/10 active:scale-90 relative overflow-hidden">
                     <div class="relative z-10">
                         <i class="fa-solid text-lg transition-all duration-500" :class="darkMode ? 'fa-sun text-yellow-400 rotate-[360deg] scale-110' : 'fa-moon text-blue-600 rotate-0'"></i>
