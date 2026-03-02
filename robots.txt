@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /download_links_cache.json
+Disallow: /github_stats_cache.json
+
+# Yandex-specific optimization
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+Clean-param: utm_source&utm_medium&utm_campaign
+
+Sitemap: https://avencores.github.io/goida-vpn-site/sitemap.xml
+Host: avencores.github.io/goida-vpn-site
