@@ -35,10 +35,10 @@ SOURCES_MAP = {
     24: "https://github.com/STR97/STRUGOV",
     25: "https://github.com/V2RayRoot/V2RayConfig",
     26: [
-        "https://gitflic.ru/project/sigil/my-new-cool-project/blob/raw?file=whitelist",
         "https://whiteprime.github.io/xraycheck/configs/white-list_available",
         "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
         "https://github.com/igareck/vpn-configs-for-russia",
+        "https://wlrus.lol/confs/selected.txt",
         "https://github.com/gbwltg/gbwl",
         "https://github.com/zieng2/wl"
     ]
