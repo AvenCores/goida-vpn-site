@@ -38,8 +38,8 @@ SOURCES_MAP = {
         "https://whiteprime.github.io/xraycheck/configs/white-list_available",
         "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
         "https://github.com/igareck/vpn-configs-for-russia",
+        "https://github.com/ByeWhiteLists/ByeWhiteLists2",
         "https://wlrus.lol/confs/selected.txt",
-        "https://github.com/gbwltg/gbwl",
         "https://github.com/zieng2/wl"
     ]
 }
