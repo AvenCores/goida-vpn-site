@@ -10,7 +10,7 @@
                 <div class="absolute inset-0 bg-brand-blue/20 blur-lg rounded-full scale-0 group-hover:scale-150 transition-transform duration-500"></div>
                 <img src="static/images/favicon.png" alt="Логотип Goida VPN - Автоматические конфиги" class="w-8 h-8 sm:w-9 sm:h-9 object-contain relative z-10 group-hover:rotate-12 transition-transform duration-300">
             </div>
-            <h1 class="font-black text-lg sm:text-xl tracking-tighter hidden xs:block">
+            <h1 class="font-black text-lg sm:text-xl tracking-tighter hidden min-[400px]:block">
                 Goida VPN <span class="bg-gradient-to-r from-blue-600 to-brand-blue bg-clip-text text-transparent">Configs</span>
             </h1>
         </div>
@@ -18,8 +18,8 @@
         <!-- Правая часть -->
         <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
 
-            <!-- Соцсети — скрыты на самых маленьких экранах, показываем с xs -->
-            <div class="hidden xs:flex items-center gap-2 sm:gap-3 border-r border-gray-200 dark:border-gray-600 pr-2 sm:pr-4 mr-0.5 sm:mr-1">
+            <!-- Соцсети -->
+            <div class="flex items-center gap-1.5 sm:gap-3 border-r border-gray-200 dark:border-gray-600 pr-2 sm:pr-4 mr-0.5 sm:mr-1">
                 <a href="https://www.youtube.com/@avencores/" target="_blank"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'youtube', location: 'header' })"
                    class="text-red-600 hover:scale-125 transition-all duration-300 p-1 -m-1 touch-manipulation">
