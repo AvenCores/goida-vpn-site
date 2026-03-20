@@ -1,4 +1,4 @@
-name: Auto Build & Deploy Goida VPN Site
+name: Auto Update & Deploy Goida VPN Site
 
 on:
   # Запуск при пуше в ветку main (когда вы обновляете код)
