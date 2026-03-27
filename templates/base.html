@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     {% set ga_id = analytics_ids.ga_id if analytics_ids else None %}
     {% set ym_id = analytics_ids.ym_id if analytics_ids else None %}
+    <!-- Yandex Autoplacement 19012805 -->
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+    <script data-page-id="19012805" src="https://yandex.ru/ads/system/ap-loader.js" async></script>
+
     {% if ga_id %}
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
