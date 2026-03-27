@@ -32,7 +32,7 @@ SOURCES_MAP = {
     21: "https://github.com/shabane/kamaji",
     22: "https://github.com/wuqb2i4f/xray-config-toolkit",
     23: "https://github.com/WhitePrime/xraycheck",
-    24: "https://github.com/STR97/STRUGOV",
+    24: "https://github.com/Mr-Meshky/vify",
     25: "https://github.com/V2RayRoot/V2RayConfig",
     26: [
         "https://whiteprime.github.io/xraycheck/configs/white-list_available",
