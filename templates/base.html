@@ -165,8 +165,16 @@
     </script>
     <style>
         html {
-            scrollbar-gutter: stable;
             transition: background-color 0.3s ease;
+        }
+
+        /* scrollbar-gutter только на десктопе с мышью —
+           на Firefox для Android это свойство расширяет расчётную
+           ширину вьюпорта и ломает мобильные медиазапросы Tailwind */
+        @media (hover: hover) and (pointer: fine) {
+            html {
+                scrollbar-gutter: stable;
+            }
         }
         [x-cloak] { display: none !important; }
         ::-webkit-scrollbar { width: 8px; }
