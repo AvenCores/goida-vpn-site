@@ -418,10 +418,43 @@
         {% block content %}{% endblock %}
     </main>
 
-    <div x-data="{ open: false }"
+    <div x-data="{
+            open: false,
+            personalMenu: false,
+            contentVisible: true,
+            switchingMenu: false,
+            closeSupport() {
+                this.open = false;
+                this.personalMenu = false;
+                this.contentVisible = true;
+                this.switchingMenu = false;
+            },
+            toggleSupport() {
+                if (this.open) {
+                    this.closeSupport();
+                    return;
+                }
+                this.open = true;
+                this.personalMenu = false;
+                this.contentVisible = true;
+                if (window.trackEvent) window.trackEvent('open_support_widget');
+            },
+            switchMenu(nextMenu) {
+                if (this.personalMenu === nextMenu || this.switchingMenu) return;
+                this.switchingMenu = true;
+                this.contentVisible = false;
+                window.setTimeout(() => {
+                    this.personalMenu = nextMenu;
+                    requestAnimationFrame(() => {
+                        this.contentVisible = true;
+                        this.switchingMenu = false;
+                    });
+                }, 120);
+            }
+         }"
          x-cloak
-         @keydown.escape.window="open = false"
-         @click.outside="open = false"
+         @keydown.escape.window="if (personalMenu) switchMenu(false); else closeSupport()"
+         @click.outside="closeSupport()"
          class="fixed z-40"
          style="right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom));">
         <div class="flex flex-col items-end gap-3">
@@ -435,42 +468,81 @@
                  class="w-[min(20rem,calc(100vw-2rem))] sm:w-80 rounded-3xl border border-gray-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-xl dark:border-white/10 dark:bg-brand-panel/95">
                 <div class="mb-4">
                     <p class="text-sm font-black text-gray-900 dark:text-white">Поддержка</p>
-                    <p class="mt-1 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Выберите, куда удобнее написать в Telegram.</p>
+                    <p class="mt-1 text-xs leading-relaxed text-gray-500 dark:text-gray-400" x-text="personalMenu ? 'Выберите удобный способ связаться с автором.' : 'Выберите удобный способ связи.'"></p>
                 </div>
 
-                <div class="space-y-3">
-                    <a href="https://t.me/avencoreschat"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       @click="open = false; if (window.trackEvent) window.trackEvent('support_click', { target: 'project_chat' })"
-                       class="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all duration-300 hover:border-blue-200 hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-500/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-500/30 dark:hover:bg-blue-500/10">
-                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 transition-colors duration-300 group-hover:bg-blue-600 group-hover:text-white dark:bg-blue-500/15 dark:text-blue-300 dark:group-hover:bg-blue-500">
-                            <i class="fa-brands fa-telegram text-xl"></i>
-                        </div>
-                        <div class="min-w-0">
-                            <p class="text-sm font-bold text-gray-900 dark:text-white">Чат проекта</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">Написать в общий чат Goida VPN.</p>
-                        </div>
-                    </a>
+                <div class="transition-all duration-150 ease-out"
+                     :class="contentVisible ? 'opacity-100 translate-y-0 scale-100' : 'pointer-events-none opacity-0 translate-y-1 scale-[0.985]'">
+                    <div x-show="!personalMenu" class="space-y-3">
+                        <a href="https://t.me/avencoreschat"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           @click="closeSupport(); if (window.trackEvent) window.trackEvent('support_click', { target: 'project_chat' })"
+                           class="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all duration-300 hover:border-blue-200 hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-500/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-500/30 dark:hover:bg-blue-500/10">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 transition-colors duration-300 group-hover:bg-blue-600 group-hover:text-white dark:bg-blue-500/15 dark:text-blue-300 dark:group-hover:bg-blue-500">
+                                <i class="fa-brands fa-telegram text-xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-bold text-gray-900 dark:text-white">Чат проекта</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Написать в общий чат Goida VPN.</p>
+                            </div>
+                        </a>
 
-                    <a href="https://t.me/avencores"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       @click="open = false; if (window.trackEvent) window.trackEvent('support_click', { target: 'author_dm' })"
-                       class="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all duration-300 hover:border-emerald-200 hover:bg-emerald-50 hover:shadow-lg hover:shadow-emerald-500/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-500/30 dark:hover:bg-emerald-500/10">
-                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 transition-colors duration-300 group-hover:bg-emerald-600 group-hover:text-white dark:bg-emerald-500/15 dark:text-emerald-300 dark:group-hover:bg-emerald-500">
-                            <i class="fa-solid fa-user text-lg"></i>
-                        </div>
-                        <div class="min-w-0">
-                            <p class="text-sm font-bold text-gray-900 dark:text-white">Личные сообщения</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">Написать автору напрямую.</p>
-                        </div>
-                    </a>
+                        <button type="button"
+                           @click="switchMenu(true); if (window.trackEvent) window.trackEvent('open_personal_support_options')"
+                           class="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all duration-300 hover:border-emerald-200 hover:bg-emerald-50 hover:shadow-lg hover:shadow-emerald-500/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-500/30 dark:hover:bg-emerald-500/10">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 transition-colors duration-300 group-hover:bg-emerald-600 group-hover:text-white dark:bg-emerald-500/15 dark:text-emerald-300 dark:group-hover:bg-emerald-500">
+                                <i class="fa-solid fa-user text-lg"></i>
+                            </div>
+                            <div class="min-w-0 flex-1 text-left">
+                                <p class="text-sm font-bold text-gray-900 dark:text-white">Личные сообщения</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Выбрать Telegram или VK для связи с автором.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-sm text-gray-400 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-300"></i>
+                        </button>
+                    </div>
+
+                    <div x-show="personalMenu" class="space-y-3">
+                        <button type="button"
+                                @click="switchMenu(false)"
+                                class="flex w-full items-center gap-2 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-bold text-gray-700 transition-all duration-300 hover:border-gray-300 hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:text-gray-200 dark:hover:bg-white/10">
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                            <span>Назад</span>
+                        </button>
+
+                        <a href="https://t.me/avencores"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           @click="closeSupport(); if (window.trackEvent) window.trackEvent('support_click', { target: 'author_dm_telegram' })"
+                           class="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all duration-300 hover:border-sky-200 hover:bg-sky-50 hover:shadow-lg hover:shadow-sky-500/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-sky-500/30 dark:hover:bg-sky-500/10">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-100 text-sky-600 transition-colors duration-300 group-hover:bg-sky-500 group-hover:text-white dark:bg-sky-500/15 dark:text-sky-300 dark:group-hover:bg-sky-500">
+                                <i class="fa-brands fa-telegram text-xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-bold text-gray-900 dark:text-white">Telegram</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Открыть личные сообщения автора в Telegram.</p>
+                            </div>
+                        </a>
+
+                        <a href="https://vk.com/avencores"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           @click="closeSupport(); if (window.trackEvent) window.trackEvent('support_click', { target: 'author_dm_vk' })"
+                           class="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all duration-300 hover:border-indigo-200 hover:bg-indigo-50 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-500/30 dark:hover:bg-indigo-500/10">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-600 transition-colors duration-300 group-hover:bg-indigo-600 group-hover:text-white dark:bg-indigo-500/15 dark:text-indigo-300 dark:group-hover:bg-indigo-500">
+                                <i class="fa-brands fa-vk text-lg"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-bold text-gray-900 dark:text-white">VK</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Открыть личные сообщения автора во ВКонтакте.</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <button type="button"
-                    @click="open = !open; if (open && window.trackEvent) window.trackEvent('open_support_widget')"
+                    @click="toggleSupport()"
                     class="group relative flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-gradient-to-br from-brand-blue to-blue-600 text-white shadow-2xl shadow-blue-500/30 transition-all duration-300 hover:scale-105 hover:shadow-blue-500/40 active:scale-95"
                     :aria-label="open ? 'Закрыть поддержку' : 'Открыть поддержку'"
                     :aria-expanded="open.toString()">
