@@ -62,7 +62,7 @@
     {% set canonical_url = canonical_url|default(site_url, true) %}
     {% set og_image = og_image|default("", true) %}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ meta_title }}</title>
     <meta name="description" content="{{ meta_description }}">
     <meta name="keywords" content="{{ meta_keywords }}">
@@ -146,15 +146,11 @@
                 document.documentElement.classList.add('dark');
             }
         })();
-
+        
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    // Keep large phones on the mobile layout in Firefox responsive mode.
-                    screens: {
-                        sm: '48rem'
-                    },
                     colors: {
                         brand: {
                             blue: '#3670A0',
