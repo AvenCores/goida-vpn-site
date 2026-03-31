@@ -167,10 +167,8 @@
         html {
             transition: background-color 0.3s ease;
         }
-
-        /* scrollbar-gutter только на десктопе с мышью —
-           на Firefox для Android это свойство расширяет расчётную
-           ширину вьюпорта и ломает мобильные медиазапросы Tailwind */
+        /* scrollbar-gutter держим только на десктопе с мышью:
+           во Firefox mobile/RDM он расширяет расчётную ширину вьюпорта. */
         @media (hover: hover) and (pointer: fine) {
             html {
                 scrollbar-gutter: stable;
