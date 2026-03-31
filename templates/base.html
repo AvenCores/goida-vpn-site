@@ -62,7 +62,7 @@
     {% set canonical_url = canonical_url|default(site_url, true) %}
     {% set og_image = og_image|default("", true) %}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{{ meta_title }}</title>
     <meta name="description" content="{{ meta_description }}">
     <meta name="keywords" content="{{ meta_keywords }}">
@@ -126,6 +126,33 @@
     <link rel="icon" type="image/png" href="static/images/favicon.png">
     <link rel="apple-touch-icon" href="static/images/favicon.png">
     
+    <script>
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                // Keep large phones on the mobile layout in Firefox responsive mode
+                // without noticeably shifting tablet and desktop breakpoints.
+                screens: {
+                    sm: '48rem',
+                    md: '48.0625rem',
+                    lg: '64rem',
+                    xl: '80rem',
+                    '2xl': '96rem'
+                },
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#3670A0',
+                            yellow: '#ffdd54',
+                            dark: '#0f172a',
+                            panel: '#1e293b'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Alpine Plugins -->
@@ -147,21 +174,6 @@
             }
         })();
         
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            blue: '#3670A0',
-                            yellow: '#ffdd54',
-                            dark: '#0f172a',
-                            panel: '#1e293b'
-                        }
-                    }
-                }
-            }
-        }
     </script>
     <style>
         html {
