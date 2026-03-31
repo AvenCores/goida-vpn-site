@@ -144,7 +144,12 @@
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-teal-600 dark:text-teal-400">
-                        <i class="fa-solid fa-tv text-2xl"></i>
+                        <div class="relative w-6 h-6 flex items-center justify-center">
+                            <i class="fa-solid fa-tv text-lg"></i>
+                            <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-sm ring-2 ring-gray-100 dark:ring-gray-900">
+                                <i class="fa-brands fa-android text-[9px] leading-none"></i>
+                            </span>
+                        </div>
                     </div>
                     Android TV (v2rayNG)
                 </span>
@@ -194,8 +199,16 @@
             <button @click="activeGuide = activeGuide === 'windows' ? null : 'windows'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'windows' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
-                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-blue-600 dark:text-blue-400">
-                        <i class="fa-brands fa-windows text-2xl"></i>
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
+                        <div class="relative w-6 h-6 flex items-center justify-center">
+                            <i class="fa-solid fa-desktop text-lg text-slate-600 dark:text-slate-300"></i>
+                            <span class="absolute -bottom-1 -left-1 w-4 h-4 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-sm ring-2 ring-gray-100 dark:ring-gray-900">
+                                <i class="fa-brands fa-windows text-[8px] leading-none"></i>
+                            </span>
+                            <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-gray-800 text-white flex items-center justify-center shadow-sm ring-2 ring-gray-100 dark:ring-gray-900">
+                                <i class="fa-brands fa-linux text-[9px] leading-none"></i>
+                            </span>
+                        </div>
                     </div>
                     Windows / Linux (Throne)
                 </span>
@@ -306,7 +319,12 @@
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-indigo-600 dark:text-indigo-400">
-                        <i class="fa-solid fa-laptop text-2xl"></i>
+                        <div class="relative w-6 h-6 flex items-center justify-center">
+                            <i class="fa-solid fa-laptop text-lg"></i>
+                            <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 flex items-center justify-center shadow-sm ring-2 ring-gray-100 dark:ring-gray-900">
+                                <i class="fa-brands fa-apple text-[9px] leading-none"></i>
+                            </span>
+                        </div>
                     </div>
                     MacOS (Hiddify)
                 </span>
