@@ -50,7 +50,8 @@ def build_site():
         configs = get_vpn_configs()
         analytics_ids = {
             'ga_id': os.environ.get('GA_ID'),
-            'ym_id': os.environ.get('YM_ID')
+            'ym_id': os.environ.get('YM_ID'),
+            'yandex_autoplacement_id': os.environ.get('YANDEX_AUTOPLACEMENT_ID')
         }
         meta_title = os.environ.get('META_TITLE', DEFAULT_META_TITLE)
         meta_description = os.environ.get('META_DESCRIPTION', DEFAULT_META_DESCRIPTION)
