@@ -437,12 +437,31 @@ def serve_license():
     return send_from_directory('static', 'LICENSE')
 
 if __name__ == '__main__':
-    # Импортируем промышленный сервер
-    from waitress import serve
+    import argparse
+    import os
     
-    # Скачиваем бэджи при запуске
-    download_badges()
+    # Парсинг аргументов командной строки
+    parser = argparse.ArgumentParser(description='Goida VPN Site')
+    parser.add_argument('--debug', action='store_true', help='Запуск в режиме отладки с автоперезагрузкой')
+    args = parser.parse_args()
     
-    print("Запуск локального сайта на http://127.0.0.1:5000")
-    # Запускаем приложение через waitress
-    serve(app, host='127.0.0.1', port=5000)
+    # В режиме отладки скачиваем бэджи только в основном процессе
+    is_debug_reloader = os.environ.get('WERKZEUG_RUN_MAIN') == 'true'
+    
+    if not args.debug or is_debug_reloader:
+        download_badges()
+    
+    if args.debug:
+        # Режим отладки с автоперезагрузкой
+        if not is_debug_reloader:
+            print("🔧 Запуск в режиме ОТЛАДКИ (автоперезагрузка включена)")
+            print("📍 Локальный сайт на http://127.0.0.1:5000")
+            print("💡 Изменения в шаблонах и статике будут видны сразу")
+            print("💡 Изменения в Python-коде потребуют перезапуска")
+        app.run(host='127.0.0.1', port=5000, debug=True)
+    else:
+        # Промышленный режим через waitress
+        from waitress import serve
+        print("🚀 Запуск локального сайта на http://127.0.0.1:5000")
+        print("💡 Для режима отладки используйте: python main.py --debug")
+        serve(app, host='127.0.0.1', port=5000)
