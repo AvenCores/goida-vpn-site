@@ -5,6 +5,8 @@ import json
 from datetime import datetime, timedelta
 from urllib.parse import urljoin
 import os
+import re
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -168,8 +170,105 @@ def fetch_download_links():
             print(f"Ошибка GitHub API для Throne: {response.status_code}")
     except Exception as e:
         print(f"Ошибка при получении Throne: {e}")
-    
+
     return links if links else None
+
+# Кэш для ссылки на Visual C++ Runtimes
+VC_RUNTIME_CACHE_FILE = 'vc_runtime_link_cache.json'
+VC_RUNTIME_CACHE_DURATION = timedelta(hours=24)
+VC_RUNTIME_FALLBACK = 'https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip'
+
+def get_cached_vc_runtime_link():
+    """Получить кэшированную ссылку на Visual C++ Runtimes если она актуальна"""
+    if os.path.exists(VC_RUNTIME_CACHE_FILE):
+        try:
+            with open(VC_RUNTIME_CACHE_FILE, 'r') as f:
+                cache = json.load(f)
+                cache_time = datetime.fromisoformat(cache.get('timestamp', ''))
+                if datetime.now() - cache_time < VC_RUNTIME_CACHE_DURATION:
+                    return cache.get('link')
+        except Exception as e:
+            print(f"Ошибка при чтении кэша VC Runtime: {e}")
+    return None
+
+def save_vc_runtime_link_cache(link):
+    """Сохранить ссылку на Visual C++ Runtimes в кэш"""
+    cache = {
+        'timestamp': datetime.now().isoformat(),
+        'link': link
+    }
+    try:
+        with open(VC_RUNTIME_CACHE_FILE, 'w') as f:
+            json.dump(cache, f)
+    except Exception as e:
+        print(f"Ошибка при сохранении кэша VC Runtime: {e}")
+
+def fetch_vc_runtime_link():
+    """Получить актуальную ссылку на Visual C++ Runtimes с comss.ru"""
+    url = 'https://www.comss.ru/download/page.php?id=6271'
+    
+    try:
+        print(f"Получение ссылки на Visual C++ Runtimes с {url}...")
+        response = requests.get(url, timeout=15)
+        response.raise_for_status()
+        
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Ищем кнопку "скачать как" и связанные элементы
+        # Ссылка обычно находится в data-атрибутах или в onclick обработчиках
+        download_link = None
+        
+        # Ищем все ссылки, содержащие dl.comss.org
+        for link in soup.find_all('a', href=True):
+            href = link['href']
+            if 'dl.comss.org' in href and 'Visual-C-Runtimes' in href:
+                download_link = href
+                break
+        
+        # Если не нашли, ищем в data-атрибутах кнопок
+        if not download_link:
+            for btn in soup.find_all('button', {'data-toggle': 'dropdown'}):
+                if 'скачать как' in btn.get_text().lower():
+                    # Ищем родительский элемент с данными
+                    parent = btn.find_parent()
+                    if parent:
+                        # Ищем ссылки в выпадающем меню
+                        dropdown_menu = parent.find('div', class_='dropdown-menu') or parent.find('ul', class_='dropdown-menu')
+                        if dropdown_menu:
+                            for link in dropdown_menu.find_all('a', href=True):
+                                href = link.get('href', '')
+                                if 'dl.comss.org' in href and 'Visual-C-Runtimes' in href:
+                                    download_link = href
+                                    break
+                                # Также проверяем data-атрибуты
+                                data_url = link.get('data-url') or link.get('data-href')
+                                if data_url and 'dl.comss.org' in data_url and 'Visual-C-Runtimes' in data_url:
+                                    download_link = data_url
+                                    break
+                        if download_link:
+                            break
+        
+        # Если всё ещё не нашли, пробуем найти в JavaScript коде страницы
+        if not download_link:
+            scripts = soup.find_all('script')
+            for script in scripts:
+                if script.string:
+                    # Ищем URL в формате https://dl.comss.org/download/...
+                    matches = re.findall(r'https://dl\.comss\.org/download/Visual-C-Runtimes[^\s\'"]+', script.string)
+                    if matches:
+                        download_link = matches[0]
+                        break
+        
+        if download_link:
+            print(f"Найдена ссылка на Visual C++ Runtimes: {download_link}")
+            return download_link
+        else:
+            print("Не удалось найти ссылку на Visual C++ Runtimes, используем fallback")
+            return VC_RUNTIME_FALLBACK
+            
+    except Exception as e:
+        print(f"Ошибка при получении Visual C++ Runtimes: {e}")
+        return VC_RUNTIME_FALLBACK
 
 @app.route('/')
 def home():
@@ -231,6 +330,28 @@ def get_download_links():
     print("Возвращаем fallback ссылки")
     save_links_cache(FALLBACK_LINKS)
     return jsonify(FALLBACK_LINKS)
+
+@app.route('/api/vc-runtime-link')
+def get_vc_runtime_link():
+    """API endpoint для получения ссылки на Visual C++ Runtimes"""
+    # Сначала проверяем кэш
+    cached = get_cached_vc_runtime_link()
+    if cached:
+        print("Возвращаем кэшированную ссылку на VC Runtime")
+        return jsonify({'link': cached})
+
+    # Если кэша нет или он устарел, получаем новую ссылку
+    print("Получаем новую ссылку на VC Runtime")
+    link = fetch_vc_runtime_link()
+
+    if link:
+        save_vc_runtime_link_cache(link)
+        print(f"Возвращаем новую ссылку на VC Runtime: {link}")
+        return jsonify({'link': link})
+
+    # Fallback - возвращаем резервную ссылку
+    print("Возвращаем fallback ссылку на VC Runtime")
+    return jsonify({'link': VC_RUNTIME_FALLBACK})
 
 # Кэш для статистики GitHub
 STATS_CACHE_FILE = 'github_stats_cache.json'

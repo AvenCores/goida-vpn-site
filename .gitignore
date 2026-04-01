@@ -1,5 +1,6 @@
 .env/
 dist/
+.qwen/
 .gemini/
 __pycache__/
 static/images/

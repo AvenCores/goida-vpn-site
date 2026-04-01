@@ -10,6 +10,8 @@ from main import (
     get_vpn_configs,
     get_analytics_ids,
     fetch_download_links,
+    fetch_vc_runtime_link,
+    VC_RUNTIME_FALLBACK,
     FALLBACK_LINKS,
     download_badges,
     normalize_site_url,
@@ -81,6 +83,16 @@ def build_site():
     with open(os.path.join(api_path, 'download-links.json'), 'w', encoding='utf-8') as f:
         json.dump(links, f)
     print("✅ API файл ссылок создан")
+
+    print("⏳ Получение ссылки на Visual C++ Runtimes...")
+    vc_runtime_link = fetch_vc_runtime_link()
+    if not vc_runtime_link:
+        print("⚠️ Не удалось получить ссылку на VC Runtime, используется резервная")
+        vc_runtime_link = VC_RUNTIME_FALLBACK
+
+    with open(os.path.join(api_path, 'vc-runtime-link.json'), 'w', encoding='utf-8') as f:
+        json.dump({'link': vc_runtime_link}, f)
+    print("✅ API файл ссылки на VC Runtime создан")
 
     print("⏳ Получение статистики репозитория...")
     fetch_and_save_github_stats(api_path)
