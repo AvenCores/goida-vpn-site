@@ -323,9 +323,11 @@
           showStatsModal: false,
           showExitModal: false,
           showDownloadModal: false,
+          showQrDownloadModal: false,
           targetUrl: '',
           currentSources: [],
           currentConfigId: null,
+          currentQrConfigId: null,
           lockTimeout: null,
           formatUrl(url) {
               if (!url) return '';
@@ -351,6 +353,20 @@
                   this.showDownloadModal = false;
               }
           },
+          downloadQrCode() {
+              if (this.currentQrConfigId) {
+                  if (window.trackEvent) {
+                      window.trackEvent('download_qr', { config_id: this.currentQrConfigId });
+                  }
+                  const link = document.createElement('a');
+                  link.href = `static/qr-codes/${this.currentQrConfigId}.png`;
+                  link.download = `goida-vpn-qr-${this.currentQrConfigId}.png`;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  this.showQrDownloadModal = false;
+              }
+          },
           lockBody(state) {
               if (state) {
                   if (this.lockTimeout) clearTimeout(this.lockTimeout);
@@ -372,18 +388,22 @@
               loadGitHubStats();
               if (window.trackEvent) window.trackEvent('open_stats');
           }
-      }); $watch('showExitModal', value => { 
+      }); $watch('showExitModal', value => {
           lockBody(value);
           if (value && window.trackEvent) window.trackEvent('view_exit_modal', { url: targetUrl });
-      }); $watch('showDownloadModal', value => { 
+      }); $watch('showDownloadModal', value => {
           lockBody(value);
           if (value && window.trackEvent) window.trackEvent('view_download_modal', { url: targetUrl });
-      }); $watch('showSourcesModal', value => { 
+      }); $watch('showQrDownloadModal', value => {
+          lockBody(value);
+          if (value && window.trackEvent) window.trackEvent('view_qr_download_modal', { config_id: currentQrConfigId });
+      }); $watch('showSourcesModal', value => {
           lockBody(value);
           if (value && window.trackEvent) window.trackEvent('view_sources', { config_id: currentConfigId });
       });"
       x-on:open-exit-modal.window="targetUrl = $event.detail.url; showExitModal = true"
       x-on:open-download-modal.window="targetUrl = $event.detail.url; showDownloadModal = true"
+      x-on:open-qr-download-modal.window="currentQrConfigId = $event.detail.configId; showQrDownloadModal = true"
 >
     <!-- Yandex.Metrika counter (noscript) -->
     {% if ym_id %}
@@ -752,6 +772,54 @@
                     Отмена
                 </button>
                 <button @click="openTargetUrl()"
+                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95">
+                    Скачать
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения скачивания QR-кода -->
+    <div x-show="showQrDownloadModal"
+         @keydown.escape="showQrDownloadModal = false"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+         @click.self="showQrDownloadModal = false">
+        <div x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+             class="bg-white dark:bg-brand-panel rounded-3xl shadow-2xl max-w-md w-full p-8 text-center border border-gray-200 dark:border-white/10 relative overflow-hidden">
+
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-green-500/10 blur-[80px] pointer-events-none"></div>
+
+            <div class="mb-6 relative">
+                 <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-2xl bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800/50 shadow-sm">
+                    <i class="fa-solid fa-download text-2xl"></i>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Начать скачивание?</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
+                Вы собираетесь скачать QR-код для конфига <br>
+                <span class="inline-block mt-3 px-4 py-2 bg-gray-50 dark:bg-black/30 rounded-xl font-bold text-green-600 dark:text-green-400 text-lg border border-gray-100 dark:border-white/5">
+                    #<span x-text="currentQrConfigId"></span>
+                </span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button @click="showQrDownloadModal = false"
+                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95">
+                    Отмена
+                </button>
+                <button @click="downloadQrCode()"
                         class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95">
                     Скачать
                 </button>

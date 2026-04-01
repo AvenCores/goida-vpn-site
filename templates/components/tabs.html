@@ -290,13 +290,11 @@
                             </template>
                         </div>
 
-                        <a :href="'static/qr-codes/' + config.id + '.png'" 
-                           download
-                           @click="if(window.trackEvent) window.trackEvent('download_qr', { config_id: config.id })"
+                        <button @click="$dispatch('open-qr-download-modal', { configId: config.id })"
                            class="w-full flex items-center justify-center gap-2 py-2.5 bg-brand-blue text-white hover:bg-blue-600 rounded-xl text-xs font-bold transition-all shadow-sm">
                            <i class="fa-solid fa-download"></i>
                            <span>Скачать</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </template>
