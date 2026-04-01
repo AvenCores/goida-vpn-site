@@ -8,6 +8,7 @@ from flask import render_template
 from main import (
     app,
     get_vpn_configs,
+    get_analytics_ids,
     fetch_download_links,
     FALLBACK_LINKS,
     download_badges,
@@ -48,11 +49,9 @@ def build_site():
     with app.test_request_context():
         print("⏳ Получение конфигов и рендеринг шаблона...")
         configs = get_vpn_configs()
-        analytics_ids = {
-            'ga_id': os.environ.get('GA_ID'),
-            'ym_id': os.environ.get('YM_ID'),
-            'yandex_autoplacement_id': os.environ.get('YANDEX_AUTOPLACEMENT_ID')
-        }
+        analytics_ids = get_analytics_ids()
+        if not analytics_ids.get('yandex_autoplacement_id'):
+            print("WARNING: YANDEX_AUTOPLACEMENT_ID is not set, skipping Yandex Autoplacement in dist/index.html")
         meta_title = os.environ.get('META_TITLE', DEFAULT_META_TITLE)
         meta_description = os.environ.get('META_DESCRIPTION', DEFAULT_META_DESCRIPTION)
         og_image = os.environ.get('OG_IMAGE_URL')

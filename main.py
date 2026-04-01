@@ -35,6 +35,13 @@ def get_site_url() -> str | None:
     except RuntimeError:
         return None
 
+def get_analytics_ids() -> dict[str, str | None]:
+    return {
+        'ga_id': os.environ.get('GA_ID'),
+        'ym_id': os.environ.get('YM_ID'),
+        'yandex_autoplacement_id': os.environ.get('YANDEX_AUTOPLACEMENT_ID')
+    }
+
 def generate_robots_txt(site_url: str | None) -> str:
     lines = [
         "User-agent: *",
@@ -167,11 +174,7 @@ def fetch_download_links():
 @app.route('/')
 def home():
     configs = get_vpn_configs()
-    analytics_ids = {
-        'ga_id': os.environ.get('GA_ID'),
-        'ym_id': os.environ.get('YM_ID'),
-        'yandex_autoplacement_id': os.environ.get('YANDEX_AUTOPLACEMENT_ID')
-    }
+    analytics_ids = get_analytics_ids()
     site_url = get_site_url()
     meta_title = os.environ.get('META_TITLE', DEFAULT_META_TITLE)
     meta_description = os.environ.get('META_DESCRIPTION', DEFAULT_META_DESCRIPTION)

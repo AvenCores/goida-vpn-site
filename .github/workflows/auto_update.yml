@@ -35,4 +35,5 @@ jobs:
           MY_TOKEN: ${{ secrets.MY_TOKEN }}
           GA_ID: ${{ secrets.GA_ID || vars.GA_ID }}
           YM_ID: ${{ secrets.YM_ID || vars.YM_ID }}
+          YANDEX_AUTOPLACEMENT_ID: ${{ secrets.YANDEX_AUTOPLACEMENT_ID || vars.YANDEX_AUTOPLACEMENT_ID }}
         run: python build.py
