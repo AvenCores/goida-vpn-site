@@ -7,6 +7,9 @@ from urllib.parse import urljoin
 import os
 import re
 from bs4 import BeautifulSoup
+import argparse
+import logging
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -499,9 +502,6 @@ def serve_license():
     return send_from_directory('static', 'LICENSE')
 
 if __name__ == '__main__':
-    import argparse
-    import os
-    import logging
 
     # Настройка логгера
     logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
@@ -534,7 +534,6 @@ if __name__ == '__main__':
         # use_reloader=True по умолчанию при debug=True, но указываем явно для наглядности
         app.run(host=host, port=port, debug=True, use_reloader=True)
     else:
-        from waitress import serve
         # В продакшене логи выводятся один раз, так как релоадер не используется
         if not is_reloader_child:
             log.info(f"🚀 Запуск в ПРОДАКШЕН режиме (Waitress)")
