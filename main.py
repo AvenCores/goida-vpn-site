@@ -501,33 +501,42 @@ def serve_license():
 if __name__ == '__main__':
     import argparse
     import os
+    import logging
 
-    # Парсинг аргументов командной строки
+    # Настройка логгера
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
+    log = logging.getLogger(__name__)
+
     parser = argparse.ArgumentParser(description='Goida VPN Site')
-    parser.add_argument('--debug', action='store_true', help='Запуск в режиме отладки с автоперезагрузкой')
+    parser.add_argument('--debug', action='store_true', help='Режим отладки с автоперезагрузкой')
+    parser.add_argument('--host', default='127.0.0.1', help='Хост для прослушивания')
+    parser.add_argument('--port', type=int, default=5000, help='Порт для прослушивания')
     args = parser.parse_args()
 
-    # Устанавливаем режим отладки
+    # Синхронизируем режим отладки
     set_debug_mode(args.debug)
+    app.config['DEBUG'] = args.debug
 
-    # В режиме отладки скачиваем бэджи только в основном процессе
-    is_debug_reloader = os.environ.get('WERKZEUG_RUN_MAIN') == 'true'
+    # ✅ Надёжная проверка: выполняется ли код в дочернем процессе релоадера
+    # Werkzeug может устанавливать 'true' или '1' в зависимости от версии
+    is_reloader_child = os.environ.get('WERKZEUG_RUN_MAIN') in ('true', '1')
 
-    if not args.debug or is_debug_reloader:
+    # Инициализация только в родительском процессе (чтобы не было дублей)
+    if not is_reloader_child:
         download_badges()
+        log.info("🔧 Запуск в режиме ОТЛАДКИ (auto-reload & debugger включены)")
+        log.info(f"📍 Сайт доступен на http://{args.host}:{args.port}")
+
+    host = args.host
+    port = args.port
 
     if args.debug:
-        # Режим отладки с автоперезагрузкой
-        if not is_debug_reloader:
-            print("🔧 Запуск в режиме ОТЛАДКИ (автоперезагрузка включена)")
-            print("📍 Локальный сайт на http://127.0.0.1:5000")
-            print("💡 Изменения в шаблонах и статике будут видны сразу")
-            print("💡 Изменения в Python-коде потребуют перезапуска")
-            print("⚙️  API заглушки активны - внешние запросы не выполняются")
-        app.run(host='127.0.0.1', port=5000, debug=True)
+        # use_reloader=True по умолчанию при debug=True, но указываем явно для наглядности
+        app.run(host=host, port=port, debug=True, use_reloader=True)
     else:
-        # Промышленный режим через waitress
         from waitress import serve
-        print("🚀 Запуск локального сайта на http://127.0.0.1:5000")
-        print("💡 Для режима отладки используйте: python main.py --debug")
-        serve(app, host='127.0.0.1', port=5000)
+        # В продакшене логи выводятся один раз, так как релоадер не используется
+        if not is_reloader_child:
+            log.info(f"🚀 Запуск в ПРОДАКШЕН режиме (Waitress)")
+            log.info(f"📍 Сайт доступен на http://{host}:{port}")
+        serve(app, host=host, port=port)
