@@ -85,6 +85,7 @@ pip install -r requirements.txt
 ### Использование:
 
 - **Локальный сервер**: `python main.py` (доступно на `http://localhost:5000`).
+- **Режим отладки**: `python main.py --debug` (автоперезагрузка, API-заглушки без внешних запросов).
 - **Сборка сайта**: `python build.py` (результат в папке `dist/`).
 
 ---
