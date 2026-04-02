@@ -2,6 +2,14 @@ import requests
 import re
 from datetime import datetime, timedelta
 
+# Глобальная переменная для режима отладки
+DEBUG_MODE = False
+
+def set_debug_mode(enabled: bool):
+    """Установить режим отладки"""
+    global DEBUG_MODE
+    DEBUG_MODE = enabled
+
 # Кэш для таблицы обновлений
 UPDATE_TABLE_CACHE = None
 UPDATE_TABLE_CACHE_TIME = None
@@ -47,7 +55,21 @@ SOURCES_MAP = {
 def parse_update_table():
     """Парсит таблицу обновлений из README.md репозитория"""
     global UPDATE_TABLE_CACHE, UPDATE_TABLE_CACHE_TIME
-    
+
+    # В режиме отладки используем заглушку
+    if DEBUG_MODE:
+        print("⚙️ DEBUG MODE: Используем заглушку для таблицы обновлений")
+        # Возвращаем заглушку с текущим временем для всех конфигов
+        fallback_update_info = {}
+        now = datetime.now()
+        for i in range(1, 27):
+            fallback_update_info[i] = {
+                'time': now.strftime('%H:%M'),
+                'date': now.strftime('%d.%m.%Y'),
+                'datetime_str': now.strftime('%d.%m.%Y %H:%M')
+            }
+        return fallback_update_info
+
     # Проверяем кэш
     if UPDATE_TABLE_CACHE and UPDATE_TABLE_CACHE_TIME:
         if datetime.now() - UPDATE_TABLE_CACHE_TIME < CACHE_DURATION:

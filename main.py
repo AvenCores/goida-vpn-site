@@ -1,5 +1,5 @@
 from flask import Flask, render_template, send_from_directory, jsonify, request, Response
-from services import get_vpn_configs
+from services import get_vpn_configs, set_debug_mode as set_services_debug_mode
 import requests
 import json
 from datetime import datetime, timedelta
@@ -9,6 +9,16 @@ import re
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
+
+# Глобальная переменная для режима отладки
+DEBUG_MODE = False
+
+def set_debug_mode(enabled: bool):
+    """Установить режим отладки"""
+    global DEBUG_MODE
+    DEBUG_MODE = enabled
+    # Передать режим в services модуль
+    set_services_debug_mode(enabled)
 
 # SEO defaults (can be overridden via env in production)
 DEFAULT_META_TITLE = "Goida VPN Configs"
@@ -128,8 +138,13 @@ def save_links_cache(links):
 
 def fetch_download_links():
     """Получить актуальные ссылки с GitHub API"""
-    links = {}
+    # В режиме отладки используем заглушки
+    if DEBUG_MODE:
+        print("⚙️ DEBUG MODE: Используем заглушки для ссылок на скачивание")
+        return FALLBACK_LINKS.copy()
     
+    links = {}
+
     try:
         # v2rayNG
         print("Получение v2rayNG...")
@@ -145,7 +160,7 @@ def fetch_download_links():
             print(f"Ошибка GitHub API для v2rayNG: {response.status_code}")
     except Exception as e:
         print(f"Ошибка при получении v2rayNG: {e}")
-    
+
     try:
         # Throne
         print("Получение Throne...")
@@ -156,7 +171,7 @@ def fetch_download_links():
             throne_win10 = next((a for a in releases.get('assets', []) if 'windows64' in a['name'] and 'legacy' not in a['name']), None)
             throne_win7 = next((a for a in releases.get('assets', []) if 'windowslegacy64' in a['name']), None)
             throne_linux = next((a for a in releases.get('assets', []) if 'linux-amd64' in a['name']), None)
-            
+
             if throne_win10:
                 links['throne-win10'] = throne_win10['browser_download_url']
                 print(f"Throne Win10 ссылка: {links['throne-win10']}")
@@ -180,6 +195,10 @@ VC_RUNTIME_FALLBACK = 'https://cf.comss.org/download/Visual-C-Runtimes-All-in-On
 
 def get_cached_vc_runtime_link():
     """Получить кэшированную ссылку на Visual C++ Runtimes если она актуальна"""
+    # В режиме отладки не используем кэш
+    if DEBUG_MODE:
+        return None
+    
     if os.path.exists(VC_RUNTIME_CACHE_FILE):
         try:
             with open(VC_RUNTIME_CACHE_FILE, 'r') as f:
@@ -193,6 +212,10 @@ def get_cached_vc_runtime_link():
 
 def save_vc_runtime_link_cache(link):
     """Сохранить ссылку на Visual C++ Runtimes в кэш"""
+    # В режиме отладки не сохраняем кэш
+    if DEBUG_MODE:
+        return
+    
     cache = {
         'timestamp': datetime.now().isoformat(),
         'link': link
@@ -205,6 +228,11 @@ def save_vc_runtime_link_cache(link):
 
 def fetch_vc_runtime_link():
     """Получить актуальную ссылку на Visual C++ Runtimes с comss.ru"""
+    # В режиме отладки используем заглушку
+    if DEBUG_MODE:
+        print("⚙️ DEBUG MODE: Используем заглушку для VC Runtime ссылки")
+        return VC_RUNTIME_FALLBACK
+    
     url = 'https://www.comss.ru/download/page.php?id=6271'
     
     try:
@@ -353,6 +381,22 @@ def get_vc_runtime_link():
     print("Возвращаем fallback ссылку на VC Runtime")
     return jsonify({'link': VC_RUNTIME_FALLBACK})
 
+# Маршруты для статических JSON файлов (для совместимости с фронтендом)
+@app.route('/api/download-links.json')
+def get_download_links_json():
+    """Отдает JSON файл ссылок на скачивание (для фронтенда)"""
+    return get_download_links()
+
+@app.route('/api/vc-runtime-link.json')
+def get_vc_runtime_link_json():
+    """Отдает JSON файл ссылки на VC Runtime (для фронтенда)"""
+    return get_vc_runtime_link()
+
+@app.route('/api/github-stats.json')
+def get_github_stats_json():
+    """Отдает JSON файл статистики GitHub (для фронтенда)"""
+    return get_github_stats()
+
 # Кэш для статистики GitHub
 STATS_CACHE_FILE = 'github_stats_cache.json'
 STATS_CACHE_DURATION = timedelta(hours=1)
@@ -413,6 +457,24 @@ def save_stats_cache(data):
 @app.route('/api/github-stats')
 def get_github_stats():
     """API endpoint для получения статистики репозитория с кэшированием"""
+    # В режиме отладки используем заглушку
+    if DEBUG_MODE:
+        print("⚙️ DEBUG MODE: Используем заглушку для GitHub статистики")
+        return jsonify({
+            'name': 'goida-vpn-configs',
+            'full_name': 'AvenCores/goida-vpn-configs',
+            'stargazers_count': 0,
+            'forks_count': 0,
+            'open_issues_count': 0,
+            'subscribers_count': 0,
+            'pushed_at': datetime.utcnow().isoformat() + 'Z',
+            'created_at': datetime.utcnow().isoformat() + 'Z',
+            'updated_at': datetime.utcnow().isoformat() + 'Z',
+            'html_url': 'https://github.com/AvenCores/goida-vpn-configs',
+            'description': 'VPN Configs',
+            'debug_mode': True
+        })
+    
     # Сначала проверяем кэш
     cached_stats = get_cached_stats()
     if cached_stats:
@@ -439,18 +501,21 @@ def serve_license():
 if __name__ == '__main__':
     import argparse
     import os
-    
+
     # Парсинг аргументов командной строки
     parser = argparse.ArgumentParser(description='Goida VPN Site')
     parser.add_argument('--debug', action='store_true', help='Запуск в режиме отладки с автоперезагрузкой')
     args = parser.parse_args()
-    
+
+    # Устанавливаем режим отладки
+    set_debug_mode(args.debug)
+
     # В режиме отладки скачиваем бэджи только в основном процессе
     is_debug_reloader = os.environ.get('WERKZEUG_RUN_MAIN') == 'true'
-    
+
     if not args.debug or is_debug_reloader:
         download_badges()
-    
+
     if args.debug:
         # Режим отладки с автоперезагрузкой
         if not is_debug_reloader:
@@ -458,6 +523,7 @@ if __name__ == '__main__':
             print("📍 Локальный сайт на http://127.0.0.1:5000")
             print("💡 Изменения в шаблонах и статике будут видны сразу")
             print("💡 Изменения в Python-коде потребуют перезапуска")
+            print("⚙️  API заглушки активны - внешние запросы не выполняются")
         app.run(host='127.0.0.1', port=5000, debug=True)
     else:
         # Промышленный режим через waitress
