@@ -191,49 +191,43 @@
         const titleEls = Array.from(document.querySelectorAll('[data-i18n-title]'));
         const altEls = Array.from(document.querySelectorAll('[data-i18n-alt]'));
 
-        // Fade out
-        document.body.classList.add('lang-switching');
+        // Меняем текст (lang-switching уже установлен из animateLangSwitch)
+        textEls.forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            const translated = t(key);
+            if (translated) {
+                el.innerHTML = translated;
+            }
+        });
 
-        // Ждём окончания fade-out (200ms как в CSS transition)
+        placeholderEls.forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            const translated = t(key);
+            if (translated) {
+                el.placeholder = translated;
+            }
+        });
+
+        titleEls.forEach(el => {
+            const key = el.getAttribute('data-i18n-title');
+            const translated = t(key);
+            if (translated) {
+                el.title = translated;
+            }
+        });
+
+        altEls.forEach(el => {
+            const key = el.getAttribute('data-i18n-alt');
+            const translated = t(key);
+            if (translated) {
+                el.alt = translated;
+            }
+        });
+
+        // Убираем lang-switching с задержкой чтобы текст успел fade-out и потом fade-in
         setTimeout(() => {
-            // Меняем текст когда элементы невидимы
-            textEls.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                const translated = t(key);
-                if (translated) {
-                    el.innerHTML = translated;
-                }
-            });
-
-            placeholderEls.forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                const translated = t(key);
-                if (translated) {
-                    el.placeholder = translated;
-                }
-            });
-
-            titleEls.forEach(el => {
-                const key = el.getAttribute('data-i18n-title');
-                const translated = t(key);
-                if (translated) {
-                    el.title = translated;
-                }
-            });
-
-            altEls.forEach(el => {
-                const key = el.getAttribute('data-i18n-alt');
-                const translated = t(key);
-                if (translated) {
-                    el.alt = translated;
-                }
-            });
-
-            // Fade in — убираем класс
-            requestAnimationFrame(() => {
-                document.body.classList.remove('lang-switching');
-            });
-        }, 200);
+            document.body.classList.remove('lang-switching');
+        }, 250);
     }
 
     // Переключить язык (циклически)

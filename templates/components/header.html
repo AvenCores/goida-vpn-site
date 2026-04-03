@@ -72,7 +72,7 @@
                          class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-brand-panel border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden"
                          style="display: none;"
                          id="lang-dropdown">
-                        <button @click="window.i18n && window.i18n.setLanguage ? (animateLangSwitch(), window.i18n.setLanguage('ru')) : (currentLanguage = 'ru'); langOpen = false"
+                        <button @click="setLangWithAnim('ru')"
                                 class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
                                 :class="currentLanguage === 'ru' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
                             <span class="flex items-center gap-2.5">
@@ -81,7 +81,7 @@
                             </span>
                             <svg x-show="currentLanguage === 'ru'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
-                        <button @click="window.i18n && window.i18n.setLanguage ? (animateLangSwitch(), window.i18n.setLanguage('en')) : (currentLanguage = 'en'); langOpen = false"
+                        <button @click="setLangWithAnim('en')"
                                 class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
                                 :class="currentLanguage === 'en' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
                             <span class="flex items-center gap-2.5">
@@ -90,7 +90,7 @@
                             </span>
                             <svg x-show="currentLanguage === 'en'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
-                        <button @click="window.i18n && window.i18n.setLanguage ? (animateLangSwitch(), window.i18n.setLanguage('de')) : (currentLanguage = 'de'); langOpen = false"
+                        <button @click="setLangWithAnim('de')"
                                 class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
                                 :class="currentLanguage === 'de' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
                             <span class="flex items-center gap-2.5">
@@ -99,7 +99,7 @@
                             </span>
                             <svg x-show="currentLanguage === 'de'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
-                        <button @click="window.i18n && window.i18n.setLanguage ? (animateLangSwitch(), window.i18n.setLanguage('uk')) : (currentLanguage = 'uk'); langOpen = false"
+                        <button @click="setLangWithAnim('uk')"
                                 class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
                                 :class="currentLanguage === 'uk' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
                             <span class="flex items-center gap-2.5">
@@ -108,7 +108,7 @@
                             </span>
                             <svg x-show="currentLanguage === 'uk'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
-                        <button @click="window.i18n && window.i18n.setLanguage ? (animateLangSwitch(), window.i18n.setLanguage('be')) : (currentLanguage = 'be'); langOpen = false"
+                        <button @click="setLangWithAnim('be')"
                                 class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
                                 :class="currentLanguage === 'be' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
                             <span class="flex items-center gap-2.5">
@@ -122,24 +122,27 @@
 
                 <!-- Тема -->
                 <button @click="toggleTheme()"
-                    class="group w-9 h-9 sm:w-auto sm:h-10 sm:px-3 flex items-center justify-center sm:justify-start gap-0 sm:gap-2 rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-200 active:scale-95 touch-manipulation shrink-0">
+                    class="group w-9 h-9 sm:w-auto sm:h-10 sm:px-3 flex items-center justify-center sm:justify-start gap-0 sm:gap-2 rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-200 active:scale-95 touch-manipulation shrink-0"
+                    id="theme-button">
                     <i class="fa-solid text-base sm:text-lg transition-all duration-300 group-hover:rotate-12" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-blue-600'"></i>
-                    <span class="hidden sm:inline text-sm font-bold text-gray-700 dark:text-gray-300" x-text="darkMode ? (i18nReady && currentLanguage === 'en' ? 'Light' : i18nReady && currentLanguage === 'de' ? 'Hell' : i18nReady && currentLanguage === 'uk' ? 'Світла' : i18nReady && currentLanguage === 'be' ? 'Светлая' : 'Светлая') : (i18nReady && currentLanguage === 'en' ? 'Dark' : i18nReady && currentLanguage === 'de' ? 'Dunkel' : i18nReady && currentLanguage === 'uk' ? 'Темна' : i18nReady && currentLanguage === 'be' ? 'Цёмная' : 'Тёмная')"></span>
+                    <span class="hidden sm:inline theme-text text-sm font-bold text-gray-700 dark:text-gray-300" x-text="darkMode ? (i18nReady && currentLanguage === 'en' ? 'Light' : i18nReady && currentLanguage === 'de' ? 'Hell' : i18nReady && currentLanguage === 'uk' ? 'Світла' : i18nReady && currentLanguage === 'be' ? 'Светлая' : 'Светлая') : (i18nReady && currentLanguage === 'en' ? 'Dark' : i18nReady && currentLanguage === 'de' ? 'Dunkel' : i18nReady && currentLanguage === 'uk' ? 'Темна' : i18nReady && currentLanguage === 'be' ? 'Цёмная' : 'Тёмная')"></span>
                 </button>
 
                 <!-- Статистика -->
                 <button @click="showStatsModal = true"
-                    class="group bg-gradient-to-br from-blue-600 to-brand-blue text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-9 h-9 sm:w-auto sm:h-10 sm:px-5 border border-white/20 touch-manipulation shrink-0">
+                    class="group bg-gradient-to-br from-blue-600 to-brand-blue text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-9 h-9 sm:w-auto sm:h-10 sm:px-5 border border-white/20 touch-manipulation shrink-0"
+                    id="stats-button">
                     <i class="fa-solid fa-chart-simple text-base sm:text-lg sm:mr-2 group-hover:rotate-12 transition-transform"></i>
-                    <span class="hidden sm:inline" x-text="currentLanguage === 'en' && i18nReady ? 'Statistics' : (currentLanguage === 'de' && i18nReady ? 'Statistiken' : (currentLanguage === 'uk' && i18nReady ? 'Статистика' : (currentLanguage === 'be' && i18nReady ? 'Статыстыка' : 'Статистика')))">Статистика</span>
+                    <span class="hidden sm:inline stats-text text-sm font-bold" x-text="currentLanguage === 'en' && i18nReady ? 'Statistics' : (currentLanguage === 'de' && i18nReady ? 'Statistiken' : (currentLanguage === 'uk' && i18nReady ? 'Статистика' : (currentLanguage === 'be' && i18nReady ? 'Статыстыка' : 'Статистика')))">Статистика</span>
                 </button>
 
                 <!-- GitHub -->
                 <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank"
                     @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'github', location: 'header' })"
-                    class="group bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-9 h-9 sm:w-auto sm:h-10 sm:px-5 border border-white/10 touch-manipulation shrink-0">
+                    class="group bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-9 h-9 sm:w-auto sm:h-10 sm:px-5 border border-white/10 touch-manipulation shrink-0"
+                    id="github-button">
                     <i class="fa-brands fa-github text-lg sm:text-xl sm:mr-2 group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden sm:inline">GitHub</span>
+                    <span class="hidden sm:inline text-sm font-bold">GitHub</span>
                 </a>
             </div>
         </div>

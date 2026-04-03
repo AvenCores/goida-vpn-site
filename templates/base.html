@@ -360,17 +360,17 @@
         }
 
         /* Анимация смены языка — плавные переходы */
-        [data-i18n],
-        [data-i18n-placeholder],
-        [data-i18n-title],
-        [data-i18n-alt] {
-            transition: opacity 0.2s ease;
+        /* img элементы не фейдим — меняется только alt атрибут */
+        [data-i18n]:not(img):not(svg):not(path):not(use),
+        [data-i18n-placeholder]:not(img),
+        [data-i18n-title]:not(img),
+        [data-i18n-alt]:not(img) {
+            transition: opacity 0.25s ease;
         }
 
-        .lang-switching [data-i18n],
-        .lang-switching [data-i18n-placeholder],
-        .lang-switching [data-i18n-title],
-        .lang-switching [data-i18n-alt] {
+        .lang-switching [data-i18n]:not(img):not(svg):not(path):not(use),
+        .lang-switching [data-i18n-placeholder]:not(img),
+        .lang-switching [data-i18n-title]:not(img) {
             opacity: 0;
         }
 
@@ -389,6 +389,18 @@
 
         .lang-button-animating {
             animation: lang-pulse 0.3s ease;
+        }
+
+        /* Плавная смена текста в кнопках хедера (тема, статистика) */
+        /* GitHub не фейдим — текст не меняется */
+        .stats-text,
+        .theme-text {
+            transition: opacity 0.25s ease;
+        }
+
+        .lang-switching .stats-text,
+        .lang-switching .theme-text {
+            opacity: 0;
         }
     </style>
 </head>
@@ -421,19 +433,35 @@
           },
           toggleLanguage() {
               if (window.i18n) {
+                  this.animateLangSwitch();
                   window.i18n.toggleLanguage();
               } else {
+                  this.animateLangSwitch();
                   this.currentLanguage = this.currentLanguage === 'ru' ? 'en' : 'ru';
                   localStorage.setItem('lang', this.currentLanguage);
                   document.documentElement.lang = this.currentLanguage;
               }
           },
           animateLangSwitch() {
+              // Ставим lang-switching ДО смены языка — текст начнёт fade-out
+              document.body.classList.add('lang-switching');
+
               // Мягкая пульсация кнопки переключения
               const btn = document.getElementById('lang-toggle-button');
               if (btn) {
                   btn.classList.add('lang-button-animating');
                   setTimeout(() => btn.classList.remove('lang-button-animating'), 300);
+              }
+          },
+          setLangWithAnim(lang) {
+              this.animateLangSwitch();
+              this.currentLanguage = lang;
+              this.langOpen = false;
+              localStorage.setItem('lang', lang);
+              document.documentElement.lang = lang;
+              // Применяем переводы если i18n загружен
+              if (window.i18n) {
+                  window.i18n.applyTranslations();
               }
           },
           activeTab: 'configs',
