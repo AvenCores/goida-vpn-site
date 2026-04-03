@@ -44,6 +44,13 @@ def build_site():
         shutil.copytree('static', os.path.join(DIST_DIR, 'static'))
         print("✅ Папка static скопирована")
 
+    # Копируем i18n переводы
+    if os.path.exists('static/i18n/translations.json'):
+        i18n_dir = os.path.join(DIST_DIR, 'static', 'i18n')
+        os.makedirs(i18n_dir, exist_ok=True)
+        shutil.copy2('static/i18n/translations.json', os.path.join(i18n_dir, 'translations.json'))
+        print("✅ Файл переводов translations.json скопирован")
+
     site_url = normalize_site_url(
         os.getenv('SITE_URL') or f"https://{REPO_USER.lower()}.github.io/{REPO_NAME}/"
     )

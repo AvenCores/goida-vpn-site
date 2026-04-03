@@ -1,12 +1,13 @@
 async function loadGitHubStats() {
     const statsContent = document.getElementById('stats-content');
-    
+    const t = (key) => window.i18n ? window.i18n.t(key) : key;
+
     // Показываем спиннер только если нет загруженных данных
     if (!statsContent.querySelector('.stats-container')) {
         statsContent.innerHTML = `
             <div class="text-center py-6">
                 <i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400"></i>
-                <p class="mt-2 text-sm text-gray-500">Загрузка данных...</p>
+                <p class="mt-2 text-sm text-gray-500">${t('stats.loading')}</p>
             </div>`;
     }
 
@@ -33,9 +34,11 @@ async function loadGitHubStats() {
         };
 
         // Форматирование даты
-        let dateString = "Неизвестно";
+        let dateString = t('stats.last_update');
         if (data.pushed_at) {
-            dateString = new Date(data.pushed_at).toLocaleString('ru-RU', {
+            const dateObj = new Date(data.pushed_at);
+            const lang = window.i18n ? window.i18n.getLanguage() : 'ru';
+            dateString = dateObj.toLocaleString(lang === 'en' ? 'en-US' : 'ru-RU', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
@@ -51,7 +54,7 @@ async function loadGitHubStats() {
             <div class="space-y-3 animate-fade-in">
                 <!-- Последнее обновление -->
                 <div class="p-3 sm:p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
-                    <div class="text-[10px] text-blue-600 dark:text-blue-400 uppercase font-bold mb-1 tracking-wider">Последнее обновление</div>
+                    <div class="text-[10px] text-blue-600 dark:text-blue-400 uppercase font-bold mb-1 tracking-wider">${t('stats.last_update')}</div>
                     <div class="font-bold text-sm sm:text-base flex items-center gap-2 text-gray-800 dark:text-gray-100 flex-wrap">
                         <i class="fa-regular fa-clock text-blue-500 shrink-0"></i>
                         <span>${dateString}</span>
@@ -61,13 +64,13 @@ async function loadGitHubStats() {
                 <!-- Звёзды и просмотры -->
                 <div class="grid grid-cols-2 gap-2 sm:gap-4">
                     <div class="p-3 sm:p-4 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-yellow-900/10 dark:to-amber-900/10 rounded-xl border border-yellow-100 dark:border-yellow-800/30 text-center shadow-sm">
-                        <div class="text-[10px] text-amber-700 dark:text-amber-500 uppercase font-bold mb-1 tracking-wider">Звёзды</div>
+                        <div class="text-[10px] text-amber-700 dark:text-amber-500 uppercase font-bold mb-1 tracking-wider">${t('stats.stars')}</div>
                         <div class="text-xl sm:text-2xl font-black text-amber-500">
                             <i class="fa-solid fa-star mr-1 drop-shadow-sm"></i>${formatNumber(data.stargazers_count)}
                         </div>
                     </div>
                     <div class="p-3 sm:p-4 bg-gradient-to-br from-purple-50 to-fuchsia-50 dark:from-purple-900/10 dark:to-fuchsia-900/10 rounded-xl border border-purple-100 dark:border-purple-800/30 text-center shadow-sm">
-                        <div class="text-[10px] text-purple-700 dark:text-purple-400 uppercase font-bold mb-1 tracking-wider leading-tight">Просмотры (14д)</div>
+                        <div class="text-[10px] text-purple-700 dark:text-purple-400 uppercase font-bold mb-1 tracking-wider leading-tight">${t('stats.views_14d')}</div>
                         <div class="text-xl sm:text-2xl font-black text-purple-500 dark:text-purple-400">
                             <i class="fa-solid fa-eye mr-1 drop-shadow-sm"></i>${formatNumber(data.views.count)}
                         </div>
@@ -81,34 +84,34 @@ async function loadGitHubStats() {
                             <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 shrink-0">
                                 <i class="fa-solid fa-download text-xs"></i>
                             </div>
-                            <span class="truncate">Клоны (14Д)</span>
+                            <span class="truncate">${t('stats.clones_14d')}</span>
                         </span>
                         <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(data.clones.count)}</span>
                     </div>
-                    
+
                     <div class="flex justify-between items-center p-3 sm:p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm hover:bg-white dark:hover:bg-white/10 transition-colors">
                         <span class="font-bold flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 min-w-0">
                             <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400 shrink-0">
                                 <i class="fa-solid fa-user-check text-xs"></i>
                             </div>
-                            <span class="truncate">Уник. клоны (14Д)</span>
+                            <span class="truncate">${t('stats.unique_clones_14d')}</span>
                         </span>
                         <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(data.clones.uniques)}</span>
                     </div>
-                     
+
                     <div class="flex justify-between items-center p-3 sm:p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm hover:bg-white dark:hover:bg-white/10 transition-colors">
                         <span class="font-bold flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 min-w-0">
                             <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
                                 <i class="fa-solid fa-users text-xs"></i>
                             </div>
-                            <span class="truncate">Уник. посетители (14Д)</span>
+                            <span class="truncate">${t('stats.unique_visitors_14d')}</span>
                         </span>
                         <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(data.views.uniques)}</span>
                     </div>
                 </div>
 
                 <div class="mt-4 text-center text-[10px] text-gray-400 uppercase tracking-widest font-bold opacity-60 px-2">
-                    Статистика обновляется при каждой сборке сайта.
+                    ${t('stats.stats_updated_on_build')}
                 </div>
             </div>
         `;
@@ -125,12 +128,12 @@ async function loadGitHubStats() {
                             </div>
                             <div class="flex flex-col min-w-0">
                                 <span class="font-bold text-xs sm:text-sm text-gray-800 dark:text-gray-200 truncate" title="${ref.referrer}">${ref.referrer}</span>
-                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Источник</span>
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">${t('stats.referrer_label')}</span>
                             </div>
                         </div>
                         <div class="text-right shrink-0">
-                            <div class="font-black text-xs sm:text-sm text-gray-800 dark:text-gray-100 whitespace-nowrap">${formatNumber(ref.count)} <span class="text-[10px] font-normal text-gray-400">просм.</span></div>
-                            <div class="text-[10px] text-gray-400">${formatNumber(ref.uniques)} уник.</div>
+                            <div class="font-black text-xs sm:text-sm text-gray-800 dark:text-gray-100 whitespace-nowrap">${formatNumber(ref.count)} <span class="text-[10px] font-normal text-gray-400">${t('stats.views_short')}</span></div>
+                            <div class="text-[10px] text-gray-400">${formatNumber(ref.uniques)} ${t('stats.unique_short')}</div>
                         </div>
                     </div>
                 `;
@@ -139,7 +142,7 @@ async function loadGitHubStats() {
             referrersTabHtml += `
                 <div class="text-center py-10 opacity-60">
                     <i class="fa-solid fa-link-slash text-4xl mb-3 text-gray-300 dark:text-gray-600"></i>
-                    <p class="text-sm text-gray-500">Нет данных об источниках</p>
+                    <p class="text-sm text-gray-500">${t('stats.no_referrers')}</p>
                 </div>
             `;
         }
@@ -161,8 +164,8 @@ async function loadGitHubStats() {
                             </div>
                         </div>
                         <div class="text-right shrink-0">
-                            <div class="font-black text-xs sm:text-sm text-gray-800 dark:text-gray-100 whitespace-nowrap">${formatNumber(item.count)} <span class="text-[10px] font-normal text-gray-400">просм.</span></div>
-                            <div class="text-[10px] text-gray-400">${formatNumber(item.uniques)} уник.</div>
+                            <div class="font-black text-xs sm:text-sm text-gray-800 dark:text-gray-100 whitespace-nowrap">${formatNumber(item.count)} <span class="text-[10px] font-normal text-gray-400">${t('stats.views_short')}</span></div>
+                            <div class="text-[10px] text-gray-400">${formatNumber(item.uniques)} ${t('stats.unique_short')}</div>
                         </div>
                     </div>
                 `;
@@ -171,7 +174,7 @@ async function loadGitHubStats() {
             contentTabHtml += `
                 <div class="text-center py-10 opacity-60">
                     <i class="fa-regular fa-folder-open text-4xl mb-3 text-gray-300 dark:text-gray-600"></i>
-                    <p class="text-sm text-gray-500">Нет данных о популярном контенте</p>
+                    <p class="text-sm text-gray-500">${t('stats.no_content')}</p>
                 </div>
             `;
         }
@@ -182,9 +185,9 @@ async function loadGitHubStats() {
             <div class="stats-container flex flex-col h-full">
                 <!-- Вкладки (touch-friendly) -->
                 <div class="flex-shrink-0 flex space-x-1 bg-gray-100 dark:bg-white/5 p-1 rounded-xl mb-3">
-                    <button onclick="switchStatsTab('general', this)" class="stats-tab-btn active flex-1 py-2.5 text-xs font-bold rounded-lg transition-all bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white touch-manipulation">Общее</button>
-                    <button onclick="switchStatsTab('referrers', this)" class="stats-tab-btn flex-1 py-2.5 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 touch-manipulation">Источники</button>
-                    <button onclick="switchStatsTab('content', this)" class="stats-tab-btn flex-1 py-2.5 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 touch-manipulation">Контент</button>
+                    <button onclick="switchStatsTab('general', this)" class="stats-tab-btn active flex-1 py-2.5 text-xs font-bold rounded-lg transition-all bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white touch-manipulation">${t('stats.general')}</button>
+                    <button onclick="switchStatsTab('referrers', this)" class="stats-tab-btn flex-1 py-2.5 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 touch-manipulation">${t('stats.referrers')}</button>
+                    <button onclick="switchStatsTab('content', this)" class="stats-tab-btn flex-1 py-2.5 text-xs font-bold rounded-lg transition-all text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 touch-manipulation">${t('stats.popular_content')}</button>
                 </div>
 
                 <!-- Скроллируемый контент -->
@@ -265,7 +268,7 @@ async function loadGitHubStats() {
         statsContent.innerHTML = `
             <div class="text-center text-red-500 py-6">
                 <i class="fa-solid fa-circle-exclamation text-3xl mb-2"></i>
-                <p class="font-semibold text-sm">Не удалось загрузить статистику</p>
+                <p class="font-semibold text-sm">${t('stats.error_loading')}</p>
                 <p class="text-xs mt-1 opacity-75">${error.message}</p>
             </div>
         `;

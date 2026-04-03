@@ -19,21 +19,21 @@
     <!-- Переключатель вкладок -->
     <div class="flex items-center justify-center mb-10 px-4 sm:px-0">
         <div class="flex p-1.5 bg-gray-100 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl w-full sm:w-auto shadow-inner border border-gray-200/50 dark:border-gray-700/50">
-            <button @click="activeTab = 'configs'; if(window.trackEvent) window.trackEvent('switch_tab', { tab: 'configs' })" 
-                    :class="activeTab === 'configs' 
-                        ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white' 
+            <button @click="activeTab = 'configs'; if(window.trackEvent) window.trackEvent('switch_tab', { tab: 'configs' })"
+                    :class="activeTab === 'configs'
+                        ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white'
                         : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
                     class="flex items-center justify-center gap-2.5 px-6 sm:px-10 py-3 rounded-xl font-bold transition-all duration-300 flex-1 sm:flex-none text-sm sm:text-base">
                 <i class="fa-solid fa-list-ul"></i>
-                <span>Списки</span>
+                <span data-i18n="tabs.tab_lists">Списки</span>
             </button>
             <button @click="activeTab = 'qr'; if(window.trackEvent) window.trackEvent('switch_tab', { tab: 'qr' })"
-                    :class="activeTab === 'qr' 
-                        ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white' 
+                    :class="activeTab === 'qr'
+                        ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white'
                         : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
                     class="flex items-center justify-center gap-2.5 px-6 sm:px-10 py-3 rounded-xl font-bold transition-all duration-300 flex-1 sm:flex-none text-sm sm:text-base">
                 <i class="fa-solid fa-qrcode"></i>
-                <span>QR-коды</span>
+                <span data-i18n="tabs.tab_qr">QR-коды</span>
             </button>
         </div>
     </div>
@@ -45,10 +45,11 @@
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <i class="fa-solid fa-magnifying-glass text-brand-blue/50 dark:text-blue-400/50"></i>
             </div>
-            <input type="text" 
+            <input type="text"
                    x-model="searchQuery"
                    @input.debounce.500ms="if(window.trackEvent && searchQuery) window.trackEvent('search', { query: searchQuery })"
-                   placeholder="Найти по ID или ссылке..." 
+                   data-i18n-placeholder="tabs.search_placeholder"
+                   placeholder="Найти по ID или ссылке..."
                    class="block w-full pl-11 pr-12 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-black/20 focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all dark:text-white text-sm font-medium">
             <div class="absolute inset-y-0 right-0 pr-4 flex items-center gap-2">
                 <button x-show="searchQuery" @click="searchQuery = ''" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
@@ -59,24 +60,24 @@
 
         <!-- Фильтры -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest hidden lg:block shrink-0">Фильтры:</span>
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest hidden lg:block shrink-0" data-i18n="tabs.filters_label">Фильтры:</span>
             <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
                 <button @click="filterType = 'all'; if(window.trackEvent) window.trackEvent('filter', { type: 'all' })"
                         :class="filterType === 'all' ? 'bg-brand-blue text-white shadow-md border-brand-blue' : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 shadow-sm'"
-                        class="px-4 py-2 rounded-xl text-xs font-bold transition-all border-2 col-span-2 sm:col-auto">
+                        class="px-4 py-2 rounded-xl text-xs font-bold transition-all border-2 col-span-2 sm:col-auto" data-i18n="tabs.filter_all">
                     Все
                 </button>
                 <button @click="filterType = 'recommended'; if(window.trackEvent) window.trackEvent('filter', { type: 'recommended' })"
                         :class="filterType === 'recommended' ? 'bg-yellow-400 text-yellow-900 shadow-md border-yellow-400' : 'bg-yellow-400/10 text-yellow-700 dark:text-yellow-400 border-transparent'"
                         class="px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 border-2">
                     <i class="fa-solid fa-star text-[9px]"></i>
-                    <span>Рекомендованные</span>
+                    <span data-i18n="tabs.filter_recommended">Рекомендованные</span>
                 </button>
                 <button @click="filterType = 'sni'; if(window.trackEvent) window.trackEvent('filter', { type: 'sni' })"
                         :class="filterType === 'sni' ? 'bg-purple-600 text-white shadow-md border-purple-600' : 'bg-purple-600/10 text-purple-600 dark:text-purple-400 border-transparent'"
                         class="px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 border-2">
                     <i class="fa-solid fa-bolt text-[9px]"></i>
-                    <span>Обход SNI/CIDR</span>
+                    <span data-i18n="tabs.filter_sni">Обход SNI/CIDR</span>
                 </button>
             </div>
         </div>
@@ -98,12 +99,12 @@
                         </div>
                         <div class="flex flex-col items-end gap-2">
                             <template x-if="config.is_recommended">
-                                <span class="bg-yellow-400 text-yellow-900 text-[9px] font-bold px-2 py-1 rounded-lg shadow-sm uppercase tracking-wider">
+                                <span class="bg-yellow-400 text-yellow-900 text-[9px] font-bold px-2 py-1 rounded-lg shadow-sm uppercase tracking-wider" data-i18n="tabs.badge_recommended">
                                     Рекомендованный
                                 </span>
                             </template>
                             <template x-if="config.is_sni">
-                                <span class="bg-purple-600 text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-sm uppercase tracking-wider">
+                                <span class="bg-purple-600 text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-sm uppercase tracking-wider" data-i18n="tabs.badge_sni">
                                     Обход SNI/CIDR
                                 </span>
                             </template>
@@ -162,13 +163,13 @@
                                 <div class="flex gap-1">
                                     <template x-if="Array.isArray(config.sources)">
                                         <button @click="showSourcesModal = true; currentSources = config.sources; currentConfigId = config.id"
-                                                class="text-[10px] font-bold text-brand-blue hover:underline uppercase tracking-widest">
+                                                class="text-[10px] font-bold text-brand-blue hover:underline uppercase tracking-widest" data-i18n="tabs.sources">
                                             Источники
                                         </button>
                                     </template>
                                     <template x-if="!Array.isArray(config.sources)">
                                         <a :href="config.sources" target="_blank"
-                                           class="text-[10px] font-bold text-brand-blue hover:underline uppercase tracking-widest">
+                                           class="text-[10px] font-bold text-brand-blue hover:underline uppercase tracking-widest" data-i18n="tabs.source">
                                             Источник
                                         </a>
                                     </template>
@@ -206,7 +207,7 @@
                                 class="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300"
                                 :class="copied ? 'bg-green-600 text-white shadow-md' : 'bg-brand-blue hover:bg-blue-600 text-white shadow-sm active:scale-95'">
                             <i class="fa-solid" :class="copied ? 'fa-circle-check' : 'fa-copy'"></i>
-                            <span x-text="copied ? 'Скопировано!' : 'Копировать ссылку'"></span>
+                            <span x-text="copied ? (currentLanguage === 'en' && i18nReady ? 'Copied!' : 'Скопировано!') : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : 'Копировать ссылку')"></span>
                         </button>
                     </div>
                 </div>
@@ -219,10 +220,10 @@
                 <div class="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
                     <i class="fa-solid fa-magnifying-glass text-3xl text-gray-300 dark:text-gray-600"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Ничего не найдено</h3>
-                <p class="text-gray-500 dark:text-gray-400 mb-8">Попробуйте изменить запрос или фильтры</p>
-                <button @click="searchQuery = ''; filterType = 'all'" 
-                        class="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600 transition-all">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="tabs.not_found_title_lists">Ничего не найдено</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-8" data-i18n="tabs.not_found_desc_lists">Попробуйте изменить запрос или фильтры</p>
+                <button @click="searchQuery = ''; filterType = 'all'"
+                        class="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600 transition-all" data-i18n="tabs.show_all">
                     Показать всё
                 </button>
             </div>
@@ -245,12 +246,10 @@
                         </div>
                         <div class="flex flex-col items-end gap-1">
                             <template x-if="config.is_recommended">
-                                <span class="bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
-                                    Рек.
-                                </span>
+                                <span class="bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider" x-text="currentLanguage === 'en' ? 'Rec.' : 'Рек.'">Рек.</span>
                             </template>
                             <template x-if="config.is_sni">
-                                <span class="bg-purple-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
+                                <span class="bg-purple-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider" data-i18n="tabs.badge_sni">
                                     SNI/CIDR
                                 </span>
                             </template>
@@ -276,13 +275,13 @@
                                 <div class="flex gap-1">
                                     <template x-if="Array.isArray(config.sources)">
                                         <button @click="showSourcesModal = true; currentSources = config.sources; currentConfigId = config.id"
-                                                class="text-[9px] font-bold text-brand-blue hover:underline uppercase tracking-widest">
+                                                class="text-[9px] font-bold text-brand-blue hover:underline uppercase tracking-widest" data-i18n="tabs.sources">
                                             Источники
                                         </button>
                                     </template>
                                     <template x-if="!Array.isArray(config.sources)">
                                         <a :href="config.sources" target="_blank"
-                                           class="text-[9px] font-bold text-brand-blue hover:underline uppercase tracking-widest">
+                                           class="text-[9px] font-bold text-brand-blue hover:underline uppercase tracking-widest" data-i18n="tabs.source">
                                             Источник
                                         </a>
                                     </template>
@@ -293,7 +292,7 @@
                         <button @click="$dispatch('open-qr-download-modal', { configId: config.id })"
                            class="w-full flex items-center justify-center gap-2 py-2.5 bg-brand-blue text-white hover:bg-blue-600 rounded-xl text-xs font-bold transition-all shadow-sm">
                            <i class="fa-solid fa-download"></i>
-                           <span>Скачать</span>
+                           <span data-i18n="tabs.download">Скачать</span>
                         </button>
                     </div>
                 </div>
@@ -306,10 +305,10 @@
                 <div class="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
                     <i class="fa-solid fa-qrcode text-3xl text-gray-300 dark:text-gray-600"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">QR-коды не найдены</h3>
-                <p class="text-gray-500 dark:text-gray-400 mb-8">Попробуйте изменить параметры поиска</p>
-                <button @click="searchQuery = ''; filterType = 'all'" 
-                        class="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600 transition-all">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="tabs.not_found_title_qr">QR-коды не найдены</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-8" data-i18n="tabs.not_found_desc_qr">Попробуйте изменить параметры поиска</p>
+                <button @click="searchQuery = ''; filterType = 'all'"
+                        class="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600 transition-all" data-i18n="tabs.reset_all">
                     Сбросить всё
                 </button>
             </div>

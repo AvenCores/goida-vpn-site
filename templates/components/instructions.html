@@ -1,17 +1,17 @@
 <section>
-    <h2 class="text-3xl font-bold mb-8 text-center">📚 Подробные гайды по использованию</h2>
+    <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="instructions.title">📚 Подробные гайды по использованию</h2>
     
     <div class="space-y-4 max-w-4xl mx-auto" x-data="{ activeGuide: null }">
 
         <!-- 1. ANDROID (V2RayNG) -->
         <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'android' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
-            <button @click="activeGuide = activeGuide === 'android' ? null : 'android'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'android' })" 
+            <button @click="activeGuide = activeGuide === 'android' ? null : 'android'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'android' })"
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-green-600 dark:text-green-400">
                         <i class="fa-brands fa-android text-2xl"></i>
                     </div>
-                    Android (v2rayNG)
+                    <span x-text="currentLanguage === 'en' && i18nReady ? 'Android (v2rayNG)' : 'Android (v2rayNG)'">Android (v2rayNG)</span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'android' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
                     <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'android' ? 'rotate-180' : ''"></i>
@@ -23,36 +23,45 @@
                     <div class="mb-8">
                         <!-- ICON ADDED: fa-android -->
                         <a href="#" data-is-download="true" data-link-type="v2rayng-apk" class="group inline-flex items-center bg-gradient-to-br from-green-600 to-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 active:scale-95 mb-4 border border-white/10">
-                            <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i> Скачать v2rayNG (APK)
+                            <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download v2rayNG (APK)' : 'Скачать v2rayNG (APK)'">Скачать v2rayNG (APK)</span>
                         </a>
-                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
-                            <li>Скопируйте ссылку на конфиг из списка выше.</li>
-                            <li>Откройте <strong>v2rayNG</strong>, нажмите ➕ (справа сверху) → <strong>Импорт из буфера обмена</strong>.</li>
-                            <li>Нажмите три точки (справа сверху) → <strong>Проверить задержку профилей</strong>.</li>
-                            <li>После проверки там же выберите <strong>Сортировать по результатам теста</strong>.</li>
-                            <li>Выберите сервер (зеленый пинг) и нажмите кнопку ▶️ (Подключить) в правом нижнем углу.</li>
-                        </ol>
+                        <template x-if="currentLanguage === 'en' && i18nReady">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.android_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
+                        <template x-if="currentLanguage === 'ru' || !i18nReady">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                                <li>Скопируйте ссылку на конфиг из списка выше.</li>
+                                <li>Откройте <strong>v2rayNG</strong>, нажмите ➕ (справа сверху) → <strong>Импорт из буфера обмена</strong>.</li>
+                                <li>Нажмите три точки (справа сверху) → <strong>Проверить задержку профилей</strong>.</li>
+                                <li>После проверки там же выберите <strong>Сортировать по результатам теста</strong>.</li>
+                                <li>Выберите сервер (зеленый пинг) и нажмите кнопку ▶️ (Подключить) в правом нижнем углу.</li>
+                            </ol>
+                        </template>
                     </div>
 
                     <!-- Проблемы Android -->
                     <div class="space-y-3 mb-6">
                         <h4 class="font-bold text-red-500 border-b border-red-200 dark:border-red-800 pb-2 mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-triangle-exclamation"></i> Решение проблем
+                            <i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="instructions.problems_title">Решение проблем</span>
                         </h4>
-                        
+
                         <!-- Нет интернета -->
                         <div x-data="{ open: false }" class="bg-white/50 dark:bg-black/20 rounded-xl border border-gray-100 dark:border-white/5 overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
                             <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-sm sm:text-base">⚠️ Нет интернета при подключении</span>
+                                    <span class="text-sm sm:text-base" x-text="currentLanguage === 'en' && i18nReady ? '⚠️ No internet when connected' : '⚠️ Нет интернета при подключении'">⚠️ Нет интернета при подключении</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
                                     <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 flex items-center">
-                                        <span>Посмотрите <a href="https://t.me/avencoreschat/25254" target="_blank" class="text-blue-500 underline hover:text-blue-600">видео с фиксом в Telegram</a>.</span>
+                                        <span x-html="currentLanguage === 'en' && i18nReady ? 'Watch the <a href=\'https://t.me/avencoreschat/25254\' target=\'_blank\' class=\'text-blue-500 underline hover:text-blue-600\'>fix video on Telegram</a>.' : '<a href=\'https://t.me/avencoreschat/25254\' target=\'_blank\' class=\'text-blue-500 underline hover:text-blue-600\'>видео с фиксом в Telegram</a>.'"></span>
                                     </div>
                                 </div>
                             </div>
@@ -63,16 +72,13 @@
                             <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-sm sm:text-base">⚠️ Конфиги не появились</span>
+                                    <span class="text-sm sm:text-base" x-text="currentLanguage === 'en' && i18nReady ? '⚠️ Configs didn\'t appear' : '⚠️ Конфиги не появились'">⚠️ Конфиги не появились</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
-                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                        <p>1. Нажмите на <strong>три полоски</strong> (меню) в левом верхнем углу.</p>
-                                        <p>2. Выберите <strong>«Группы»</strong>.</p>
-                                        <p>3. Нажмите иконку обновления (кружок со стрелкой) справа сверху.</p>
+                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1" x-html="currentLanguage === 'en' && i18nReady ? '<p>1. Tap the <strong>three lines</strong> (menu) in the top left corner.</p><p>2. Select <strong>&quot;Groups&quot;</strong>.</p><p>3. Tap the refresh icon (circle with arrow) at the top right.</p>' : '<p>1. Нажмите на <strong>три полоски</strong> (меню) в левом верхнем углу.</p><p>2. Выберите <strong>«Группы»</strong>.</p><p>3. Нажмите иконку обновления (кружок со стрелкой) справа сверху.</p>'">
                                     </div>
                                 </div>
                             </div>
@@ -83,16 +89,13 @@
                             <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-sm sm:text-base">⚠️ Ошибка "Handshake timeout"</span>
+                                    <span class="text-sm sm:text-base" x-text="currentLanguage === 'en' && i18nReady ? '⚠️ &quot;Handshake timeout&quot; error' : '⚠️ Ошибка &quot;Handshake timeout&quot;'">⚠️ Ошибка "Handshake timeout"</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
-                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                        <p>1. Долгий тап по иконке приложения <strong>v2rayNG</strong> на рабочем столе → <strong>О приложении</strong>.</p>
-                                        <p>2. Нажмите <strong>Остановить</strong>.</p>
-                                        <p>3. Запустите заново.</p>
+                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1" x-html="currentLanguage === 'en' && i18nReady ? '<p>1. Long-press the <strong>v2rayNG</strong> app icon on your home screen → <strong>App info</strong>.</p><p>2. Tap <strong>Force stop</strong>.</p><p>3. Launch the app again.</p>' : '<p>1. Долгий тап по иконке приложения <strong>v2rayNG</strong> на рабочем столе → <strong>О приложении</strong>.</p><p>2. Нажмите <strong>Остановить</strong>.</p><p>3. Запустите заново.</p>'">
                                     </div>
                                 </div>
                             </div>
@@ -103,17 +106,13 @@
                             <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-sm sm:text-base">⚠️ Ошибка "Closed pipe"</span>
+                                    <span class="text-sm sm:text-base" x-text="currentLanguage === 'en' && i18nReady ? '⚠️ &quot;Closed pipe&quot; error' : '⚠️ Ошибка &quot;Closed pipe&quot;'">⚠️ Ошибка "Closed pipe"</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
-                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                        <p>1. Долгий тап по иконке приложения → <strong>О приложении</strong>.</p>
-                                        <p>2. Нажмите <strong>Остановить</strong> и запустите заново.</p>
-                                        <p>3. В приложении: три точки → <strong>Проверить задержку профилей</strong> → <strong>Сортировать по результатам теста</strong>.</p>
-                                        <p>4. Выберите новый сервер.</p>
+                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1" x-html="currentLanguage === 'en' && i18nReady ? '<p>1. Long-press the app icon → <strong>App info</strong>.</p><p>2. Tap <strong>Force stop</strong> and launch again.</p><p>3. In the app: three dots → <strong>Test profile latency</strong> → <strong>Sort by test results</strong>.</p><p>4. Select a new server.</p>' : '<p>1. Долгий тап по иконке приложения → <strong>О приложении</strong>.</p><p>2. Нажмите <strong>Остановить</strong> и запустите заново.</p><p>3. В приложении: три точки → <strong>Проверить задержку профилей</strong> → <strong>Сортировать по результатам теста</strong>.</p><p>4. Выберите новый сервер.</p>'">
                                     </div>
                                 </div>
                             </div>
@@ -126,13 +125,22 @@
                             <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-800/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
                                 <i class="fa-solid fa-rotate"></i>
                             </div>
-                            Как обновить конфиги?
+                            <span data-i18n="instructions.update_configs_title">Как обновить конфиги?</span>
                         </h4>
-                        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
-                            <li>Нажмите на <strong class="text-blue-700 dark:text-blue-400">три полоски</strong> (меню) в левом верхнем углу.</li>
-                            <li>Выберите вкладку <strong class="text-blue-700 dark:text-blue-400">«Группы»</strong>.</li>
-                            <li>Нажмите на иконку обновления в <strong class="text-blue-700 dark:text-blue-400">правом верхнем углу</strong>.</li>
-                        </ol>
+                        <template x-if="currentLanguage === 'en' && i18nReady">
+                            <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
+                        <template x-if="currentLanguage === 'ru' || !i18nReady">
+                            <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
+                                <li>Нажмите на <strong class="text-blue-700 dark:text-blue-400">три полоски</strong> (меню) в левом верхнем углу.</li>
+                                <li>Выберите вкладку <strong class="text-blue-700 dark:text-blue-400">«Группы»</strong>.</li>
+                                <li>Нажмите на иконку обновления в <strong class="text-blue-700 dark:text-blue-400">правом верхнем углу</strong>.</li>
+                            </ol>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -151,43 +159,61 @@
                             </span>
                         </div>
                     </div>
-                    Android TV (v2rayNG)
+                    <span x-text="currentLanguage === 'en' && i18nReady ? 'Android TV (v2rayNG)' : 'Android TV (v2rayNG)'">Android TV (v2rayNG)</span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'androidtv' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
                     <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'androidtv' ? 'rotate-180' : ''"></i>
                 </div>
             </button>
-            
+
             <div x-show="activeGuide === 'androidtv'" x-collapse x-cloak>
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <!-- ICON ADDED: fa-android -->
                     <a href="#" data-is-download="true" data-link-type="v2rayng-apk" class="group inline-flex items-center bg-gradient-to-br from-teal-600 to-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300 active:scale-95 mb-6 border border-white/10">
-                        <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i> Скачать v2rayNG (APK)
+                        <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download v2rayNG (APK)' : 'Скачать v2rayNG (APK)'">Скачать v2rayNG (APK)</span>
                     </a>
-                    
+
                     <div class="mb-4">
-                        <h4 class="font-bold mb-2">Инструкция по настройке:</h4>
-                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
-                            <li>Скачайте нужный <strong>QR-код</strong> из вкладки "QR-коды" выше.</li>
-                            <li>Зайдите в приложение <strong>v2rayNG</strong> на телевизоре.</li>
-                            <li>Нажмите ➕ (справа сверху) → <strong>Импорт из QR-кода</strong>.</li>
-                            <li>Выберите скачанную картинку (нажмите на иконку фото).</li>
-                            <li>Нажмите три точки (справа сверху) → <strong>Проверить задержку профилей</strong>.</li>
-                            <li>После проверки там же выберите <strong>Сортировать по результатам теста</strong>.</li>
-                            <li>Выберите сервер и нажмите кнопку ▶️ для подключения.</li>
-                        </ol>
+                        <h4 class="font-bold mb-2" x-text="currentLanguage === 'en' && i18nReady ? 'Setup instructions:' : 'Инструкция по настройке:'">Инструкция по настройке:</h4>
+                        <template x-if="currentLanguage === 'en' && i18nReady">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.androidtv_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
+                        <template x-if="currentLanguage === 'ru' || !i18nReady">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                                <li>Скачайте нужный <strong>QR-код</strong> из вкладки "QR-коды" выше.</li>
+                                <li>Зайдите в приложение <strong>v2rayNG</strong> на телевизоре.</li>
+                                <li>Нажмите ➕ (справа сверху) → <strong>Импорт из QR-кода</strong>.</li>
+                                <li>Выберите скачанную картинку (нажмите на иконку фото).</li>
+                                <li>Нажмите три точки (справа сверху) → <strong>Проверить задержку профилей</strong>.</li>
+                                <li>После проверки там же выберите <strong>Сортировать по результатам теста</strong>.</li>
+                                <li>Выберите сервер и нажмите кнопку ▶️ для подключения.</li>
+                            </ol>
+                        </template>
                         <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-800/50 shadow-sm mt-6">
                             <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-3">
                                 <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-800/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
                                     <i class="fa-solid fa-rotate"></i>
                                 </div>
-                                Как обновить конфиги?
+                                <span data-i18n="instructions.update_configs_title">Как обновить конфиги?</span>
                             </h4>
-                            <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
-                                <li>Нажмите на <strong class="text-blue-700 dark:text-blue-400">три полоски</strong> (меню) в левом верхнем углу.</li>
-                                <li>Выберите вкладку <strong class="text-blue-700 dark:text-blue-400">«Группы»</strong>.</li>
-                                <li>Нажмите на иконку обновления в <strong class="text-blue-700 dark:text-blue-400">правом верхнем углу</strong>.</li>
-                            </ol>
+                            <template x-if="currentLanguage === 'en' && i18nReady">
+                                <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
+                                    <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
+                                        <li x-html="step"></li>
+                                    </template>
+                                </ol>
+                            </template>
+                            <template x-if="currentLanguage === 'ru' || !i18nReady">
+                                <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
+                                    <li>Нажмите на <strong class="text-blue-700 dark:text-blue-400">три полоски</strong> (меню) в левом верхнем углу.</li>
+                                    <li>Выберите вкладку <strong class="text-blue-700 dark:text-blue-400">«Группы»</strong>.</li>
+                                    <li>Нажмите на иконку обновления в <strong class="text-blue-700 dark:text-blue-400">правом верхнем углу</strong>.</li>
+                                </ol>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -210,7 +236,7 @@
                             </span>
                         </div>
                     </div>
-                    Windows / Linux (Throne)
+                    <span x-text="currentLanguage === 'en' && i18nReady ? 'Windows / Linux (Throne)' : 'Windows / Linux (Throne)'">Windows / Linux (Throne)</span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'windows' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
                     <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'windows' ? 'rotate-180' : ''"></i>
@@ -222,47 +248,54 @@
                     <div class="flex flex-wrap gap-3 mb-6">
                         <!-- ICONS ADDED: fa-windows, fa-linux -->
                         <a href="#" data-is-download="true" data-link-type="throne-win10" class="group inline-flex items-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
-                            <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i> Скачать для Win 10/11
+                            <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download for Win 10/11' : 'Скачать для Win 10/11'">Скачать для Win 10/11</span>
                         </a>
                         <a href="#" data-is-download="true" data-link-type="throne-win7" class="group inline-flex items-center bg-gradient-to-br from-gray-600 to-gray-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
-                            <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i> Скачать для Win 7/8
+                            <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download for Win 7/8' : 'Скачать для Win 7/8'">Скачать для Win 7/8</span>
                         </a>
                         <a href="#" data-is-download="true" data-link-type="throne-linux" class="group inline-flex items-center bg-gradient-to-br from-gray-800 to-black text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
-                            <i class="fa-brands fa-linux text-lg mr-2 group-hover:scale-110 transition-transform"></i> Скачать для Linux
+                            <i class="fa-brands fa-linux text-lg mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download for Linux' : 'Скачать для Linux'">Скачать для Linux</span>
                         </a>
                     </div>
 
-                    <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
-                        <li>Скопируйте ссылку на конфиг.</li>
-                        <li>В программе Throne: нажмите <strong>«Профили»</strong> → <strong>«Добавить профиль из буфера обмена»</strong>.</li>
-                        <li>Выделите все конфиги (Ctrl+A).</li>
-                        <li>Меню <strong>«Профили»</strong> → <strong>«Тест задержки (пинга) выбранного профиля»</strong>.</li>
-                        <li>Дождитесь завершения (в логах появится надпись <em>«Тест задержек завершён!»</em>).</li>
-                        <li>Нажмите на заголовок колонки <strong>«Задержка (пинг)»</strong> для сортировки.</li>
-                        <li>Включите галочку <strong>«Режим TUN»</strong> вверху окна.</li>
-                        <li>ЛКМ по серверу с минимальным пингом → ПКМ для вызова меню → <strong>Запустить</strong>.</li>
-                    </ol>
+                    <template x-if="currentLanguage === 'en' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.windows_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
+                    <template x-if="currentLanguage === 'ru' || !i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <li>Скопируйте ссылку на конфиг.</li>
+                            <li>В программе Throne: нажмите <strong>«Профили»</strong> → <strong>«Добавить профиль из буфера обмена»</strong>.</li>
+                            <li>Выделите все конфиги (Ctrl+A).</li>
+                            <li>Меню <strong>«Профили»</strong> → <strong>«Тест задержки (пинга) выбранного профиля»</strong>.</li>
+                            <li>Дождитесь завершения (в логах появится надпись <em>«Тест задержек завершён!»</em>).</li>
+                            <li>Нажмите на заголовок колонки <strong>«Задержка (пинг)»</strong> для сортировки.</li>
+                            <li>Включите галочку <strong>«Режим TUN»</strong> вверху окна.</li>
+                            <li>ЛКМ по серверу с минимальным пингом → ПКМ для вызова меню → <strong>Запустить</strong>.</li>
+                        </ol>
+                    </template>
 
                     <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4 rounded-2xl mb-6 shadow-sm">
-                        <h4 class="font-bold text-red-600 dark:text-red-400 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> Ошибка MSVCP / VCRUNTIME?</h4>
-                        <p class="text-sm mb-3 text-gray-700 dark:text-gray-300">Если программа не запускается, удалите старые версии Visual C++ и установите пакет:</p>
+                        <h4 class="font-bold text-red-600 dark:text-red-400 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="instructions.windows_runtime_error">Ошибка MSVCP / VCRUNTIME?</span></h4>
+                        <p class="text-sm mb-3 text-gray-700 dark:text-gray-300" x-html="currentLanguage === 'en' && i18nReady ? 'If the program won\'t start, uninstall old Visual C++ versions and install this package:' : 'Если программа не запускается, удалите старые версии Visual C++ и установите пакет:'"></p>
                         <!-- ICON ADDED: fa-microsoft -->
                         <a href="https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip" data-is-download="true" data-vc-runtime-link="true" class="group inline-flex items-center px-5 py-2.5 bg-gradient-to-br from-red-600 to-red-700 text-white text-xs font-bold rounded-xl shadow-sm hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300 active:scale-95 border border-white/10">
-                            <i class="fa-brands fa-microsoft mr-2 group-hover:scale-110 transition-transform"></i> Скачать Visual C++ Runtimes
+                            <i class="fa-brands fa-microsoft mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download Visual C++ Runtimes' : 'Скачать Visual C++ Runtimes'">Скачать Visual C++ Runtimes</span>
                         </a>
-                        <p class="text-xs text-gray-500 mt-2 italic">Распакуйте и запустите <code>install_bat.all</code> от имени администратора.</p>
+                        <p class="text-xs text-gray-500 mt-2 italic" x-html="currentLanguage === 'en' && i18nReady ? 'Extract and run <code>install_bat.all</code> as administrator.' : 'Распакуйте и запустите <code>install_bat.all</code> от имени администратора.'"></p>
                     </div>
-                    
+
                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
                         <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-800/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
                                 <i class="fa-solid fa-rotate"></i>
                             </div>
-                            Как обновить подписки?
+                            <span data-i18n="instructions.windows_update_title">Как обновить подписки?</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                            <strong class="text-blue-700 dark:text-blue-400">Для NekoRay / Throne:</strong> Нажмите кнопку <strong>«Настройки»</strong> → <strong>«Группы»</strong> → <strong>«Обновить все подписки»</strong>.
-                        </p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="currentLanguage === 'en' && i18nReady ? '<strong class=\'text-blue-700 dark:text-blue-400\'>For NekoRay / Throne:</strong> Click <strong>&quot;Settings&quot;</strong> → <strong>&quot;Groups&quot;</strong> → <strong>&quot;Update all subscriptions&quot;</strong>.' : '<strong class=\'text-blue-700 dark:text-blue-400\'>Для NekoRay / Throne:</strong> Нажмите кнопку <strong>«Настройки»</strong> → <strong>«Группы»</strong> → <strong>«Обновить все подписки»</strong>.'"></p>
                     </div>
                 </div>
             </div>
@@ -276,7 +309,7 @@
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-gray-900 dark:text-gray-100">
                         <i class="fa-brands fa-apple text-2xl"></i>
                     </div>
-                    iOS / iPadOS (V2Box)
+                    <span x-text="currentLanguage === 'en' && i18nReady ? 'iOS / iPadOS (V2Box)' : 'iOS / iPadOS (V2Box)'">iOS / iPadOS (V2Box)</span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'ios' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
                     <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'ios' ? 'rotate-180' : ''"></i>
@@ -287,27 +320,34 @@
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <!-- ICON EXISTS, ADDED ITEMS-CENTER -->
                     <a href="https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690" data-is-download="true" class="group inline-flex items-center bg-gradient-to-br from-gray-900 to-black text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-black/40 transition-all duration-300 active:scale-95 mb-4 border border-white/10">
-                        <i class="fa-brands fa-app-store-ios text-xl mr-2 group-hover:scale-110 transition-transform"></i> Скачать V2Box
+                        <i class="fa-brands fa-app-store-ios text-xl mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download V2Box' : 'Скачать V2Box'">Скачать V2Box</span>
                     </a>
-                    <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
-                        <li>Скопируйте конфиг.</li>
-                        <li>В приложении перейдите во вкладку <strong>Config</strong>.</li>
-                        <li>Нажмите <strong>«+»</strong> (справа сверху) → <strong>Добавить подписку</strong>.</li>
-                        <li>Введите любое название, а в поле <strong>URL</strong> вставьте ссылку.</li>
-                        <li>Дождитесь проверки и нажмите на название конфига для выбора.</li>
-                        <li>В нижней панели программы нажмите кнопку <strong>«Подключиться»</strong>.</li>
-                    </ol>
+                    <template x-if="currentLanguage === 'en' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.ios_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
+                    <template x-if="currentLanguage === 'ru' || !i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <li>Скопируйте конфиг.</li>
+                            <li>В приложении перейдите во вкладку <strong>Config</strong>.</li>
+                            <li>Нажмите <strong>«+»</strong> (справа сверху) → <strong>Добавить подписку</strong>.</li>
+                            <li>Введите любое название, а в поле <strong>URL</strong> вставьте ссылку.</li>
+                            <li>Дождитесь проверки и нажмите на название конфига для выбора.</li>
+                            <li>В нижней панели программы нажмите кнопку <strong>«Подключиться»</strong>.</li>
+                        </ol>
+                    </template>
 
                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
                         <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-800/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
                                 <i class="fa-solid fa-rotate"></i>
                             </div>
-                            Как обновить конфиги?
+                            <span data-i18n="instructions.ios_update_title">Как обновить конфиги?</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                            Перейдите во вкладку <strong class="text-blue-700 dark:text-blue-400">«Config»</strong> и нажмите на иконку обновления слева от названия вашей подписки.
-                        </p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="currentLanguage === 'en' && i18nReady ? 'Go to the <strong class=\'text-blue-700 dark:text-blue-400\'>Config</strong> tab and tap the refresh icon to the left of your subscription name.' : 'Перейдите во вкладку <strong class=\'text-blue-700 dark:text-blue-400\'>«Config»</strong> и нажмите на иконку обновления слева от названия вашей подписки.'"></p>
                     </div>
                 </div>
             </div>
@@ -326,7 +366,7 @@
                             </span>
                         </div>
                     </div>
-                    MacOS (Hiddify)
+                    <span x-text="currentLanguage === 'en' && i18nReady ? 'MacOS (Hiddify)' : 'MacOS (Hiddify)'">MacOS (Hiddify)</span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'mac' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
                     <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'mac' ? 'rotate-180' : ''"></i>
@@ -337,27 +377,34 @@
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <!-- ICON ADDED: fa-apple -->
                     <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg" data-is-download="true" class="group inline-flex items-center bg-gradient-to-br from-purple-600 to-indigo-600 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 active:scale-95 mb-4 border border-white/10">
-                        <i class="fa-brands fa-apple text-xl mr-2 group-hover:scale-110 transition-transform"></i> Скачать Hiddify
+                        <i class="fa-brands fa-apple text-xl mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download Hiddify' : 'Скачать Hiddify'">Скачать Hiddify</span>
                     </a>
-                    <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
-                        <li>Скопируйте конфиг.</li>
-                        <li>Нажмите <strong>Новый профиль</strong> → <strong>Добавить из буфера обмена</strong>.</li>
-                        <li><strong>Важно:</strong> Перейдите в настройки и измените "Вариант маршрутизации" на <strong>"Индонезия"</strong>.</li>
-                        <li>В настройках выберите "VPN сервис".</li>
-                        <li>Нажмите на иконку по середине для включения <strong>VPN</strong>.</li>
-                        <li>Для сменя сервера (при включенном VPN) перейдите во вкладку <strong>«Прокси»</strong>.</li>
-                    </ol>
+                    <template x-if="currentLanguage === 'en' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.mac_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
+                    <template x-if="currentLanguage === 'ru' || !i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <li>Скопируйте конфиг.</li>
+                            <li>Нажмите <strong>Новый профиль</strong> → <strong>Добавить из буфера обмена</strong>.</li>
+                            <li><strong>Важно:</strong> Перейдите в настройки и измените "Вариант маршрутизации" на <strong>"Индонезия"</strong>.</li>
+                            <li>В настройках выберите "VPN сервис".</li>
+                            <li>Нажмите на иконку по середине для включения <strong>VPN</strong>.</li>
+                            <li>Для сменя сервера (при включенном VPN) перейдите во вкладку <strong>«Прокси»</strong>.</li>
+                        </ol>
+                    </template>
 
                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
                         <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-800/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
                                 <i class="fa-solid fa-rotate"></i>
                             </div>
-                            Как обновить конфиги?
+                            <span data-i18n="instructions.mac_update_title">Как обновить конфиги?</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                            Выберите профиль и нажмите на иконку обновления <strong class="text-blue-700 dark:text-blue-400">слева от названия профиля</strong>.
-                        </p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="currentLanguage === 'en' && i18nReady ? 'Select a profile and click the refresh icon <strong class=\'text-blue-700 dark:text-blue-400\'>to the left of the profile name</strong>.' : 'Выберите профиль и нажмите на иконку обновления <strong class=\'text-blue-700 dark:text-blue-400\'>слева от названия профиля</strong>.'"></p>
                     </div>
                 </div>
             </div>

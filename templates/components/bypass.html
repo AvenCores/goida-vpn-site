@@ -7,19 +7,19 @@
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-sm border border-purple-200 dark:border-purple-700/50">
                 <i class="fa-solid fa-unlock-keyhole text-lg sm:text-xl"></i>
             </div>
-            <h2 class="text-xl sm:text-3xl font-black tracking-tight">Обход <span class="text-purple-600 dark:text-purple-400">SNI/CIDR</span> белых списков</h2>
+            <h2 class="text-xl sm:text-3xl font-black tracking-tight" data-i18n="bypass.title">Обход <span class="text-purple-600 dark:text-purple-400">SNI/CIDR</span> белых списков</h2>
         </div>
         
         <div class="bg-white/60 dark:bg-black/20 backdrop-blur-md rounded-2xl border border-white dark:border-white/5 p-5 sm:p-8 shadow-inner">
             <div class="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
                 <div class="space-y-5 sm:space-y-6">
-                    <h3 class="text-lg sm:text-2xl font-bold text-gray-800 dark:text-gray-100 leading-tight">Специальный конфиг для белых списков</h3>
-                    
+                    <h3 class="text-lg sm:text-2xl font-bold text-gray-800 dark:text-gray-100 leading-tight" data-i18n="bypass.subtitle">Специальный конфиг для белых списков</h3>
+
                     <div class="p-4 sm:p-5 bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-800/30 rounded-2xl shadow-sm">
                         <div class="flex gap-3">
                             <i class="fa-solid fa-shield-halved text-amber-500 text-base sm:text-lg mt-1"></i>
-                            <p class="text-xs sm:text-sm text-amber-800 dark:text-amber-200 leading-relaxed">
-                                ⚠️ Этот конфиг специально настроен для обхода систем с <strong class="font-bold">белыми списками SNI/CIDR</strong>, 
+                            <p class="text-xs sm:text-sm text-amber-800 dark:text-amber-200 leading-relaxed" data-i18n="bypass.warning">
+                                ⚠️ Этот конфиг специально настроен для обхода систем с <strong class="font-bold">белыми списками SNI/CIDR</strong>,
                                 которые используются операторами.
                             </p>
                         </div>
@@ -40,8 +40,8 @@
                         <div class="relative group/copy w-full sm:w-fit">
                             <button @click="copyLink()"
                                     class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-2xl hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 active:scale-95 font-black text-base sm:text-lg border border-white/20">
-                                <i class="fa-regular fa-copy text-lg sm:text-xl group-hover/copy:rotate-6 transition-transform"></i> 
-                                <span>Копировать ссылку</span>
+                                <i class="fa-regular fa-copy text-lg sm:text-xl group-hover/copy:rotate-6 transition-transform"></i>
+                                <span data-i18n="bypass.copy_link">Копировать ссылку</span>
                             </button>
 
                             <!-- Всплывающее уведомление -->
@@ -55,7 +55,7 @@
                                  x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
                                  class="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 z-20 flex items-center gap-2 bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded-xl shadow-xl font-bold text-xs sm:text-sm whitespace-nowrap">
                                 <i class="fa-solid fa-check-circle"></i>
-                                <span>Ссылка успешно скопирована!</span>
+                                <span data-i18n="bypass.copied">Ссылка успешно скопирована!</span>
                             </div>
                         </div>
                         
@@ -79,7 +79,7 @@
                 <div class="relative group mt-2 sm:mt-0">
                     <div class="absolute -inset-1 sm:-inset-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl sm:rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white dark:border-white/10 bg-black aspect-video">
-                        <img class="w-full h-full object-cover" src="static/media/bypass.png" alt="Видео инструкция по обходу SNI/CIDR блокировок">
+                        <img class="w-full h-full object-cover" src="static/media/bypass.png" alt="Видео инструкция по обходу SNI/CIDR блокировок" data-i18n-alt="bypass.alt">
                     </div>
                 </div>
             </div>

@@ -137,6 +137,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <script defer src="static/js/i18n.js"></script>
     <script defer src="static/js/update-download-links.js"></script>
     <script defer src="static/js/statistics.js"></script>
     <script defer src="static/js/link-confirmation.js"></script>
@@ -310,13 +311,28 @@
     </style>
 </head>
 <body class="text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans"
-      x-data="{ 
+      x-data="{
           darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+          currentLanguage: (function() {
+              const saved = localStorage.getItem('lang');
+              return (saved === 'ru' || saved === 'en') ? saved : 'ru';
+          })(),
+          i18nReady: false,
+          langOpen: false,
           toggleTheme() {
               this.darkMode = !this.darkMode;
               localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
               if (this.darkMode) document.documentElement.classList.add('dark');
               else document.documentElement.classList.remove('dark');
+          },
+          toggleLanguage() {
+              if (window.i18n) {
+                  window.i18n.toggleLanguage();
+              } else {
+                  this.currentLanguage = this.currentLanguage === 'ru' ? 'en' : 'ru';
+                  localStorage.setItem('lang', this.currentLanguage);
+                  document.documentElement.lang = this.currentLanguage;
+              }
           },
           activeTab: 'configs',
           showSourcesModal: false,
@@ -379,7 +395,7 @@
               }
           }
       }"
-      x-init="$watch('darkMode', val => {
+      x-init="window.i18n && (currentLanguage = window.i18n.getLanguage()); $watch('darkMode', val => {
           val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark');
           if (window.trackEvent) window.trackEvent('toggle_theme', { theme: val ? 'dark' : 'light' });
       }); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { 
@@ -400,6 +416,9 @@
       }); $watch('showSourcesModal', value => {
           lockBody(value);
           if (value && window.trackEvent) window.trackEvent('view_sources', { config_id: currentConfigId });
+      }); $watch('currentLanguage', value => {
+          document.documentElement.lang = value;
+          if (window.trackEvent) window.trackEvent('change_language', { lang: value });
       });"
       x-on:open-exit-modal.window="targetUrl = $event.detail.url; showExitModal = true"
       x-on:open-download-modal.window="targetUrl = $event.detail.url; showDownloadModal = true"
@@ -490,8 +509,8 @@
                  x-transition:leave-end="opacity-0 translate-y-3 scale-95"
                  class="w-[min(20rem,calc(100vw-2rem))] sm:w-80 rounded-3xl border border-gray-200 bg-white/95 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur-xl dark:border-white/10 dark:bg-brand-panel/95">
                 <div class="mb-4">
-                    <p class="text-sm font-black text-gray-900 dark:text-white">Поддержка</p>
-                    <p class="mt-1 text-xs leading-relaxed text-gray-500 dark:text-gray-400" x-text="personalMenu ? 'Выберите удобный способ связаться с автором.' : 'Выберите удобный способ связи.'"></p>
+                    <p class="text-sm font-black text-gray-900 dark:text-white" data-i18n="footer.support_title">Поддержка</p>
+                    <p class="mt-1 text-xs leading-relaxed text-gray-500 dark:text-gray-400" x-text="personalMenu ? (window.i18n ? window.i18n.t('footer.support_desc_personal') : 'Выберите удобный способ связаться с автором.') : (window.i18n ? window.i18n.t('footer.support_desc_open') : 'Выберите удобный способ связи.')"></p>
                 </div>
 
                 <div class="transition-all duration-150 ease-out"
@@ -506,8 +525,8 @@
                                 <i class="fa-brands fa-telegram text-xl"></i>
                             </div>
                             <div class="min-w-0">
-                                <p class="text-sm font-bold text-gray-900 dark:text-white">Чат проекта</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Написать в общий чат Goida VPN.</p>
+                                <p class="text-sm font-bold text-gray-900 dark:text-white" data-i18n="footer.chat_title">Чат проекта</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="footer.chat_desc">Написать в общий чат Goida VPN.</p>
                             </div>
                         </a>
 
@@ -518,8 +537,8 @@
                                 <i class="fa-solid fa-user text-lg"></i>
                             </div>
                             <div class="min-w-0 flex-1 text-left">
-                                <p class="text-sm font-bold text-gray-900 dark:text-white">Личные сообщения</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Выбрать Telegram или VK для связи с автором.</p>
+                                <p class="text-sm font-bold text-gray-900 dark:text-white" data-i18n="footer.personal_title">Личные сообщения</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="footer.personal_desc">Выбрать Telegram или VK для связи с автором.</p>
                             </div>
                             <i class="fa-solid fa-chevron-right text-sm text-gray-400 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-300"></i>
                         </button>
@@ -530,7 +549,7 @@
                                 @click="switchMenu(false)"
                                 class="flex w-full items-center gap-2 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-bold text-gray-700 transition-all duration-300 hover:border-gray-300 hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:text-gray-200 dark:hover:bg-white/10">
                             <i class="fa-solid fa-arrow-left text-xs"></i>
-                            <span>Назад</span>
+                            <span data-i18n="footer.back">Назад</span>
                         </button>
 
                         <a href="https://t.me/avencores"
@@ -543,7 +562,7 @@
                             </div>
                             <div class="min-w-0">
                                 <p class="text-sm font-bold text-gray-900 dark:text-white">Telegram</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Открыть личные сообщения автора в Telegram.</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="footer.dm_telegram_desc">Открыть личные сообщения автора в Telegram.</p>
                             </div>
                         </a>
 
@@ -557,7 +576,7 @@
                             </div>
                             <div class="min-w-0">
                                 <p class="text-sm font-bold text-gray-900 dark:text-white">VK</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Открыть личные сообщения автора во ВКонтакте.</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="footer.dm_vk_desc">Открыть личные сообщения автора во ВКонтакте.</p>
                             </div>
                         </a>
                     </div>
@@ -603,7 +622,7 @@
                     <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
                         <i class="fa-solid fa-chart-simple"></i>
                     </div>
-                    <span>Статистика репозитория</span>
+                    <span x-text="currentLanguage === 'en' ? 'Repository Statistics' : 'Статистика репозитория'">Статистика репозитория</span>
                 </h3>
                 <button @click="showStatsModal = false"
                         class="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
@@ -615,13 +634,13 @@
                 <!-- Сюда будет загружаться статистика -->
                 <div class="text-center py-10">
                     <i class="fa-solid fa-circle-notch fa-spin text-4xl text-blue-500 mb-4"></i>
-                    <p class="text-sm font-bold text-gray-500 animate-pulse">Загрузка данных...</p>
+                    <p class="text-sm font-bold text-gray-500 animate-pulse" x-text="currentLanguage === 'en' ? 'Loading data...' : 'Загрузка данных...'">Загрузка данных...</p>
                 </div>
             </div>
 
             <div class="border-t border-gray-200 dark:border-white/10 p-4 flex-shrink-0">
                 <button @click="showStatsModal = false"
-                        class="w-full py-3 rounded-xl font-bold bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/20 transition-all active:scale-[0.98]">
+                        class="w-full py-3 rounded-xl font-bold bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/20 transition-all active:scale-[0.98]" x-text="currentLanguage === 'en' ? 'Close' : 'Закрыть'">
                     Закрыть
                 </button>
             </div>
@@ -652,7 +671,7 @@
                     <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400 shadow-sm border border-orange-200 dark:border-orange-800/30">
                         <i class="fa-solid fa-book-bookmark"></i>
                     </div>
-                    <span>Источники конфига <span class="text-orange-500" x-text="currentConfigId"></span></span>
+                    <span x-text="currentLanguage === 'en' ? 'Config Sources ' : 'Источники конфига '">Источники конфига </span><span class="text-orange-500" x-text="currentConfigId"></span>
                 </h3>
                 <button @click="showSourcesModal = false"
                         class="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
@@ -667,7 +686,7 @@
                        class="group block p-4 bg-gradient-to-br from-gray-50 to-white dark:from-white/5 dark:to-transparent rounded-2xl border border-gray-100 dark:border-white/10 hover:border-orange-200 dark:hover:border-orange-500/30 hover:shadow-lg hover:shadow-orange-500/5 transition-all duration-300">
                         <div class="flex items-center justify-between gap-4">
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover:text-orange-500 transition-colors">Источник #<span x-text="index + 1"></span></p>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover:text-orange-500 transition-colors" x-text="(currentLanguage === 'en' ? 'Source ' : 'Источник ') + (index + 1)">Источник #<span x-text="index + 1"></span></p>
                                 <p class="text-sm font-bold text-brand-blue dark:text-blue-400 truncate leading-relaxed" x-text="source"></p>
                             </div>
                             <div class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-400 group-hover:bg-orange-100 group-hover:text-orange-600 dark:group-hover:bg-orange-900/30 dark:group-hover:text-orange-400 transition-all">
@@ -680,7 +699,7 @@
 
             <div class="sticky bottom-0 bg-white dark:bg-brand-panel border-t border-gray-200 dark:border-white/10 p-4">
                 <button @click="showSourcesModal = false"
-                        class="w-full py-3 rounded-xl font-bold bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/20 transition-all active:scale-[0.98]">
+                        class="w-full py-3 rounded-xl font-bold bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/20 transition-all active:scale-[0.98]" x-text="currentLanguage === 'en' ? 'Close' : 'Закрыть'">
                     Закрыть
                 </button>
             </div>
@@ -714,19 +733,17 @@
                 </div>
             </div>
             
-            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Переход на внешний сайт</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
-                Вы собираетесь перейти на сайт: <br>
-                <span class="inline-block mt-3 px-4 py-2 bg-gray-50 dark:bg-black/30 rounded-xl font-mono text-brand-blue dark:text-blue-400 break-all text-xs border border-gray-100 dark:border-white/5" x-text="formatUrl(targetUrl)" :title="targetUrl"></span>
-            </p>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight" x-text="currentLanguage === 'en' ? 'You are leaving the site' : 'Переход на внешний сайт'">Переход на внешний сайт</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2 leading-relaxed" x-text="currentLanguage === 'en' ? 'You are navigating to an external site:' : 'Вы собираетесь перейти на сайт:'">Вы собираетесь перейти на сайт:</p>
+            <p class="inline-block mt-3 px-4 py-2 mb-8 bg-gray-50 dark:bg-black/30 rounded-xl font-mono text-brand-blue dark:text-blue-400 break-all text-xs border border-gray-100 dark:border-white/5" x-text="formatUrl(targetUrl)" :title="targetUrl"></p>
 
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
                 <button @click="showExitModal = false"
-                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95">
+                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95" data-i18n="modal.exit_cancel">
                     Отмена
                 </button>
                 <button @click="openTargetUrl()"
-                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-blue-600 to-brand-blue text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all active:scale-95">
+                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-blue-600 to-brand-blue text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all active:scale-95" data-i18n="modal.exit_continue">
                     Перейти
                 </button>
             </div>
@@ -760,19 +777,17 @@
                 </div>
             </div>
             
-            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Начать скачивание?</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
-                Вы собираетесь скачать файл с внешнего ресурса: <br>
-                <span class="inline-block mt-3 px-4 py-2 bg-gray-50 dark:bg-black/30 rounded-xl font-mono text-green-600 dark:text-green-400 break-all text-xs border border-gray-100 dark:border-white/5" x-text="formatUrl(targetUrl)" :title="targetUrl"></span>
-            </p>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight" x-text="currentLanguage === 'en' ? 'File Download' : 'Скачивание файла'">Начать скачивание?</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2 leading-relaxed" x-text="currentLanguage === 'en' ? 'You are about to download a file from an external resource:' : 'Вы собираетесь скачать файл с внешнего ресурса:'">Вы собираетесь скачать файл с внешнего ресурса:</p>
+            <p class="inline-block mt-3 px-4 py-2 mb-8 bg-gray-50 dark:bg-black/30 rounded-xl font-mono text-green-600 dark:text-green-400 break-all text-xs border border-gray-100 dark:border-white/5" x-text="formatUrl(targetUrl)" :title="targetUrl"></p>
 
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
                 <button @click="showDownloadModal = false"
-                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95">
+                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95" data-i18n="modal.download_cancel">
                     Отмена
                 </button>
                 <button @click="openTargetUrl()"
-                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95">
+                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95" data-i18n="modal.download_continue">
                     Скачать
                 </button>
             </div>
@@ -806,21 +821,19 @@
                 </div>
             </div>
 
-            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">Начать скачивание?</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
-                Вы собираетесь скачать QR-код для конфига <br>
-                <span class="inline-block mt-3 px-4 py-2 bg-gray-50 dark:bg-black/30 rounded-xl font-bold text-green-600 dark:text-green-400 text-lg border border-gray-100 dark:border-white/5">
-                    #<span x-text="currentQrConfigId"></span>
-                </span>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight" x-text="currentLanguage === 'en' ? 'Download QR Code?' : 'Скачать QR-код?'">Начать скачивание?</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed" x-text="currentLanguage === 'en' ? 'You are about to download QR code for config' : 'Вы собираетесь скачать QR-код для конфига'">Вы собираетесь скачать QR-код для конфига</p>
+            <p class="inline-block px-4 py-2 mb-8 bg-gray-50 dark:bg-black/30 rounded-xl font-bold text-green-600 dark:text-green-400 text-lg">
+                #<span x-text="currentQrConfigId"></span>
             </p>
 
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
                 <button @click="showQrDownloadModal = false"
-                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95">
+                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95" data-i18n="modal.download_cancel">
                     Отмена
                 </button>
                 <button @click="downloadQrCode()"
-                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95">
+                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95" data-i18n="modal.download_continue">
                     Скачать
                 </button>
             </div>
