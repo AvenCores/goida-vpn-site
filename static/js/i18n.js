@@ -139,16 +139,21 @@
         } else {
             // Определяем язык браузера
             const browserLang = navigator.language || navigator.userLanguage;
-            if (browserLang.startsWith('uk')) {
-                currentLang = 'uk';
-            } else if (browserLang.startsWith('de')) {
-                currentLang = 'de';
-            } else if (browserLang.startsWith('en')) {
-                currentLang = 'en';
+            const langCode = browserLang.split('-')[0].toLowerCase(); // берём только код языка (например, 'en' из 'en-US')
+            
+            // Список поддерживаемых языков
+            const supportedLanguages = ['ru', 'uk', 'en', 'de'];
+            
+            if (supportedLanguages.includes(langCode)) {
+                currentLang = langCode;
             } else {
+                // Fallback на русский, если язык не поддерживается
                 currentLang = 'ru';
             }
         }
+        // Сохраняем определённый язык для использования в Alpine.js
+        localStorage.setItem('lang', currentLang);
+        return currentLang;
     }
 
     // Применить переводы ко всем элементам с data-i18n + обновить Alpine i18nReady

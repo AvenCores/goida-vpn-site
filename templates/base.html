@@ -2,6 +2,20 @@
 <html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+    <script>
+        // Устанавливаем язык ДО рендера страницы
+        (function() {
+            const saved = localStorage.getItem('lang');
+            if (saved && ['ru', 'en', 'de', 'uk'].includes(saved)) {
+                document.documentElement.lang = saved;
+            } else {
+                const browserLang = navigator.language || navigator.userLanguage;
+                const langCode = browserLang.split('-')[0].toLowerCase();
+                const supportedLanguages = ['ru', 'en', 'de', 'uk'];
+                document.documentElement.lang = supportedLanguages.includes(langCode) ? langCode : 'ru';
+            }
+        })();
+    </script>
     {% set ga_id = analytics_ids.ga_id if analytics_ids else None %}
     {% set ym_id = analytics_ids.ym_id if analytics_ids else None %}
     {% set yandex_autoplacement_id = analytics_ids.yandex_autoplacement_id if analytics_ids else None %}
@@ -314,8 +328,20 @@
       x-data="{
           darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
           currentLanguage: (function() {
+              // Сначала проверяем localStorage
               const saved = localStorage.getItem('lang');
-              return (saved === 'ru' || saved === 'en' || saved === 'de' || saved === 'uk') ? saved : 'ru';
+              if (saved && ['ru', 'en', 'de', 'uk'].includes(saved)) {
+                  return saved;
+              }
+              // Если нет, определяем язык браузера
+              const browserLang = navigator.language || navigator.userLanguage;
+              const langCode = browserLang.split('-')[0].toLowerCase();
+              const supportedLanguages = ['ru', 'en', 'de', 'uk'];
+              if (supportedLanguages.includes(langCode)) {
+                  return langCode;
+              }
+              // Fallback на русский
+              return 'ru';
           })(),
           i18nReady: false,
           langOpen: false,
