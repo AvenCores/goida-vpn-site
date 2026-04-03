@@ -189,6 +189,7 @@
       "download_desc": "Вы собираетесь скачать файл по ссылке:",
       "download_continue": "Скачать",
       "download_cancel": "Отмена",
+      "qr_download_title": "Скачать QR-код?",
       "qr_download_desc": "Вы собираетесь скачать QR-код для конфига #{id}"
     }
   },
@@ -382,6 +383,7 @@
       "download_desc": "Sie sind dabei, eine Datei von folgendem Link herunterzuladen:",
       "download_continue": "Herunterladen",
       "download_cancel": "Abbrechen",
+      "qr_download_title": "QR-Code herunterladen?",
       "qr_download_desc": "Sie sind dabei, einen QR-Code für Konfiguration #{id} herunterzuladen"
     }
   },
@@ -575,7 +577,202 @@
       "download_desc": "You are about to download a file from the link:",
       "download_continue": "Download",
       "download_cancel": "Cancel",
+      "qr_download_title": "Download QR Code?",
       "qr_download_desc": "You are about to download QR code for config #{id}"
+    }
+  },
+  "be": {
+    "header": {
+      "logo_alt": "Лагатып Goida VPN - Аўтаматычныя канфігі",
+      "stats": "Статыстыка",
+      "github": "GitHub"
+    },
+    "hero": {
+      "title": "Аўтаматычныя VPN канфігі",
+      "description": "Калекцыя (<strong>V2Ray</strong> / <strong>VLESS</strong> / <strong>Hysteria</strong> / <strong>Trojan</strong> / <strong>VMess</strong> / <strong>Reality</strong> / <strong>Shadowsocks</strong>).<br>Абнаўляюцца кожныя <strong>9 хвілін</strong>.",
+      "step1_title": "1. Скапіруйце",
+      "step1_desc": "Выберыце спасылку са спісу ніжэй і скапіруйце яе ў адзін клік.",
+      "step2_title": "2. Імпартавалі",
+      "step2_desc": "Устаўце спасылку ў ваш VPN-кліент (v2rayNG, Throne і інш.).",
+      "step3_title": "3. Падключыцеся",
+      "step3_desc": "Знайдзіце сервер з мінімальным пінгам і націсніце <span class=\"font-bold text-orange-600 dark:text-orange-400\">Старт</span>.",
+      "python_badge_alt": "Python",
+      "license_badge_alt": "Ліцэнзія GPL-3.0",
+      "stars_alt": "Зоркі GitHub",
+      "forks_alt": "Форкі GitHub",
+      "prs_alt": "Pull-запыты GitHub",
+      "issues_alt": "Issues GitHub"
+    },
+    "tabs": {
+      "tab_lists": "Спісы",
+      "tab_qr": "QR-коды",
+      "search_placeholder": "Знайсці па ID або спасылцы...",
+      "filters_label": "Фільтры:",
+      "filter_all": "Усе",
+      "filter_recommended": "Рэкамендаваныя",
+      "filter_sni": "Абыход SNI/CIDR",
+      "badge_recommended": "Рэкамендаваны",
+      "badge_sni": "Абыход SNI/CIDR",
+      "sources": "Крыніцы",
+      "source": "Крыніца",
+      "copied": "Скапіявана!",
+      "copy_link": "Капіяваць спасылку",
+      "not_found_title_lists": "Нічога не знойдзена",
+      "not_found_desc_lists": "Паспрабуйце змяніць запыт або фільтры",
+      "show_all": "Паказаць усё",
+      "not_found_title_qr": "QR-коды не знойдзены",
+      "not_found_desc_qr": "Паспрабуйце змяніць параметры пошуку",
+      "reset_all": "Скінуць усё",
+      "download": "Спампаваць",
+      "qr_alt": "QR код канфіга"
+    },
+    "video": {
+      "title": "Відэа інструкцыя",
+      "warning": "⚠️ Відэа актуальна толькі для <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>. Для <strong class=\"font-bold\">iOS</strong> выкарыстоўвайце тэкставы гайд ніжэй.",
+      "video_alt": "Відэа інструкцыя па наладцы VPN v2rayNG і Throne"
+    },
+    "bypass": {
+      "title": "Абыход <span class=\"text-purple-600 dark:text-purple-400\">SNI/CIDR</span> белых спісаў",
+      "subtitle": "Спецыяльны канфіг для белых спісаў",
+      "warning": "⚠️ Гэты канфіг спецыяльна наладжаны для абходу сістэм з <strong class=\"font-bold\">белымі спісамі SNI/CIDR</strong>, якія выкарыстоўваюцца аператарамі.",
+      "copy_link": "Капіяваць спасылку",
+      "copied": "Спасылка паспяхова скапіявана!",
+      "alt": "Відэа інструкцыя па абыходзе SNI/CIDR блакіровак"
+    },
+    "instructions": {
+      "title": "📚 Падрабязныя гайды па выкарыстанні",
+      "android_title": "Android (v2rayNG)",
+      "android_download": "Спампаваць v2rayNG (APK)",
+      "android_steps": [
+        "Скапіруйце спасылку на канфіг са спісу вышэй.",
+        "Адкрыйце <strong>v2rayNG</strong>, націсніце ➕ (справа зверху) → <strong>Імпарт з буфера абмену</strong>.",
+        "Націсніце тры кропкі (справа зверху) → <strong>Праверыць затрымку профіляў</strong>.",
+        "Пасля праверкі там же абярыце <strong>Сартаваць па выніках тэсту</strong>.",
+        "Выберыце сервер (зялёны пінг) і націсніце кнопку ▶️ (Падключыць) у правым ніжнім вугле."
+      ],
+      "problems_title": "Вырашэнне праблем",
+      "problem_no_internet": "⚠️ Няма інтэрнэту пры падключэнні",
+      "problem_no_internet_fix": "Паглядзіце <a href=\"https://t.me/avencoreschat/25254\" target=\"_blank\" class=\"text-blue-500 underline hover:text-blue-600\">відэа з фіксам у Telegram</a>.",
+      "problem_no_configs": "⚠️ Канфігі не з'явіліся",
+      "problem_no_configs_fix": "<p>1. Націсніце на <strong>тры палоскі</strong> (меню) у левым верхнім вугле.</p><p>2. Выберыце <strong>«Групы»</strong>.</p><p>3. Націсніце іконку абнаўлення (кола са стрэлкай) справа зверху.</p>",
+      "problem_handshake": "⚠️ Памылка \"Handshake timeout\"",
+      "problem_handshake_fix": "<p>1. Доўгі тап па іконцы дадатку <strong>v2rayNG</strong> на працоўным стале → <strong>Пра дадатак</strong>.</p><p>2. Націсніце <strong>Спыніць</strong>.</p><p>3. Запусціце нанова.</p>",
+      "problem_closed": "⚠️ Памылка \"Closed pipe\"",
+      "problem_closed_fix": "<p>1. Доўгі тап па іконцы дадатку → <strong>Пра дадатак</strong>.</p><p>2. Націсніце <strong>Спыніць</strong> і запусціце нанова.</p><p>3. У дадатку: тры кропкі → <strong>Праверыць затрымку профіляў</strong> → <strong>Сартаваць па выніках тэсту</strong>.</p><p>4. Выберыце новы сервер.</p>",
+      "update_configs_title": "Як абнавіць канфігі?",
+      "update_configs_steps": [
+        "Націсніце на <strong class=\"text-blue-700 dark:text-blue-400\">тры палоскі</strong> (меню) у левым верхнім вугле.",
+        "Выберыце ўкладку <strong class=\"text-blue-700 dark:text-blue-400\">«Групы»</strong>.",
+        "Націсніце на іконку абнаўлення ў <strong class=\"text-blue-700 dark:text-blue-400\">правым верхнім вугле</strong>."
+      ],
+      "androidtv_title": "Android TV (v2rayNG)",
+      "androidtv_download": "Спампаваць v2rayNG (APK)",
+      "androidtv_setup_title": "Інструкцыя па наладцы:",
+      "androidtv_steps": [
+        "Спампуйце патрэбны <strong>QR-код</strong> з укладкі \"QR-коды\" вышэй.",
+        "Зайдзіце ў дадатак <strong>v2rayNG</strong> на тэлевізары.",
+        "Націсніце ➕ (справа зверху) → <strong>Імпарт з QR-кода</strong>.",
+        "Выберыце спампаную карцінку (націсніце на іконку фота).",
+        "Націсніце тры кропкі (справа зверху) → <strong>Праверыць затрымку профіляў</strong>.",
+        "Пасля праверкі там же абярыце <strong>Сартаваць па выніках тэсту</strong>.",
+        "Выберыце сервер і націсніце кнопку ▶️ для падключэння."
+      ],
+      "windows_title": "Windows / Linux (Throne)",
+      "windows_win10": "Спампаваць для Win 10/11",
+      "windows_win7": "Спампаваць для Win 7/8",
+      "windows_linux": "Спампаваць для Linux",
+      "windows_steps": [
+        "Скапіруйце спасылку на канфіг.",
+        "У праграме Throne: націсніце <strong>«Профілі»</strong> → <strong>«Дадаць профіль з буфера абмену</strong>.",
+        "Выберыце ўсе канфігі (Ctrl+A).",
+        "Меню <strong>«Профілі»</strong> → <strong>«Тэст затрымкі (пінгу) выбранага профілю»</strong>.",
+        "Дачакайцеся завяршэння (у логах з'явіцца надпіс <em>«Тэст затрымак завершаны!»</em>).",
+        "Націсніце на загаловак калонкі <strong>«Затрымка (пінг)»</strong> для сартавання.",
+        "Уключыце галачку <strong>«Рэжым TUN»</strong> уверсе акна.",
+        "ЛКМ па серверу з мінімальным пінгам → ПКМ для выкліку меню → <strong>Запусціць</strong>."
+      ],
+      "windows_runtime_error": "Памылка MSVCP / VCRUNTIME?",
+      "windows_runtime_desc": "Калі праграма не запускаецца, выдаліце старыя версіі Visual C++ і ўсталюйце пакет:",
+      "windows_runtime_download": "Спампаваць Visual C++ Runtimes",
+      "windows_runtime_note": "Распакуйце і запусціце <code>install_bat.all</code> ад імя адміністратара.",
+      "windows_update_title": "Як абнавіць падпіскі?",
+      "windows_update_desc": "<strong class=\"text-blue-700 dark:text-blue-400\">Для NekoRay / Throne:</strong> Націсніце кнопку <strong>«Налады»</strong> → <strong>«Групы»</strong> → <strong>«Абнавіць усе падпіскі»</strong>.",
+      "ios_title": "iOS / iPadOS (V2Box)",
+      "ios_download": "Спампаваць V2Box",
+      "ios_steps": [
+        "Скапіруйце канфіг.",
+        "У дадатку перайдзіце ва ўкладку <strong>Config</strong>.",
+        "Націсніце <strong>«+»</strong> (справа зверху) → <strong>Дадаць падпіску</strong>.",
+        "Увядзіце любую назву, а ў поле <strong>URL</strong> устаўце спасылку.",
+        "Дачакайцеся праверкі і націсніце на назву канфіга для выбару.",
+        "У ніжняй панэлі праграмы націсніце кнопку <strong>«Падключыцца»</strong>."
+      ],
+      "ios_update_title": "Як абнавіць канфігі?",
+      "ios_update_desc": "Перайдзіце ва ўкладку <strong class=\"text-blue-700 dark:text-blue-400\">«Config»</strong> і націсніце на іконку абнаўлення злева ад назвы вашай падпіскі.",
+      "mac_title": "MacOS (Hiddify)",
+      "mac_download": "Спампаваць Hiddify",
+      "mac_steps": [
+        "Скапіруйце канфіг.",
+        "Націсніце <strong>Новы профіль</strong> → <strong>Дадаць з буфера абмену</strong>.",
+        "<strong>Важна:</strong> Перайдзіце ў налады і змяніце \"Варыянт маршрутызацыі\" на <strong>\"Інданезія\"</strong>.",
+        "У наладах выберыце \"VPN сэрвіс\".",
+        "Націсніце на іконку па сярэдзіне для ўключэння <strong>VPN</strong>.",
+        "Для змены сервера (пры ўключаным VPN) перайдзіце ва ўкладку <strong>«Проксі</strong>»."
+      ],
+      "mac_update_title": "Як абнавіць канфігі?",
+      "mac_update_desc": "Выберыце профіль і націсніце на іконку абнаўлення <strong class=\"text-blue-700 dark:text-blue-400\">злева ад назвы профілю</strong>."
+    },
+    "footer": {
+      "support_title": "Падтрымка",
+      "support_desc_open": "Выберыце зручны спосаб сувязі.",
+      "support_desc_personal": "Выберыце зручны спосаб звязацца з аўтарам.",
+      "chat_title": "Чат праекта",
+      "chat_desc": "Напісаць у агульны чат Goida VPN.",
+      "personal_title": "Асабістыя паведамленні",
+      "personal_desc": "Выбраць Telegram або VK для сувязі з аўтарам.",
+      "donate_title": "Падтрымаць аўтара",
+      "card_copied": "Нумар карты скапіяваны!",
+      "license_prefix": "Праект распаўсюджваецца пад ліцэнзіяй",
+      "source_code": "Зыходны код сайта",
+      "developed_by": "Распрацавана",
+      "close": "Закрыць",
+      "license_loading": "Загрузка тэксту ліцэнзіі...",
+      "license_not_found": "Памылка 404: Файл LICENSE не знойдзены ў папцы static.",
+      "license_error": "Памылка сеткі пры загрузцы ліцэнзіі.",
+      "back": "Назад",
+      "dm_telegram_desc": "Адкрыць асабістыя паведамленні аўтара ў Telegram.",
+      "dm_vk_desc": "Адкрыць асабістыя паведамленні аўтара ў Кантакце."
+    },
+    "stats": {
+      "loading": "Загрузка дадзеных...",
+      "last_update": "Апошняе абнаўленне",
+      "stars": "Зоркі",
+      "views_14d": "Прагляды (14д)",
+      "clones_14d": "Клоны (14д)",
+      "unique_clones_14d": "Унікальныя клоны (14д)",
+      "unique_visitors_14d": "Унікальныя наведвальнікі (14д)",
+      "stats_updated_on_build": "Статыстыка абнаўляецца пры кожнай зборцы сайта.",
+      "referrers": "Крыніцы",
+      "popular_content": "Кантэнт",
+      "referrer_label": "Крыніца",
+      "views_short": "прагл.",
+      "unique_short": "унік.",
+      "no_referrers": "Няма дадзеных пра крыніцы",
+      "no_content": "Няма дадзеных пра папулярны кантэнт",
+      "general": "Агульнае",
+      "error_loading": "Не ўдалося загрузіць статыстыку"
+    },
+    "modal": {
+      "exit_title": "Вы пакідаеце сайт",
+      "exit_desc": "Вы пераходзіце на знешні сайт:",
+      "exit_continue": "Перайсці",
+      "exit_cancel": "Адмяніць",
+      "download_title": "Загрузка файла",
+      "download_desc": "Вы збіраецеся спампаваць файл па спасылцы:",
+      "download_continue": "Спампаваць",
+      "download_cancel": "Адмяніць",
+      "qr_download_title": "Спампаваць QR-код?",
+      "qr_download_desc": "Вы збіраецеся спампаваць QR-код для канфіга #{id}"
     }
   },
   "uk": {
@@ -768,6 +965,7 @@
       "download_desc": "Ви збираєтеся скачати файл за посиланням:",
       "download_continue": "Скачати",
       "download_cancel": "Скасувати",
+      "qr_download_title": "Скачати QR-код?",
       "qr_download_desc": "Ви збираєтеся скачати QR-код для конфіга #{id}"
     }
   }

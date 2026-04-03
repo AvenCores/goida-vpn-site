@@ -6,12 +6,12 @@
         // Устанавливаем язык ДО рендера страницы
         (function() {
             const saved = localStorage.getItem('lang');
-            if (saved && ['ru', 'en', 'de', 'uk'].includes(saved)) {
+            if (saved && ['ru', 'en', 'de', 'uk', 'be'].includes(saved)) {
                 document.documentElement.lang = saved;
             } else {
                 const browserLang = navigator.language || navigator.userLanguage;
                 const langCode = browserLang.split('-')[0].toLowerCase();
-                const supportedLanguages = ['ru', 'en', 'de', 'uk'];
+                const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be'];
                 document.documentElement.lang = supportedLanguages.includes(langCode) ? langCode : 'ru';
             }
         })();
@@ -330,13 +330,13 @@
           currentLanguage: (function() {
               // Сначала проверяем localStorage
               const saved = localStorage.getItem('lang');
-              if (saved && ['ru', 'en', 'de', 'uk'].includes(saved)) {
+              if (saved && ['ru', 'en', 'de', 'uk', 'be'].includes(saved)) {
                   return saved;
               }
               // Если нет, определяем язык браузера
               const browserLang = navigator.language || navigator.userLanguage;
               const langCode = browserLang.split('-')[0].toLowerCase();
-              const supportedLanguages = ['ru', 'en', 'de', 'uk'];
+              const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be'];
               if (supportedLanguages.includes(langCode)) {
                   return langCode;
               }
@@ -444,7 +444,7 @@
           if (value && window.trackEvent) window.trackEvent('view_sources', { config_id: currentConfigId });
       }); $watch('currentLanguage', value => {
           document.documentElement.lang = value;
-          const localeMap = { 'ru': 'ru_RU', 'en': 'en_US', 'de': 'de_DE', 'uk': 'uk_UA' };
+          const localeMap = { 'ru': 'ru_RU', 'en': 'en_US', 'de': 'de_DE', 'uk': 'uk_UA', 'be': 'be_BY' };
           const ogLocale = document.getElementById('og-locale');
           if (ogLocale) ogLocale.content = localeMap[value] || 'ru_RU';
           if (window.trackEvent) window.trackEvent('change_language', { lang: value });
@@ -663,6 +663,9 @@
                     <template x-if="currentLanguage === 'uk' && i18nReady">
                         <span>Статистика репозиторію</span>
                     </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <span>Статыстыка рэпазітара</span>
+                    </template>
                 </h3>
                 <button @click="showStatsModal = false"
                         class="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
@@ -687,6 +690,9 @@
                         <template x-if="currentLanguage === 'uk' && i18nReady">
                             <span>Завантаження даних...</span>
                         </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
+                            <span>Загрузка даных...</span>
+                        </template>
                     </p>
                 </div>
             </div>
@@ -705,6 +711,9 @@
                     </template>
                     <template x-if="currentLanguage === 'uk' && i18nReady">
                         <span>Закрити</span>
+                    </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <span>Закрыць</span>
                     </template>
                 </button>
             </div>
@@ -747,6 +756,9 @@
                     <template x-if="currentLanguage === 'uk' && i18nReady">
                         <span>Джерела конфига </span>
                     </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <span>Крыніцы канфіга </span>
+                    </template>
                     <span class="text-orange-500" x-text="currentConfigId"></span>
                 </h3>
                 <button @click="showSourcesModal = false"
@@ -775,6 +787,9 @@
                                     <template x-if="currentLanguage === 'uk' && i18nReady">
                                         <span>Джерело </span>
                                     </template>
+                                    <template x-if="currentLanguage === 'be' && i18nReady">
+                                        <span>Крыніца </span>
+                                    </template>
                                     <span x-text="index + 1"></span>
                                 </p>
                                 <p class="text-sm font-bold text-brand-blue dark:text-blue-400 truncate leading-relaxed" x-text="source"></p>
@@ -801,6 +816,9 @@
                     </template>
                     <template x-if="currentLanguage === 'uk' && i18nReady">
                         <span>Закрити</span>
+                    </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <span>Закрыць</span>
                     </template>
                 </button>
             </div>
@@ -847,6 +865,9 @@
                 <template x-if="currentLanguage === 'uk' && i18nReady">
                     <span>Перехід на зовнішній сайт</span>
                 </template>
+                <template x-if="currentLanguage === 'be' && i18nReady">
+                    <span>Пераход на знешні сайт</span>
+                </template>
             </h3>
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-2 leading-relaxed">
                 <template x-if="currentLanguage === 'de'">
@@ -860,6 +881,9 @@
                 </template>
                 <template x-if="currentLanguage === 'uk' && i18nReady">
                     <span>Ви збираєтеся перейти на сайт:</span>
+                </template>
+                <template x-if="currentLanguage === 'be' && i18nReady">
+                    <span>Вы збіраецеся перайсці на сайт:</span>
                 </template>
             </p>
             <p class="inline-block mt-3 px-4 py-2 mb-8 bg-gray-50 dark:bg-black/30 rounded-xl font-mono text-brand-blue dark:text-blue-400 break-all text-xs border border-gray-100 dark:border-white/5" x-text="formatUrl(targetUrl)" :title="targetUrl"></p>
@@ -879,6 +903,9 @@
                     <template x-if="currentLanguage === 'uk' && i18nReady">
                         <span>Скасувати</span>
                     </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <span>Адмяніць</span>
+                    </template>
                 </button>
                 <button @click="openTargetUrl()"
                         class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-blue-600 to-brand-blue text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all active:scale-95">
@@ -893,6 +920,9 @@
                     </template>
                     <template x-if="currentLanguage === 'uk' && i18nReady">
                         <span>Перейти</span>
+                    </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <span>Перайсці</span>
                     </template>
                 </button>
             </div>
@@ -939,6 +969,9 @@
                 <template x-if="currentLanguage === 'uk' && i18nReady">
                     <span>Завантаження файлу</span>
                 </template>
+                <template x-if="currentLanguage === 'be' && i18nReady">
+                    <span>Загрузка файла</span>
+                </template>
             </h3>
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-2 leading-relaxed">
                 <template x-if="currentLanguage === 'de'">
@@ -952,6 +985,9 @@
                 </template>
                 <template x-if="currentLanguage === 'uk' && i18nReady">
                     <span>Ви збираєтеся скачати файл за посиланням:</span>
+                </template>
+                <template x-if="currentLanguage === 'be' && i18nReady">
+                    <span>Вы збіраецеся спампаваць файл па спасылцы:</span>
                 </template>
             </p>
             <p class="inline-block mt-3 px-4 py-2 mb-8 bg-gray-50 dark:bg-black/30 rounded-xl font-mono text-green-600 dark:text-green-400 break-all text-xs border border-gray-100 dark:border-white/5" x-text="formatUrl(targetUrl)" :title="targetUrl"></p>
@@ -971,6 +1007,9 @@
                     <template x-if="currentLanguage === 'uk' && i18nReady">
                         <span>Скасувати</span>
                     </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <span>Адмяніць</span>
+                    </template>
                 </button>
                 <button @click="openTargetUrl()"
                         class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95">
@@ -985,6 +1024,9 @@
                     </template>
                     <template x-if="currentLanguage === 'uk' && i18nReady">
                         <span>Скачати</span>
+                    </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <span>Спампаваць</span>
                     </template>
                 </button>
             </div>
@@ -1018,33 +1060,12 @@
                 </div>
             </div>
 
-            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">
-                <template x-if="currentLanguage === 'de'">
-                    <span>QR-Code herunterladen?</span>
-                </template>
-                <template x-if="currentLanguage === 'en'">
-                    <span>Download QR Code?</span>
-                </template>
-                <template x-if="currentLanguage === 'ru'">
-                    <span>Скачать QR-код?</span>
-                </template>
-                <template x-if="currentLanguage === 'uk' && i18nReady">
-                    <span>Скачати QR-код?</span>
-                </template>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3 tracking-tight" data-i18n="modal.qr_download_title">
+                Скачать QR-код?
             </h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-                <template x-if="currentLanguage === 'de'">
-                    <span>Sie sind dabei, einen QR-Code für Konfiguration #</span><span x-text="currentQrConfigId"></span><span> herunterzuladen</span>
-                </template>
-                <template x-if="currentLanguage === 'en'">
-                    <span>You are about to download QR code for config #</span><span x-text="currentQrConfigId"></span>
-                </template>
-                <template x-if="currentLanguage === 'ru'">
-                    <span>Вы собираетесь скачать QR-код для конфига #</span><span x-text="currentQrConfigId"></span>
-                </template>
-                <template x-if="currentLanguage === 'uk' && i18nReady">
-                    <span>Ви збираєтеся скачати QR-код для конфига #</span><span x-text="currentQrConfigId"></span>
-                </template>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed"
+               x-html="window.i18n ? window.i18n.t('modal.qr_download_desc').replace('#{id}', currentQrConfigId) : 'Вы собираетесь скачать QR-код для конфига #' + currentQrConfigId">
+                <span data-i18n="modal.qr_download_desc"></span>
             </p>
             <p class="inline-block px-4 py-2 mb-8 bg-gray-50 dark:bg-black/30 rounded-xl font-bold text-green-600 dark:text-green-400 text-lg">
                 #<span x-text="currentQrConfigId"></span>
@@ -1052,34 +1073,12 @@
 
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
                 <button @click="showQrDownloadModal = false"
-                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95">
-                    <template x-if="currentLanguage === 'de'">
-                        <span>Abbrechen</span>
-                    </template>
-                    <template x-if="currentLanguage === 'en'">
-                        <span>Cancel</span>
-                    </template>
-                    <template x-if="currentLanguage === 'ru'">
-                        <span>Отмена</span>
-                    </template>
-                    <template x-if="currentLanguage === 'uk' && i18nReady">
-                        <span>Скасувати</span>
-                    </template>
+                        class="order-2 sm:order-1 px-6 py-3 rounded-xl font-bold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-all active:scale-95" data-i18n="modal.download_cancel">
+                    Отмена
                 </button>
                 <button @click="downloadQrCode()"
-                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95">
-                    <template x-if="currentLanguage === 'de'">
-                        <span>Herunterladen</span>
-                    </template>
-                    <template x-if="currentLanguage === 'en'">
-                        <span>Download</span>
-                    </template>
-                    <template x-if="currentLanguage === 'ru'">
-                        <span>Скачать</span>
-                    </template>
-                    <template x-if="currentLanguage === 'uk' && i18nReady">
-                        <span>Скачати</span>
-                    </template>
+                        class="order-1 sm:order-2 px-6 py-3 rounded-xl font-bold bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all active:scale-95" data-i18n="modal.download_continue">
+                    Скачать
                 </button>
             </div>
         </div>

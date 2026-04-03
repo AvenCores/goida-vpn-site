@@ -31,10 +31,13 @@
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.android_download') : 'Download v2rayNG (APK)'">Download v2rayNG (APK)</span>
                             </template>
                             <template x-if="currentLanguage === 'ru'">
-                                <span>Скачать v2rayNG (APK)</span>
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.android_download') : 'Скачать v2rayNG (APK)'">Скачать v2rayNG (APK)</span>
                             </template>
                             <template x-if="currentLanguage === 'uk' && i18nReady">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.android_download') : 'Скачати v2rayNG (APK)'">Скачати v2rayNG (APK)</span>
+                            </template>
+                            <template x-if="currentLanguage === 'be' && i18nReady">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.android_download') : 'Спампаваць v2rayNG (APK)'">Спампаваць v2rayNG (APK)</span>
                             </template>
                         </a>
                         <template x-if="currentLanguage === 'de' && i18nReady">
@@ -52,6 +55,13 @@
                             </ol>
                         </template>
                         <template x-if="currentLanguage === 'uk' && i18nReady">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.android_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
                             <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
                                 <template x-for="(step, idx) in window.i18n.t('instructions.android_steps')" :key="idx">
                                     <li x-html="step"></li>
@@ -114,6 +124,9 @@
                                         <template x-if="currentLanguage === 'uk' && i18nReady">
                                             <div x-html="window.i18n.t('instructions.problem_no_configs_fix')"></div>
                                         </template>
+                                        <template x-if="currentLanguage === 'be' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_no_configs_fix')"></div>
+                                        </template>
                                         <template x-if="currentLanguage === 'ru'">
                                             <div><p>1. Нажмите на <strong>три полоски</strong> (меню) в левом верхнем углу.</p><p>2. Выберите <strong>«Группы»</strong>.</p><p>3. Нажмите иконку обновления (кружок со стрелкой) справа сверху.</p></div>
                                         </template>
@@ -143,6 +156,9 @@
                                         <template x-if="currentLanguage === 'uk' && i18nReady">
                                             <div x-html="window.i18n.t('instructions.problem_handshake_fix')"></div>
                                         </template>
+                                        <template x-if="currentLanguage === 'be' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_handshake_fix')"></div>
+                                        </template>
                                         <template x-if="currentLanguage === 'ru'">
                                             <div><p>1. Долгий тап по иконке приложения <strong>v2rayNG</strong> на рабочем столе → <strong>О приложении</strong>.</p><p>2. Нажмите <strong>Остановить</strong>.</p><p>3. Запустите заново.</p></div>
                                         </template>
@@ -170,6 +186,9 @@
                                             <div x-html="window.i18n.t('instructions.problem_closed_fix')"></div>
                                         </template>
                                         <template x-if="currentLanguage === 'uk' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_closed_fix')"></div>
+                                        </template>
+                                        <template x-if="currentLanguage === 'be' && i18nReady">
                                             <div x-html="window.i18n.t('instructions.problem_closed_fix')"></div>
                                         </template>
                                         <template x-if="currentLanguage === 'ru'">
@@ -204,6 +223,13 @@
                             </ol>
                         </template>
                         <template x-if="currentLanguage === 'uk' && i18nReady">
+                            <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
                             <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
                                 <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
                                     <li x-html="step"></li>
@@ -259,6 +285,9 @@
                         <template x-if="currentLanguage === 'uk' && i18nReady">
                             <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_download') : 'Скачати v2rayNG (APK)'">Скачати v2rayNG (APK)</span>
                         </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_download') : 'Спампаваць v2rayNG (APK)'">Спампаваць v2rayNG (APK)</span>
+                        </template>
                     </a>
 
                     <div class="mb-4">
@@ -274,6 +303,9 @@
                             </template>
                             <template x-if="currentLanguage === 'uk' && i18nReady">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_setup_title') : 'Інструкція з налаштування:'">Інструкція з налаштування:</span>
+                            </template>
+                            <template x-if="currentLanguage === 'be' && i18nReady">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_setup_title') : 'Інструкцыя з наладкі:'">Інструкцыя з наладкі:</span>
                             </template>
                         </h4>
                         <template x-if="currentLanguage === 'de' && i18nReady">
@@ -302,6 +334,13 @@
                             </ol>
                         </template>
                         <template x-if="currentLanguage === 'uk' && i18nReady">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.androidtv_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
                             <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
                                 <template x-for="(step, idx) in window.i18n.t('instructions.androidtv_steps')" :key="idx">
                                     <li x-html="step"></li>
@@ -337,6 +376,13 @@
                                 </ol>
                             </template>
                             <template x-if="currentLanguage === 'uk' && i18nReady">
+                                <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
+                                    <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
+                                        <li x-html="step"></li>
+                                    </template>
+                                </ol>
+                            </template>
+                            <template x-if="currentLanguage === 'be' && i18nReady">
                                 <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
                                     <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
                                         <li x-html="step"></li>
@@ -390,6 +436,9 @@
                             <template x-if="currentLanguage === 'uk' && i18nReady">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win10') : 'Скачати для Win 10/11'">Скачати для Win 10/11</span>
                             </template>
+                            <template x-if="currentLanguage === 'be' && i18nReady">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win10') : 'Спампаваць для Win 10/11'">Спампаваць для Win 10/11</span>
+                            </template>
                         </a>
                         <a href="#" data-is-download="true" data-link-type="throne-win7" class="group inline-flex items-center bg-gradient-to-br from-gray-600 to-gray-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
                             <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i>
@@ -405,6 +454,9 @@
                             <template x-if="currentLanguage === 'uk' && i18nReady">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win7') : 'Скачати для Win 7/8'">Скачати для Win 7/8</span>
                             </template>
+                            <template x-if="currentLanguage === 'be' && i18nReady">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win7') : 'Спампаваць для Win 7/8'">Спампаваць для Win 7/8</span>
+                            </template>
                         </a>
                         <a href="#" data-is-download="true" data-link-type="throne-linux" class="group inline-flex items-center bg-gradient-to-br from-gray-800 to-black text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
                             <i class="fa-brands fa-linux text-lg mr-2 group-hover:scale-110 transition-transform"></i>
@@ -419,6 +471,9 @@
                             </template>
                             <template x-if="currentLanguage === 'uk' && i18nReady">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_linux') : 'Скачати для Linux'">Скачати для Linux</span>
+                            </template>
+                            <template x-if="currentLanguage === 'be' && i18nReady">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_linux') : 'Спампаваць для Linux'">Спампаваць для Linux</span>
                             </template>
                         </a>
                     </div>
@@ -456,6 +511,13 @@
                             </template>
                         </ol>
                     </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.windows_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
 
                     <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4 rounded-2xl mb-6 shadow-sm">
                         <h4 class="font-bold text-red-600 dark:text-red-400 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="instructions.windows_runtime_error">Ошибка MSVCP / VCRUNTIME?</span></h4>
@@ -470,6 +532,9 @@
                         </template>
                         <template x-if="currentLanguage === 'uk'">
                             <p class="text-sm mb-3 text-gray-700 dark:text-gray-300" x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_desc') : 'Якщо програма не запускається, видаліть старі версії Visual C++ і встановіть пакет:'"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'be'">
+                            <p class="text-sm mb-3 text-gray-700 dark:text-gray-300" x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_desc') : 'Калі праграма не запускаецца, выдаліце старыя версіі Visual C++ і ўсталюйце пакет:'"></p>
                         </template>
                         <!-- ICON ADDED: fa-microsoft -->
                         <a href="https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip" data-is-download="true" data-vc-runtime-link="true" class="group inline-flex items-center px-5 py-2.5 bg-gradient-to-br from-red-600 to-red-700 text-white text-xs font-bold rounded-xl shadow-sm hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300 active:scale-95 border border-white/10">
@@ -486,6 +551,9 @@
                             <template x-if="currentLanguage === 'uk' && i18nReady">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_download') : 'Скачати Visual C++ Runtimes'">Скачати Visual C++ Runtimes</span>
                             </template>
+                            <template x-if="currentLanguage === 'be' && i18nReady">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_download') : 'Спампаваць Visual C++ Runtimes'">Спампаваць Visual C++ Runtimes</span>
+                            </template>
                         </a>
                         <template x-if="currentLanguage === 'de'">
                             <p class="text-xs text-gray-500 mt-2 italic" x-html="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_note') : 'Entpacken und <code>install_bat.all</code> als Administrator ausführen.'"></p>
@@ -498,6 +566,9 @@
                         </template>
                         <template x-if="currentLanguage === 'uk'">
                             <p class="text-xs text-gray-500 mt-2 italic" x-html="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_note') : 'Розпакуйте і запустіть <code>install_bat.all</code> від імені адміністратора.'"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'be'">
+                            <p class="text-xs text-gray-500 mt-2 italic" x-html="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_note') : 'Распакуйце і запусціце <code>install_bat.all</code> ад імя адміністратара.'"></p>
                         </template>
                     </div>
 
@@ -518,6 +589,9 @@
                             <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed"><strong class="text-blue-700 dark:text-blue-400">Для NekoRay / Throne:</strong> Нажмите кнопку <strong>«Настройки»</strong> → <strong>«Группы»</strong> → <strong>«Обновить все подписки»</strong>.</p>
                         </template>
                         <template x-if="currentLanguage === 'uk' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.windows_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
                             <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.windows_update_desc')"></p>
                         </template>
                     </div>
@@ -546,6 +620,9 @@
                         <template x-if="currentLanguage === 'uk' && i18nReady">
                             <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.ios_title') : 'iOS / iPadOS (V2Box)'">iOS / iPadOS (V2Box)</span>
                         </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.ios_title') : 'iOS / iPadOS (V2Box)'">iOS / iPadOS (V2Box)</span>
+                        </template>
                     </span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'ios' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
@@ -569,6 +646,9 @@
                         </template>
                         <template x-if="currentLanguage === 'uk' && i18nReady">
                             <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.ios_download') : 'Скачати V2Box'">Скачати V2Box</span>
+                        </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.ios_download') : 'Спампаваць V2Box'">Спампаваць V2Box</span>
                         </template>
                     </a>
                     <template x-if="currentLanguage === 'de' && i18nReady">
@@ -602,6 +682,13 @@
                             </template>
                         </ol>
                     </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.ios_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
 
                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
                         <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-3">
@@ -620,6 +707,9 @@
                             <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">Перейдите во вкладку <strong class="text-blue-700 dark:text-blue-400">«Config»</strong> и нажмите на иконку обновления слева от названия вашей подписки.</p>
                         </template>
                         <template x-if="currentLanguage === 'uk' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.ios_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
                             <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.ios_update_desc')"></p>
                         </template>
                     </div>
@@ -653,6 +743,9 @@
                         <template x-if="currentLanguage === 'uk' && i18nReady">
                             <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.mac_title') : 'MacOS (Hiddify)'">MacOS (Hiddify)</span>
                         </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.mac_title') : 'MacOS (Hiddify)'">MacOS (Hiddify)</span>
+                        </template>
                     </span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'mac' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
@@ -676,6 +769,9 @@
                         </template>
                         <template x-if="currentLanguage === 'uk' && i18nReady">
                             <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.mac_download') : 'Скачати Hiddify'">Скачати Hiddify</span>
+                        </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.mac_download') : 'Спампаваць Hiddify'">Спампаваць Hiddify</span>
                         </template>
                     </a>
                     <template x-if="currentLanguage === 'de' && i18nReady">
@@ -709,6 +805,13 @@
                             </template>
                         </ol>
                     </template>
+                    <template x-if="currentLanguage === 'be' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.mac_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
 
                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
                         <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-3">
@@ -727,6 +830,9 @@
                             <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">Выберите профиль и нажмите на иконку обновления <strong class="text-blue-700 dark:text-blue-400">слева от названия профиля</strong>.</p>
                         </template>
                         <template x-if="currentLanguage === 'uk' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.mac_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'be' && i18nReady">
                             <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.mac_update_desc')"></p>
                         </template>
                     </div>
