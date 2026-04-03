@@ -23,8 +23,24 @@
                     <div class="mb-8">
                         <!-- ICON ADDED: fa-android -->
                         <a href="#" data-is-download="true" data-link-type="v2rayng-apk" class="group inline-flex items-center bg-gradient-to-br from-green-600 to-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 active:scale-95 mb-4 border border-white/10">
-                            <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download v2rayNG (APK)' : 'Скачать v2rayNG (APK)'">Скачать v2rayNG (APK)</span>
+                            <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i>
+                            <template x-if="currentLanguage === 'de'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.android_download') : 'v2rayNG herunterladen (APK)'">v2rayNG herunterladen (APK)</span>
+                            </template>
+                            <template x-if="currentLanguage === 'en'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.android_download') : 'Download v2rayNG (APK)'">Download v2rayNG (APK)</span>
+                            </template>
+                            <template x-if="currentLanguage === 'ru'">
+                                <span>Скачать v2rayNG (APK)</span>
+                            </template>
                         </a>
+                        <template x-if="currentLanguage === 'de' && i18nReady">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.android_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
                         <template x-if="currentLanguage === 'en' && i18nReady">
                             <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
                                 <template x-for="(step, idx) in window.i18n.t('instructions.android_steps')" :key="idx">
@@ -32,7 +48,7 @@
                                 </template>
                             </ol>
                         </template>
-                        <template x-if="currentLanguage === 'ru' || !i18nReady">
+                        <template x-if="currentLanguage === 'ru'">
                             <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
                                 <li>Скопируйте ссылку на конфиг из списка выше.</li>
                                 <li>Откройте <strong>v2rayNG</strong>, нажмите ➕ (справа сверху) → <strong>Импорт из буфера обмена</strong>.</li>
@@ -54,14 +70,14 @@
                             <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-sm sm:text-base" x-text="currentLanguage === 'en' && i18nReady ? '⚠️ No internet when connected' : '⚠️ Нет интернета при подключении'">⚠️ Нет интернета при подключении</span>
+                                    <span class="text-sm sm:text-base" data-i18n="instructions.problem_no_internet">⚠️ Нет интернета при подключении</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
                                     <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 flex items-center">
-                                        <span x-html="currentLanguage === 'en' && i18nReady ? 'Watch the <a href=\'https://t.me/avencoreschat/25254\' target=\'_blank\' class=\'text-blue-500 underline hover:text-blue-600\'>fix video on Telegram</a>.' : '<a href=\'https://t.me/avencoreschat/25254\' target=\'_blank\' class=\'text-blue-500 underline hover:text-blue-600\'>видео с фиксом в Telegram</a>.'"></span>
+                                        <span data-i18n="instructions.problem_no_internet_fix"></span>
                                     </div>
                                 </div>
                             </div>
@@ -72,13 +88,22 @@
                             <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-sm sm:text-base" x-text="currentLanguage === 'en' && i18nReady ? '⚠️ Configs didn\'t appear' : '⚠️ Конфиги не появились'">⚠️ Конфиги не появились</span>
+                                    <span class="text-sm sm:text-base" data-i18n="instructions.problem_no_configs">⚠️ Конфиги не появились</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
-                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1" x-html="currentLanguage === 'en' && i18nReady ? '<p>1. Tap the <strong>three lines</strong> (menu) in the top left corner.</p><p>2. Select <strong>&quot;Groups&quot;</strong>.</p><p>3. Tap the refresh icon (circle with arrow) at the top right.</p>' : '<p>1. Нажмите на <strong>три полоски</strong> (меню) в левом верхнем углу.</p><p>2. Выберите <strong>«Группы»</strong>.</p><p>3. Нажмите иконку обновления (кружок со стрелкой) справа сверху.</p>'">
+                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                        <template x-if="currentLanguage === 'de' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_no_configs_fix')"></div>
+                                        </template>
+                                        <template x-if="currentLanguage === 'en' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_no_configs_fix')"></div>
+                                        </template>
+                                        <template x-if="currentLanguage === 'ru'">
+                                            <div><p>1. Нажмите на <strong>три полоски</strong> (меню) в левом верхнем углу.</p><p>2. Выберите <strong>«Группы»</strong>.</p><p>3. Нажмите иконку обновления (кружок со стрелкой) справа сверху.</p></div>
+                                        </template>
                                     </div>
                                 </div>
                             </div>
@@ -89,13 +114,22 @@
                             <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-sm sm:text-base" x-text="currentLanguage === 'en' && i18nReady ? '⚠️ &quot;Handshake timeout&quot; error' : '⚠️ Ошибка &quot;Handshake timeout&quot;'">⚠️ Ошибка "Handshake timeout"</span>
+                                    <span class="text-sm sm:text-base" data-i18n="instructions.problem_handshake">⚠️ Ошибка "Handshake timeout"</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
-                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1" x-html="currentLanguage === 'en' && i18nReady ? '<p>1. Long-press the <strong>v2rayNG</strong> app icon on your home screen → <strong>App info</strong>.</p><p>2. Tap <strong>Force stop</strong>.</p><p>3. Launch the app again.</p>' : '<p>1. Долгий тап по иконке приложения <strong>v2rayNG</strong> на рабочем столе → <strong>О приложении</strong>.</p><p>2. Нажмите <strong>Остановить</strong>.</p><p>3. Запустите заново.</p>'">
+                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                        <template x-if="currentLanguage === 'de' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_handshake_fix')"></div>
+                                        </template>
+                                        <template x-if="currentLanguage === 'en' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_handshake_fix')"></div>
+                                        </template>
+                                        <template x-if="currentLanguage === 'ru'">
+                                            <div><p>1. Долгий тап по иконке приложения <strong>v2rayNG</strong> на рабочем столе → <strong>О приложении</strong>.</p><p>2. Нажмите <strong>Остановить</strong>.</p><p>3. Запустите заново.</p></div>
+                                        </template>
                                     </div>
                                 </div>
                             </div>
@@ -106,13 +140,22 @@
                             <button @click="open = !open; if(open && window.trackEvent) window.trackEvent('view_solution', { title: $el.innerText.trim() })" class="w-full p-4 font-black flex items-center justify-between hover:text-brand-blue text-left transition-all group">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid fa-circle-question text-red-500/80 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-sm sm:text-base" x-text="currentLanguage === 'en' && i18nReady ? '⚠️ &quot;Closed pipe&quot; error' : '⚠️ Ошибка &quot;Closed pipe&quot;'">⚠️ Ошибка "Closed pipe"</span>
+                                    <span class="text-sm sm:text-base" data-i18n="instructions.problem_closed">⚠️ Ошибка "Closed pipe"</span>
                                 </span>
                                 <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300" :class="open ? 'rotate-180 text-brand-blue' : ''"></i>
                             </button>
                             <div x-show="open" x-collapse>
                                 <div class="p-4">
-                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1" x-html="currentLanguage === 'en' && i18nReady ? '<p>1. Long-press the app icon → <strong>App info</strong>.</p><p>2. Tap <strong>Force stop</strong> and launch again.</p><p>3. In the app: three dots → <strong>Test profile latency</strong> → <strong>Sort by test results</strong>.</p><p>4. Select a new server.</p>' : '<p>1. Долгий тап по иконке приложения → <strong>О приложении</strong>.</p><p>2. Нажмите <strong>Остановить</strong> и запустите заново.</p><p>3. В приложении: три точки → <strong>Проверить задержку профилей</strong> → <strong>Сортировать по результатам теста</strong>.</p><p>4. Выберите новый сервер.</p>'">
+                                    <div class="ml-4 pl-3 border-l-2 border-red-400 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                        <template x-if="currentLanguage === 'de' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_closed_fix')"></div>
+                                        </template>
+                                        <template x-if="currentLanguage === 'en' && i18nReady">
+                                            <div x-html="window.i18n.t('instructions.problem_closed_fix')"></div>
+                                        </template>
+                                        <template x-if="currentLanguage === 'ru'">
+                                            <div><p>1. Долгий тап по иконке приложения → <strong>О приложении</strong>.</p><p>2. Нажмите <strong>Остановить</strong> и запустите заново.</p><p>3. В приложении: три точки → <strong>Проверить задержку профилей</strong> → <strong>Сортировать по результатам теста</strong>.</p><p>4. Выберите новый сервер.</p></div>
+                                        </template>
                                     </div>
                                 </div>
                             </div>
@@ -127,6 +170,13 @@
                             </div>
                             <span data-i18n="instructions.update_configs_title">Как обновить конфиги?</span>
                         </h4>
+                        <template x-if="currentLanguage === 'de' && i18nReady">
+                            <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
                         <template x-if="currentLanguage === 'en' && i18nReady">
                             <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
                                 <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
@@ -134,7 +184,7 @@
                                 </template>
                             </ol>
                         </template>
-                        <template x-if="currentLanguage === 'ru' || !i18nReady">
+                        <template x-if="currentLanguage === 'ru'">
                             <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
                                 <li>Нажмите на <strong class="text-blue-700 dark:text-blue-400">три полоски</strong> (меню) в левом верхнем углу.</li>
                                 <li>Выберите вкладку <strong class="text-blue-700 dark:text-blue-400">«Группы»</strong>.</li>
@@ -170,11 +220,37 @@
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <!-- ICON ADDED: fa-android -->
                     <a href="#" data-is-download="true" data-link-type="v2rayng-apk" class="group inline-flex items-center bg-gradient-to-br from-teal-600 to-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300 active:scale-95 mb-6 border border-white/10">
-                        <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download v2rayNG (APK)' : 'Скачать v2rayNG (APK)'">Скачать v2rayNG (APK)</span>
+                        <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i>
+                        <template x-if="currentLanguage === 'de'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_download') : 'v2rayNG herunterladen (APK)'">v2rayNG herunterladen (APK)</span>
+                        </template>
+                        <template x-if="currentLanguage === 'en'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_download') : 'Download v2rayNG (APK)'">Download v2rayNG (APK)</span>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <span>Скачать v2rayNG (APK)</span>
+                        </template>
                     </a>
 
                     <div class="mb-4">
-                        <h4 class="font-bold mb-2" x-text="currentLanguage === 'en' && i18nReady ? 'Setup instructions:' : 'Инструкция по настройке:'">Инструкция по настройке:</h4>
+                        <h4 class="font-bold mb-2">
+                            <template x-if="currentLanguage === 'de'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_setup_title') : 'Einrichtungsanleitung:'">Einrichtungsanleitung:</span>
+                            </template>
+                            <template x-if="currentLanguage === 'en'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_setup_title') : 'Setup instructions:'">Setup instructions:</span>
+                            </template>
+                            <template x-if="currentLanguage === 'ru'">
+                                <span>Инструкция по настройке:</span>
+                            </template>
+                        </h4>
+                        <template x-if="currentLanguage === 'de' && i18nReady">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                                <template x-for="(step, idx) in window.i18n.t('instructions.androidtv_steps')" :key="idx">
+                                    <li x-html="step"></li>
+                                </template>
+                            </ol>
+                        </template>
                         <template x-if="currentLanguage === 'en' && i18nReady">
                             <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
                                 <template x-for="(step, idx) in window.i18n.t('instructions.androidtv_steps')" :key="idx">
@@ -182,7 +258,7 @@
                                 </template>
                             </ol>
                         </template>
-                        <template x-if="currentLanguage === 'ru' || !i18nReady">
+                        <template x-if="currentLanguage === 'ru'">
                             <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300">
                                 <li>Скачайте нужный <strong>QR-код</strong> из вкладки "QR-коды" выше.</li>
                                 <li>Зайдите в приложение <strong>v2rayNG</strong> на телевизоре.</li>
@@ -200,6 +276,13 @@
                                 </div>
                                 <span data-i18n="instructions.update_configs_title">Как обновить конфиги?</span>
                             </h4>
+                            <template x-if="currentLanguage === 'de' && i18nReady">
+                                <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
+                                    <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
+                                        <li x-html="step"></li>
+                                    </template>
+                                </ol>
+                            </template>
                             <template x-if="currentLanguage === 'en' && i18nReady">
                                 <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
                                     <template x-for="(step, idx) in window.i18n.t('instructions.update_configs_steps')" :key="idx">
@@ -207,7 +290,7 @@
                                     </template>
                                 </ol>
                             </template>
-                            <template x-if="currentLanguage === 'ru' || !i18nReady">
+                            <template x-if="currentLanguage === 'ru'">
                                 <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300 space-y-2 ml-1">
                                     <li>Нажмите на <strong class="text-blue-700 dark:text-blue-400">три полоски</strong> (меню) в левом верхнем углу.</li>
                                     <li>Выберите вкладку <strong class="text-blue-700 dark:text-blue-400">«Группы»</strong>.</li>
@@ -248,16 +331,50 @@
                     <div class="flex flex-wrap gap-3 mb-6">
                         <!-- ICONS ADDED: fa-windows, fa-linux -->
                         <a href="#" data-is-download="true" data-link-type="throne-win10" class="group inline-flex items-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
-                            <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download for Win 10/11' : 'Скачать для Win 10/11'">Скачать для Win 10/11</span>
+                            <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i>
+                            <template x-if="currentLanguage === 'de'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win10') : 'Für Win 10/11 herunterladen'">Für Win 10/11 herunterladen</span>
+                            </template>
+                            <template x-if="currentLanguage === 'en'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win10') : 'Download for Win 10/11'">Download for Win 10/11</span>
+                            </template>
+                            <template x-if="currentLanguage === 'ru'">
+                                <span>Скачать для Win 10/11</span>
+                            </template>
                         </a>
                         <a href="#" data-is-download="true" data-link-type="throne-win7" class="group inline-flex items-center bg-gradient-to-br from-gray-600 to-gray-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
-                            <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download for Win 7/8' : 'Скачать для Win 7/8'">Скачать для Win 7/8</span>
+                            <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i>
+                            <template x-if="currentLanguage === 'de'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win7') : 'Für Win 7/8 herunterladen'">Für Win 7/8 herunterladen</span>
+                            </template>
+                            <template x-if="currentLanguage === 'en'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win7') : 'Download for Win 7/8'">Download for Win 7/8</span>
+                            </template>
+                            <template x-if="currentLanguage === 'ru'">
+                                <span>Скачать для Win 7/8</span>
+                            </template>
                         </a>
                         <a href="#" data-is-download="true" data-link-type="throne-linux" class="group inline-flex items-center bg-gradient-to-br from-gray-800 to-black text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
-                            <i class="fa-brands fa-linux text-lg mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download for Linux' : 'Скачать для Linux'">Скачать для Linux</span>
+                            <i class="fa-brands fa-linux text-lg mr-2 group-hover:scale-110 transition-transform"></i>
+                            <template x-if="currentLanguage === 'de'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_linux') : 'Für Linux herunterladen'">Für Linux herunterladen</span>
+                            </template>
+                            <template x-if="currentLanguage === 'en'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_linux') : 'Download for Linux'">Download for Linux</span>
+                            </template>
+                            <template x-if="currentLanguage === 'ru'">
+                                <span>Скачать для Linux</span>
+                            </template>
                         </a>
                     </div>
 
+                    <template x-if="currentLanguage === 'de' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.windows_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
                     <template x-if="currentLanguage === 'en' && i18nReady">
                         <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
                             <template x-for="(step, idx) in window.i18n.t('instructions.windows_steps')" :key="idx">
@@ -265,7 +382,7 @@
                             </template>
                         </ol>
                     </template>
-                    <template x-if="currentLanguage === 'ru' || !i18nReady">
+                    <template x-if="currentLanguage === 'ru'">
                         <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
                             <li>Скопируйте ссылку на конфиг.</li>
                             <li>В программе Throne: нажмите <strong>«Профили»</strong> → <strong>«Добавить профиль из буфера обмена»</strong>.</li>
@@ -280,12 +397,37 @@
 
                     <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4 rounded-2xl mb-6 shadow-sm">
                         <h4 class="font-bold text-red-600 dark:text-red-400 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="instructions.windows_runtime_error">Ошибка MSVCP / VCRUNTIME?</span></h4>
-                        <p class="text-sm mb-3 text-gray-700 dark:text-gray-300" x-html="currentLanguage === 'en' && i18nReady ? 'If the program won\'t start, uninstall old Visual C++ versions and install this package:' : 'Если программа не запускается, удалите старые версии Visual C++ и установите пакет:'"></p>
+                        <template x-if="currentLanguage === 'de'">
+                            <p class="text-sm mb-3 text-gray-700 dark:text-gray-300" x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_desc') : 'Wenn das Programm nicht startet, deinstallieren Sie alte Visual C++ Versionen und installieren Sie dieses Paket:'"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'en'">
+                            <p class="text-sm mb-3 text-gray-700 dark:text-gray-300" x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_desc') : 'If the program won\'t start, uninstall old Visual C++ versions and install this package:'"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <p class="text-sm mb-3 text-gray-700 dark:text-gray-300">Если программа не запускается, удалите старые версии Visual C++ и установите пакет:</p>
+                        </template>
                         <!-- ICON ADDED: fa-microsoft -->
                         <a href="https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip" data-is-download="true" data-vc-runtime-link="true" class="group inline-flex items-center px-5 py-2.5 bg-gradient-to-br from-red-600 to-red-700 text-white text-xs font-bold rounded-xl shadow-sm hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300 active:scale-95 border border-white/10">
-                            <i class="fa-brands fa-microsoft mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download Visual C++ Runtimes' : 'Скачать Visual C++ Runtimes'">Скачать Visual C++ Runtimes</span>
+                            <i class="fa-brands fa-microsoft mr-2 group-hover:scale-110 transition-transform"></i>
+                            <template x-if="currentLanguage === 'de'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_download') : 'Visual C++ Runtimes herunterladen'">Visual C++ Runtimes herunterladen</span>
+                            </template>
+                            <template x-if="currentLanguage === 'en'">
+                                <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_download') : 'Download Visual C++ Runtimes'">Download Visual C++ Runtimes</span>
+                            </template>
+                            <template x-if="currentLanguage === 'ru'">
+                                <span>Скачать Visual C++ Runtimes</span>
+                            </template>
                         </a>
-                        <p class="text-xs text-gray-500 mt-2 italic" x-html="currentLanguage === 'en' && i18nReady ? 'Extract and run <code>install_bat.all</code> as administrator.' : 'Распакуйте и запустите <code>install_bat.all</code> от имени администратора.'"></p>
+                        <template x-if="currentLanguage === 'de'">
+                            <p class="text-xs text-gray-500 mt-2 italic" x-html="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_note') : 'Entpacken und <code>install_bat.all</code> als Administrator ausführen.'"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'en'">
+                            <p class="text-xs text-gray-500 mt-2 italic" x-html="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_note') : 'Extract and run <code>install_bat.all</code> as administrator.'"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <p class="text-xs text-gray-500 mt-2 italic">Распакуйте и запустите <code>install_bat.all</code> от имени администратора.</p>
+                        </template>
                     </div>
 
                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-800/50 shadow-sm">
@@ -295,7 +437,15 @@
                             </div>
                             <span data-i18n="instructions.windows_update_title">Как обновить подписки?</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="currentLanguage === 'en' && i18nReady ? '<strong class=\'text-blue-700 dark:text-blue-400\'>For NekoRay / Throne:</strong> Click <strong>&quot;Settings&quot;</strong> → <strong>&quot;Groups&quot;</strong> → <strong>&quot;Update all subscriptions&quot;</strong>.' : '<strong class=\'text-blue-700 dark:text-blue-400\'>Для NekoRay / Throne:</strong> Нажмите кнопку <strong>«Настройки»</strong> → <strong>«Группы»</strong> → <strong>«Обновить все подписки»</strong>.'"></p>
+                        <template x-if="currentLanguage === 'de' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.windows_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'en' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.windows_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed"><strong class="text-blue-700 dark:text-blue-400">Для NekoRay / Throne:</strong> Нажмите кнопку <strong>«Настройки»</strong> → <strong>«Группы»</strong> → <strong>«Обновить все подписки»</strong>.</p>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -309,7 +459,17 @@
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner text-gray-900 dark:text-gray-100">
                         <i class="fa-brands fa-apple text-2xl"></i>
                     </div>
-                    <span x-text="currentLanguage === 'en' && i18nReady ? 'iOS / iPadOS (V2Box)' : 'iOS / iPadOS (V2Box)'">iOS / iPadOS (V2Box)</span>
+                    <span>
+                        <template x-if="currentLanguage === 'de'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.ios_title') : 'iOS / iPadOS (V2Box)'">iOS / iPadOS (V2Box)</span>
+                        </template>
+                        <template x-if="currentLanguage === 'en'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.ios_title') : 'iOS / iPadOS (V2Box)'">iOS / iPadOS (V2Box)</span>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <span>iOS / iPadOS (V2Box)</span>
+                        </template>
+                    </span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'ios' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
                     <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'ios' ? 'rotate-180' : ''"></i>
@@ -320,8 +480,24 @@
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <!-- ICON EXISTS, ADDED ITEMS-CENTER -->
                     <a href="https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690" data-is-download="true" class="group inline-flex items-center bg-gradient-to-br from-gray-900 to-black text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-black/40 transition-all duration-300 active:scale-95 mb-4 border border-white/10">
-                        <i class="fa-brands fa-app-store-ios text-xl mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download V2Box' : 'Скачать V2Box'">Скачать V2Box</span>
+                        <i class="fa-brands fa-app-store-ios text-xl mr-2 group-hover:scale-110 transition-transform"></i>
+                        <template x-if="currentLanguage === 'de'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.ios_download') : 'V2Box herunterladen'">V2Box herunterladen</span>
+                        </template>
+                        <template x-if="currentLanguage === 'en'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.ios_download') : 'Download V2Box'">Download V2Box</span>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <span>Скачать V2Box</span>
+                        </template>
                     </a>
+                    <template x-if="currentLanguage === 'de' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.ios_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
                     <template x-if="currentLanguage === 'en' && i18nReady">
                         <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
                             <template x-for="(step, idx) in window.i18n.t('instructions.ios_steps')" :key="idx">
@@ -329,7 +505,7 @@
                             </template>
                         </ol>
                     </template>
-                    <template x-if="currentLanguage === 'ru' || !i18nReady">
+                    <template x-if="currentLanguage === 'ru'">
                         <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
                             <li>Скопируйте конфиг.</li>
                             <li>В приложении перейдите во вкладку <strong>Config</strong>.</li>
@@ -347,7 +523,15 @@
                             </div>
                             <span data-i18n="instructions.ios_update_title">Как обновить конфиги?</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="currentLanguage === 'en' && i18nReady ? 'Go to the <strong class=\'text-blue-700 dark:text-blue-400\'>Config</strong> tab and tap the refresh icon to the left of your subscription name.' : 'Перейдите во вкладку <strong class=\'text-blue-700 dark:text-blue-400\'>«Config»</strong> и нажмите на иконку обновления слева от названия вашей подписки.'"></p>
+                        <template x-if="currentLanguage === 'de' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.ios_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'en' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.ios_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">Перейдите во вкладку <strong class="text-blue-700 dark:text-blue-400">«Config»</strong> и нажмите на иконку обновления слева от названия вашей подписки.</p>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -366,7 +550,17 @@
                             </span>
                         </div>
                     </div>
-                    <span x-text="currentLanguage === 'en' && i18nReady ? 'MacOS (Hiddify)' : 'MacOS (Hiddify)'">MacOS (Hiddify)</span>
+                    <span>
+                        <template x-if="currentLanguage === 'de'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.mac_title') : 'MacOS (Hiddify)'">MacOS (Hiddify)</span>
+                        </template>
+                        <template x-if="currentLanguage === 'en'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.mac_title') : 'MacOS (Hiddify)'">MacOS (Hiddify)</span>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <span>MacOS (Hiddify)</span>
+                        </template>
+                    </span>
                 </span>
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors" :class="activeGuide === 'mac' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''">
                     <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="activeGuide === 'mac' ? 'rotate-180' : ''"></i>
@@ -377,8 +571,24 @@
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <!-- ICON ADDED: fa-apple -->
                     <a href="https://github.com/hiddify/hiddify-app/releases/latest/download/Hiddify-MacOS.dmg" data-is-download="true" class="group inline-flex items-center bg-gradient-to-br from-purple-600 to-indigo-600 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 active:scale-95 mb-4 border border-white/10">
-                        <i class="fa-brands fa-apple text-xl mr-2 group-hover:scale-110 transition-transform"></i> <span x-text="currentLanguage === 'en' && i18nReady ? 'Download Hiddify' : 'Скачать Hiddify'">Скачать Hiddify</span>
+                        <i class="fa-brands fa-apple text-xl mr-2 group-hover:scale-110 transition-transform"></i>
+                        <template x-if="currentLanguage === 'de'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.mac_download') : 'Hiddify herunterladen'">Hiddify herunterladen</span>
+                        </template>
+                        <template x-if="currentLanguage === 'en'">
+                            <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.mac_download') : 'Download Hiddify'">Download Hiddify</span>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <span>Скачать Hiddify</span>
+                        </template>
                     </a>
+                    <template x-if="currentLanguage === 'de' && i18nReady">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
+                            <template x-for="(step, idx) in window.i18n.t('instructions.mac_steps')" :key="idx">
+                                <li x-html="step"></li>
+                            </template>
+                        </ol>
+                    </template>
                     <template x-if="currentLanguage === 'en' && i18nReady">
                         <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
                             <template x-for="(step, idx) in window.i18n.t('instructions.mac_steps')" :key="idx">
@@ -386,7 +596,7 @@
                             </template>
                         </ol>
                     </template>
-                    <template x-if="currentLanguage === 'ru' || !i18nReady">
+                    <template x-if="currentLanguage === 'ru'">
                         <ol class="list-decimal list-inside space-y-3 text-gray-700 dark:text-gray-300 mb-6">
                             <li>Скопируйте конфиг.</li>
                             <li>Нажмите <strong>Новый профиль</strong> → <strong>Добавить из буфера обмена</strong>.</li>
@@ -404,7 +614,15 @@
                             </div>
                             <span data-i18n="instructions.mac_update_title">Как обновить конфиги?</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="currentLanguage === 'en' && i18nReady ? 'Select a profile and click the refresh icon <strong class=\'text-blue-700 dark:text-blue-400\'>to the left of the profile name</strong>.' : 'Выберите профиль и нажмите на иконку обновления <strong class=\'text-blue-700 dark:text-blue-400\'>слева от названия профиля</strong>.'"></p>
+                        <template x-if="currentLanguage === 'de' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.mac_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'en' && i18nReady">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" x-html="window.i18n.t('instructions.mac_update_desc')"></p>
+                        </template>
+                        <template x-if="currentLanguage === 'ru'">
+                            <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">Выберите профиль и нажмите на иконку обновления <strong class="text-blue-700 dark:text-blue-400">слева от названия профиля</strong>.</p>
+                        </template>
                     </div>
                 </div>
             </div>

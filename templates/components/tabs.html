@@ -207,7 +207,7 @@
                                 class="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300"
                                 :class="copied ? 'bg-green-600 text-white shadow-md' : 'bg-brand-blue hover:bg-blue-600 text-white shadow-sm active:scale-95'">
                             <i class="fa-solid" :class="copied ? 'fa-circle-check' : 'fa-copy'"></i>
-                            <span x-text="copied ? (currentLanguage === 'en' && i18nReady ? 'Copied!' : 'Скопировано!') : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : 'Копировать ссылку')"></span>
+                            <span x-text="copied ? (currentLanguage === 'de' && i18nReady ? 'Kopiert!' : (currentLanguage === 'en' && i18nReady ? 'Copied!' : 'Скопировано!')) : (currentLanguage === 'de' && i18nReady ? 'Link kopieren' : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : 'Копировать ссылку'))"></span>
                         </button>
                     </div>
                 </div>
@@ -246,7 +246,7 @@
                         </div>
                         <div class="flex flex-col items-end gap-1">
                             <template x-if="config.is_recommended">
-                                <span class="bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider" x-text="currentLanguage === 'en' ? 'Rec.' : 'Рек.'">Рек.</span>
+                                <span class="bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider" x-text="currentLanguage === 'de' && i18nReady ? 'Empf.' : (currentLanguage === 'en' && i18nReady ? 'Rec.' : 'Рек.')">Рек.</span>
                             </template>
                             <template x-if="config.is_sni">
                                 <span class="bg-purple-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider" data-i18n="tabs.badge_sni">

@@ -134,12 +134,18 @@
     // Установить язык (из localStorage или браузера)
     function initLanguage() {
         const savedLang = localStorage.getItem('lang');
-        if (savedLang && (savedLang === 'ru' || savedLang === 'en')) {
+        if (savedLang && (savedLang === 'ru' || savedLang === 'en' || savedLang === 'de')) {
             currentLang = savedLang;
         } else {
             // Определяем язык браузера
             const browserLang = navigator.language || navigator.userLanguage;
-            currentLang = browserLang.startsWith('en') ? 'en' : 'ru';
+            if (browserLang.startsWith('de')) {
+                currentLang = 'de';
+            } else if (browserLang.startsWith('en')) {
+                currentLang = 'en';
+            } else {
+                currentLang = 'ru';
+            }
         }
     }
 
@@ -212,9 +218,11 @@
         });
     }
 
-    // Переключить язык
+    // Переключить язык (циклически)
     function toggleLanguage() {
-        currentLang = currentLang === 'ru' ? 'en' : 'ru';
+        const languages = ['ru', 'en', 'de'];
+        const currentIndex = languages.indexOf(currentLang);
+        currentLang = languages[(currentIndex + 1) % languages.length];
         localStorage.setItem('lang', currentLang);
         applyTranslations();
         updateHtmlLang();
@@ -229,6 +237,27 @@
             });
         }
         console.log(`✓ Язык переключён на: ${currentLang}`);
+    }
+
+    // Установить конкретный язык
+    function setLanguage(lang) {
+        if (lang !== 'ru' && lang !== 'en' && lang !== 'de') return;
+        if (lang === currentLang) return;
+        currentLang = lang;
+        localStorage.setItem('lang', currentLang);
+        applyTranslations();
+        updateHtmlLang();
+        // Обновить Alpine.js переменную если есть
+        if (window.Alpine) {
+            const components = document.querySelectorAll('[x-data]');
+            components.forEach(comp => {
+                const data = Alpine.$data(comp);
+                if (data && 'currentLanguage' in data) {
+                    data.currentLanguage = currentLang;
+                }
+            });
+        }
+        console.log(`✓ Язык установлен на: ${currentLang}`);
     }
 
     // Обновить атрибут lang у <html>
@@ -260,6 +289,7 @@
         getLanguage,
         isLoaded,
         toggleLanguage,
+        setLanguage,
         applyTranslations,
         init
     };
