@@ -29,7 +29,7 @@ DEFAULT_META_DESCRIPTION = (
     "Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. "
     "Обновление каждые 9 минут, удобные ссылки и QR-коды."
 )
-DEFAULT_META_KEYWORDS = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок"
+DEFAULT_META_KEYWORDS = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок, автоматичні vpn конфіги, обхід блокувань"
 
 def normalize_site_url(value: str | None) -> str | None:
     if not value:
