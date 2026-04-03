@@ -48,15 +48,6 @@
             <!-- Кнопки управления -->
             <div class="flex items-center gap-1 sm:gap-2">
 
-                <!-- Тема -->
-                <button @click="toggleTheme()"
-                    class="group w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/10 active:scale-90 relative overflow-hidden touch-manipulation shrink-0">
-                    <div class="relative z-10">
-                        <i class="fa-solid text-base sm:text-lg transition-all duration-500" :class="darkMode ? 'fa-sun text-yellow-400 rotate-[360deg] scale-110' : 'fa-moon text-blue-600 rotate-0'"></i>
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                </button>
-
                 <!-- Переключатель языка -->
                 <div class="relative" @click.outside="langOpen = false">
                     <button @click="langOpen = !langOpen"
@@ -74,28 +65,46 @@
                          x-transition:leave="transition ease-in duration-150"
                          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                          x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
-                         class="absolute right-0 top-full mt-2 w-44 bg-white dark:bg-brand-panel border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden"
+                         class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-brand-panel border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden"
                          style="display: none;">
                         <button @click="window.i18n && window.i18n.setLanguage ? window.i18n.setLanguage('ru') : (currentLanguage = 'ru'); langOpen = false"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
+                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
                                 :class="currentLanguage === 'ru' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
-                            <span>🇷🇺 Русский</span>
+                            <span class="flex items-center gap-2.5">
+                                <img src="https://flagcdn.com/w20/ru.png" srcset="https://flagcdn.com/w20/ru.png 1x, https://flagcdn.com/w40/ru.png 2x" alt="RU" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <span>Русский</span>
+                            </span>
                             <svg x-show="currentLanguage === 'ru'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="window.i18n && window.i18n.setLanguage ? window.i18n.setLanguage('en') : (currentLanguage = 'en'); langOpen = false"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
+                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
                                 :class="currentLanguage === 'en' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
-                            <span>🇬🇧 English</span>
+                            <span class="flex items-center gap-2.5">
+                                <img src="https://flagcdn.com/w20/gb.png" srcset="https://flagcdn.com/w20/gb.png 1x, https://flagcdn.com/w40/gb.png 2x" alt="GB" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <span>English</span>
+                            </span>
                             <svg x-show="currentLanguage === 'en'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="window.i18n && window.i18n.setLanguage ? window.i18n.setLanguage('de') : (currentLanguage = 'de'); langOpen = false"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
+                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
                                 :class="currentLanguage === 'de' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
-                            <span>🇩🇪 Deutsch</span>
+                            <span class="flex items-center gap-2.5">
+                                <img src="https://flagcdn.com/w20/de.png" srcset="https://flagcdn.com/w20/de.png 1x, https://flagcdn.com/w40/de.png 2x" alt="DE" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <span>Deutsch</span>
+                            </span>
                             <svg x-show="currentLanguage === 'de'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                     </div>
                 </div>
+
+                <!-- Тема -->
+                <button @click="toggleTheme()"
+                    class="group w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/10 active:scale-90 relative overflow-hidden touch-manipulation shrink-0">
+                    <div class="relative z-10">
+                        <i class="fa-solid text-base sm:text-lg transition-all duration-500" :class="darkMode ? 'fa-sun text-yellow-400 rotate-[360deg] scale-110' : 'fa-moon text-blue-600 rotate-0'"></i>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                </button>
 
                 <!-- Статистика -->
                 <button @click="showStatsModal = true"
