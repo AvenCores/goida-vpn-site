@@ -159,7 +159,6 @@
     // Применить переводы ко всем элементам с data-i18n + обновить Alpine i18nReady
     function applyTranslations() {
         // Установить i18nReady = true в Alpine (реактивное переключение x-if)
-        // Пробуем несколько раз на случай если Alpine ещё не инициализирован
         const enableI18nReady = () => {
             try {
                 const comps = document.querySelectorAll('[x-data]');
@@ -179,50 +178,62 @@
         };
 
         if (!enableI18nReady()) {
-            // Если Alpine ещё не готов — пробуем через тик
             if (window.Alpine) {
                 Alpine.nextTick(() => enableI18nReady());
             } else {
-                // Последний fallback — задержка
                 setTimeout(() => enableI18nReady(), 100);
             }
         }
 
-        // Элементы с data-i18n — fallback берётся из сохранённых оригиналов
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            const translated = t(key);
-            if (translated) {
-                el.innerHTML = translated;
-            }
-        });
+        // Собираем все элементы для перевода
+        const textEls = Array.from(document.querySelectorAll('[data-i18n]'));
+        const placeholderEls = Array.from(document.querySelectorAll('[data-i18n-placeholder]'));
+        const titleEls = Array.from(document.querySelectorAll('[data-i18n-title]'));
+        const altEls = Array.from(document.querySelectorAll('[data-i18n-alt]'));
 
-        // Элементы с data-i18n-placeholder
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-i18n-placeholder');
-            const translated = t(key);
-            if (translated) {
-                el.placeholder = translated;
-            }
-        });
+        // Fade out
+        document.body.classList.add('lang-switching');
 
-        // Элементы с data-i18n-title
-        document.querySelectorAll('[data-i18n-title]').forEach(el => {
-            const key = el.getAttribute('data-i18n-title');
-            const translated = t(key);
-            if (translated) {
-                el.title = translated;
-            }
-        });
+        // Ждём окончания fade-out (200ms как в CSS transition)
+        setTimeout(() => {
+            // Меняем текст когда элементы невидимы
+            textEls.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translated = t(key);
+                if (translated) {
+                    el.innerHTML = translated;
+                }
+            });
 
-        // Элементы с data-i18n-alt
-        document.querySelectorAll('[data-i18n-alt]').forEach(el => {
-            const key = el.getAttribute('data-i18n-alt');
-            const translated = t(key);
-            if (translated) {
-                el.alt = translated;
-            }
-        });
+            placeholderEls.forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                const translated = t(key);
+                if (translated) {
+                    el.placeholder = translated;
+                }
+            });
+
+            titleEls.forEach(el => {
+                const key = el.getAttribute('data-i18n-title');
+                const translated = t(key);
+                if (translated) {
+                    el.title = translated;
+                }
+            });
+
+            altEls.forEach(el => {
+                const key = el.getAttribute('data-i18n-alt');
+                const translated = t(key);
+                if (translated) {
+                    el.alt = translated;
+                }
+            });
+
+            // Fade in — убираем класс
+            requestAnimationFrame(() => {
+                document.body.classList.remove('lang-switching');
+            });
+        }, 200);
     }
 
     // Переключить язык (циклически)

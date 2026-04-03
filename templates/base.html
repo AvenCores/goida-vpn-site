@@ -358,6 +358,38 @@
         body.loading-state {
             overflow: hidden !important;
         }
+
+        /* Анимация смены языка — плавные переходы */
+        [data-i18n],
+        [data-i18n-placeholder],
+        [data-i18n-title],
+        [data-i18n-alt] {
+            transition: opacity 0.2s ease;
+        }
+
+        .lang-switching [data-i18n],
+        .lang-switching [data-i18n-placeholder],
+        .lang-switching [data-i18n-title],
+        .lang-switching [data-i18n-alt] {
+            opacity: 0;
+        }
+
+        /* Анимация для кнопки переключения языка — мягкий пульс */
+        @keyframes lang-pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.08);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .lang-button-animating {
+            animation: lang-pulse 0.3s ease;
+        }
     </style>
 </head>
 <body class="text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans"
@@ -394,6 +426,14 @@
                   this.currentLanguage = this.currentLanguage === 'ru' ? 'en' : 'ru';
                   localStorage.setItem('lang', this.currentLanguage);
                   document.documentElement.lang = this.currentLanguage;
+              }
+          },
+          animateLangSwitch() {
+              // Мягкая пульсация кнопки переключения
+              const btn = document.getElementById('lang-toggle-button');
+              if (btn) {
+                  btn.classList.add('lang-button-animating');
+                  setTimeout(() => btn.classList.remove('lang-button-animating'), 300);
               }
           },
           activeTab: 'configs',
