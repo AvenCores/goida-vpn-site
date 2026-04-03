@@ -5,7 +5,7 @@
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
 
         <!-- Логотип -->
-        <a href="https://avencores.github.io/goida-vpn-site/"
+        <a href="{{ canonical_url or site_url or '/' }}"
            @click="if(window.trackEvent) window.trackEvent('header_brand_click', { target: 'goida_vpn_site' })"
            data-no-confirm
            class="flex items-center gap-2 sm:gap-3 group cursor-pointer min-w-0">

@@ -19,9 +19,24 @@ async function loadGitHubStats() {
         }
         
         const data = await response.json();
+        const stats = {
+            pushed_at: data.pushed_at || null,
+            stargazers_count: Number(data.stargazers_count || 0),
+            clones: {
+                count: Number((data.clones && data.clones.count) || 0),
+                uniques: Number((data.clones && data.clones.uniques) || 0)
+            },
+            views: {
+                count: Number((data.views && data.views.count) || 0),
+                uniques: Number((data.views && data.views.uniques) || 0)
+            },
+            referrers: Array.isArray(data.referrers) ? data.referrers : [],
+            popular_content: Array.isArray(data.popular_content) ? data.popular_content : [],
+            error: data.error || null
+        };
 
-        if (data.error && data.error !== "Token not configured") {
-            throw new Error(`API Error: ${data.error}`);
+        if (stats.error && stats.error !== "Token not configured") {
+            console.warn(`GitHub stats API warning: ${stats.error}`);
         }
 
         // Форматирование чисел
@@ -35,10 +50,17 @@ async function loadGitHubStats() {
 
         // Форматирование даты
         let dateString = t('stats.last_update');
-        if (data.pushed_at) {
-            const dateObj = new Date(data.pushed_at);
+        if (stats.pushed_at) {
+            const dateObj = new Date(stats.pushed_at);
             const lang = window.i18n ? window.i18n.getLanguage() : 'ru';
-            dateString = dateObj.toLocaleString(lang === 'en' ? 'en-US' : 'ru-RU', {
+            const localeMap = {
+                ru: 'ru-RU',
+                en: 'en-US',
+                de: 'de-DE',
+                uk: 'uk-UA',
+                be: 'be-BY'
+            };
+            dateString = dateObj.toLocaleString(localeMap[lang] || 'ru-RU', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
@@ -66,13 +88,13 @@ async function loadGitHubStats() {
                     <div class="p-3 sm:p-4 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-yellow-900/10 dark:to-amber-900/10 rounded-xl border border-yellow-100 dark:border-yellow-800/30 text-center shadow-sm">
                         <div class="text-[10px] text-amber-700 dark:text-amber-500 uppercase font-bold mb-1 tracking-wider">${t('stats.stars')}</div>
                         <div class="text-xl sm:text-2xl font-black text-amber-500">
-                            <i class="fa-solid fa-star mr-1 drop-shadow-sm"></i>${formatNumber(data.stargazers_count)}
+                            <i class="fa-solid fa-star mr-1 drop-shadow-sm"></i>${formatNumber(stats.stargazers_count)}
                         </div>
                     </div>
                     <div class="p-3 sm:p-4 bg-gradient-to-br from-purple-50 to-fuchsia-50 dark:from-purple-900/10 dark:to-fuchsia-900/10 rounded-xl border border-purple-100 dark:border-purple-800/30 text-center shadow-sm">
                         <div class="text-[10px] text-purple-700 dark:text-purple-400 uppercase font-bold mb-1 tracking-wider leading-tight">${t('stats.views_14d')}</div>
                         <div class="text-xl sm:text-2xl font-black text-purple-500 dark:text-purple-400">
-                            <i class="fa-solid fa-eye mr-1 drop-shadow-sm"></i>${formatNumber(data.views.count)}
+                            <i class="fa-solid fa-eye mr-1 drop-shadow-sm"></i>${formatNumber(stats.views.count)}
                         </div>
                     </div>
                 </div>
@@ -86,7 +108,7 @@ async function loadGitHubStats() {
                             </div>
                             <span class="truncate">${t('stats.clones_14d')}</span>
                         </span>
-                        <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(data.clones.count)}</span>
+                        <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(stats.clones.count)}</span>
                     </div>
 
                     <div class="flex justify-between items-center p-3 sm:p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm hover:bg-white dark:hover:bg-white/10 transition-colors">
@@ -96,7 +118,7 @@ async function loadGitHubStats() {
                             </div>
                             <span class="truncate">${t('stats.unique_clones_14d')}</span>
                         </span>
-                        <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(data.clones.uniques)}</span>
+                        <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(stats.clones.uniques)}</span>
                     </div>
 
                     <div class="flex justify-between items-center p-3 sm:p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm hover:bg-white dark:hover:bg-white/10 transition-colors">
@@ -106,7 +128,7 @@ async function loadGitHubStats() {
                             </div>
                             <span class="truncate">${t('stats.unique_visitors_14d')}</span>
                         </span>
-                        <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(data.views.uniques)}</span>
+                        <span class="font-black text-lg sm:text-xl text-gray-800 dark:text-gray-100 shrink-0 ml-2">${formatNumber(stats.views.uniques)}</span>
                     </div>
                 </div>
 
@@ -118,8 +140,8 @@ async function loadGitHubStats() {
 
         // 2. Referrers Tab HTML
         let referrersTabHtml = '<div class="space-y-2 sm:space-y-3 animate-fade-in">';
-        if (data.referrers && data.referrers.length > 0) {
-            data.referrers.forEach(ref => {
+        if (stats.referrers.length > 0) {
+            stats.referrers.forEach(ref => {
                 referrersTabHtml += `
                     <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-colors gap-2">
                         <div class="flex items-center gap-2 sm:gap-3 min-w-0">
@@ -150,8 +172,8 @@ async function loadGitHubStats() {
 
         // 3. Popular Content Tab HTML
         let contentTabHtml = '<div class="space-y-2 sm:space-y-3 animate-fade-in">';
-        if (data.popular_content && data.popular_content.length > 0) {
-            data.popular_content.forEach(item => {
+        if (stats.popular_content.length > 0) {
+            stats.popular_content.forEach(item => {
                 contentTabHtml += `
                     <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-colors gap-2">
                         <div class="flex items-center gap-2 sm:gap-3 min-w-0">

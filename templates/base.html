@@ -79,6 +79,42 @@
     {% set canonical_url = canonical_url|default(site_url, true) %}
     {% set og_image = og_image|default("", true) %}
 
+    <script>
+        window.copyTextSafely = async function(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch (error) {
+                    console.warn('[Clipboard] navigator.clipboard failed, falling back.', error);
+                }
+            }
+
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.top = '-9999px';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            textarea.setSelectionRange(0, textarea.value.length);
+
+            let copied = false;
+            try {
+                copied = document.execCommand('copy');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+
+            if (!copied) {
+                throw new Error('Clipboard copy failed');
+            }
+            return true;
+        };
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ meta_title }}</title>
     <meta name="description" content="{{ meta_description }}">
@@ -235,12 +271,12 @@
 
         /* --- НАСТРОЙКИ ДЛЯ ТЕМНОЙ ТЕМЫ --- */
         /* В темной теме делаем цвета чуть менее прозрачными, чтобы они светились на черном фоне */
-        body.dark::before {
+        html.dark body::before {
             opacity: 0.5;
             background: radial-gradient(circle, rgba(54, 112, 160, 0.5) 0%, rgba(54, 112, 160, 0) 70%);
         }
 
-        body.dark::after {
+        html.dark body::after {
             opacity: 0.3;
             background: radial-gradient(circle, rgba(255, 221, 84, 0.3) 0%, rgba(255, 221, 84, 0) 70%);
         }
@@ -390,7 +426,10 @@
                       const eventName = this.showDownloadModal ? 'confirm_download' : 'confirm_exit';
                       window.trackEvent(eventName, { url: this.targetUrl });
                   }
-                  window.open(this.targetUrl, '_blank');
+                  const openedWindow = window.open(this.targetUrl, '_blank', 'noopener,noreferrer');
+                  if (openedWindow) {
+                      openedWindow.opener = null;
+                  }
                   this.showExitModal = false;
                   this.showDownloadModal = false;
               }

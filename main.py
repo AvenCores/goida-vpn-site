@@ -316,6 +316,8 @@ def home():
         analytics_ids=analytics_ids,
         site_url=site_url,
         canonical_url=site_url,
+        download_links=FALLBACK_LINKS,
+        vc_runtime_link=VC_RUNTIME_FALLBACK,
         meta_title=meta_title,
         meta_description=meta_description,
         meta_keywords=meta_keywords,
@@ -350,16 +352,17 @@ def get_download_links():
     
     # Если кэша нет или он устарел, получаем новые ссылки
     print("Получаем новые ссылки с GitHub")
-    links = fetch_download_links()
+    fetched_links = fetch_download_links()
     
-    if links:
+    if fetched_links:
+        links = FALLBACK_LINKS.copy()
+        links.update(fetched_links)
         save_links_cache(links)
         print(f"Возвращаем новые ссылки: {links}")
         return jsonify(links)
     
     # Fallback - возвращаем ссылки по умолчанию
     print("Возвращаем fallback ссылки")
-    save_links_cache(FALLBACK_LINKS)
     return jsonify(FALLBACK_LINKS)
 
 @app.route('/api/vc-runtime-link')
@@ -412,6 +415,7 @@ BADGES = {
     'prs.svg': 'https://img.shields.io/github/issues-pr/AvenCores/goida-vpn-configs?style=for-the-badge',
     'issues.svg': 'https://img.shields.io/github/issues/AvenCores/goida-vpn-configs?style=for-the-badge'
 }
+STATS_REPO = 'AvenCores/goida-vpn-configs'
 
 def download_badges():
     """Скачивает бэджи локально для кэширования"""
@@ -431,6 +435,70 @@ def download_badges():
                 print(f"⚠️ Не удалось загрузить бэдж {filename}: {response.status_code}")
         except Exception as e:
             print(f"❌ Ошибка при загрузке бэджа {filename}: {e}")
+
+def create_github_stats_payload(error: str | None = None) -> dict:
+    return {
+        'pushed_at': None,
+        'stargazers_count': 0,
+        'clones': {'count': 0, 'uniques': 0},
+        'views': {'count': 0, 'uniques': 0},
+        'referrers': [],
+        'popular_content': [],
+        'error': error
+    }
+
+def fetch_github_stats_data(token: str | None = None) -> dict:
+    """Получить статистику репозитория в едином формате для API и static build."""
+    if DEBUG_MODE:
+        stats = create_github_stats_payload()
+        stats['pushed_at'] = datetime.utcnow().isoformat() + 'Z'
+        return stats
+
+    stats = create_github_stats_payload()
+    base_url = f'https://api.github.com/repos/{STATS_REPO}'
+    public_headers = {'Accept': 'application/vnd.github.v3+json'}
+
+    try:
+        repo_response = requests.get(base_url, headers=public_headers, timeout=10)
+        repo_response.raise_for_status()
+        repo_data = repo_response.json()
+        stats['pushed_at'] = repo_data.get('pushed_at')
+        stats['stargazers_count'] = repo_data.get('stargazers_count', 0)
+    except requests.exceptions.RequestException as e:
+        stats['error'] = str(e)
+        return stats
+
+    if not token:
+        stats['error'] = 'Token not configured'
+        return stats
+
+    auth_headers = {
+        **public_headers,
+        'Authorization': f'token {token}'
+    }
+    traffic_requests = (
+        ('clones', 'clones'),
+        ('views', 'views'),
+        ('popular/referrers', 'referrers'),
+        ('popular/paths', 'popular_content'),
+    )
+
+    for endpoint, field in traffic_requests:
+        try:
+            response = requests.get(f'{base_url}/traffic/{endpoint}', headers=auth_headers, timeout=10)
+            if not response.ok:
+                print(f"Warning: GitHub traffic API /{endpoint} returned {response.status_code}")
+                continue
+            payload = response.json()
+            if field in ('clones', 'views'):
+                stats[field]['count'] = payload.get('count', 0)
+                stats[field]['uniques'] = payload.get('uniques', 0)
+            else:
+                stats[field] = payload
+        except requests.exceptions.RequestException as e:
+            print(f"Warning: GitHub traffic API /{endpoint} failed: {e}")
+
+    return stats
 
 def get_cached_stats():
     """Получить кэшированную статистику, если она актуальна"""
@@ -460,42 +528,16 @@ def save_stats_cache(data):
 @app.route('/api/github-stats')
 def get_github_stats():
     """API endpoint для получения статистики репозитория с кэшированием"""
-    # В режиме отладки используем заглушку
-    if DEBUG_MODE:
-        print("⚙️ DEBUG MODE: Используем заглушку для GitHub статистики")
-        return jsonify({
-            'name': 'goida-vpn-configs',
-            'full_name': 'AvenCores/goida-vpn-configs',
-            'stargazers_count': 0,
-            'forks_count': 0,
-            'open_issues_count': 0,
-            'subscribers_count': 0,
-            'pushed_at': datetime.utcnow().isoformat() + 'Z',
-            'created_at': datetime.utcnow().isoformat() + 'Z',
-            'updated_at': datetime.utcnow().isoformat() + 'Z',
-            'html_url': 'https://github.com/AvenCores/goida-vpn-configs',
-            'description': 'VPN Configs',
-            'debug_mode': True
-        })
-    
     # Сначала проверяем кэш
     cached_stats = get_cached_stats()
     if cached_stats:
         print("Возвращаем кэшированную статистику GitHub")
         return jsonify(cached_stats)
 
-    # Если кэша нет, делаем запрос
-    print("Получаем новую статистику с GitHub")
-    repo = 'AvenCores/goida-vpn-configs'
-    try:
-        response = requests.get(f'https://api.github.com/repos/{repo}', timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        save_stats_cache(data) # Сохраняем в кэш
-        return jsonify(data)
-    except requests.exceptions.RequestException as e:
-        print(f"Ошибка при получении статистики с GitHub: {e}")
-        return jsonify(error=str(e)), getattr(e.response, 'status_code', 500)
+    stats = fetch_github_stats_data(os.getenv('MY_TOKEN'))
+    if stats.get('error') in (None, 'Token not configured'):
+        save_stats_cache(stats)
+    return jsonify(stats)
 
 @app.route('/LICENSE')
 def serve_license():

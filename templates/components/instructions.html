@@ -1,3 +1,6 @@
+{% set download_links = download_links|default({}, true) %}
+{% set vc_runtime_link = vc_runtime_link|default("", true) %}
+
 <section>
     <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="instructions.title">📚 Подробные гайды по использованию</h2>
     
@@ -22,7 +25,7 @@
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <div class="mb-8">
                         <!-- ICON ADDED: fa-android -->
-                        <a href="#" data-is-download="true" data-link-type="v2rayng-apk" class="group inline-flex items-center bg-gradient-to-br from-green-600 to-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 active:scale-95 mb-4 border border-white/10">
+                        <a href="{{ download_links.get('v2rayng-apk', '#') }}" data-is-download="true" data-link-type="v2rayng-apk" class="group inline-flex items-center bg-gradient-to-br from-green-600 to-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 active:scale-95 mb-4 border border-white/10">
                             <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i>
                             <template x-if="currentLanguage === 'de'">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.android_download') : 'v2rayNG herunterladen (APK)'">v2rayNG herunterladen (APK)</span>
@@ -271,7 +274,7 @@
             <div x-show="activeGuide === 'androidtv'" x-collapse x-cloak>
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <!-- ICON ADDED: fa-android -->
-                    <a href="#" data-is-download="true" data-link-type="v2rayng-apk" class="group inline-flex items-center bg-gradient-to-br from-teal-600 to-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300 active:scale-95 mb-6 border border-white/10">
+                    <a href="{{ download_links.get('v2rayng-apk', '#') }}" data-is-download="true" data-link-type="v2rayng-apk" class="group inline-flex items-center bg-gradient-to-br from-teal-600 to-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300 active:scale-95 mb-6 border border-white/10">
                         <i class="fa-brands fa-android text-xl mr-2 group-hover:scale-110 transition-transform"></i>
                         <template x-if="currentLanguage === 'de'">
                             <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.androidtv_download') : 'v2rayNG herunterladen (APK)'">v2rayNG herunterladen (APK)</span>
@@ -422,7 +425,7 @@
                 <div class="border-t border-gray-200 dark:border-gray-700 px-6 py-6 bg-gray-50 dark:bg-gray-900/50 text-left">
                     <div class="flex flex-wrap gap-3 mb-6">
                         <!-- ICONS ADDED: fa-windows, fa-linux -->
-                        <a href="#" data-is-download="true" data-link-type="throne-win10" class="group inline-flex items-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
+                        <a href="{{ download_links.get('throne-win10', '#') }}" data-is-download="true" data-link-type="throne-win10" class="group inline-flex items-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
                             <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i>
                             <template x-if="currentLanguage === 'de'">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win10') : 'Für Win 10/11 herunterladen'">Für Win 10/11 herunterladen</span>
@@ -440,7 +443,7 @@
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win10') : 'Спампаваць для Win 10/11'">Спампаваць для Win 10/11</span>
                             </template>
                         </a>
-                        <a href="#" data-is-download="true" data-link-type="throne-win7" class="group inline-flex items-center bg-gradient-to-br from-gray-600 to-gray-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
+                        <a href="{{ download_links.get('throne-win7', '#') }}" data-is-download="true" data-link-type="throne-win7" class="group inline-flex items-center bg-gradient-to-br from-gray-600 to-gray-700 text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-gray-500/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
                             <i class="fa-brands fa-windows text-lg mr-2 group-hover:scale-110 transition-transform"></i>
                             <template x-if="currentLanguage === 'de'">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win7') : 'Für Win 7/8 herunterladen'">Für Win 7/8 herunterladen</span>
@@ -458,7 +461,7 @@
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_win7') : 'Спампаваць для Win 7/8'">Спампаваць для Win 7/8</span>
                             </template>
                         </a>
-                        <a href="#" data-is-download="true" data-link-type="throne-linux" class="group inline-flex items-center bg-gradient-to-br from-gray-800 to-black text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
+                        <a href="{{ download_links.get('throne-linux', '#') }}" data-is-download="true" data-link-type="throne-linux" class="group inline-flex items-center bg-gradient-to-br from-gray-800 to-black text-white px-5 py-2.5 rounded-xl shadow-sm hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 text-sm font-bold border border-white/10">
                             <i class="fa-brands fa-linux text-lg mr-2 group-hover:scale-110 transition-transform"></i>
                             <template x-if="currentLanguage === 'de'">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_linux') : 'Für Linux herunterladen'">Für Linux herunterladen</span>
@@ -537,7 +540,7 @@
                             <p class="text-sm mb-3 text-gray-700 dark:text-gray-300" x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_desc') : 'Калі праграма не запускаецца, выдаліце старыя версіі Visual C++ і ўсталюйце пакет:'"></p>
                         </template>
                         <!-- ICON ADDED: fa-microsoft -->
-                        <a href="https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip" data-is-download="true" data-vc-runtime-link="true" class="group inline-flex items-center px-5 py-2.5 bg-gradient-to-br from-red-600 to-red-700 text-white text-xs font-bold rounded-xl shadow-sm hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300 active:scale-95 border border-white/10">
+                        <a href="{{ vc_runtime_link or 'https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip' }}" data-is-download="true" data-vc-runtime-link="true" class="group inline-flex items-center px-5 py-2.5 bg-gradient-to-br from-red-600 to-red-700 text-white text-xs font-bold rounded-xl shadow-sm hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300 active:scale-95 border border-white/10">
                             <i class="fa-brands fa-microsoft mr-2 group-hover:scale-110 transition-transform"></i>
                             <template x-if="currentLanguage === 'de'">
                                 <span x-text="window.i18n && i18nReady ? window.i18n.t('instructions.windows_runtime_download') : 'Visual C++ Runtimes herunterladen'">Visual C++ Runtimes herunterladen</span>

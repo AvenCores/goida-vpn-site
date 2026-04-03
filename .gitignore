@@ -5,3 +5,4 @@ dist/
 __pycache__/
 static/images/
 download_links_cache.json
+github_stats_cache.json
