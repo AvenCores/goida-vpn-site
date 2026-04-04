@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import shutil
 import subprocess
 from datetime import datetime
@@ -29,6 +30,18 @@ REPO_NAME = "goida-vpn-site"
 TARGET_REPO = f"https://github.com/{REPO_USER}/{REPO_NAME}.git"
 DIST_DIR = "dist"
 BRANCH = "gh-pages"
+
+
+def minify_html(html: str) -> str:
+    """Минифицирует HTML: убирает множественные пустые строки, лишние пробелы в начале/конце строк."""
+    # Заменяем 3+ переносов подряд на двойной перенос
+    html = re.sub(r'\n{3,}', '\n\n', html)
+    # Убираем trailing пробелы на строках
+    html = re.sub(r'[ \t]+\n', '\n', html)
+    # Убираем пустые строки, содержащие только пробелы/табы
+    html = re.sub(r'\n[ \t]+\n', '\n\n', html)
+    # Финальная очистка: убираем пробелы в начале и конце
+    return html.strip()
 
 
 def build_site():
@@ -75,6 +88,9 @@ def build_site():
             meta_keywords=os.environ.get("META_KEYWORDS", DEFAULT_META_KEYWORDS),
             og_image=os.environ.get("OG_IMAGE_URL"),
         )
+
+        # Минифицируем HTML перед записью
+        rendered_html = minify_html(rendered_html)
 
         with open(os.path.join(DIST_DIR, "index.html"), "w", encoding="utf-8") as f:
             f.write(rendered_html)
