@@ -43,8 +43,8 @@ SOURCES_MAP = {
     24: "https://github.com/Mr-Meshky/vify",
     25: "https://github.com/V2RayRoot/V2RayConfig",
     26: [
-        "https://whiteprime.github.io/xraycheck/configs/white-list_available",
         "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
+        "https://white-lists.vercel.app/api/filter?code=RU",
         "https://github.com/igareck/vpn-configs-for-russia",
         "https://github.com/ByeWhiteLists/ByeWhiteLists2",
         "https://wlrus.lol/confs/selected.txt",
