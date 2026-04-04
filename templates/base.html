@@ -461,7 +461,7 @@
               document.documentElement.lang = lang;
               // Применяем переводы если i18n загружен
               if (window.i18n) {
-                  window.i18n.applyTranslations();
+                  window.i18n.setLanguage(lang);
               }
           },
           activeTab: 'configs',

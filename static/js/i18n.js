@@ -254,7 +254,6 @@
     // Установить конкретный язык
     function setLanguage(lang) {
         if (lang !== 'ru' && lang !== 'en' && lang !== 'de' && lang !== 'uk' && lang !== 'be') return;
-        if (lang === currentLang) return;
         currentLang = lang;
         localStorage.setItem('lang', currentLang);
         applyTranslations();
