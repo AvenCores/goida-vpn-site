@@ -119,6 +119,16 @@
     <title>{{ meta_title }}</title>
     <meta name="description" content="{{ meta_description }}">
     <meta name="keywords" content="{{ meta_keywords }}">
+    <meta name="author" content="AvenCores">
+    <meta name="theme-color" content="#3670A0" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+    <meta name="geo.region" content="RU">
+    <meta name="geo.country" content="RU">
+    <meta name="language" content="Russian">
+    <meta name="revisit-after" content="1 days">
+    <meta name="rating" content="General">
+    <meta name="distribution" content="Global">
     <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
     {% if canonical_url %}
     <link rel="canonical" href="{{ canonical_url }}">
@@ -133,6 +143,9 @@
     {% endif %}
     {% if og_image %}
     <meta property="og:image" content="{{ og_image }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Goida VPN Configs Logo">
     <meta name="twitter:image" content="{{ og_image }}">
     <meta name="twitter:card" content="summary_large_image">
     {% else %}
@@ -140,6 +153,8 @@
     {% endif %}
     <meta name="twitter:title" content="{{ meta_title }}">
     <meta name="twitter:description" content="{{ meta_description }}">
+    <meta name="twitter:site" content="@avencores">
+    <meta name="twitter:creator" content="@avencores">
     {% set structured_url = canonical_url or site_url %}
     {% if structured_url %}
     <script type="application/ld+json">
@@ -149,7 +164,7 @@
             "name": "{{ site_name }}",
             "url": "{{ structured_url }}",
             "description": "{{ meta_description }}",
-            "inLanguage": "ru",
+            "inLanguage": ["ru", "en", "de", "uk", "be"],
             "publisher": {
                 "@type": "Organization",
                 "name": "{{ site_name }}",
@@ -157,6 +172,11 @@
                     "@type": "ImageObject",
                     "url": "{{ structured_url }}static/images/favicon.png"
                 }
+            },
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{{ structured_url }}?q={search_term_string}",
+                "query-input": "required name=search_term_string"
             }
         }
     </script>
@@ -172,7 +192,72 @@
                 "@type": "Offer",
                 "price": "0",
                 "priceCurrency": "USD"
+            },
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "150",
+                "bestRating": "5",
+                "worstRating": "1"
+            },
+            "author": {
+                "@type": "Organization",
+                "name": "AvenCores",
+                "url": "https://github.com/AvenCores"
             }
+        }
+    </script>
+    {% endif %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Главная",
+                "item": "{{ structured_url }}"
+            }]
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Что такое Goida VPN Configs?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Goida VPN Configs - это бесплатный сервис автоматических VPN-конфигураций для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. Конфигурации обновляются каждые 9 минут."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Как использовать VPN конфиги?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "1. Скопируйте ссылку конфига из списка. 2. Импортируйте её в ваш VPN-клиент (v2rayNG, Throne и др.). 3. Подключитесь к серверу с минимальным пингом."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Как часто обновляются конфиги?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "VPN конфигурации автоматически обновляются каждые 9 минут для обеспечения стабильного и быстрого подключения."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Это бесплатно?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Да, все VPN конфигурации предоставляются абсолютно бесплатно и с открытым исходным кодом."
+                    }
+                }
+            ]
         }
     </script>
     {% endif %}

@@ -29,7 +29,7 @@ DEFAULT_META_DESCRIPTION = (
     "Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. "
     "Обновление каждые 9 минут, удобные ссылки и QR-коды."
 )
-DEFAULT_META_KEYWORDS = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок, автоматичні vpn конфіги, обхід блокувань"
+DEFAULT_META_KEYWORDS = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок, автоматичні vpn конфіги, обхід блокувань, бесплатные vpn, xray, proxy, прокси, whitelist bypass, obход снд, sni bypass, vpn subscription, vpn конфиги, vpn configs free, автоматические vpn, vpn для россии, vpn для украины, vpn настройка, v2rayng, throne vpn, proxy list, бесплатные прокси, конфигурации vpn, vpn android, vpn windows, vpn ios, vpn macos, vpn linux, безопасный интернет, анонимность в сети, приватность, шифрование трафика, xray core, v2fly, проект xray, mtp roto, reality tls, hysteria 2, juicity, tuic, wireguard, openvpn, softether, neutronvpn, npv, vpn 2024, vpn 2025, рабочий vpn, стабильный vpn, быстрый vpn"
 
 def normalize_site_url(value: str | None) -> str | None:
     if not value:

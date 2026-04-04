@@ -8,6 +8,7 @@ from flask import render_template
 
 from main import (
     DEFAULT_META_DESCRIPTION,
+    DEFAULT_META_KEYWORDS,
     DEFAULT_META_TITLE,
     FALLBACK_LINKS,
     VC_RUNTIME_FALLBACK,
@@ -71,6 +72,7 @@ def build_site():
             vc_runtime_link=VC_RUNTIME_FALLBACK,
             meta_title=os.environ.get("META_TITLE", DEFAULT_META_TITLE),
             meta_description=os.environ.get("META_DESCRIPTION", DEFAULT_META_DESCRIPTION),
+            meta_keywords=os.environ.get("META_KEYWORDS", DEFAULT_META_KEYWORDS),
             og_image=os.environ.get("OG_IMAGE_URL"),
         )
 
