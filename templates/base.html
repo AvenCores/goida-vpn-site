@@ -78,7 +78,6 @@
     {% set site_url = site_url|default("", true) %}
     {% set canonical_url = canonical_url|default(site_url, true) %}
     {% set og_image = og_image|default("", true) %}
-
     <script>
         window.copyTextSafely = async function(text) {
             if (navigator.clipboard && window.isSecureContext) {
@@ -130,17 +129,13 @@
     <meta name="rating" content="General">
     <meta name="distribution" content="Global">
     <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
-    {% if canonical_url %}
     <link rel="canonical" href="{{ canonical_url }}">
-    {% endif %}
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU" id="og-locale">
     <meta property="og:site_name" content="{{ site_name }}">
     <meta property="og:title" content="{{ meta_title }}">
     <meta property="og:description" content="{{ meta_description }}">
-    {% if canonical_url %}
     <meta property="og:url" content="{{ canonical_url }}">
-    {% endif %}
     {% if og_image %}
     <meta property="og:image" content="{{ og_image }}">
     <meta property="og:image:width" content="1200">
@@ -156,7 +151,6 @@
     <meta name="twitter:site" content="@avencores">
     <meta name="twitter:creator" content="@avencores">
     {% set structured_url = canonical_url or site_url %}
-    {% if structured_url %}
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -259,7 +253,6 @@
             ]
         }
     </script>
-    {% endif %}
     <link rel="icon" type="image/png" href="static/images/favicon.png">
     <link rel="apple-touch-icon" href="static/images/favicon.png">
     
