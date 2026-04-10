@@ -46,7 +46,9 @@
     },
     "video": {
       "title": "Видео инструкция",
-      "warning": "⚠️ Видео актуально только для <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>. Для <strong class=\"font-bold\">iOS</strong> используйте текстовый гайд ниже.",
+      "warning_label": "Важно",
+      "warning_title": "Внимание!",
+      "warning": "Для <strong class=\"font-bold\">iOS и iPadOS</strong> актуален только текстовый гайд ниже. Видео гайд актуален только для <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>.",
       "video_alt": "Видео инструкция по настройке VPN v2rayNG и Throne"
     },
     "bypass": {
@@ -240,7 +242,9 @@
     },
     "video": {
       "title": "Videoanleitung",
-      "warning": "⚠️ Dieses Video ist nur relevant für <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>. Für <strong class=\"font-bold\">iOS</strong> verwenden Sie bitte die untenstehende Textanleitung.",
+      "warning_label": "Wichtig",
+      "warning_title": "Achtung!",
+      "warning": "Für <strong class=\"font-bold\">iOS und iPadOS</strong> ist nur die Textanleitung unten relevant. Die Videoanleitung ist nur für <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong> relevant.",
       "video_alt": "Videoanleitung zur Einrichtung von VPN v2rayNG und Throne"
     },
     "bypass": {
@@ -434,7 +438,9 @@
     },
     "video": {
       "title": "Video Tutorial",
-      "warning": "⚠️ This video is relevant for <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong> only. For <strong class=\"font-bold\">iOS</strong> use the text guide below.",
+      "warning_label": "Important",
+      "warning_title": "Attention!",
+      "warning": "For <strong class=\"font-bold\">iOS and iPadOS</strong> only the text guide below is relevant. The video tutorial is only relevant for <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>.",
       "video_alt": "Video tutorial on setting up VPN v2rayNG and Throne"
     },
     "bypass": {
@@ -628,7 +634,9 @@
     },
     "video": {
       "title": "Відэа інструкцыя",
-      "warning": "⚠️ Відэа актуальна толькі для <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>. Для <strong class=\"font-bold\">iOS</strong> выкарыстоўвайце тэкставы гайд ніжэй.",
+      "warning_label": "Важна",
+      "warning_title": "Увага!",
+      "warning": "Для <strong class=\"font-bold\">iOS і iPadOS</strong> актуальны толькі тэкставы гайд ніжэй. Відэа інструкцыя актуальна толькі для <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>.",
       "video_alt": "Відэа інструкцыя па наладцы VPN v2rayNG і Throne"
     },
     "bypass": {
@@ -822,7 +830,9 @@
     },
     "video": {
       "title": "Відео інструкція",
-      "warning": "⚠️ Відео актуально тільки для <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>. Для <strong class=\"font-bold\">iOS</strong> використовуйте текстовий гайд нижче.",
+      "warning_label": "Важливо",
+      "warning_title": "Увага!",
+      "warning": "Для <strong class=\"font-bold\">iOS та iPadOS</strong> актуальний лише текстовий гайд нижче. Відео інструкція актуальна лише для <strong class=\"font-bold\">Android, Android TV, Windows, Linux, MacOS</strong>.",
       "video_alt": "Відео інструкція з налаштування VPN v2rayNG та Throne"
     },
     "bypass": {

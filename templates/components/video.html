@@ -14,13 +14,21 @@
                         <span data-i18n="video.title">Видео инструкция</span>
                     </h2>
 
-                    <div class="p-4 sm:p-5 bg-amber-50/50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-800/30 rounded-2xl mb-8 shadow-sm">
-                        <div class="flex gap-3">
-                            <i class="fa-solid fa-triangle-exclamation text-amber-500 text-lg mt-1"></i>
-                            <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed" data-i18n="video.warning">
-                                ⚠️ Видео актуально только для <strong class="font-bold">Android, Android TV, Windows, Linux, MacOS</strong>.
-                                Для <strong class="font-bold">iOS</strong> используйте текстовый гайд ниже.
-                            </p>
+                    <div class="p-4 sm:p-5 bg-gradient-to-br from-amber-50 to-orange-50/50 dark:from-amber-900/20 dark:to-orange-900/10 border-2 border-amber-200 dark:border-amber-700/50 rounded-2xl mb-8 shadow-md relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-amber-400/10 dark:bg-amber-400/5 rounded-full -mr-8 -mt-8 blur-xl"></div>
+                        <div class="flex gap-3 items-start">
+                            <div class="flex-shrink-0 w-10 h-10 bg-amber-100 dark:bg-amber-900/40 rounded-xl flex items-center justify-center border border-amber-200 dark:border-amber-700/50 shadow-sm">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-600 dark:text-amber-400 text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-amber-900 dark:text-amber-100 mb-1 flex items-center gap-2">
+                                    <span class="text-xs bg-amber-200 dark:bg-amber-800/50 px-2 py-0.5 rounded-full uppercase tracking-wide" data-i18n="video.warning_label">Важно</span>
+                                    <span data-i18n="video.warning_title">Внимание!</span>
+                                </p>
+                                <p class="text-sm text-amber-800 dark:text-amber-200 leading-relaxed" data-i18n="video.warning">
+                                    Для <strong class="font-bold">iOS и iPadOS</strong> актуален только текстовый гайд ниже. Видео гайд актуален только для <strong class="font-bold">Android, Android TV, Windows, Linux, MacOS</strong>.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
