@@ -54,7 +54,9 @@
     "bypass": {
       "title": "Обход <span class=\"text-purple-600 dark:text-purple-400\">SNI/CIDR</span> белых списков",
       "subtitle": "Специальный конфиг для белых списков",
-      "warning": "⚠️ Этот конфиг специально настроен для обхода систем с <strong class=\"font-bold\">белыми списками SNI/CIDR</strong>, которые используются операторами.",
+      "warning_label": "Важно",
+      "warning_title": "Внимание!",
+      "warning": "Этот конфиг специально настроен для обхода систем с <strong class=\"font-bold\">белыми списками SNI/CIDR</strong>, которые используются операторами.",
       "copy_link": "Копировать ссылку",
       "copied": "Ссылка успешно скопирована!",
       "alt": "Видео инструкция по обходу SNI/CIDR блокировок"
@@ -250,7 +252,9 @@
     "bypass": {
       "title": "Umgehung von <span class=\"text-purple-600 dark:text-purple-400\">SNI/CIDR</span> Whitelists",
       "subtitle": "Spezielle Konfiguration für Whitelists",
-      "warning": "⚠️ Diese Konfiguration ist speziell darauf ausgelegt, <strong class=\"font-bold\">SNI/CIDR-Whitelist</strong>-Systeme zu umgehen, die von Internetanbietern verwendet werden.",
+      "warning_label": "Wichtig",
+      "warning_title": "Achtung!",
+      "warning": "Diese Konfiguration ist speziell darauf ausgelegt, <strong class=\"font-bold\">SNI/CIDR-Whitelist</strong>-Systeme zu umgehen, die von Internetanbietern verwendet werden.",
       "copy_link": "Link kopieren",
       "copied": "Link erfolgreich kopiert!",
       "alt": "Videoanleitung zur Umgehung von SNI/CIDR-Sperren"
@@ -446,7 +450,9 @@
     "bypass": {
       "title": "Bypass <span class=\"text-purple-600 dark:text-purple-400\">SNI/CIDR</span> Whitelists",
       "subtitle": "Special config for whitelists",
-      "warning": "⚠️ This config is specifically designed to bypass <strong class=\"font-bold\">SNI/CIDR whitelist</strong> systems used by ISPs.",
+      "warning_label": "Important",
+      "warning_title": "Attention!",
+      "warning": "This config is specifically designed to bypass <strong class=\"font-bold\">SNI/CIDR whitelist</strong> systems used by ISPs.",
       "copy_link": "Copy Link",
       "copied": "Link copied successfully!",
       "alt": "Video tutorial on bypassing SNI/CIDR blocks"
@@ -642,7 +648,9 @@
     "bypass": {
       "title": "Абыход <span class=\"text-purple-600 dark:text-purple-400\">SNI/CIDR</span> белых спісаў",
       "subtitle": "Спецыяльны канфіг для белых спісаў",
-      "warning": "⚠️ Гэты канфіг спецыяльна наладжаны для абходу сістэм з <strong class=\"font-bold\">белымі спісамі SNI/CIDR</strong>, якія выкарыстоўваюцца аператарамі.",
+      "warning_label": "Важна",
+      "warning_title": "Увага!",
+      "warning": "Гэты канфіг спецыяльна наладжаны для абходу сістэм з <strong class=\"font-bold\">белымі спісамі SNI/CIDR</strong>, якія выкарыстоўваюцца аператарамі.",
       "copy_link": "Капіяваць спасылку",
       "copied": "Спасылка паспяхова скапіявана!",
       "alt": "Відэа інструкцыя па абыходзе SNI/CIDR блакіровак"
@@ -838,7 +846,9 @@
     "bypass": {
       "title": "Обхід <span class=\"text-purple-600 dark:text-purple-400\">SNI/CIDR</span> білих списків",
       "subtitle": "Спеціальний конфіг для білих списків",
-      "warning": "⚠️ Цей конфіг спеціально налаштований для обходу систем з <strong class=\"font-bold\">білими списками SNI/CIDR</strong>, які використовуються операторами.",
+      "warning_label": "Важливо",
+      "warning_title": "Увага!",
+      "warning": "Цей конфіг спеціально налаштований для обходу систем з <strong class=\"font-bold\">білими списками SNI/CIDR</strong>, які використовуються операторами.",
       "copy_link": "Копіювати посилання",
       "copied": "Посилання успішно скопійовано!",
       "alt": "Відео інструкція з обходу SNI/CIDR блокувань"
