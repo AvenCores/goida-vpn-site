@@ -138,26 +138,34 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             <template x-for="config in filteredConfigs" :key="config.id">
-                <div class="group relative bg-white dark:bg-brand-panel rounded-2xl border border-gray-200/80 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden animate-card-enter"
+                <div class="group relative bg-white dark:bg-brand-panel rounded-2xl border border-gray-200/80 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex flex-col overflow-hidden animate-card-enter"
                      x-data="{ copied: false }">
 
+                    <!-- Фоновый декоративный градиент -->
+                    <div class="absolute -top-16 -right-16 w-32 h-32 bg-gradient-to-br from-brand-blue/5 to-purple-500/5 dark:from-brand-blue/10 dark:to-purple-500/10 rounded-full blur-2xl group-hover:from-brand-blue/15 group-hover:to-purple-500/15 dark:group-hover:from-brand-blue/20 dark:group-hover:to-purple-500/20 transition-all duration-700 pointer-events-none"></div>
+
                     <!-- Заголовок карточки: ID + бейджи -->
-                    <div class="flex items-start justify-between p-5 pb-3">
-                        <div class="flex flex-col">
-                            <span class="font-extrabold text-3xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></span>
+                    <div class="flex items-start justify-between p-5 pb-3 relative z-10">
+                        <div class="flex items-center gap-3">
+                            <div class="relative w-12 h-12 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center text-gray-500 dark:text-gray-400 shadow-sm group-hover:from-brand-blue group-hover:to-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand-blue/25 dark:group-hover:shadow-brand-blue/30 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                                <i class="fa-solid fa-server text-lg"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-extrabold text-3xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></span>
+                            </div>
                         </div>
 
                         <!-- Бейджи -->
-                        <div class="flex flex-col items-end gap-1.5">
+                        <div class="flex flex-col items-end gap-1.5 shrink-0 max-w-[45%]">
                             <template x-if="config.is_recommended">
-                                <span class="inline-flex items-center gap-1 bg-gradient-to-r from-yellow-400 to-amber-400 text-yellow-900 text-[9px] font-bold px-2 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
-                                    <i class="fa-solid fa-star text-[8px]"></i>
+                                <span class="inline-flex items-center gap-1 bg-gradient-to-r from-yellow-400 to-amber-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider whitespace-nowrap">
+                                    <i class="fa-solid fa-star text-[7px]"></i>
                                     <span data-i18n="tabs.badge_recommended">Рекомендованный</span>
                                 </span>
                             </template>
                             <template x-if="config.is_sni">
-                                <span class="inline-flex items-center gap-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
-                                    <i class="fa-solid fa-bolt text-[8px]"></i>
+                                <span class="inline-flex items-center gap-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider whitespace-nowrap">
+                                    <i class="fa-solid fa-bolt text-[7px]"></i>
                                     <span data-i18n="tabs.badge_sni">Обход SNI/CIDR</span>
                                 </span>
                             </template>
@@ -165,9 +173,12 @@
                     </div>
 
                     <!-- URL конфига -->
-                    <div class="px-5 pb-4">
+                    <div class="px-5 pb-4 relative z-10">
                         <div class="relative group/url">
-                            <div class="text-[11px] text-gray-500 dark:text-gray-400 break-all bg-gray-50/80 dark:bg-black/40 p-3.5 rounded-xl font-mono border border-gray-100 dark:border-gray-800/60 line-clamp-2 min-h-[3.5rem] flex items-center pr-10 transition-colors group-hover/url:border-gray-200 dark:group-hover/url:border-gray-700"
+                            <!-- Анимированный бордер -->
+                            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-blue/0 via-brand-blue/20 to-brand-blue/0 dark:via-brand-blue/40 opacity-0 group-hover/url:opacity-100 transition-opacity duration-500 blur-sm -z-10"></div>
+
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 break-all bg-gray-50/80 dark:bg-black/40 p-3.5 rounded-xl font-mono border border-gray-100 dark:border-gray-800/60 line-clamp-2 min-h-[3.5rem] flex items-center pr-10 transition-all duration-300 group-hover/url:border-brand-blue/30 dark:group-hover/url:border-brand-blue/40 group-hover/url:bg-gray-50 dark:group-hover/url:bg-black/50"
                                  x-text="config.url">
                             </div>
                             <button @click="
@@ -197,18 +208,21 @@
                                             copy();
                                         }
                                     "
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg transition-all"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-lg transition-all duration-300"
                                     :class="copied
-                                        ? 'text-green-500 bg-green-50 dark:bg-green-900/30'
-                                        : 'text-gray-400 hover:text-brand-blue hover:bg-gray-100 dark:hover:bg-gray-800 opacity-0 group-hover/url:opacity-100 transition-opacity'">
+                                        ? 'text-green-500 bg-green-50 dark:bg-green-900/30 scale-110'
+                                        : 'text-gray-400 hover:text-brand-blue hover:bg-blue-50 dark:hover:bg-brand-blue/20 opacity-0 group-hover/url:opacity-100 hover:scale-110 active:scale-90'">
                                 <i class="fa-solid" :class="copied ? 'fa-check' : 'fa-copy'"></i>
                             </button>
                         </div>
                     </div>
 
                     <!-- Футер карточки -->
-                    <div class="mt-auto px-5 pb-5">
-                        <div class="flex items-center justify-between mb-3">
+                    <div class="mt-auto px-5 pb-5 relative z-10">
+                        <!-- Разделитель -->
+                        <div class="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent mb-4"></div>
+
+                        <div class="flex items-center justify-between mb-4">
                             <!-- Дата обновления -->
                             <template x-if="config.last_update">
                                 <div class="text-[10px] text-gray-400 dark:text-gray-500 font-bold flex items-center gap-1.5 uppercase tracking-wide">
@@ -242,15 +256,36 @@
                         </div>
 
                         <!-- Кнопка копирования -->
-                        <button @click="
-                                    const url = config.url;
-                                    const copy = () => {
-                                        copied = true;
-                                        if (window.trackEvent) window.trackEvent('copy_config', { config_id: config.id });
-                                        setTimeout(() => { copied = false; }, 2000);
-                                    };
-                                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                                        navigator.clipboard.writeText(url).then(copy).catch(() => {
+                        <div class="relative">
+                            <!-- Фоновый эффект при копировании -->
+                            <div x-show="copied"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 scale-50"
+                                 x-transition:enter-end="opacity-100 scale-100"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="opacity-100 scale-100"
+                                 x-transition:leave-end="opacity-0 scale-50"
+                                 class="absolute -inset-3 bg-gradient-to-r from-green-400/20 to-emerald-500/20 dark:from-green-400/10 dark:to-emerald-500/10 rounded-2xl blur-xl pointer-events-none">
+                            </div>
+
+                            <button @click="
+                                        const url = config.url;
+                                        const copy = () => {
+                                            copied = true;
+                                            if (window.trackEvent) window.trackEvent('copy_config', { config_id: config.id });
+                                            setTimeout(() => { copied = false; }, 2000);
+                                        };
+                                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                                            navigator.clipboard.writeText(url).then(copy).catch(() => {
+                                                const el = document.createElement('textarea');
+                                                el.value = url;
+                                                document.body.appendChild(el);
+                                                el.select();
+                                                document.execCommand('copy');
+                                                document.body.removeChild(el);
+                                                copy();
+                                            });
+                                        } else {
                                             const el = document.createElement('textarea');
                                             el.value = url;
                                             document.body.appendChild(el);
@@ -258,28 +293,24 @@
                                             document.execCommand('copy');
                                             document.body.removeChild(el);
                                             copy();
-                                        });
-                                    } else {
-                                        const el = document.createElement('textarea');
-                                        el.value = url;
-                                        document.body.appendChild(el);
-                                        el.select();
-                                        document.execCommand('copy');
-                                        document.body.removeChild(el);
-                                        copy();
-                                    }
-                                "
-                                class="w-full py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 active:scale-[0.97]"
-                                :class="copied
-                                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md shadow-green-500/20'
-                                    : 'bg-gradient-to-r from-brand-blue to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm shadow-blue-500/10 hover:shadow-md hover:shadow-blue-500/20'">
-                            <i class="fa-solid transition-transform"
-                               :class="copied ? 'fa-circle-check' : 'fa-copy group-hover:scale-110'"></i>
-                            <span x-text="copied
-                                ? (currentLanguage === 'de' && i18nReady ? 'Kopiert!' : (currentLanguage === 'en' && i18nReady ? 'Copied!' : (currentLanguage === 'uk' && i18nReady ? 'Скопійовано!' : (currentLanguage === 'be' && i18nReady ? 'Скапіявана!' : 'Скопировано!'))))
-                                : (currentLanguage === 'de' && i18nReady ? 'Link kopieren' : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : (currentLanguage === 'uk' && i18nReady ? 'Копіювати посилання' : (currentLanguage === 'be' && i18nReady ? 'Капіяваць спасылку' : 'Копировать ссылку'))))">
-                            </span>
-                        </button>
+                                        }
+                                    "
+                                    class="relative w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 transition-all duration-500 active:scale-[0.96] overflow-hidden group/btn"
+                                    :class="copied
+                                        ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/25'
+                                        : 'bg-gradient-to-r from-brand-blue to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white shadow-md shadow-blue-500/15 hover:shadow-xl hover:shadow-blue-500/25'">
+                                <!-- Блик на кнопке -->
+                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"
+                                     x-show="!copied"></div>
+
+                                <i class="fa-solid transition-all duration-300"
+                                   :class="copied ? 'fa-circle-check scale-110' : 'fa-copy group-hover/btn:scale-110'"></i>
+                                <span x-text="copied
+                                    ? (currentLanguage === 'de' && i18nReady ? 'Kopiert!' : (currentLanguage === 'en' && i18nReady ? 'Copied!' : (currentLanguage === 'uk' && i18nReady ? 'Скопійовано!' : (currentLanguage === 'be' && i18nReady ? 'Скапіявана!' : 'Скопировано!'))))
+                                    : (currentLanguage === 'de' && i18nReady ? 'Link kopieren' : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : (currentLanguage === 'uk' && i18nReady ? 'Копіювати посилання' : (currentLanguage === 'be' && i18nReady ? 'Капіяваць спасылку' : 'Копировать ссылку'))))">
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -311,12 +342,20 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
             <template x-for="config in filteredConfigs" :key="config.id">
-                <div class="group bg-white dark:bg-brand-panel rounded-2xl border border-gray-200/80 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center relative flex flex-col overflow-hidden animate-card-enter"
+                <div class="group bg-white dark:bg-brand-panel rounded-2xl border border-gray-200/80 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 text-center relative flex flex-col overflow-hidden animate-card-enter"
                      x-data="{ qrHover: false }">
 
+                    <!-- Фоновый декоративный градиент -->
+                    <div class="absolute -top-12 -right-12 w-24 h-24 bg-gradient-to-br from-brand-blue/5 to-purple-500/5 dark:from-brand-blue/10 dark:to-purple-500/10 rounded-full blur-2xl group-hover:from-brand-blue/15 group-hover:to-purple-500/15 dark:group-hover:from-brand-blue/20 dark:group-hover:to-purple-500/20 transition-all duration-700 pointer-events-none"></div>
+
                     <!-- Заголовок -->
-                    <div class="flex items-center justify-between p-3 pb-2">
-                        <span class="font-extrabold text-xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></span>
+                    <div class="flex items-center justify-between p-3 pb-2 relative z-10">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 shadow-sm group-hover:from-brand-blue group-hover:to-blue-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-brand-blue/20 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                                <i class="fa-solid fa-server text-[10px]"></i>
+                            </div>
+                            <span class="font-extrabold text-xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></span>
+                        </div>
                         <div class="flex flex-col items-end gap-1">
                             <template x-if="config.is_recommended">
                                 <span class="inline-flex items-center gap-1 bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
@@ -334,28 +373,34 @@
                     </div>
 
                     <!-- QR-код -->
-                    <div class="relative mx-3 mb-3 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800/60 bg-gray-50 dark:bg-black/20"
+                    <div class="relative mx-3 mb-3 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800/60 bg-gray-50 dark:bg-black/20 group/qr"
                          @mouseenter="qrHover = true"
                          @mouseleave="qrHover = false">
+                        <!-- Анимированный бордер -->
+                        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-blue/0 via-brand-blue/20 to-brand-blue/0 dark:via-brand-blue/30 opacity-0 group-hover/qr:opacity-100 transition-opacity duration-500 blur-sm -z-10"></div>
+
                         <img :src="'static/qr-codes/' + config.id + '.png'"
                              :alt="'QR код конфига ' + config.id"
-                             class="w-full aspect-square transition-all duration-300"
-                             :class="qrHover ? 'scale-105 brightness-75 dark:brightness-50' : ''">
+                             class="w-full aspect-square transition-all duration-500"
+                             :class="qrHover ? 'scale-110 brightness-75 dark:brightness-50' : ''">
 
                         <!-- Оверлей при наведении -->
-                        <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
-                             :class="qrHover ? 'opacity-100' : 'opacity-0 pointer-events-none'">
+                        <div class="absolute inset-0 flex items-center justify-center transition-all duration-300 backdrop-blur-[2px]"
+                             :class="qrHover ? 'opacity-100 bg-brand-blue/10 dark:bg-brand-blue/5' : 'opacity-0 pointer-events-none'">
                             <button @click="$dispatch('open-qr-download-modal', { configId: config.id })"
-                                    class="px-4 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl font-bold text-xs shadow-lg hover:scale-105 transition-transform active:scale-95">
-                                <i class="fa-solid fa-download mr-1"></i>
+                                    class="px-5 py-2.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl font-bold text-xs shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 border border-white/20 dark:border-gray-700">
+                                <i class="fa-solid fa-download mr-1.5"></i>
                                 <span data-i18n="tabs.download">Скачать</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- Футер -->
-                    <div class="px-3 pb-3 mt-auto">
-                        <div class="flex flex-col items-center gap-1 mb-2">
+                    <div class="px-3 pb-3 mt-auto relative z-10">
+                        <!-- Разделитель -->
+                        <div class="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent mb-3"></div>
+
+                        <div class="flex flex-col items-center gap-1 mb-3">
                             <template x-if="config.last_update">
                                 <div class="text-[9px] text-gray-400 dark:text-gray-500 font-bold flex items-center gap-1 uppercase tracking-tight">
                                     <span class="w-1 h-1 rounded-full bg-green-500 animate-pulse"></span>
@@ -383,8 +428,10 @@
                         </div>
 
                         <button @click="$dispatch('open-qr-download-modal', { configId: config.id })"
-                                class="w-full flex items-center justify-center gap-2 py-2 bg-gradient-to-r from-brand-blue to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 rounded-xl text-xs font-bold transition-all shadow-sm hover:shadow-md active:scale-[0.97]">
-                            <i class="fa-solid fa-download"></i>
+                                class="relative w-full flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-brand-blue to-blue-600 text-white hover:from-blue-500 hover:to-blue-700 rounded-xl text-xs font-bold transition-all duration-500 shadow-sm hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.96] overflow-hidden group/qr-btn">
+                            <!-- Блик -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover/qr-btn:translate-x-[100%] transition-transform duration-700"></div>
+                            <i class="fa-solid fa-download group-hover/qr-btn:scale-110 transition-transform duration-300"></i>
                             <span data-i18n="tabs.download">Скачать</span>
                         </button>
                     </div>
