@@ -31,7 +31,7 @@
 
 ## ✨ Ключевые особенности
 
-<img width="2560" height="1271" alt="chrome_CN78NLhhVx" src="https://github.com/user-attachments/assets/effd1e1f-1fa1-4bd2-a93f-04e2ec383b7e" />
+<img width="2560" height="1271" alt="chrome_CN78NLhhVx" src="https://github.com/user-attachments/assets/b87b1120-07d0-4e7e-aa46-d6b608b59adc" />
 
 - **Динамические конфигурации**: Данные подтягиваются напрямую из репозитория `goida-vpn-configs`, включая время последнего обновления.
 - **Двойной режим работы**: 
