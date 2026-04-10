@@ -6,17 +6,17 @@
         init() {
             this.$watch("searchQuery", () => this.triggerAnimation());
             this.$watch("filterType", () => this.triggerAnimation());
-            this.$watch("activeTab", () => this.triggerAnimation());
         },
         triggerAnimation() {
-            this.$nextTick(() => {
-                const cards = document.querySelectorAll(".animate-card-enter");
-                cards.forEach((card, i) => {
-                    card.style.animation = "none";
-                    card.offsetHeight; // принудительный reflow
-                    card.style.animation = "";
-                    card.style.animationDelay = (i * 25) + "ms";
-                });
+            // Перезапускаем анимацию только для уже существующих карточек
+            const cards = document.querySelectorAll(".animate-card-enter");
+            if (cards.length === 0) return;
+
+            cards.forEach((card, i) => {
+                card.style.animation = "none";
+                card.offsetHeight; // принудительный reflow
+                card.style.animation = "";
+                card.style.animationDelay = (i * 25) + "ms";
             });
         },
         get filteredConfigs() {
