@@ -1,128 +1,177 @@
-<div class="mb-16" 
-     x-data='{ 
-        searchQuery: "", 
+<div class="mb-16"
+     x-data='{
+        searchQuery: "",
         filterType: "all",
         configs: {{ configs|tojson }},
         get filteredConfigs() {
             return this.configs.filter(c => {
                 const query = this.searchQuery.toLowerCase();
-                const matchesSearch = c.id.toString().includes(query) || 
+                const matchesSearch = c.id.toString().includes(query) ||
                                     (c.url && c.url.toLowerCase().includes(query));
-                const matchesFilter = this.filterType === "all" || 
+                const matchesFilter = this.filterType === "all" ||
                                      (this.filterType === "recommended" && c.is_recommended) ||
                                      (this.filterType === "sni" && c.is_sni);
                 return matchesSearch && matchesFilter;
             });
+        },
+        get activeCount() {
+            return this.filteredConfigs.length;
         }
      }'>
 
-    <!-- Переключатель вкладок -->
-    <div class="flex items-center justify-center mb-10 px-4 sm:px-0">
-        <div class="flex p-1.5 bg-gray-100 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl w-full sm:w-auto shadow-inner border border-gray-200/50 dark:border-gray-700/50">
+    <!-- ════════════════════════════════════════════
+         ВКЛАДКИ — сегментированный переключатель
+         ════════════════════════════════════════════ -->
+    <div class="flex items-center justify-center mb-8 px-4 sm:px-0">
+        <div class="relative flex p-1 bg-gray-100/80 dark:bg-gray-800/60 backdrop-blur-xl rounded-2xl w-full sm:w-auto shadow-inner border border-gray-200/60 dark:border-gray-700/40">
+            <!-- Активный фон (скользящий) -->
+            <div class="absolute top-1 bottom-1 bg-white dark:bg-gray-700 rounded-xl shadow-md transition-all duration-300 ease-out"
+                 :style="activeTab === 'configs' ? 'left: 4px; width: calc(50% - 6px);' : 'left: calc(50% + 2px); width: calc(50% - 6px);'">
+            </div>
+
             <button @click="activeTab = 'configs'; if(window.trackEvent) window.trackEvent('switch_tab', { tab: 'configs' })"
-                    :class="activeTab === 'configs'
-                        ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white'
-                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
-                    class="flex items-center justify-center gap-2.5 px-6 sm:px-10 py-3 rounded-xl font-bold transition-all duration-300 flex-1 sm:flex-none text-sm sm:text-base">
-                <i class="fa-solid fa-list-ul"></i>
+                    :class="activeTab === 'configs' ? 'text-brand-blue dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+                    class="relative z-10 flex items-center justify-center gap-2 sm:gap-2.5 px-5 sm:px-8 py-2.5 sm:py-3 rounded-xl font-bold transition-all duration-200 flex-1 sm:flex-none text-sm sm:text-base">
+                <i class="fa-solid fa-list-ul text-base"></i>
                 <span data-i18n="tabs.tab_lists">Списки</span>
             </button>
             <button @click="activeTab = 'qr'; if(window.trackEvent) window.trackEvent('switch_tab', { tab: 'qr' })"
-                    :class="activeTab === 'qr'
-                        ? 'bg-white dark:bg-gray-700 shadow-md text-brand-blue dark:text-white'
-                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
-                    class="flex items-center justify-center gap-2.5 px-6 sm:px-10 py-3 rounded-xl font-bold transition-all duration-300 flex-1 sm:flex-none text-sm sm:text-base">
-                <i class="fa-solid fa-qrcode"></i>
+                    :class="activeTab === 'qr' ? 'text-brand-blue dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
+                    class="relative z-10 flex items-center justify-center gap-2 sm:gap-2.5 px-5 sm:px-8 py-2.5 sm:py-3 rounded-xl font-bold transition-all duration-200 flex-1 sm:flex-none text-sm sm:text-base">
+                <i class="fa-solid fa-qrcode text-base"></i>
                 <span data-i18n="tabs.tab_qr">QR-коды</span>
             </button>
         </div>
     </div>
 
-    <!-- Панель инструментов (Поиск и Фильтры) -->
-    <div class="flex flex-col lg:flex-row gap-4 mb-10 items-stretch lg:items-center justify-between bg-white/80 dark:bg-brand-panel/80 backdrop-blur-lg p-4 sm:p-5 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm transition-all">
+    <!-- ════════════════════════════════════════════
+         ПАНЕЛЬ ИНСТРУМЕНТОВ — поиск + фильтры
+         ════════════════════════════════════════════ -->
+    <div class="flex flex-col lg:flex-row gap-4 mb-8 items-stretch lg:items-center justify-between bg-white/70 dark:bg-brand-panel/60 backdrop-blur-xl p-4 sm:p-5 rounded-2xl border border-gray-200/80 dark:border-gray-700/50 shadow-sm transition-all">
+
         <!-- Поиск -->
-        <div class="relative flex-1 lg:max-w-md">
+        <div class="relative flex-1 lg:max-w-md group">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <i class="fa-solid fa-magnifying-glass text-brand-blue/50 dark:text-blue-400/50"></i>
+                <i class="fa-solid fa-magnifying-glass text-gray-400 dark:text-blue-400/60 group-focus-within:text-brand-blue dark:group-focus-within:text-blue-400 transition-colors"></i>
             </div>
             <input type="text"
                    x-model="searchQuery"
                    @input.debounce.500ms="if(window.trackEvent && searchQuery) window.trackEvent('search', { query: searchQuery })"
                    data-i18n-placeholder="tabs.search_placeholder"
                    placeholder="Найти по ID или ссылке..."
-                   class="block w-full pl-11 pr-12 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-black/20 focus:ring-4 focus:ring-brand-blue/10 focus:border-brand-blue outline-none transition-all dark:text-white text-sm font-medium">
+                   class="block w-full pl-11 pr-12 py-3 border border-gray-200 dark:border-gray-700/60 rounded-xl bg-gray-50/80 dark:bg-black/30 focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue outline-none transition-all dark:text-white text-sm font-medium placeholder:text-gray-400 dark:placeholder:text-gray-500">
             <div class="absolute inset-y-0 right-0 pr-4 flex items-center gap-2">
-                <button x-show="searchQuery" @click="searchQuery = ''" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
-                    <i class="fa-solid fa-circle-xmark"></i>
+                <button x-show="searchQuery"
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 scale-75"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        @click="searchQuery = ''"
+                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <i class="fa-solid fa-circle-xmark text-lg"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Фильтры -->
+        <!-- Счётчик + Фильтры -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest hidden lg:block shrink-0" data-i18n="tabs.filters_label">Фильтры:</span>
-            <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
+            <!-- Счётчик результатов -->
+            <div class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700/50">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-xs font-bold text-gray-500 dark:text-gray-400">
+                    <span x-text="activeCount"></span>
+                    <span data-i18n="tabs.results_label">результатов</span>
+                </span>
+            </div>
+
+            <!-- Кнопки фильтров -->
+            <div class="flex items-center gap-1.5">
                 <button @click="filterType = 'all'; if(window.trackEvent) window.trackEvent('filter', { type: 'all' })"
-                        :class="filterType === 'all' ? 'bg-brand-blue text-white shadow-md border-brand-blue' : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 shadow-sm'"
-                        class="px-4 py-2 rounded-xl text-xs font-bold transition-all border-2 col-span-2 sm:col-auto" data-i18n="tabs.filter_all">
+                        :class="filterType === 'all'
+                            ? 'bg-brand-blue text-white shadow-sm border-brand-blue'
+                            : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'"
+                        class="px-3.5 py-2 rounded-lg text-xs font-bold transition-all border" data-i18n="tabs.filter_all">
                     Все
                 </button>
                 <button @click="filterType = 'recommended'; if(window.trackEvent) window.trackEvent('filter', { type: 'recommended' })"
-                        :class="filterType === 'recommended' ? 'bg-yellow-400 text-yellow-900 shadow-md border-yellow-400' : 'bg-yellow-400/10 text-yellow-700 dark:text-yellow-400 border-transparent'"
-                        class="px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 border-2">
-                    <i class="fa-solid fa-star text-[9px]"></i>
+                        :class="filterType === 'recommended'
+                            ? 'bg-yellow-400 text-yellow-900 shadow-sm border-yellow-400'
+                            : 'bg-yellow-400/10 text-yellow-700 dark:text-yellow-400 border-yellow-200/50 dark:border-yellow-800/30 hover:border-yellow-300 dark:hover:border-yellow-700/50'"
+                        class="px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 border">
+                    <i class="fa-solid fa-star text-[10px]" :class="filterType === 'recommended' ? 'text-yellow-900' : ''"></i>
                     <span data-i18n="tabs.filter_recommended">Рекомендованные</span>
                 </button>
                 <button @click="filterType = 'sni'; if(window.trackEvent) window.trackEvent('filter', { type: 'sni' })"
-                        :class="filterType === 'sni' ? 'bg-purple-600 text-white shadow-md border-purple-600' : 'bg-purple-600/10 text-purple-600 dark:text-purple-400 border-transparent'"
-                        class="px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 border-2">
-                    <i class="fa-solid fa-bolt text-[9px]"></i>
+                        :class="filterType === 'sni'
+                            ? 'bg-purple-600 text-white shadow-sm border-purple-600'
+                            : 'bg-purple-600/10 text-purple-600 dark:text-purple-400 border-purple-200/50 dark:border-purple-800/30 hover:border-purple-300 dark:hover:border-purple-700/50'"
+                        class="px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 border">
+                    <i class="fa-solid fa-bolt text-[10px]" :class="filterType === 'sni' ? 'text-white' : ''"></i>
                     <span data-i18n="tabs.filter_sni">Обход SNI/CIDR</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Список конфигов -->
-    <div x-show="activeTab === 'configs'" 
+    <!-- ════════════════════════════════════════════
+         ВКЛАДКА: СПИСОК КОНФИГОВ
+         ════════════════════════════════════════════ -->
+    <div x-show="activeTab === 'configs'"
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-4"
         x-transition:enter-end="opacity-100 translate-y-0">
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             <template x-for="config in filteredConfigs" :key="config.id">
-                <div class="group bg-white dark:bg-brand-panel rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative flex flex-col overflow-hidden" x-data="{ copied: false }">
-                    
-                    <div class="flex items-center justify-between mb-6 relative z-10">
+                <div class="group relative bg-white dark:bg-brand-panel rounded-2xl border border-gray-200/80 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
+                     x-data="{ copied: false }">
+
+                    <!-- Заголовок карточки: ID + бейджи -->
+                    <div class="flex items-start justify-between p-5 pb-3">
                         <div class="flex flex-col">
-                            <div class="font-extrabold text-4xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></div>
+                            <span class="font-extrabold text-3xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></span>
                         </div>
-                        <div class="flex flex-col items-end gap-2">
+
+                        <!-- Бейджи -->
+                        <div class="flex flex-col items-end gap-1.5">
                             <template x-if="config.is_recommended">
-                                <span class="bg-yellow-400 text-yellow-900 text-[9px] font-bold px-2 py-1 rounded-lg shadow-sm uppercase tracking-wider" data-i18n="tabs.badge_recommended">
-                                    Рекомендованный
+                                <span class="inline-flex items-center gap-1 bg-gradient-to-r from-yellow-400 to-amber-400 text-yellow-900 text-[9px] font-bold px-2 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
+                                    <i class="fa-solid fa-star text-[8px]"></i>
+                                    <span data-i18n="tabs.badge_recommended">Рекомендованный</span>
                                 </span>
                             </template>
                             <template x-if="config.is_sni">
-                                <span class="bg-purple-600 text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-sm uppercase tracking-wider" data-i18n="tabs.badge_sni">
-                                    Обход SNI/CIDR
+                                <span class="inline-flex items-center gap-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
+                                    <i class="fa-solid fa-bolt text-[8px]"></i>
+                                    <span data-i18n="tabs.badge_sni">Обход SNI/CIDR</span>
                                 </span>
                             </template>
                         </div>
                     </div>
 
-                    <div class="relative mb-6">
-                        <div class="text-[11px] text-gray-500 break-all bg-gray-50 dark:bg-black/40 p-4 rounded-xl font-mono border border-gray-100 dark:border-gray-800 line-clamp-2 min-h-[4.5rem] flex items-center pr-10" x-text="config.url">
-                        </div>
-                        <button @click="
-                                    const url = config.url;
-                                    const copy = () => {
-                                        copied = true;
-                                        if (window.trackEvent) window.trackEvent('copy_config', { config_id: config.id });
-                                        setTimeout(() => { copied = false; }, 2000);
-                                    };
-                                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                                        navigator.clipboard.writeText(url).then(copy).catch(() => {
+                    <!-- URL конфига -->
+                    <div class="px-5 pb-4">
+                        <div class="relative group/url">
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 break-all bg-gray-50/80 dark:bg-black/40 p-3.5 rounded-xl font-mono border border-gray-100 dark:border-gray-800/60 line-clamp-2 min-h-[3.5rem] flex items-center pr-10 transition-colors group-hover/url:border-gray-200 dark:group-hover/url:border-gray-700"
+                                 x-text="config.url">
+                            </div>
+                            <button @click="
+                                        const url = config.url;
+                                        const copy = () => {
+                                            copied = true;
+                                            if (window.trackEvent) window.trackEvent('copy_config', { config_id: config.id });
+                                            setTimeout(() => { copied = false; }, 2000);
+                                        };
+                                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                                            navigator.clipboard.writeText(url).then(copy).catch(() => {
+                                                const el = document.createElement('textarea');
+                                                el.value = url;
+                                                document.body.appendChild(el);
+                                                el.select();
+                                                document.execCommand('copy');
+                                                document.body.removeChild(el);
+                                                copy();
+                                            });
+                                        } else {
                                             const el = document.createElement('textarea');
                                             el.value = url;
                                             document.body.appendChild(el);
@@ -130,27 +179,23 @@
                                             document.execCommand('copy');
                                             document.body.removeChild(el);
                                             copy();
-                                        });
-                                    } else {
-                                        const el = document.createElement('textarea');
-                                        el.value = url;
-                                        document.body.appendChild(el);
-                                        el.select();
-                                        document.execCommand('copy');
-                                        document.body.removeChild(el);
-                                        copy();
-                                    }
-                                "
-                                class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg transition-all"
-                                :class="copied ? 'text-green-500 bg-green-50 dark:bg-green-900/20' : 'text-gray-400 hover:text-brand-blue hover:bg-gray-100 dark:hover:bg-gray-800'">
-                            <i class="fa-solid" :class="copied ? 'fa-check' : 'fa-copy'"></i>
-                        </button>
+                                        }
+                                    "
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg transition-all"
+                                    :class="copied
+                                        ? 'text-green-500 bg-green-50 dark:bg-green-900/30'
+                                        : 'text-gray-400 hover:text-brand-blue hover:bg-gray-100 dark:hover:bg-gray-800 opacity-0 group-hover/url:opacity-100 transition-opacity'">
+                                <i class="fa-solid" :class="copied ? 'fa-check' : 'fa-copy'"></i>
+                            </button>
+                        </div>
                     </div>
-                    
-                    <div class="mt-auto flex flex-col gap-3 relative z-10">
-                        <div class="flex items-center justify-between px-1">
+
+                    <!-- Футер карточки -->
+                    <div class="mt-auto px-5 pb-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <!-- Дата обновления -->
                             <template x-if="config.last_update">
-                                <div class="text-[10px] text-gray-400 font-bold flex items-center gap-1.5 uppercase tracking-wide">
+                                <div class="text-[10px] text-gray-400 dark:text-gray-500 font-bold flex items-center gap-1.5 uppercase tracking-wide">
                                     <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                                     <span x-text="config.last_update.datetime_str"></span>
                                 </div>
@@ -158,18 +203,21 @@
                             <template x-if="!config.last_update">
                                 <div></div>
                             </template>
-                            
+
+                            <!-- Источники -->
                             <template x-if="config.sources">
                                 <div class="flex gap-1">
                                     <template x-if="Array.isArray(config.sources)">
                                         <button @click="showSourcesModal = true; currentSources = config.sources; currentConfigId = config.id"
-                                                class="text-[10px] font-bold text-brand-blue hover:underline uppercase tracking-widest" data-i18n="tabs.sources">
+                                                class="text-[10px] font-bold text-brand-blue dark:text-blue-400 hover:underline uppercase tracking-widest transition-colors"
+                                                data-i18n="tabs.sources">
                                             Источники
                                         </button>
                                     </template>
                                     <template x-if="!Array.isArray(config.sources)">
                                         <a :href="config.sources" target="_blank"
-                                           class="text-[10px] font-bold text-brand-blue hover:underline uppercase tracking-widest" data-i18n="tabs.source">
+                                           class="text-[10px] font-bold text-brand-blue dark:text-blue-400 hover:underline uppercase tracking-widest transition-colors"
+                                           data-i18n="tabs.source">
                                             Источник
                                         </a>
                                     </template>
@@ -177,6 +225,7 @@
                             </template>
                         </div>
 
+                        <!-- Кнопка копирования -->
                         <button @click="
                                     const url = config.url;
                                     const copy = () => {
@@ -204,84 +253,112 @@
                                         copy();
                                     }
                                 "
-                                class="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300"
-                                :class="copied ? 'bg-green-600 text-white shadow-md' : 'bg-brand-blue hover:bg-blue-600 text-white shadow-sm active:scale-95'">
-                            <i class="fa-solid" :class="copied ? 'fa-circle-check' : 'fa-copy'"></i>
-                            <span x-text="copied ? (currentLanguage === 'de' && i18nReady ? 'Kopiert!' : (currentLanguage === 'en' && i18nReady ? 'Copied!' : (currentLanguage === 'uk' && i18nReady ? 'Скопійовано!' : (currentLanguage === 'be' && i18nReady ? 'Скапіявана!' : 'Скопировано!')))) : (currentLanguage === 'de' && i18nReady ? 'Link kopieren' : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : (currentLanguage === 'uk' && i18nReady ? 'Копіювати посилання' : (currentLanguage === 'be' && i18nReady ? 'Капіяваць спасылку' : 'Копировать ссылку'))))"></span>
+                                class="w-full py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 active:scale-[0.97]"
+                                :class="copied
+                                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md shadow-green-500/20'
+                                    : 'bg-gradient-to-r from-brand-blue to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm shadow-blue-500/10 hover:shadow-md hover:shadow-blue-500/20'">
+                            <i class="fa-solid transition-transform"
+                               :class="copied ? 'fa-circle-check' : 'fa-copy group-hover:scale-110'"></i>
+                            <span x-text="copied
+                                ? (currentLanguage === 'de' && i18nReady ? 'Kopiert!' : (currentLanguage === 'en' && i18nReady ? 'Copied!' : (currentLanguage === 'uk' && i18nReady ? 'Скопійовано!' : (currentLanguage === 'be' && i18nReady ? 'Скапіявана!' : 'Скопировано!'))))
+                                : (currentLanguage === 'de' && i18nReady ? 'Link kopieren' : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : (currentLanguage === 'uk' && i18nReady ? 'Копіювати посилання' : (currentLanguage === 'be' && i18nReady ? 'Капіяваць спасылку' : 'Копировать ссылку'))))">
+                            </span>
                         </button>
                     </div>
                 </div>
             </template>
         </div>
 
-        <!-- Пустое состояние -->
+        <!-- Пустое состояние (Списки) -->
         <template x-if="filteredConfigs.length === 0">
-            <div class="text-center py-20 bg-white dark:bg-brand-panel rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-800 transition-all">
-                <div class="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div class="text-center py-20 bg-white/70 dark:bg-brand-panel/60 backdrop-blur-xl rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700/60 transition-all">
+                <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800/60 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
                     <i class="fa-solid fa-magnifying-glass text-3xl text-gray-300 dark:text-gray-600"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="tabs.not_found_title_lists">Ничего не найдено</h3>
-                <p class="text-gray-500 dark:text-gray-400 mb-8" data-i18n="tabs.not_found_desc_lists">Попробуйте изменить запрос или фильтры</p>
+                <p class="text-gray-500 dark:text-gray-400 mb-8 max-w-sm mx-auto" data-i18n="tabs.not_found_desc_lists">Попробуйте изменить запрос или фильтры</p>
                 <button @click="searchQuery = ''; filterType = 'all'"
-                        class="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600 transition-all" data-i18n="tabs.show_all">
+                        class="px-8 py-3 bg-gradient-to-r from-brand-blue to-blue-600 text-white rounded-xl font-bold hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm hover:shadow-md active:scale-95" data-i18n="tabs.show_all">
                     Показать всё
                 </button>
             </div>
         </template>
     </div>
 
-    <!-- Вкладка QR-кодов -->
-    <div x-show="activeTab === 'qr'" 
+    <!-- ════════════════════════════════════════════
+         ВКЛАДКА: QR-КОДЫ
+         ════════════════════════════════════════════ -->
+    <div x-show="activeTab === 'qr'"
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 translate-y-4"
          x-transition:enter-end="opacity-100 translate-y-0">
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
             <template x-for="config in filteredConfigs" :key="config.id">
-                <div class="group bg-white dark:bg-brand-panel rounded-2xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center relative flex flex-col">
-                    
-                    <div class="flex items-center justify-between mb-4 px-1">
-                        <div class="flex flex-col items-start">
-                            <span class="font-extrabold text-2xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></span>
-                        </div>
+                <div class="group bg-white dark:bg-brand-panel rounded-2xl border border-gray-200/80 dark:border-gray-700/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center relative flex flex-col overflow-hidden"
+                     x-data="{ qrHover: false }">
+
+                    <!-- Заголовок -->
+                    <div class="flex items-center justify-between p-3 pb-2">
+                        <span class="font-extrabold text-xl text-gray-900 dark:text-white leading-none">#<span x-text="config.id"></span></span>
                         <div class="flex flex-col items-end gap-1">
                             <template x-if="config.is_recommended">
-                                <span class="bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider" x-text="currentLanguage === 'de' && i18nReady ? 'Empf.' : (currentLanguage === 'en' && i18nReady ? 'Rec.' : (currentLanguage === 'uk' && i18nReady ? 'Рек.' : (currentLanguage === 'be' && i18nReady ? 'Рэк.' : 'Рек.')))">Рек.</span>
+                                <span class="inline-flex items-center gap-1 bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
+                                    <i class="fa-solid fa-star text-[7px]"></i>
+                                    <span x-text="currentLanguage === 'de' && i18nReady ? 'Empf.' : (currentLanguage === 'en' && i18nReady ? 'Rec.' : (currentLanguage === 'uk' && i18nReady ? 'Рек.' : (currentLanguage === 'be' && i18nReady ? 'Рэк.' : 'Рек.')))">Рек.</span>
+                                </span>
                             </template>
                             <template x-if="config.is_sni">
-                                <span class="bg-purple-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider" data-i18n="tabs.badge_sni">
-                                    SNI/CIDR
+                                <span class="inline-flex items-center gap-1 bg-purple-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
+                                    <i class="fa-solid fa-bolt text-[7px]"></i>
+                                    SNI
                                 </span>
                             </template>
                         </div>
                     </div>
-                    
-                    <div class="relative mb-5 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800">
-                        <img :src="'static/qr-codes/' + config.id + '.png'" 
+
+                    <!-- QR-код -->
+                    <div class="relative mx-3 mb-3 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800/60 bg-gray-50 dark:bg-black/20"
+                         @mouseenter="qrHover = true"
+                         @mouseleave="qrHover = false">
+                        <img :src="'static/qr-codes/' + config.id + '.png'"
                              :alt="'QR код конфига ' + config.id"
-                             class="w-full aspect-square transition-transform duration-500">
+                             class="w-full aspect-square transition-all duration-300"
+                             :class="qrHover ? 'scale-105 brightness-75 dark:brightness-50' : ''">
+
+                        <!-- Оверлей при наведении -->
+                        <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
+                             :class="qrHover ? 'opacity-100' : 'opacity-0 pointer-events-none'">
+                            <button @click="$dispatch('open-qr-download-modal', { configId: config.id })"
+                                    class="px-4 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl font-bold text-xs shadow-lg hover:scale-105 transition-transform active:scale-95">
+                                <i class="fa-solid fa-download mr-1"></i>
+                                <span data-i18n="tabs.download">Скачать</span>
+                            </button>
+                        </div>
                     </div>
-                    
-                    <div class="mt-auto flex flex-col gap-2">
-                        <div class="flex flex-col items-center gap-1 mb-1">
+
+                    <!-- Футер -->
+                    <div class="px-3 pb-3 mt-auto">
+                        <div class="flex flex-col items-center gap-1 mb-2">
                             <template x-if="config.last_update">
-                                <div class="text-[9px] text-gray-400 font-bold flex items-center gap-1 uppercase tracking-tight">
+                                <div class="text-[9px] text-gray-400 dark:text-gray-500 font-bold flex items-center gap-1 uppercase tracking-tight">
                                     <span class="w-1 h-1 rounded-full bg-green-500 animate-pulse"></span>
                                     <span x-text="config.last_update.datetime_str"></span>
                                 </div>
                             </template>
-
                             <template x-if="config.sources">
                                 <div class="flex gap-1">
                                     <template x-if="Array.isArray(config.sources)">
                                         <button @click="showSourcesModal = true; currentSources = config.sources; currentConfigId = config.id"
-                                                class="text-[9px] font-bold text-brand-blue hover:underline uppercase tracking-widest" data-i18n="tabs.sources">
+                                                class="text-[9px] font-bold text-brand-blue dark:text-blue-400 hover:underline uppercase tracking-widest transition-colors"
+                                                data-i18n="tabs.sources">
                                             Источники
                                         </button>
                                     </template>
                                     <template x-if="!Array.isArray(config.sources)">
                                         <a :href="config.sources" target="_blank"
-                                           class="text-[9px] font-bold text-brand-blue hover:underline uppercase tracking-widest" data-i18n="tabs.source">
+                                           class="text-[9px] font-bold text-brand-blue dark:text-blue-400 hover:underline uppercase tracking-widest transition-colors"
+                                           data-i18n="tabs.source">
                                             Источник
                                         </a>
                                     </template>
@@ -290,25 +367,25 @@
                         </div>
 
                         <button @click="$dispatch('open-qr-download-modal', { configId: config.id })"
-                           class="w-full flex items-center justify-center gap-2 py-2.5 bg-brand-blue text-white hover:bg-blue-600 rounded-xl text-xs font-bold transition-all shadow-sm">
-                           <i class="fa-solid fa-download"></i>
-                           <span data-i18n="tabs.download">Скачать</span>
+                                class="w-full flex items-center justify-center gap-2 py-2 bg-gradient-to-r from-brand-blue to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 rounded-xl text-xs font-bold transition-all shadow-sm hover:shadow-md active:scale-[0.97]">
+                            <i class="fa-solid fa-download"></i>
+                            <span data-i18n="tabs.download">Скачать</span>
                         </button>
                     </div>
                 </div>
             </template>
         </div>
 
-        <!-- Пустое состояние -->
+        <!-- Пустое состояние (QR) -->
         <template x-if="filteredConfigs.length === 0">
-            <div class="text-center py-20 bg-white dark:bg-brand-panel rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-800 transition-all">
-                <div class="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div class="text-center py-20 bg-white/70 dark:bg-brand-panel/60 backdrop-blur-xl rounded-2xl border-2 border-dashed border-gray-200 dark:border-gray-700/60 transition-all">
+                <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800/60 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
                     <i class="fa-solid fa-qrcode text-3xl text-gray-300 dark:text-gray-600"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="tabs.not_found_title_qr">QR-коды не найдены</h3>
-                <p class="text-gray-500 dark:text-gray-400 mb-8" data-i18n="tabs.not_found_desc_qr">Попробуйте изменить параметры поиска</p>
+                <p class="text-gray-500 dark:text-gray-400 mb-8 max-w-sm mx-auto" data-i18n="tabs.not_found_desc_qr">Попробуйте изменить параметры поиска</p>
                 <button @click="searchQuery = ''; filterType = 'all'"
-                        class="px-8 py-3 bg-brand-blue text-white rounded-xl font-bold hover:bg-blue-600 transition-all" data-i18n="tabs.reset_all">
+                        class="px-8 py-3 bg-gradient-to-r from-brand-blue to-blue-600 text-white rounded-xl font-bold hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm hover:shadow-md active:scale-95" data-i18n="tabs.reset_all">
                     Сбросить всё
                 </button>
             </div>
