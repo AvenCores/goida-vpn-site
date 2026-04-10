@@ -100,29 +100,29 @@
             </div>
 
             <!-- Кнопки фильтров -->
-            <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-1.5 w-full sm:w-auto">
                 <button @click="filterType = 'all'; if(window.trackEvent) window.trackEvent('filter', { type: 'all' })"
                         :class="filterType === 'all'
                             ? 'bg-brand-blue text-white shadow-sm border-brand-blue'
                             : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'"
-                        class="px-3.5 py-2 rounded-lg text-xs font-bold transition-all border" data-i18n="tabs.filter_all">
+                        class="flex-1 sm:flex-none px-3.5 py-2 rounded-lg text-xs font-bold transition-all border justify-center flex items-center" data-i18n="tabs.filter_all">
                     Все
                 </button>
                 <button @click="filterType = 'recommended'; if(window.trackEvent) window.trackEvent('filter', { type: 'recommended' })"
                         :class="filterType === 'recommended'
                             ? 'bg-yellow-400 text-yellow-900 shadow-sm border-yellow-400'
                             : 'bg-yellow-400/10 text-yellow-700 dark:text-yellow-400 border-yellow-200/50 dark:border-yellow-800/30 hover:border-yellow-300 dark:hover:border-yellow-700/50'"
-                        class="px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 border">
-                    <i class="fa-solid fa-star text-[10px]" :class="filterType === 'recommended' ? 'text-yellow-900' : ''"></i>
-                    <span data-i18n="tabs.filter_recommended">Рекомендованные</span>
+                        class="flex-1 sm:flex-none px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 border whitespace-nowrap justify-center">
+                    <span class="min-[640px]:hidden">Рек.</span>
+                    <span class="hidden min-[640px]:inline" data-i18n="tabs.filter_recommended">Рекомендованные</span>
                 </button>
                 <button @click="filterType = 'sni'; if(window.trackEvent) window.trackEvent('filter', { type: 'sni' })"
                         :class="filterType === 'sni'
                             ? 'bg-purple-600 text-white shadow-sm border-purple-600'
                             : 'bg-purple-600/10 text-purple-600 dark:text-purple-400 border-purple-200/50 dark:border-purple-800/30 hover:border-purple-300 dark:hover:border-purple-700/50'"
-                        class="px-3 py-2 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5 border whitespace-nowrap">
-                    <i class="fa-solid fa-bolt text-[10px]" :class="filterType === 'sni' ? 'text-white' : ''"></i>
-                    <span data-i18n="tabs.filter_sni">Обход SNI/CIDR</span>
+                        class="flex-1 sm:flex-none px-3 py-2 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1.5 border whitespace-nowrap justify-center">
+                    <span class="min-[640px]:hidden">SNI/CIDR</span>
+                    <span class="hidden min-[640px]:inline" data-i18n="tabs.filter_sni">Обход SNI/CIDR</span>
                 </button>
             </div>
         </div>
