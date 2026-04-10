@@ -387,10 +387,10 @@
                         <!-- Оверлей при наведении -->
                         <div class="absolute inset-0 flex items-center justify-center transition-all duration-300 backdrop-blur-[2px]"
                              :class="qrHover ? 'opacity-100 bg-brand-blue/10 dark:bg-brand-blue/5' : 'opacity-0 pointer-events-none'">
-                            <button @click="$dispatch('open-qr-download-modal', { configId: config.id })"
+                            <button @click="window.open('static/qr-codes/' + config.id + '.png', '_blank')"
                                     class="px-5 py-2.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl font-bold text-xs shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 border border-white/20 dark:border-gray-700">
-                                <i class="fa-solid fa-download mr-1.5"></i>
-                                <span data-i18n="tabs.download">Скачать</span>
+                                <i class="fa-solid fa-eye mr-1.5"></i>
+                                <span>Открыть</span>
                             </button>
                         </div>
                     </div>
