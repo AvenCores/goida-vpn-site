@@ -129,6 +129,10 @@ def get_cached_links():
 
 def save_links_cache(links):
     """Сохранить ссылки в кэш"""
+    # В режиме отладки не сохраняем кэш
+    if DEBUG_MODE:
+        return
+
     cache = {
         'timestamp': datetime.now().isoformat(),
         'links': links
@@ -517,6 +521,10 @@ def get_cached_stats():
 
 def save_stats_cache(data):
     """Сохранить статистику в кэш"""
+    # В режиме отладки не сохраняем кэш
+    if DEBUG_MODE:
+        return
+
     cache = {
         'timestamp': datetime.now().isoformat(),
         'data': data
