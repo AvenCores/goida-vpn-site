@@ -425,6 +425,11 @@ STATS_REPO = 'AvenCores/goida-vpn-configs'
 
 def download_badges():
     """Скачивает бэджи локально для кэширования"""
+    # В режиме отладки не скачиваем бэджи
+    if DEBUG_MODE:
+        print("⚙️ DEBUG MODE: Пропуск загрузки бэджей")
+        return
+
     badges_dir = os.path.join('static', 'images', 'badges')
     if not os.path.exists(badges_dir):
         os.makedirs(badges_dir)
