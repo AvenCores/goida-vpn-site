@@ -178,42 +178,9 @@
                             <!-- Анимированный бордер -->
                             <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-blue/0 via-brand-blue/20 to-brand-blue/0 dark:via-brand-blue/40 opacity-0 group-hover/url:opacity-100 transition-opacity duration-500 blur-sm -z-10"></div>
 
-                            <div class="text-[11px] text-gray-500 dark:text-gray-400 break-all bg-gray-50/80 dark:bg-black/40 p-3.5 rounded-xl font-mono border border-gray-100 dark:border-gray-800/60 line-clamp-2 min-h-[3.5rem] flex items-center pr-10 transition-all duration-300 group-hover/url:border-brand-blue/30 dark:group-hover/url:border-brand-blue/40 group-hover/url:bg-gray-50 dark:group-hover/url:bg-black/50"
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 break-all bg-gray-50/80 dark:bg-black/40 p-3.5 rounded-xl font-mono border border-gray-100 dark:border-gray-800/60 line-clamp-2 min-h-[3.5rem] flex items-center transition-all duration-300 group-hover/url:border-brand-blue/30 dark:group-hover/url:border-brand-blue/40 group-hover/url:bg-gray-50 dark:group-hover/url:bg-black/50"
                                  x-text="config.url">
                             </div>
-                            <button @click="
-                                        const url = config.url;
-                                        const copy = () => {
-                                            copied = true;
-                                            if (window.trackEvent) window.trackEvent('copy_config', { config_id: config.id });
-                                            setTimeout(() => { copied = false; }, 2000);
-                                        };
-                                        if (navigator.clipboard && navigator.clipboard.writeText) {
-                                            navigator.clipboard.writeText(url).then(copy).catch(() => {
-                                                const el = document.createElement('textarea');
-                                                el.value = url;
-                                                document.body.appendChild(el);
-                                                el.select();
-                                                document.execCommand('copy');
-                                                document.body.removeChild(el);
-                                                copy();
-                                            });
-                                        } else {
-                                            const el = document.createElement('textarea');
-                                            el.value = url;
-                                            document.body.appendChild(el);
-                                            el.select();
-                                            document.execCommand('copy');
-                                            document.body.removeChild(el);
-                                            copy();
-                                        }
-                                    "
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-lg transition-all duration-300"
-                                    :class="copied
-                                        ? 'text-green-500 bg-green-50 dark:bg-green-900/30 scale-110'
-                                        : 'text-gray-400 hover:text-brand-blue hover:bg-blue-50 dark:hover:bg-brand-blue/20 opacity-0 group-hover/url:opacity-100 hover:scale-110 active:scale-90'">
-                                <i class="fa-solid" :class="copied ? 'fa-check' : 'fa-copy'"></i>
-                            </button>
                         </div>
                     </div>
 
