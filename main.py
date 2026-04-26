@@ -16,6 +16,26 @@ app = Flask(__name__)
 # Глобальная переменная для режима отладки
 DEBUG_MODE = False
 
+def select_v2rayng_apk(assets):
+    """Choose the standard universal APK for v2rayNG, not the F-Droid build."""
+    standard_apk = next(
+        (
+            asset
+            for asset in assets
+            if 'universal.apk' in asset.get('name', '').lower()
+            and 'f-droid' not in asset.get('name', '').lower()
+            and 'fdroid' not in asset.get('name', '').lower()
+        ),
+        None,
+    )
+    if standard_apk:
+        return standard_apk
+
+    return next(
+        (asset for asset in assets if 'universal.apk' in asset.get('name', '').lower()),
+        None,
+    )
+
 def set_debug_mode(enabled: bool):
     """Установить режим отладки"""
     global DEBUG_MODE
@@ -159,7 +179,7 @@ def fetch_download_links():
         print(f"v2rayNG ответ: {response.status_code}")
         if response.status_code == 200:
             releases = response.json()
-            apk = next((a for a in releases.get('assets', []) if 'universal.apk' in a['name']), None)
+            apk = select_v2rayng_apk(releases.get('assets', []))
             if apk:
                 links['v2rayng-apk'] = apk['browser_download_url']
                 print(f"v2rayNG ссылка: {links['v2rayng-apk']}")
