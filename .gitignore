@@ -4,5 +4,6 @@ dist/
 .gemini/
 __pycache__/
 static/images/
+static/css/tailwind.css
 download_links_cache.json
 github_stats_cache.json

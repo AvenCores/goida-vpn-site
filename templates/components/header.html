@@ -8,14 +8,15 @@
         <a href="{{ canonical_url or site_url or '/' }}"
            @click="if(window.trackEvent) window.trackEvent('header_brand_click', { target: 'goida_vpn_site' })"
            data-no-confirm
+           aria-label="Goida VPN Configs"
            class="flex items-center gap-2 sm:gap-3 group cursor-pointer min-w-0">
             <div class="relative">
                 <div class="absolute inset-0 bg-brand-blue/20 blur-lg rounded-full scale-0 group-hover:scale-150 transition-transform duration-500"></div>
                 <img src="static/images/favicon.png" alt="Логотип Goida VPN - Автоматические конфиги" class="w-8 h-8 sm:w-9 sm:h-9 object-contain relative z-10 group-hover:rotate-12 transition-transform duration-300" data-i18n-alt="header.logo_alt">
             </div>
-            <h1 class="hidden min-[480px]:block max-w-[10rem] truncate font-black text-base leading-none tracking-tighter sm:max-w-none sm:text-xl">
+            <span class="hidden min-[480px]:block max-w-[10rem] truncate font-black text-base leading-none tracking-tighter sm:max-w-none sm:text-xl">
                 Goida VPN <span class="bg-gradient-to-r from-blue-600 to-brand-blue bg-clip-text text-transparent">Configs</span>
-            </h1>
+            </span>
         </a>
 
         <!-- Правая часть -->
@@ -24,21 +25,29 @@
             <!-- Соцсети -->
             <div class="flex items-center gap-1.5 sm:gap-3 border-r border-gray-200 dark:border-gray-600 pr-2 sm:pr-4 mr-0.5 sm:mr-1">
                 <a href="https://www.youtube.com/@avencores/" target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="YouTube"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'youtube', location: 'header' })"
                    class="text-red-600 hover:scale-125 transition-all duration-300 p-1 -m-1 touch-manipulation">
                     <i class="fa-brands fa-youtube text-xl sm:text-2xl"></i>
                 </a>
                 <a href="https://t.me/avencoresyt" target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Telegram"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'telegram', location: 'header' })"
                    class="text-blue-500 hover:scale-125 transition-all duration-300 p-1 -m-1 touch-manipulation">
                     <i class="fa-brands fa-telegram text-xl sm:text-2xl"></i>
                 </a>
                 <a href="https://vk.ru/avencoresreuploads" target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="VK"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'vk', location: 'header' })"
                    class="text-blue-700 hover:scale-125 transition-all duration-300 p-1 -m-1 touch-manipulation">
                     <i class="fa-brands fa-vk text-xl sm:text-2xl"></i>
                 </a>
                 <a href="https://dzen.ru/avencores" target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Dzen"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'dzen', location: 'header' })"
                    class="hover:scale-125 transition-all duration-300 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center touch-manipulation">
                     <img :src="darkMode ? 'static/media/dzen-white.png' : 'static/media/dzen-black.png'" alt="Dzen" class="w-full h-full object-contain">
@@ -53,6 +62,9 @@
                     <button @click="langOpen = !langOpen"
                         class="group w-auto h-9 sm:h-10 flex items-center gap-1.5 px-2.5 sm:px-3 rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500/30 transition-all duration-200 touch-manipulation shrink-0"
                         :class="langOpen ? 'bg-white dark:bg-white/10 border-blue-300 dark:border-blue-500/30 shadow-sm' : ''"
+                        aria-haspopup="listbox"
+                        :aria-expanded="langOpen.toString()"
+                        aria-label="Select language"
                         id="lang-toggle-button">
                         <i class="fa-solid fa-globe text-sm text-brand-blue dark:text-blue-400 group-hover:rotate-12 transition-transform duration-300"></i>
                         <span class="font-black text-[10px] sm:text-xs text-brand-blue dark:text-blue-400 uppercase tracking-wider"
@@ -123,6 +135,7 @@
                 <!-- Тема -->
                 <button @click="toggleTheme()"
                     class="group w-9 h-9 sm:w-auto sm:h-10 sm:px-3 flex items-center justify-center sm:justify-start gap-0 sm:gap-2 rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-200 active:scale-95 touch-manipulation shrink-0"
+                    :aria-label="darkMode ? 'Switch to light theme' : 'Switch to dark theme'"
                     id="theme-button">
                     <i class="fa-solid text-base sm:text-lg transition-all duration-300 group-hover:rotate-12" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-blue-600'"></i>
                     <span class="hidden sm:inline theme-text text-sm font-bold text-gray-700 dark:text-gray-300" x-text="darkMode ? (i18nReady && currentLanguage === 'en' ? 'Light' : i18nReady && currentLanguage === 'de' ? 'Hell' : i18nReady && currentLanguage === 'uk' ? 'Світла' : i18nReady && currentLanguage === 'be' ? 'Светлая' : 'Светлая') : (i18nReady && currentLanguage === 'en' ? 'Dark' : i18nReady && currentLanguage === 'de' ? 'Dunkel' : i18nReady && currentLanguage === 'uk' ? 'Темна' : i18nReady && currentLanguage === 'be' ? 'Цёмная' : 'Тёмная')"></span>
@@ -131,6 +144,7 @@
                 <!-- Статистика -->
                 <button @click="showStatsModal = true"
                     class="group bg-gradient-to-br from-blue-600 to-brand-blue text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-9 h-9 sm:w-auto sm:h-10 sm:px-5 border border-white/20 touch-manipulation shrink-0"
+                    aria-label="Open repository statistics"
                     id="stats-button">
                     <i class="fa-solid fa-chart-simple text-base sm:text-lg sm:mr-2 group-hover:rotate-12 transition-transform"></i>
                     <span class="hidden sm:inline stats-text text-sm font-bold" x-text="currentLanguage === 'en' && i18nReady ? 'Statistics' : (currentLanguage === 'de' && i18nReady ? 'Statistiken' : (currentLanguage === 'uk' && i18nReady ? 'Статистика' : (currentLanguage === 'be' && i18nReady ? 'Статыстыка' : 'Статистика')))">Статистика</span>
@@ -138,6 +152,8 @@
 
                 <!-- GitHub -->
                 <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub repository"
                     @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'github', location: 'header' })"
                     class="group bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-9 h-9 sm:w-auto sm:h-10 sm:px-5 border border-white/10 touch-manipulation shrink-0"
                     id="github-button">

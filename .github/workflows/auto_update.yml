@@ -1,21 +1,19 @@
 name: Auto Update & Deploy Goida VPN Site
 
 on:
-  # Запуск при пуше в ветку main (когда вы обновляете код)
   push:
-    branches: [ "main" ]
-  
-  # Запуск по расписанию (каждый час), чтобы обновлять конфиги
+    branches: ["main"]
   schedule:
-    - cron: '0 * * * *'
-  
-  # Кнопка для ручного запуска из вкладки Actions
+    - cron: "0 * * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -25,15 +23,24 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install dependencies
-        run: |
-          pip install --no-cache-dir -r requirements.txt
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-      - name: Run Build and Deploy Script
+      - name: Install dependencies
+        run: pip install --no-cache-dir -r requirements.txt
+
+      - name: Build Tailwind CSS
+        run: |
+          npm install
+          npm run build:css
+
+      - name: Build and deploy site
         env:
-          # Сюда передаем токен из секретов репозитория
           MY_TOKEN: ${{ secrets.MY_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           GA_ID: ${{ secrets.GA_ID || vars.GA_ID }}
           YM_ID: ${{ secrets.YM_ID || vars.YM_ID }}
           YANDEX_AUTOPLACEMENT_ID: ${{ secrets.YANDEX_AUTOPLACEMENT_ID || vars.YANDEX_AUTOPLACEMENT_ID }}
-        run: python build.py
+        run: python build.py --deploy
