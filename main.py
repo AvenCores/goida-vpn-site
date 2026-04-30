@@ -362,6 +362,18 @@ def sitemap_xml():
     content = generate_sitemap_xml(site_url)
     return Response(content, mimetype='application/xml')
 
+@app.route('/manifest.webmanifest')
+def webmanifest():
+    response = send_from_directory(app.root_path, 'manifest.webmanifest', mimetype='application/manifest+json')
+    response.headers['Cache-Control'] = 'no-cache'
+    return response
+
+@app.route('/sw.js')
+def service_worker():
+    response = send_from_directory(app.root_path, 'sw.js', mimetype='application/javascript')
+    response.headers['Cache-Control'] = 'no-cache'
+    return response
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static', 'images'),

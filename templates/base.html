@@ -243,7 +243,12 @@
     </script>
     <link rel="icon" type="image/png" href="static/images/favicon.png">
     <link rel="apple-touch-icon" href="static/images/favicon.png">
+    <link rel="manifest" href="manifest.webmanifest">
     <link rel="stylesheet" href="static/css/tailwind.css">
+    <meta name="application-name" content="Goida VPN">
+    <meta name="apple-mobile-web-app-title" content="Goida VPN">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- Alpine Plugins -->
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
@@ -297,6 +302,14 @@
                 document.head.appendChild(fallback);
             }
         });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js', { scope: './' }).catch((error) => {
+                    console.warn('[PWA] Service worker registration failed:', error);
+                });
+            });
+        }
     </script>
     <style>
         html {
