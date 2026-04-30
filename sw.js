@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'goida-vpn-v1';
+const CACHE_VERSION = 'goida-vpn-v2';
 const APP_CACHE = `${CACHE_VERSION}-app`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -25,6 +25,30 @@ const PRECACHE_URLS = [
   'api/github-stats.json',
   ...QR_CODES
 ];
+
+// Домены рекламных сетей и аналитики — не перехватываем их запросы
+const IGNORED_HOSTS = [
+  'yandex.ru',
+  'yandex.net',
+  'yastatic.net',
+  'googletagmanager.com',
+  'google-analytics.com',
+  'doubleclick.net',
+  'googleadservices.com',
+  'google.com',
+  'intent.ai',
+  'temu.com',
+  'shopnetic.com',
+  'silvermob.com',
+  'whiteboxdigital.ru',
+  'vk.com',
+  'facebook.com',
+  'fbcdn.net'
+];
+
+function isIgnoredHost(hostname) {
+  return IGNORED_HOSTS.some(host => hostname === host || hostname.endsWith('.' + host));
+}
 
 const scopeUrl = new URL(self.registration.scope);
 
@@ -117,6 +141,17 @@ self.addEventListener('fetch', (event) => {
   }
 
   const url = new URL(request.url);
+
+  // 1. Игнорируем chrome-extension://, data:, blob: и т.д.
+  if (!url.protocol.startsWith('http')) {
+    return;
+  }
+
+  // 2. Не перехватываем рекламные/аналитические запросы — пусть грузятся напрямую
+  if (isIgnoredHost(url.hostname)) {
+    return;
+  }
+
   const sameOrigin = url.origin === self.location.origin;
   const isApi = sameOrigin && url.pathname.includes('/api/');
   const isQrCode = sameOrigin && url.pathname.includes('/static/qr-codes/');
@@ -137,5 +172,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // 3. Для остальных cross-origin запросов тоже не мешаем
+  // (например, CDN шрифтов, Alpine.js, FontAwesome)
   event.respondWith(cacheFirst(request, false));
 });
