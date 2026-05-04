@@ -339,16 +339,20 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
-            filter: blur(100px); /* Сильное размытие для мягкости */
+            /* Оптимизация для Firefox: уменьшаем blur (был 100px) и компенсируем мягкостью градиента.
+               Это значительно снижает нагрузку на CPU/GPU при перерисовке. */
+            filter: blur(50px);
             opacity: 0.6;
-            will-change: transform; /* Оптимизация производительности */
+            will-change: transform;
+            transform: translateZ(0); /* Принудительное аппаратное ускорение */
         }
 
         /* --- СИНЕЕ ПЯТНО (Goida Blue) --- */
         body::before {
             width: 70vw;
             height: 70vw;
-            background: radial-gradient(circle, rgba(54, 112, 160, 0.4) 0%, rgba(54, 112, 160, 0) 70%);
+            /* Растягиваем градиент до 100%, чтобы переход был мягче без сильного blur */
+            background: radial-gradient(circle, rgba(54, 112, 160, 0.4) 0%, rgba(54, 112, 160, 0) 100%);
             top: -20%;
             left: -20%;
             animation: driftBlue 25s infinite alternate ease-in-out;
@@ -358,22 +362,29 @@
         body::after {
             width: 60vw;
             height: 60vw;
-            background: radial-gradient(circle, rgba(255, 221, 84, 0.25) 0%, rgba(255, 221, 84, 0) 70%);
+            background: radial-gradient(circle, rgba(255, 221, 84, 0.25) 0%, rgba(255, 221, 84, 0) 100%);
             bottom: -20%;
             right: -20%;
             animation: driftYellow 30s infinite alternate-reverse ease-in-out;
         }
 
         /* --- НАСТРОЙКИ ДЛЯ ТЕМНОЙ ТЕМЫ --- */
-        /* В темной теме делаем цвета чуть менее прозрачными, чтобы они светились на черном фоне */
         html.dark body::before {
             opacity: 0.5;
-            background: radial-gradient(circle, rgba(54, 112, 160, 0.5) 0%, rgba(54, 112, 160, 0) 70%);
+            background: radial-gradient(circle, rgba(54, 112, 160, 0.5) 0%, rgba(54, 112, 160, 0) 100%);
         }
 
         html.dark body::after {
             opacity: 0.3;
-            background: radial-gradient(circle, rgba(255, 221, 84, 0.3) 0%, rgba(255, 221, 84, 0) 70%);
+            background: radial-gradient(circle, rgba(255, 221, 84, 0.3) 0%, rgba(255, 221, 84, 0) 100%);
+        }
+
+        /* Оптимизация backdrop-blur для Firefox (уменьшаем интенсивность, так как Firefox тяжело их рендерит) */
+        @supports (-moz-appearance: none) {
+            .backdrop-blur-xl { backdrop-filter: blur(12px) !important; }
+            .backdrop-blur-lg { backdrop-filter: blur(8px) !important; }
+            .backdrop-blur-md { backdrop-filter: blur(6px) !important; }
+            .backdrop-blur-sm { backdrop-filter: blur(2px) !important; }
         }
 
         /* --- АНИМАЦИИ --- */
