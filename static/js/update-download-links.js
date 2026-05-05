@@ -16,8 +16,6 @@ async function updateDownloadLinks() {
                 el.href = url;
             });
         });
-
-        console.log('✓ Ссылки на скачивание обновлены');
     } catch (error) {
         console.error('✗ Ошибка при обновлении ссылок:', error);
     }
@@ -40,7 +38,6 @@ async function updateVcRuntimeLink() {
             document.querySelectorAll('[data-vc-runtime-link="true"]').forEach(el => {
                 el.href = url;
             });
-            console.log('✓ Ссылка на Visual C++ Runtimes обновлена:', url);
         }
     } catch (error) {
         console.error('✗ Ошибка при обновлении ссылки на VC Runtime:', error);
