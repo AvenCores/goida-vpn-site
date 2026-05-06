@@ -1151,10 +1151,16 @@
             </p>
 
             <template x-if="isVkVideo(targetUrl)">
-                <div class="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-2xl animate-card-enter">
-                    <p class="text-xs font-bold text-amber-700 dark:text-amber-400" data-i18n="modal.vk_warning">
-                        Внимание: Видео в VK может быть недоступно с RU IP без VPN
-                    </p>
+                <div class="mb-6 p-4 bg-gradient-to-br from-amber-50 to-orange-50/50 dark:from-amber-900/20 dark:to-orange-950/20 border border-amber-200 dark:border-amber-800/50 rounded-2xl animate-card-enter shadow-sm relative overflow-hidden text-left">
+                    <div class="absolute top-0 right-0 w-12 h-12 bg-amber-400/10 rounded-full -mr-6 -mt-6 blur-lg"></div>
+                    <div class="flex gap-3 items-center">
+                        <div class="flex-shrink-0 w-9 h-9 bg-amber-100 dark:bg-amber-900/40 rounded-xl flex items-center justify-center border border-amber-200 dark:border-amber-700/50 shadow-sm">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600 dark:text-amber-400"></i>
+                        </div>
+                        <p class="text-[11px] sm:text-xs font-bold text-amber-800 dark:text-amber-200 leading-tight" data-i18n="modal.vk_warning">
+                            Внимание: Видео в VK может быть недоступно с RU IP без VPN
+                        </p>
+                    </div>
                 </div>
             </template>
 
