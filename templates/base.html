@@ -600,8 +600,11 @@
           currentConfigId: null,
           currentQrConfigId: null,
           lockTimeout: null,
-          formatUrl(url) {
-              if (!url) return '';
+          isVkVideo(url) {
+              if (!url) return false;
+              return url.includes('vk.com/video') || url.includes('vk.ru/video');
+          },
+          formatUrl(url) {              if (!url) return '';
               try {
                   const urlObj = new URL(url);
                   let display = urlObj.hostname + (urlObj.pathname.length > 1 ? urlObj.pathname : '');
@@ -1146,6 +1149,15 @@
                     <span>Вы збіраецеся перайсці на сайт:</span>
                 </template>
             </p>
+
+            <template x-if="isVkVideo(targetUrl)">
+                <div class="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-2xl animate-card-enter">
+                    <p class="text-xs font-bold text-amber-700 dark:text-amber-400" data-i18n="modal.vk_warning">
+                        Внимание: Видео в VK может быть недоступно с RU IP без VPN
+                    </p>
+                </div>
+            </template>
+
             <p class="inline-block mt-3 px-4 py-2 mb-8 bg-gray-50 dark:bg-black/30 rounded-xl font-mono text-brand-blue dark:text-blue-400 break-all text-xs border border-gray-100 dark:border-white/5" x-text="formatUrl(targetUrl)" :title="targetUrl"></p>
 
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
