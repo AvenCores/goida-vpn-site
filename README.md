@@ -22,43 +22,46 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/AvenCores/goida-vpn-site?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/pulls)
 [![GitHub issues](https://img.shields.io/github/issues/AvenCores/goida-vpn-site?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/issues)
 
-Это веб-интерфейс для проекта [**goida-vpn-configs**](https://github.com/AvenCores/goida-vpn-configs/). 
-Сайт автоматически парсит актуальные конфигурации (`V2Ray` / `VLESS` / `Hysteria` / `Trojan` / `VMess` / `Reality` / `Shadowsocks`), генерирует удобные ссылки для копирования, QR-коды и предоставляет инструкции по подключению.
+Это современный веб-интерфейс для проекта [**goida-vpn-configs**](https://github.com/AvenCores/goida-vpn-configs/). 
+Сайт автоматически парсит актуальные конфигурации (`V2Ray` / `VLESS` / `Hysteria` / `Trojan` / `VMess` / `Reality` / `Shadowsocks`), генерирует удобные ссылки для копирования, QR-коды и предоставляет исчерпывающие инструкции по настройке.
 
 <a href="https://avencores.github.io/goida-vpn-site/">
-  <img alt="1" src="https://github.com/user-attachments/assets/80f69696-5eb5-44fa-94bf-1fe50303f683" />
+  <img alt="Preview" src="https://github.com/user-attachments/assets/80f69696-5eb5-44fa-94bf-1fe50303f683" />
 </a>
 
 ## ✨ Ключевые особенности
 
-<img width="2560" height="1271" alt="chrome_CN78NLhhVx" src="https://github.com/user-attachments/assets/b87b1120-07d0-4e7e-aa46-d6b608b59adc" />
-
-- **Динамические конфигурации**: Данные подтягиваются напрямую из репозитория `goida-vpn-configs`, включая время последнего обновления.
-- **Двойной режим работы**: 
-  - **Динамический**: Flask-приложение с API-эндпоинтами и кэшированием.
-  - **Статический**: Генерация готового сайта для хостинга на GitHub Pages.
-- **Современный UI**: TailwindCSS для стилизации, Alpine.js для интерактивности, поддержка темной и светлой тем.
-- **Интеграция с GitHub API**: Автоматическое получение последних версий VPN-клиентов и статистики репозитория.
-- **Обход блокировок**: Специальный раздел с инструкциями и конфигом для обхода SNI/CIDR белых списков.
-- **Видео-гайды**: Встроенные видео-инструкции для упрощения настройки.
-- **Автоматизация**: GitHub Actions каждый час запускает пересборку сайта для актуализации данных.
+- **🌍 Мультиязычность (i18n)**: Полная поддержка 5 языков (Русский, English, Українська, Беларуская, Deutsch) с сохранением выбора пользователя.
+- **📱 PWA Ready**: Сайт является прогрессивным веб-приложением. Его можно установить на смартфон или ПК, он поддерживает кэширование и работает быстрее.
+- **🔄 Динамические конфигурации**: Данные о конфигах и времени их обновления подтягиваются в реальном времени из внешнего репозитория.
+- **⚡ Автоматизация ссылок**: Автоматический поиск и обновление прямых ссылок на VPN-клиенты (v2rayNG, Throne) и системные компоненты (VC Runtimes).
+- **🌗 Поддержка тем**: Полноценная темная и светлая темы с автоматическим определением предпочтений системы.
+- **🔍 SEO Оптимизация**: Автоматическая генерация `sitemap.xml` и `robots.txt`, правильные мета-теги и канонические ссылки.
+- **🛡️ Безопасность**: Модальные окна подтверждения для внешних ссылок и загрузок файлов.
 
 ## 🏗️ Структура проекта
 
-- `main.py`: Основной файл Flask-приложения. Содержит логику API для получения ссылок на ПО и статистики GitHub.
-- `services.py`: Логика парсинга конфигураций и данных об обновлениях из внешних источников.
-- `build.py`: Скрипт-генератор. Рендерит шаблоны в статические HTML-файлы и подготавливает JSON-файлы для API при статическом деплое.
-- `notes.md`: Подробные технические заметки по проекту, структуре и обслуживанию.
-- `templates/`: Jinja2 шаблоны, разделенные на модульные компоненты (`hero`, `tabs`, `instructions` и др.).
-- `static/`: Стили, клиентские скрипты (`statistics.js`, `update-download-links.js`) и медиа-ресурсы.
+- `main.py`: Flask-сервер с логикой кэширования, API-эндпоинтами и парсингом внешних ресурсов (GitHub API, comss.ru).
+- `services.py`: Ядро логики по обработке VPN-конфигураций и метаданных.
+- `build.py`: Скрипт сборки статической версии сайта для GitHub Pages.
+- `static/js/i18n.js`: Клиентская система переводов на базе JSON.
+- `sw.js` & `manifest.webmanifest`: Файлы конфигурации PWA.
+- `templates/components/`: Модульные UI-блоки (шапка, подвал, табы, инструкции и т.д.).
+- `notes.md`: Техническая документация для разработчиков.
 
 ## 🛠️ Технологии
 
-- **Backend:** Python 3.10+, Flask, Waitress, Requests.
-- **Frontend:** HTML5, TailwindCSS (CDN), Alpine.js (CDN), FontAwesome.
-- **CI/CD:** GitHub Actions + Custom Python Build Script.
+- **Backend:** Python 3.10+, Flask, Waitress, Requests, BeautifulSoup4.
+- **Frontend:** TailwindCSS (CLI), Alpine.js, FontAwesome, Vanilla JS.
+- **Интернационализация:** Custom i18n logic (JSON-based).
+- **PWA:** Service Workers, Web App Manifest.
+- **CI/CD:** GitHub Actions + Python Build Script.
 
 ## ⚙️ Установка и запуск
+
+### Предварительные требования:
+- Python 3.10+
+- Node.js (только если планируете изменять CSS)
 
 ### Шаги установки:
 
@@ -68,38 +71,38 @@ git clone https://github.com/AvenCores/goida-vpn-site.git
 cd goida-vpn-site
 ```
 
-2. **Создайте виртуальное окружение**:
+2. **Настройте окружение**:
 ```bash
 python -m venv .env
 # Windows:
 .env\Scripts\activate
 # Linux/macOS:
 source .env/bin/activate
+pip install -r requirements.txt
 ```
 
-3. **Установите зависимости**:
+3. **Сборка стилей (опционально)**:
 ```bash
-pip install -r requirements.txt
+npm install
+npm run build:css
 ```
 
 ### Использование:
 
 - **Локальный сервер**: `python main.py` (доступно на `http://localhost:5000`).
-- **Режим отладки**: `python main.py --debug` (автоперезагрузка, API-заглушки без внешних запросов).
-- **Сборка сайта**: `python build.py` (результат в папке `dist/`).
+- **Режим отладки**: `python main.py --debug` (автоперезагрузка, API-заглушки).
+- **Сборка статики**: `python build.py` (результат в папке `dist/`).
 
 ---
 
 ## 🚀 Автоматизация (GitHub Actions)
 
-Проект настроен на автоматическое обновление:
-1. **По расписанию**: Каждый час выполняется запуск `build.py` для обновления данных о конфигах.
-2. **При пуше**: Любое изменение в ветке `main` триггерит деплой новой версии сайта в ветку `gh-pages`.
-
-Для работы деплоя требуется Secret `MY_TOKEN` с правами доступа к репозиторию.
+Сайт обновляется автоматически:
+1. **По расписанию**: Каждый час `build.py` обновляет данные о конфигах и статистику.
+2. **При пуше**: Деплой новой версии в ветку `gh-pages`.
 
 ## 📜 Лицензия
-Данный проект распространяется под лицензией GPL-3.0 — подробности см. в файле [LICENSE](LICENSE).
+Лицензия GPL-3.0 — подробности в файле [LICENSE](LICENSE).
 
 ---
 # 💰 Поддержать автора
