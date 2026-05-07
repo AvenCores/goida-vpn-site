@@ -46,8 +46,9 @@ SOURCES_MAP = {
         "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
         "https://github.com/igareck/vpn-configs-for-russia",
         "https://github.com/ByeWhiteLists/ByeWhiteLists2",
-        "https://wlrus.lol/confs/selected.txt",
+        "https://gitverse.ru/cid-uskoritel/cid-white",
         "https://github.com/zieng2/wl"
+        "https://etoneya.a9fm.site/"
     ]
 }
 
