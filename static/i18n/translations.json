@@ -45,6 +45,15 @@
       "download": "Скачать",
       "qr_alt": "QR код конфига"
     },
+    "projects": {
+      "title": "Другие мои проекты",
+      "subtitle": "Инструменты для обхода региональных ограничений, офлайн-работы и разблокировки зарубежных сервисов.",
+      "profile_cta": "Все проекты",
+      "goida_ai_unlocker_desc": "Установщик разблокировщика зарубежных AI-сервисов и других ресурсов для России.",
+      "unlock_ai_services_desc": "Модуль для обхода региональных блокировок AI-сервисов, соцсетей, игр и других ресурсов с OTA-обновлениями.",
+      "antigravity_patcher_desc": "Опенсорс-патчер для снятия региональных ограничений Antigravity без VPN и смены региона Google-аккаунта.",
+      "affinity_patcher_desc": "Интерактивный патчер libaffinity.dll для отключения принудительной авторизации и офлайн-работы в Affinity."
+    },
     "video": {
       "title": "Видео инструкция",
       "warning_label": "Важно",
@@ -244,6 +253,15 @@
       "reset_all": "Alles zurücksetzen",
       "download": "Herunterladen",
       "qr_alt": "QR-Code für Konfiguration"
+    },
+    "projects": {
+      "title": "Weitere Projekte",
+      "subtitle": "Tools zum Umgehen regionaler Einschränkungen, für Offline-Arbeit und zum Freischalten ausländischer Dienste.",
+      "profile_cta": "Alle Projekte",
+      "goida_ai_unlocker_desc": "Installer zum Freischalten ausländischer KI-Dienste und anderer Ressourcen für Russland.",
+      "unlock_ai_services_desc": "Modul zum Umgehen regionaler Sperren für KI-Dienste, soziale Netzwerke, Spiele und andere Ressourcen mit OTA-Updates.",
+      "antigravity_patcher_desc": "Open-Source-Patcher, der regionale Einschränkungen in Antigravity ohne VPN oder Änderung der Google-Kontoregion entfernt.",
+      "affinity_patcher_desc": "Interaktiver libaffinity.dll-Patcher für Windows zum Deaktivieren der erzwungenen Anmeldung und für Offline-Arbeit in Affinity."
     },
     "video": {
       "title": "Videoanleitung",
@@ -445,6 +463,15 @@
       "download": "Download",
       "qr_alt": "QR code for config"
     },
+    "projects": {
+      "title": "My other projects",
+      "subtitle": "Tools for bypassing regional restrictions, offline workflows, and unlocking international services.",
+      "profile_cta": "All projects",
+      "goida_ai_unlocker_desc": "Installer for unlocking international AI services and other resources for Russia.",
+      "unlock_ai_services_desc": "Module for bypassing regional blocks on AI services, social networks, games, and other resources with OTA updates.",
+      "antigravity_patcher_desc": "Open-source patcher that removes Antigravity regional restrictions without a VPN or changing the Google account region.",
+      "affinity_patcher_desc": "Interactive Windows patcher for libaffinity.dll that disables forced authorization and enables offline work in Affinity."
+    },
     "video": {
       "title": "Video Tutorial",
       "warning_label": "Important",
@@ -645,6 +672,15 @@
       "download": "Спампаваць",
       "qr_alt": "QR код канфіга"
     },
+    "projects": {
+      "title": "Іншыя мае праекты",
+      "subtitle": "Інструменты для абыходу рэгіянальных абмежаванняў, афлайн-працы і разблакіроўкі замежных сэрвісаў.",
+      "profile_cta": "Усе праекты",
+      "goida_ai_unlocker_desc": "Усталёўшчык разблакіроўшчыка замежных AI-сэрвісаў і іншых рэсурсаў для Расіі.",
+      "unlock_ai_services_desc": "Модуль для абыходу рэгіянальных блакіровак AI-сэрвісаў, сацсетак, гульняў і іншых рэсурсаў з OTA-абнаўленнямі.",
+      "antigravity_patcher_desc": "Опенсорс-патчар для зняцця рэгіянальных абмежаванняў Antigravity без VPN і змены рэгіёна Google-акаўнта.",
+      "affinity_patcher_desc": "Інтэрактыўны патчар libaffinity.dll для Windows для адключэння прымусовай аўтарызацыі і афлайн-працы ў Affinity."
+    },
     "video": {
       "title": "Відэа інструкцыя",
       "warning_label": "Важна",
@@ -844,6 +880,15 @@
       "reset_all": "Скинути все",
       "download": "Скачати",
       "qr_alt": "QR код конфіга"
+    },
+    "projects": {
+      "title": "Інші мої проєкти",
+      "subtitle": "Інструменти для обходу регіональних обмежень, офлайн-роботи та розблокування закордонних сервісів.",
+      "profile_cta": "Усі проєкти",
+      "goida_ai_unlocker_desc": "Інсталятор розблокувальника закордонних AI-сервісів та інших ресурсів для Росії.",
+      "unlock_ai_services_desc": "Модуль для обходу регіональних блокувань AI-сервісів, соцмереж, ігор та інших ресурсів з OTA-оновленнями.",
+      "antigravity_patcher_desc": "Опенсорс-патчер для зняття регіональних обмежень Antigravity без VPN і зміни регіону Google-акаунта.",
+      "affinity_patcher_desc": "Інтерактивний патчер libaffinity.dll для Windows для вимкнення примусової авторизації та офлайн-роботи в Affinity."
     },
     "video": {
       "title": "Відео інструкція",

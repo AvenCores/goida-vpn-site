@@ -1,0 +1,109 @@
+<section id="projects" class="mb-16">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-gray-900 dark:text-white" data-i18n="projects.title">Другие мои проекты</h2>
+            <p class="mt-3 text-gray-500 dark:text-gray-400 max-w-3xl leading-relaxed" data-i18n="projects.subtitle">
+                Инструменты для обхода региональных ограничений, офлайн-работы и разблокировки зарубежных сервисов.
+            </p>
+        </div>
+
+        <a href="https://github.com/AvenCores"
+           target="_blank"
+           rel="noopener noreferrer"
+           @click="if(window.trackEvent) window.trackEvent('other_projects_profile_click', { target: 'github_profile' })"
+           class="group inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3 bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 text-white rounded-xl hover:shadow-lg hover:shadow-black/30 transition-all active:scale-95 font-bold border border-white/10">
+            <i class="fa-brands fa-github text-xl group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="projects.profile_cta">Все проекты</span>
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <a href="https://github.com/AvenCores/Goida-AI-Unlocker"
+           target="_blank"
+           rel="noopener noreferrer"
+           @click="if(window.trackEvent) window.trackEvent('other_project_click', { project: 'Goida-AI-Unlocker' })"
+           class="group h-full flex flex-col bg-white/70 dark:bg-brand-panel/60 border border-gray-200/80 dark:border-gray-700/50 rounded-lg p-5 sm:p-6 shadow-sm hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-500/30 transition-all">
+            <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-200 dark:border-blue-800/50">
+                    <i class="fa-solid fa-shield-halved text-xl group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-lg font-black text-gray-900 dark:text-white leading-tight">Goida AI Unlocker</h3>
+                    <p class="mt-1 text-xs font-bold uppercase tracking-wide text-blue-600 dark:text-blue-400">Windows 10/11</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4" data-i18n="projects.goida_ai_unlocker_desc">
+                Установщик разблокировщика зарубежных AI-сервисов и других ресурсов для России.
+            </p>
+            <span class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-brand-blue dark:text-blue-400">
+                GitHub <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:scale-110 transition-transform"></i>
+            </span>
+        </a>
+
+        <a href="https://github.com/AvenCores/Unlock_AI_and_EN_Services_for_Russia"
+           target="_blank"
+           rel="noopener noreferrer"
+           @click="if(window.trackEvent) window.trackEvent('other_project_click', { project: 'Unlock_AI_and_EN_Services_for_Russia' })"
+           class="group h-full flex flex-col bg-white/70 dark:bg-brand-panel/60 border border-gray-200/80 dark:border-gray-700/50 rounded-lg p-5 sm:p-6 shadow-sm hover:shadow-lg hover:border-blue-300 dark:hover:border-green-500/50 transition-all">
+            <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center shrink-0 border border-green-200 dark:border-green-800/50">
+                    <i class="fa-solid fa-mobile-screen-button text-xl group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-lg font-black text-gray-900 dark:text-white leading-tight">Unlock AI &amp; EN Services</h3>
+                    <p class="mt-1 text-xs font-bold uppercase tracking-wide text-green-600 dark:text-green-400">Android - Magisk / KernelSU</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4" data-i18n="projects.unlock_ai_services_desc">
+                Модуль для обхода региональных блокировок AI-сервисов, соцсетей, игр и других ресурсов с OTA-обновлениями.
+            </p>
+            <span class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-brand-blue dark:text-blue-400">
+                GitHub <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:scale-110 transition-transform"></i>
+            </span>
+        </a>
+
+        <a href="https://github.com/AvenCores/open-antigravity-patcher"
+           target="_blank"
+           rel="noopener noreferrer"
+           @click="if(window.trackEvent) window.trackEvent('other_project_click', { project: 'open-antigravity-patcher' })"
+           class="group h-full flex flex-col bg-white/70 dark:bg-brand-panel/60 border border-gray-200/80 dark:border-gray-700/50 rounded-lg p-5 sm:p-6 shadow-sm hover:shadow-lg hover:border-blue-300 dark:hover:border-purple-700/50 transition-all">
+            <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 border border-purple-200 dark:border-purple-700/50">
+                    <i class="fa-solid fa-key text-xl group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-lg font-black text-gray-900 dark:text-white leading-tight">Open Antigravity Patcher</h3>
+                    <p class="mt-1 text-xs font-bold uppercase tracking-wide text-purple-600 dark:text-purple-400">Windows 10/11</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4" data-i18n="projects.antigravity_patcher_desc">
+                Опенсорс-патчер для снятия региональных ограничений Antigravity без VPN и смены региона Google-аккаунта.
+            </p>
+            <span class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-brand-blue dark:text-blue-400">
+                GitHub <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:scale-110 transition-transform"></i>
+            </span>
+        </a>
+
+        <a href="https://github.com/AvenCores/open-affinity-patcher"
+           target="_blank"
+           rel="noopener noreferrer"
+           @click="if(window.trackEvent) window.trackEvent('other_project_click', { project: 'open-affinity-patcher' })"
+           class="group h-full flex flex-col bg-white/70 dark:bg-brand-panel/60 border border-gray-200/80 dark:border-gray-700/50 rounded-lg p-5 sm:p-6 shadow-sm hover:shadow-lg hover:border-orange-200 dark:hover:border-orange-500/30 transition-all">
+            <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 border border-orange-200 dark:border-orange-800/30">
+                    <i class="fa-solid fa-screwdriver-wrench text-xl group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-lg font-black text-gray-900 dark:text-white leading-tight">Open Affinity Patcher</h3>
+                    <p class="mt-1 text-xs font-bold uppercase tracking-wide text-orange-600 dark:text-orange-400">Windows 10/11</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4" data-i18n="projects.affinity_patcher_desc">
+                Интерактивный патчер libaffinity.dll для отключения принудительной авторизации и офлайн-работы в Affinity.
+            </p>
+            <span class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-brand-blue dark:text-blue-400">
+                GitHub <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:scale-110 transition-transform"></i>
+            </span>
+        </a>
+    </div>
+</section>
