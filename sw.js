@@ -26,11 +26,14 @@ const PRECACHE_URLS = [
   ...QR_CODES
 ];
 
-// Домены рекламных сетей и аналитики — не перехватываем их запросы
+// Домены рекламных сетей, аналитики и CDN — не перехватываем их запросы
 const IGNORED_HOSTS = [
   'yandex.ru',
   'yandex.net',
   'yastatic.net',
+  'cdnjs.cloudflare.com',
+  'cdn.jsdelivr.net',
+  'flagcdn.com',
   'googletagmanager.com',
   'google-analytics.com',
   'doubleclick.net',
@@ -147,7 +150,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. Не перехватываем рекламные/аналитические запросы — пусть грузятся напрямую
+  // 2. Не перехватываем рекламные/аналитические/CDN запросы — пусть грузятся напрямую
   if (isIgnoredHost(url.hostname)) {
     return;
   }
@@ -172,7 +175,6 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Для остальных cross-origin запросов тоже не мешаем
-  // (например, CDN шрифтов, Alpine.js, FontAwesome)
+  // 3. Для остальных cross-origin запросов (если они не попали в IGNORED_HOSTS)
   event.respondWith(cacheFirst(request, false));
 });
