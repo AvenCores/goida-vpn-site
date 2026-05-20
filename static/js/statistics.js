@@ -20,7 +20,7 @@ async function loadGitHubStats() {
     }
 
     try {
-        const response = await fetch(`api/github-stats.json?t=${new Date().getTime()}`);
+        const response = await fetch('api/github-stats.json');
         
         if (!response.ok) {
             throw new Error(`Ошибка HTTP: ${response.status}`);

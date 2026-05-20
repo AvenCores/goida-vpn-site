@@ -1,6 +1,7 @@
 import requests
 import re
 from datetime import datetime, timedelta
+import threading
 
 # Глобальная переменная для режима отладки
 DEBUG_MODE = False
@@ -14,6 +15,10 @@ def set_debug_mode(enabled: bool):
 UPDATE_TABLE_CACHE = None
 UPDATE_TABLE_CACHE_TIME = None
 CACHE_DURATION = timedelta(hours=1)
+
+# Блокировка и флаг для неблокирующего фонового обновления
+UPDATE_LOCK = threading.Lock()
+IS_UPDATING = False
 
 # Маппинг источников для каждого конфига
 SOURCES_MAP = {
@@ -52,14 +57,47 @@ SOURCES_MAP = {
     ]
 }
 
+def _fetch_and_parse_update_table():
+    global UPDATE_TABLE_CACHE, UPDATE_TABLE_CACHE_TIME, IS_UPDATING
+    try:
+        response = requests.get(
+            'https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/README.md',
+            timeout=10
+        )
+        if response.status_code == 200:
+            readme_content = response.text
+            
+            # Парсим таблицу
+            table_pattern = r'\|\s*(\d+)\s*\|[^|]*\|[^|]*\|\s*(\d{2}:\d{2})\s*\|\s*(\d{2}\.\d{2}\.\d{4})\s*\|'
+            matches = re.findall(table_pattern, readme_content)
+            
+            update_info = {}
+            for match in matches:
+                config_id = int(match[0])
+                time_str = match[1]  # HH:MM
+                date_str = match[2]  # DD.MM.YYYY
+                
+                update_info[config_id] = {
+                    'time': time_str,
+                    'date': date_str,
+                    'datetime_str': f"{date_str} {time_str}"
+                }
+            
+            UPDATE_TABLE_CACHE = update_info
+            UPDATE_TABLE_CACHE_TIME = datetime.now()
+    except Exception as e:
+        print(f"Ошибка при фоновом парсинге таблицы обновлений: {e}")
+    finally:
+        with UPDATE_LOCK:
+            IS_UPDATING = False
+
 def parse_update_table():
     """Парсит таблицу обновлений из README.md репозитория"""
-    global UPDATE_TABLE_CACHE, UPDATE_TABLE_CACHE_TIME
+    global UPDATE_TABLE_CACHE, UPDATE_TABLE_CACHE_TIME, IS_UPDATING
 
     # В режиме отладки используем заглушку
     if DEBUG_MODE:
         print("⚙️ DEBUG MODE: Используем заглушку для таблицы обновлений")
-        # Возвращаем заглушку с текущим временем для всех конфигов
         fallback_update_info = {}
         now = datetime.now()
         for i in range(1, 27):
@@ -72,45 +110,25 @@ def parse_update_table():
 
     # Проверяем кэш
     if UPDATE_TABLE_CACHE and UPDATE_TABLE_CACHE_TIME:
+        # Если кэш ещё свежий, отдаем сразу
         if datetime.now() - UPDATE_TABLE_CACHE_TIME < CACHE_DURATION:
             return UPDATE_TABLE_CACHE
-    
-    try:
-        # Получаем README
-        response = requests.get(
-            'https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/README.md',
-            timeout=10
-        )
-        if response.status_code != 200:
-            return {}
         
-        readme_content = response.text
-        
-        # Парсим таблицу
-        # Ищем строки таблицы вида: | число | [...] | HH:MM | DD.MM.YYYY |
-        table_pattern = r'\|\s*(\d+)\s*\|[^|]*\|[^|]*\|\s*(\d{2}:\d{2})\s*\|\s*(\d{2}\.\d{2}\.\d{4})\s*\|'
-        matches = re.findall(table_pattern, readme_content)
-        
-        update_info = {}
-        for match in matches:
-            config_id = int(match[0])
-            time_str = match[1]  # HH:MM
-            date_str = match[2]  # DD.MM.YYYY
+        # Если кэш устарел, но фоновое обновление уже запущено
+        with UPDATE_LOCK:
+            if IS_UPDATING:
+                return UPDATE_TABLE_CACHE
             
-            update_info[config_id] = {
-                'time': time_str,
-                'date': date_str,
-                'datetime_str': f"{date_str} {time_str}"
-            }
-        
-        # Кэшируем результат
-        UPDATE_TABLE_CACHE = update_info
-        UPDATE_TABLE_CACHE_TIME = datetime.now()
-        
-        return update_info
-    except Exception as e:
-        print(f"Ошибка при парсинге таблицы обновлений: {e}")
-        return {}
+            # Запускаем фоновое обновление и сразу отдаем старый кэш
+            IS_UPDATING = True
+            threading.Thread(target=_fetch_and_parse_update_table, daemon=True).start()
+            return UPDATE_TABLE_CACHE
+            
+    # Если кэша нет вообще (первый запуск), делаем запрос синхронно, чтобы страница не была пустой
+    with UPDATE_LOCK:
+        IS_UPDATING = True
+    _fetch_and_parse_update_table()
+    return UPDATE_TABLE_CACHE or {}
 
 def get_vpn_configs():
     base_url = "https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/"

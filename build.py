@@ -37,10 +37,19 @@ PWA_ROOT_FILES = ("manifest.webmanifest", "sw.js")
 
 
 def minify_html(html: str) -> str:
-    """Keep generated HTML readable enough while removing avoidable whitespace."""
+    """Perform a clean, robust minification of the HTML content by stripping comments and unnecessary indentations."""
+    # 1. Remove HTML comments
+    html = re.sub(r"<!--[\s\S]*?-->", "", html)
+    # 2. Normalize line endings
     html = html.replace("\r\n", "\n").replace("\r", "\n")
+    # 3. Collapse multiple spaces and tabs inside lines
+    html = re.sub(r"[ \t]+", " ", html)
+    # 4. Remove trailing whitespace on each line
     html = re.sub(r"[ \t]+$", "", html, flags=re.MULTILINE)
-    html = re.sub(r"\n{3,}", "\n\n", html)
+    # 5. Strip all indentation for lines starting with HTML tags (saves massive bytes safely)
+    html = re.sub(r"^[ \t]+<", "<", html, flags=re.MULTILINE)
+    # 6. Collapse multiple blank lines
+    html = re.sub(r"\n{2,}", "\n", html)
     return html.strip()
 
 

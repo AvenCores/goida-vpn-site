@@ -33,6 +33,7 @@
       "badge_sni": "Обход SNI/CIDR",
       "sources": "Источники",
       "source": "Источник",
+      "config_sources": "Источники конфига",
       "copied": "Скопировано!",
       "copy_link": "Копировать ссылку",
       "results_label": "результатов",
@@ -183,6 +184,7 @@
       "dm_vk_desc": "Открыть личные сообщения автора во ВКонтакте."
     },
     "stats": {
+      "title": "Статистика репозитория",
       "loading": "Загрузка данных...",
       "last_update": "Последнее обновление",
       "stars": "Звёзды",
@@ -212,7 +214,10 @@
       "download_continue": "Скачать",
       "download_cancel": "Отмена",
       "qr_download_title": "Скачать QR-код?",
-      "qr_download_desc": "Вы собираетесь скачать QR-код для конфига #{id}"
+      "qr_download_desc": "Вы собираетесь скачать QR-код для конфига #{id}",
+      "qr_open_title": "Открыть QR-код?",
+      "qr_open_desc": "Вы собираетесь открыть QR-код для конфига:",
+      "qr_open_continue": "Открыть"
     }
   },
   "de": {
@@ -249,6 +254,7 @@
       "badge_sni": "SNI/CIDR-Umgehung",
       "sources": "Quellen",
       "source": "Quelle",
+      "config_sources": "Quellen von Config",
       "copied": "Kopiert!",
       "copy_link": "Link kopieren",
       "results_label": "Ergebnisse",
@@ -399,6 +405,7 @@
       "dm_vk_desc": "Direktnachrichten des Autors auf VK öffnen."
     },
     "stats": {
+      "title": "Statistik",
       "loading": "Daten werden geladen...",
       "last_update": "Letzte Aktualisierung",
       "stars": "Sterne",
@@ -428,7 +435,10 @@
       "download_continue": "Herunterladen",
       "download_cancel": "Abbrechen",
       "qr_download_title": "QR-Code herunterladen?",
-      "qr_download_desc": "Sie sind dabei, einen QR-Code für Konfiguration #{id} herunterzuladen"
+      "qr_download_desc": "Sie sind dabei, einen QR-Code für Konfiguration #{id} herunterzuladen",
+      "qr_open_title": "QR-Code öffnen?",
+      "qr_open_desc": "Sie sind dabei, den QR-Code für die Konfiguration zu öffnen:",
+      "qr_open_continue": "Öffnen"
     }
   },
   "en": {
@@ -465,6 +475,7 @@
       "badge_sni": "SNI/CIDR Bypass",
       "sources": "Sources",
       "source": "Source",
+      "config_sources": "Config Sources",
       "copied": "Copied!",
       "copy_link": "Copy Link",
       "results_label": "results",
@@ -615,6 +626,7 @@
       "dm_vk_desc": "Open author's personal messages on VK."
     },
     "stats": {
+      "title": "Repository Statistics",
       "loading": "Loading data...",
       "last_update": "Last update",
       "stars": "Stars",
@@ -644,7 +656,10 @@
       "download_continue": "Download",
       "download_cancel": "Cancel",
       "qr_download_title": "Download QR Code?",
-      "qr_download_desc": "You are about to download QR code for config #{id}"
+      "qr_download_desc": "You are about to download QR code for config #{id}",
+      "qr_open_title": "Open QR Code?",
+      "qr_open_desc": "You are about to open the QR code for config:",
+      "qr_open_continue": "Open"
     }
   },
   "be": {
@@ -681,6 +696,7 @@
       "badge_sni": "Абыход SNI/CIDR",
       "sources": "Крыніцы",
       "source": "Крыніца",
+      "config_sources": "Крыніцы канфіга",
       "copied": "Скапіявана!",
       "copy_link": "Капіяваць спасылку",
       "results_label": "вынікаў",
@@ -831,6 +847,7 @@
       "dm_vk_desc": "Адкрыць асабістыя паведамленні аўтара ў Кантакце."
     },
     "stats": {
+      "title": "Статыстыка рэпазітара",
       "loading": "Загрузка дадзеных...",
       "last_update": "Апошняе абнаўленне",
       "stars": "Зоркі",
@@ -860,7 +877,10 @@
       "download_continue": "Спампаваць",
       "download_cancel": "Адмяніць",
       "qr_download_title": "Спампаваць QR-код?",
-      "qr_download_desc": "Вы збіраецеся спампаваць QR-код для канфіга #{id}"
+      "qr_download_desc": "Вы збіраецеся спампаваць QR-код для канфіга #{id}",
+      "qr_open_title": "Адкрыць QR-код?",
+      "qr_open_desc": "Вы збіраецеся адкрыць QR-код для канфіга:",
+      "qr_open_continue": "Адкрыць"
     }
   },
   "uk": {
@@ -897,6 +917,7 @@
       "badge_sni": "Обхід SNI/CIDR",
       "sources": "Джерела",
       "source": "Джерело",
+      "config_sources": "Джерела конфига",
       "copied": "Скопійовано!",
       "copy_link": "Копіювати посилання",
       "results_label": "результатів",
@@ -1047,6 +1068,7 @@
       "dm_vk_desc": "Відкрити особисті повідомлення автора у ВКонтакте."
     },
     "stats": {
+      "title": "Статистика репозиторію",
       "loading": "Завантаження даних...",
       "last_update": "Останнє оновлення",
       "stars": "Зірки",
@@ -1076,7 +1098,10 @@
       "download_continue": "Скачати",
       "download_cancel": "Скасувати",
       "qr_download_title": "Скачати QR-код?",
-      "qr_download_desc": "Ви збираєтеся скачати QR-код для конфіга #{id}"
+      "qr_download_desc": "Ви збираєтеся скачати QR-код для конфіга #{id}",
+      "qr_open_title": "Відкрити QR-код?",
+      "qr_open_desc": "Ви збираєтеся відкрити QR-код для конфіга:",
+      "qr_open_continue": "Відкрити"
     }
   }
 }
