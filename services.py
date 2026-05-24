@@ -53,7 +53,7 @@ SOURCES_MAP = {
         "https://github.com/ByeWhiteLists/ByeWhiteLists2",
         "https://gitverse.ru/cid-uskoritel/cid-white",
         "https://github.com/zieng2/wl"
-        "https://etoneya.best/"
+        "https://etoneya.a9fm.site/"
     ]
 }
 
