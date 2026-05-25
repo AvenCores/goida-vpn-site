@@ -1,61 +1,17 @@
 import requests
 import re
-from datetime import datetime, timedelta
 import threading
-
-# Глобальная переменная для режима отладки
-DEBUG_MODE = False
-
-def set_debug_mode(enabled: bool):
-    """Установить режим отладки"""
-    global DEBUG_MODE
-    DEBUG_MODE = enabled
+from datetime import datetime
+from app.config import SOURCES_MAP, VPN_CACHE_DURATION
+import app.config as config_module
 
 # Кэш для таблицы обновлений
 UPDATE_TABLE_CACHE = None
 UPDATE_TABLE_CACHE_TIME = None
-CACHE_DURATION = timedelta(hours=1)
 
 # Блокировка и флаг для неблокирующего фонового обновления
 UPDATE_LOCK = threading.Lock()
 IS_UPDATING = False
-
-# Маппинг источников для каждого конфига
-SOURCES_MAP = {
-    1: "https://github.com/sakha1370/OpenRay",
-    2: "https://github.com/sevcator/5ubscrpt10n",
-    3: "https://github.com/yitong2333/proxy-minging",
-    4: "https://github.com/acymz/AutoVPN",
-    5: "https://github.com/miladtahanian/V2RayCFGDumper",
-    6: "https://github.com/roosterkid/openproxylist",
-    7: "https://github.com/Epodonios/v2ray-configs",
-    8: "https://github.com/CidVpn/cid-vpn-config/",
-    9: "https://github.com/mohamadfg-dev/telegram-v2ray-configs-collector",
-    10: "https://github.com/mheidari98/.proxy",
-    11: "https://github.com/youfoundamin/V2rayCollector",
-    12: "https://github.com/VOID-Anonymity/V.O.I.D-VPN_Bypass",
-    13: "https://github.com/MahsaNetConfigTopic/config",
-    14: "https://github.com/LalatinaHub/Mineral",
-    15: "https://github.com/miladtahanian/Config-Collector",
-    16: "https://github.com/Pawdroid/Free-servers",
-    17: "https://github.com/MhdiTaheri/V2rayCollector_Py",
-    18: "https://github.com/free18/v2ray/",
-    19: "https://github.com/MhdiTaheri/V2rayCollector",
-    20: "https://github.com/Argh94/Proxy-List",
-    21: "https://github.com/shabane/kamaji",
-    22: "https://github.com/wuqb2i4f/xray-config-toolkit",
-    23: "https://github.com/igareck/vpn-configs-for-russia",
-    24: "https://github.com/Mr-Meshky/vify",
-    25: "https://github.com/V2RayRoot/V2RayConfig",
-    26: [
-        "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
-        "https://github.com/igareck/vpn-configs-for-russia",
-        "https://github.com/ByeWhiteLists/ByeWhiteLists2",
-        "https://gitverse.ru/cid-uskoritel/cid-white",
-        "https://github.com/zieng2/wl"
-        "https://etoneya.a9fm.site/"
-    ]
-}
 
 def _fetch_and_parse_update_table():
     global UPDATE_TABLE_CACHE, UPDATE_TABLE_CACHE_TIME, IS_UPDATING
@@ -96,8 +52,8 @@ def parse_update_table():
     global UPDATE_TABLE_CACHE, UPDATE_TABLE_CACHE_TIME, IS_UPDATING
 
     # В режиме отладки используем заглушку
-    if DEBUG_MODE:
-        print("⚙️ DEBUG MODE: Используем заглушку для таблицы обновлений")
+    if config_module.DEBUG_MODE:
+        print("[DEBUG] DEBUG MODE: Используем заглушку для таблицы обновлений")
         fallback_update_info = {}
         now = datetime.now()
         for i in range(1, 27):
@@ -111,7 +67,7 @@ def parse_update_table():
     # Проверяем кэш
     if UPDATE_TABLE_CACHE and UPDATE_TABLE_CACHE_TIME:
         # Если кэш ещё свежий, отдаем сразу
-        if datetime.now() - UPDATE_TABLE_CACHE_TIME < CACHE_DURATION:
+        if datetime.now() - UPDATE_TABLE_CACHE_TIME < VPN_CACHE_DURATION:
             return UPDATE_TABLE_CACHE
         
         # Если кэш устарел, но фоновое обновление уже запущено

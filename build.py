@@ -10,23 +10,30 @@ from datetime import datetime
 
 from flask import render_template
 
-from main import (
+# Импорты из нового модульного пакета app
+from app import create_app
+from app.config import (
     DEFAULT_META_DESCRIPTION,
     DEFAULT_META_KEYWORDS,
     DEFAULT_META_TITLE,
     FALLBACK_LINKS,
     VC_RUNTIME_FALLBACK,
-    app,
+)
+from app.services.github import (
     download_badges,
     fetch_download_links,
     fetch_github_stats_data,
-    fetch_vc_runtime_link,
+)
+from app.services.vc_runtime import fetch_vc_runtime_link
+from app.services.vpn import get_vpn_configs
+from app.utils import (
     generate_robots_txt,
     generate_sitemap_xml,
     get_analytics_ids,
-    get_vpn_configs,
     normalize_site_url,
 )
+
+app = create_app()
 
 REPO_USER = "AvenCores"
 REPO_NAME = "goida-vpn-site"
