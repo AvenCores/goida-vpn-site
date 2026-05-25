@@ -664,11 +664,6 @@
                       if (scrollbarWidth > 0) {
                           document.body.style.paddingRight = `${scrollbarWidth}px`;
                           
-                          const header = document.querySelector('header');
-                          if (header) {
-                              header.style.paddingRight = `${scrollbarWidth}px`;
-                          }
-                          
                           const supportWidget = document.getElementById('support-widget');
                           if (supportWidget) {
                               supportWidget.style.right = `calc(max(1rem, env(safe-area-inset-right)) + ${scrollbarWidth}px)`;
@@ -685,11 +680,6 @@
                           if (window.bodyLockCount === 0) {
                               document.body.classList.remove('body--lock');
                               document.body.style.paddingRight = '';
-                              
-                              const header = document.querySelector('header');
-                              if (header) {
-                                  header.style.paddingRight = '';
-                              }
                               
                               const supportWidget = document.getElementById('support-widget');
                               if (supportWidget) {
