@@ -736,7 +736,7 @@
     <div id="preloader"></div>
 
     <script>
-        // Блокируем скролл сразу
+        // Блокируем скролл на время загрузки
         document.body.classList.add('loading-state');
 
         window.addEventListener('load', function() {
@@ -744,13 +744,16 @@
             
             // Минимальная задержка для плавности, если сайт загрузился мгновенно
             setTimeout(() => {
+                // Снимаем блокировку скролла СРАЗУ при начале исчезновения прелоадера.
+                // Это переносит появление скроллбара под еще непрозрачный прелоадер!
+                document.body.classList.remove('loading-state');
+                
                 preloader.style.opacity = '0';
                 preloader.style.visibility = 'hidden';
                 
-                // Убираем блокировку скролла после анимации исчезновения
+                // Удаляем прелоадер из DOM полностью после завершения анимации
                 setTimeout(() => {
-                    document.body.classList.remove('loading-state');
-                    preloader.remove(); // Удаляем из DOM полностью
+                    preloader.remove();
                 }, 400);
             }, 100);
         });
