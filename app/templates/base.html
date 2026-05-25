@@ -316,13 +316,6 @@
         html {
             transition: background-color 0.3s ease;
         }
-        /* scrollbar-gutter держим только на десктопе с мышью:
-           во Firefox mobile/RDM он расширяет расчётную ширину вьюпорта. */
-        @media (hover: hover) and (pointer: fine) {
-            html {
-                scrollbar-gutter: stable;
-            }
-        }
         [x-cloak] { display: none !important; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -660,14 +653,51 @@
               }
           },
           lockBody(state) {
+              if (window.bodyLockCount === undefined) window.bodyLockCount = 0;
+              
               if (state) {
+                  window.bodyLockCount++;
                   if (this.lockTimeout) clearTimeout(this.lockTimeout);
-                  document.body.classList.add('body--lock');
+                  
+                  if (!document.body.classList.contains('body--lock')) {
+                      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                      if (scrollbarWidth > 0) {
+                          document.body.style.paddingRight = `${scrollbarWidth}px`;
+                          
+                          const header = document.querySelector('header');
+                          if (header) {
+                              header.style.paddingRight = `${scrollbarWidth}px`;
+                          }
+                          
+                          const supportWidget = document.getElementById('support-widget');
+                          if (supportWidget) {
+                              supportWidget.style.right = `calc(max(1rem, env(safe-area-inset-right)) + ${scrollbarWidth}px)`;
+                          }
+                      }
+                      document.body.classList.add('body--lock');
+                  }
               } else {
-                  // Задержка 300мс соответствует стандартной длительности x-transition
-                  this.lockTimeout = setTimeout(() => {
-                      document.body.classList.remove('body--lock');
-                  }, 300);
+                  window.bodyLockCount--;
+                  if (window.bodyLockCount <= 0) {
+                      window.bodyLockCount = 0;
+                      if (this.lockTimeout) clearTimeout(this.lockTimeout);
+                      this.lockTimeout = setTimeout(() => {
+                          if (window.bodyLockCount === 0) {
+                              document.body.classList.remove('body--lock');
+                              document.body.style.paddingRight = '';
+                              
+                              const header = document.querySelector('header');
+                              if (header) {
+                                  header.style.paddingRight = '';
+                              }
+                              
+                              const supportWidget = document.getElementById('support-widget');
+                              if (supportWidget) {
+                                  supportWidget.style.right = '';
+                              }
+                          }
+                      }, 300);
+                  }
               }
           }
       }"
@@ -779,6 +809,7 @@
          x-cloak
          @keydown.escape.window="if (personalMenu) switchMenu(false); else closeSupport()"
          @click.outside="closeSupport()"
+         id="support-widget"
          class="fixed z-40"
          style="right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom));">
         <div class="flex flex-col items-end gap-3">
