@@ -693,7 +693,7 @@
                               
                               const supportWidget = document.getElementById('support-widget');
                               if (supportWidget) {
-                                  supportWidget.style.right = '';
+                                  supportWidget.style.right = 'max(1rem, env(safe-area-inset-right))';
                               }
                           }
                       }, 300);
