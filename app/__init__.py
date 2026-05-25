@@ -5,12 +5,7 @@ import app.config as config_module
 
 def create_app(config_module=config_module):
     """Фабрика приложений для создания инстанса Flask"""
-    # templates и static находятся в корне проекта, поэтому переопределяем пути относительно папки app/
-    app = Flask(
-        __name__,
-        template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates'),
-        static_folder=os.path.join(os.path.dirname(__file__), '..', 'static')
-    )
+    app = Flask(__name__)
     
     # Загружаем настройки из модуля config
     app.config.from_object(config_module)

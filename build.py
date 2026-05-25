@@ -69,16 +69,17 @@ def build_site() -> None:
     os.makedirs(DIST_DIR)
     os.makedirs(os.path.join(DIST_DIR, "api"))
 
-    if os.path.exists("static"):
-        shutil.copytree("static", os.path.join(DIST_DIR, "static"))
+    if os.path.exists("app/static"):
+        shutil.copytree("app/static", os.path.join(DIST_DIR, "static"))
         print("Copied static assets")
 
     for filename in PWA_ROOT_FILES:
-        if os.path.exists(filename):
-            shutil.copy2(filename, os.path.join(DIST_DIR, filename))
+        src_path = os.path.join("app", "static", filename)
+        if os.path.exists(src_path):
+            shutil.copy2(src_path, os.path.join(DIST_DIR, filename))
             print(f"Copied {filename}")
 
-    translations_src = "static/i18n/translations.json"
+    translations_src = "app/static/i18n/translations.json"
     if os.path.exists(translations_src):
         i18n_dir = os.path.join(DIST_DIR, "static", "i18n")
         os.makedirs(i18n_dir, exist_ok=True)

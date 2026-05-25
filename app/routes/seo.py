@@ -18,13 +18,13 @@ def sitemap_xml():
 
 @seo_bp.route('/manifest.webmanifest')
 def webmanifest():
-    response = send_from_directory(current_app.root_path, 'manifest.webmanifest', mimetype='application/manifest+json')
+    response = send_from_directory(current_app.static_folder, 'manifest.webmanifest', mimetype='application/manifest+json')
     response.headers['Cache-Control'] = 'no-cache'
     return response
 
 @seo_bp.route('/sw.js')
 def service_worker():
-    response = send_from_directory(current_app.root_path, 'sw.js', mimetype='application/javascript')
+    response = send_from_directory(current_app.static_folder, 'sw.js', mimetype='application/javascript')
     response.headers['Cache-Control'] = 'no-cache'
     return response
 
