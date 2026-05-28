@@ -1,9 +1,32 @@
+# Python / Environments
 .env/
-dist/
-.qwen/
-.gemini/
+.venv/
+env/
+venv/
+ENV/
 __pycache__/
-static/images/
-static/css/tailwind.css
+*.py[cod]
+*$py.class
+
+# OS / IDEs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build and Caches
+dist/
+build/
+node_modules/
+*.log
 download_links_cache.json
 github_stats_cache.json
+vc_runtime_link_cache.json
+
+# App-specific generated assets
+app/static/css/tailwind.css
+app/static/images/badges/
+
+# AI Tooling Caches
+.qwen/
+.gemini/
