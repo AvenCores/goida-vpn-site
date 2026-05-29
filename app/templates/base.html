@@ -252,10 +252,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- Alpine Plugins -->
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="static/js/alpine-collapse.min.js"></script>
+    <script defer src="static/js/alpine.min.js"></script>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="static/css/all.min.css" />
 
     <script defer src="static/js/i18n.js"></script>
     <script defer src="static/js/update-download-links.js"></script>
@@ -298,7 +298,7 @@
                 window.tailwind = window.tailwind || {};
                 window.tailwind.config = window.tailwindFallbackConfig;
                 const fallback = document.createElement('script');
-                fallback.src = 'https://cdn.tailwindcss.com';
+                fallback.src = 'static/js/tailwind.min.js';
                 fallback.async = true;
                 document.head.appendChild(fallback);
             }

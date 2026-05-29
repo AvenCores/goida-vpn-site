@@ -23,9 +23,15 @@ download_links_cache.json
 github_stats_cache.json
 vc_runtime_link_cache.json
 
-# App-specific generated assets
+# App-specific generated/downloaded assets
 app/static/css/tailwind.css
 app/static/images/badges/
+app/static/js/alpine-collapse.min.js
+app/static/js/alpine.min.js
+app/static/js/tailwind.min.js
+app/static/css/all.min.css
+app/static/webfonts/
+app/static/images/flags/
 
 # AI Tooling Caches
 .qwen/

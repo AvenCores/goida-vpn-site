@@ -60,8 +60,57 @@ def minify_html(html: str) -> str:
     return html.strip()
 
 
+def download_external_assets() -> None:
+    """Download all required external frontend assets to make the website completely self-hosted."""
+    assets = [
+        # Alpine JS
+        ("https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js", "app/static/js/alpine-collapse.min.js"),
+        ("https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js", "app/static/js/alpine.min.js"),
+        # Tailwind Fallback
+        ("https://cdn.tailwindcss.com", "app/static/js/tailwind.min.js"),
+        # FontAwesome CSS
+        ("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css", "app/static/css/all.min.css"),
+        # FontAwesome Fonts
+        ("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-solid-900.woff2", "app/static/webfonts/fa-solid-900.woff2"),
+        ("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-regular-400.woff2", "app/static/webfonts/fa-regular-400.woff2"),
+        ("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-brands-400.woff2", "app/static/webfonts/fa-brands-400.woff2"),
+        # Flags
+        ("https://flagcdn.com/w20/ru.png", "app/static/images/flags/ru.png"),
+        ("https://flagcdn.com/w40/ru.png", "app/static/images/flags/ru@2x.png"),
+        ("https://flagcdn.com/w20/gb.png", "app/static/images/flags/gb.png"),
+        ("https://flagcdn.com/w40/gb.png", "app/static/images/flags/gb@2x.png"),
+        ("https://flagcdn.com/w20/de.png", "app/static/images/flags/de.png"),
+        ("https://flagcdn.com/w40/de.png", "app/static/images/flags/de@2x.png"),
+        ("https://flagcdn.com/w20/ua.png", "app/static/images/flags/ua.png"),
+        ("https://flagcdn.com/w40/ua.png", "app/static/images/flags/ua@2x.png"),
+        ("https://flagcdn.com/w20/by.png", "app/static/images/flags/by.png"),
+        ("https://flagcdn.com/w40/by.png", "app/static/images/flags/by@2x.png"),
+    ]
+
+    import requests
+    print("Checking and downloading external assets...")
+    for url, path in assets:
+        dir_name = os.path.dirname(path)
+        if dir_name:
+            os.makedirs(dir_name, exist_ok=True)
+        
+        if not os.path.exists(path):
+            print(f"Downloading {url} -> {path}...")
+            try:
+                r = requests.get(url, timeout=15)
+                if r.status_code == 200:
+                    with open(path, "wb") as f:
+                        f.write(r.content)
+                    print(f"Successfully downloaded {path}")
+                else:
+                    print(f"ERROR: Failed to download {url}: HTTP {r.status_code}")
+            except Exception as e:
+                print(f"ERROR: Failed to download {url}: {e}")
+
+
 def build_site() -> None:
     print(f"Building site into ./{DIST_DIR}...")
+    download_external_assets()
     download_badges()
 
     if os.path.exists(DIST_DIR):

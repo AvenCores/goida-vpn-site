@@ -23,6 +23,24 @@ const PRECACHE_URLS = [
   'api/download-links.json',
   'api/vc-runtime-link.json',
   'api/github-stats.json',
+  // Localized/Hosted external UI assets
+  'static/js/alpine-collapse.min.js',
+  'static/js/alpine.min.js',
+  'static/js/tailwind.min.js',
+  'static/css/all.min.css',
+  'static/webfonts/fa-solid-900.woff2',
+  'static/webfonts/fa-regular-400.woff2',
+  'static/webfonts/fa-brands-400.woff2',
+  'static/images/flags/ru.png',
+  'static/images/flags/ru@2x.png',
+  'static/images/flags/gb.png',
+  'static/images/flags/gb@2x.png',
+  'static/images/flags/de.png',
+  'static/images/flags/de@2x.png',
+  'static/images/flags/ua.png',
+  'static/images/flags/ua@2x.png',
+  'static/images/flags/by.png',
+  'static/images/flags/by@2x.png',
   ...QR_CODES
 ];
 
