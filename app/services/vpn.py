@@ -80,10 +80,12 @@ def parse_update_table():
             threading.Thread(target=_fetch_and_parse_update_table, daemon=True).start()
             return UPDATE_TABLE_CACHE
             
-    # Если кэша нет вообще (первый запуск), делаем запрос синхронно, чтобы страница не была пустой
+    # Если кэша нет вообще (первый запуск), запускаем фоновое обновление асинхронно,
+    # чтобы не блокировать запуск сервера или первый HTTP-запрос.
     with UPDATE_LOCK:
-        IS_UPDATING = True
-    _fetch_and_parse_update_table()
+        if not IS_UPDATING:
+            IS_UPDATING = True
+            threading.Thread(target=_fetch_and_parse_update_table, daemon=True).start()
     return UPDATE_TABLE_CACHE or {}
 
 def get_vpn_configs():

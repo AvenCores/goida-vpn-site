@@ -3,6 +3,8 @@
     "header": {
       "logo_alt": "Логотип Goida VPN - Автоматические конфиги",
       "stats": "Статистика",
+      "theme_light": "Светлая",
+      "theme_dark": "Тёмная",
       "github": "GitHub"
     },
     "hero": {
@@ -30,6 +32,7 @@
       "filter_recommended": "Рекомендованные",
       "filter_sni": "Обход SNI/CIDR",
       "badge_recommended": "Рекомендованный",
+      "badge_recommended_short": "Рек.",
       "badge_sni": "Обход SNI/CIDR",
       "sources": "Источники",
       "source": "Источник",
@@ -224,6 +227,8 @@
     "header": {
       "logo_alt": "Goida VPN Logo - Automatische Konfigurationen",
       "stats": "Statistiken",
+      "theme_light": "Hell",
+      "theme_dark": "Dunkel",
       "github": "GitHub"
     },
     "hero": {
@@ -251,6 +256,7 @@
       "filter_recommended": "Empfohlen",
       "filter_sni": "SNI/CIDR-Umgehung",
       "badge_recommended": "Empfohlen",
+      "badge_recommended_short": "Empf.",
       "badge_sni": "SNI/CIDR-Umgehung",
       "sources": "Quellen",
       "source": "Quelle",
@@ -445,6 +451,8 @@
     "header": {
       "logo_alt": "Goida VPN Logo - Automatic Configs",
       "stats": "Statistics",
+      "theme_light": "Light",
+      "theme_dark": "Dark",
       "github": "GitHub"
     },
     "hero": {
@@ -472,6 +480,7 @@
       "filter_recommended": "Recommended",
       "filter_sni": "SNI/CIDR Bypass",
       "badge_recommended": "Recommended",
+      "badge_recommended_short": "Rec.",
       "badge_sni": "SNI/CIDR Bypass",
       "sources": "Sources",
       "source": "Source",
@@ -666,6 +675,8 @@
     "header": {
       "logo_alt": "Лагатып Goida VPN - Аўтаматычныя канфігі",
       "stats": "Статыстыка",
+      "theme_light": "Светлая",
+      "theme_dark": "Цёмная",
       "github": "GitHub"
     },
     "hero": {
@@ -693,6 +704,7 @@
       "filter_recommended": "Рэкамендаваныя",
       "filter_sni": "Абыход SNI/CIDR",
       "badge_recommended": "Рэкамендаваны",
+      "badge_recommended_short": "Рэк.",
       "badge_sni": "Абыход SNI/CIDR",
       "sources": "Крыніцы",
       "source": "Крыніца",
@@ -887,6 +899,8 @@
     "header": {
       "logo_alt": "Логотип Goida VPN - Автоматичні конфіги",
       "stats": "Статистика",
+      "theme_light": "Світла",
+      "theme_dark": "Темна",
       "github": "GitHub"
     },
     "hero": {
@@ -914,6 +928,7 @@
       "filter_recommended": "Рекомендовані",
       "filter_sni": "Обхід SNI/CIDR",
       "badge_recommended": "Рекомендований",
+      "badge_recommended_short": "Рек.",
       "badge_sni": "Обхід SNI/CIDR",
       "sources": "Джерела",
       "source": "Джерело",
@@ -1108,6 +1123,8 @@
     "header": {
       "logo_alt": "Goida VPN логотипі - Автоматты конфигтер",
       "stats": "Статистика",
+      "theme_light": "Ашық",
+      "theme_dark": "Қараңғы",
       "github": "GitHub"
     },
     "hero": {
@@ -1135,6 +1152,7 @@
       "filter_recommended": "Ұсынылған",
       "filter_sni": "SNI/CIDR айналып өту",
       "badge_recommended": "Ұсынылған",
+      "badge_recommended_short": "Ұсын.",
       "badge_sni": "SNI/CIDR айналып өту",
       "sources": "Дереккөздер",
       "source": "Дереккөз",
@@ -1329,6 +1347,8 @@
     "header": {
       "logo_alt": "Logo Goida VPN - Configs Automatiques",
       "stats": "Statistiques",
+      "theme_light": "Clair",
+      "theme_dark": "Sombre",
       "github": "GitHub"
     },
     "hero": {
@@ -1356,6 +1376,7 @@
       "filter_recommended": "Recommandés",
       "filter_sni": "Contournement SNI/CIDR",
       "badge_recommended": "Recommandé",
+      "badge_recommended_short": "Rec.",
       "badge_sni": "Contournement SNI/CIDR",
       "sources": "Sources",
       "source": "Source",
@@ -1550,6 +1571,8 @@
     "header": {
       "logo_alt": "Logo Goida VPN - Automatyczne Konfiguracje",
       "stats": "Statystyki",
+      "theme_light": "Jasny",
+      "theme_dark": "Ciemny",
       "github": "GitHub"
     },
     "hero": {
@@ -1577,6 +1600,7 @@
       "filter_recommended": "Zalecane",
       "filter_sni": "Obejście SNI/CIDR",
       "badge_recommended": "Zalecane",
+      "badge_recommended_short": "Zalec.",
       "badge_sni": "Obejście SNI/CIDR",
       "sources": "Źródła",
       "source": "Źródło",

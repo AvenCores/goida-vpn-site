@@ -113,9 +113,9 @@ def download_badges():
         print("[DEBUG] DEBUG MODE: Пропуск загрузки бэджей")
         return
 
-    badges_dir = os.path.join('app', 'static', 'images', 'badges')
+    badges_dir = os.path.join(config_module.BASE_DIR, 'app', 'static', 'images', 'badges')
     if not os.path.exists(badges_dir):
-        os.makedirs(badges_dir)
+        os.makedirs(badges_dir, exist_ok=True)
     
     print("Загрузка бэджей...")
     for filename, url in BADGES.items():

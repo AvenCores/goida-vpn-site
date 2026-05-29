@@ -1,4 +1,8 @@
+import os
 from datetime import timedelta
+
+# Базовая директория проекта
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Глобальная переменная для режима отладки
 DEBUG_MODE = False
@@ -25,11 +29,11 @@ FALLBACK_LINKS = {
 }
 
 # Кэш для ссылок на скачивание
-DOWNLOAD_CACHE_FILE = 'download_links_cache.json'
+DOWNLOAD_CACHE_FILE = os.path.join(BASE_DIR, 'download_links_cache.json')
 DOWNLOAD_CACHE_DURATION = timedelta(hours=24)
 
 # Ссылка на Visual C++ Runtimes
-VC_RUNTIME_CACHE_FILE = 'vc_runtime_link_cache.json'
+VC_RUNTIME_CACHE_FILE = os.path.join(BASE_DIR, 'vc_runtime_link_cache.json')
 VC_RUNTIME_CACHE_DURATION = timedelta(hours=24)
 VC_RUNTIME_FALLBACK = 'https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip'
 
@@ -45,7 +49,7 @@ BADGES = {
 
 # Кэш для статистики GitHub
 STATS_REPO = 'AvenCores/goida-vpn-configs'
-STATS_CACHE_FILE = 'github_stats_cache.json'
+STATS_CACHE_FILE = os.path.join(BASE_DIR, 'github_stats_cache.json')
 STATS_CACHE_DURATION = timedelta(hours=1)
 
 # Кэш для обновлений VPN таблиц
