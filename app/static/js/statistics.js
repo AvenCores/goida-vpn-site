@@ -252,17 +252,18 @@ async function loadGitHubStats() {
                     animation: fadeIn 0.3s ease-out forwards;
                 }
 
-                /* Высота скролл-области: адаптивная */
+                /* Высота скролл-области: фиксированная для предотвращения скачков размеров окна */
                 .stats-scroll-area {
-                    /* Мобиле: учитываем высоту шапки модалки + вкладок */
-                    max-height: calc(100dvh - 160px);
+                    /* Мобильные устройства: рассчитываем высоту с учетом шапки и вкладок */
+                    height: calc(100dvh - 230px);
+                    min-height: 280px;
                     /* Плавный инерционный скролл на iOS */
                     -webkit-overflow-scrolling: touch;
                     overscroll-behavior: contain;
                 }
                 @media (min-width: 640px) {
                     .stats-scroll-area {
-                        max-height: 485px;
+                        height: 395px;
                     }
                 }
 
