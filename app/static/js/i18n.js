@@ -134,7 +134,7 @@
     // Установить язык (из localStorage или браузера)
     function initLanguage() {
         const savedLang = localStorage.getItem('lang');
-        if (savedLang && (savedLang === 'ru' || savedLang === 'en' || savedLang === 'de' || savedLang === 'uk' || savedLang === 'be' || savedLang === 'kk')) {
+        if (savedLang && (savedLang === 'ru' || savedLang === 'en' || savedLang === 'de' || savedLang === 'uk' || savedLang === 'be' || savedLang === 'kk' || savedLang === 'fr')) {
             currentLang = savedLang;
         } else {
             // Определяем язык браузера
@@ -142,7 +142,7 @@
             const langCode = browserLang.split('-')[0].toLowerCase(); // берём только код языка (например, 'en' из 'en-US')
 
             // Список поддерживаемых языков
-            const supportedLanguages = ['ru', 'uk', 'en', 'de', 'be', 'kk'];
+            const supportedLanguages = ['ru', 'uk', 'en', 'de', 'be', 'kk', 'fr'];
 
             if (supportedLanguages.includes(langCode)) {
                 currentLang = langCode;
@@ -232,7 +232,7 @@
 
     // Переключить язык (циклически)
     function toggleLanguage() {
-        const languages = ['ru', 'uk', 'be', 'en', 'de', 'kk'];
+        const languages = ['ru', 'uk', 'be', 'en', 'de', 'kk', 'fr'];
         const currentIndex = languages.indexOf(currentLang);
         currentLang = languages[(currentIndex + 1) % languages.length];
         localStorage.setItem('lang', currentLang);
@@ -253,7 +253,7 @@
 
     // Установить конкретный язык
     function setLanguage(lang) {
-        if (lang !== 'ru' && lang !== 'en' && lang !== 'de' && lang !== 'uk' && lang !== 'be' && lang !== 'kk') return;
+        if (lang !== 'ru' && lang !== 'en' && lang !== 'de' && lang !== 'uk' && lang !== 'be' && lang !== 'kk' && lang !== 'fr') return;
         currentLang = lang;
         localStorage.setItem('lang', currentLang);
         applyTranslations();

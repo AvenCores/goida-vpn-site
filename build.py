@@ -87,6 +87,8 @@ def download_external_assets() -> None:
         ("https://flagcdn.com/w40/by.png", "app/static/images/flags/by@2x.png"),
         ("https://flagcdn.com/w20/kz.png", "app/static/images/flags/kz.png"),
         ("https://flagcdn.com/w40/kz.png", "app/static/images/flags/kz@2x.png"),
+        ("https://flagcdn.com/w20/fr.png", "app/static/images/flags/fr.png"),
+        ("https://flagcdn.com/w40/fr.png", "app/static/images/flags/fr@2x.png"),
     ]
 
     import requests

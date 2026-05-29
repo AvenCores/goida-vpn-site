@@ -138,6 +138,15 @@
                             </span>
                             <svg x-show="currentLanguage === 'kk'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
+                        <button @click="setLangWithAnim('fr')"
+                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
+                                :class="currentLanguage === 'fr' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/fr.png" srcset="static/images/flags/fr.png 1x, static/images/flags/fr@2x.png 2x" alt="FR" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <span>Français</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'fr'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
                     </div>
                 </div>
 
@@ -158,7 +167,7 @@
                     :aria-label="darkMode ? 'Switch to light theme' : 'Switch to dark theme'"
                     id="theme-button">
                     <i class="fa-solid fa-fw flex-shrink-0 text-base sm:text-lg transition-all duration-300 group-hover:rotate-12" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-blue-600'"></i>
-                    <span class="hidden sm:inline theme-text text-sm font-bold text-gray-700 dark:text-gray-300" x-text="darkMode ? (i18nReady && currentLanguage === 'en' ? 'Light' : i18nReady && currentLanguage === 'de' ? 'Hell' : i18nReady && currentLanguage === 'uk' ? 'Світла' : i18nReady && currentLanguage === 'be' ? 'Светлая' : i18nReady && currentLanguage === 'kk' ? 'Ашық' : 'Светлая') : (i18nReady && currentLanguage === 'en' ? 'Dark' : i18nReady && currentLanguage === 'de' ? 'Dunkel' : i18nReady && currentLanguage === 'uk' ? 'Темна' : i18nReady && currentLanguage === 'be' ? 'Цёмная' : i18nReady && currentLanguage === 'kk' ? 'Қараңғы' : 'Тёмная')"></span>
+                    <span class="hidden sm:inline theme-text text-sm font-bold text-gray-700 dark:text-gray-300" x-text="darkMode ? (i18nReady && currentLanguage === 'en' ? 'Light' : i18nReady && currentLanguage === 'de' ? 'Hell' : i18nReady && currentLanguage === 'uk' ? 'Світла' : i18nReady && currentLanguage === 'be' ? 'Светлая' : i18nReady && currentLanguage === 'kk' ? 'Ашық' : i18nReady && currentLanguage === 'fr' ? 'Clair' : 'Светлая') : (i18nReady && currentLanguage === 'en' ? 'Dark' : i18nReady && currentLanguage === 'de' ? 'Dunkel' : i18nReady && currentLanguage === 'uk' ? 'Темна' : i18nReady && currentLanguage === 'be' ? 'Цёмная' : i18nReady && currentLanguage === 'kk' ? 'Қараңғы' : i18nReady && currentLanguage === 'fr' ? 'Sombre' : 'Тёмная')"></span>
                 </button>
 
                 <!-- Статистика -->
@@ -167,7 +176,7 @@
                     aria-label="Open repository statistics"
                     id="stats-button">
                     <i class="fa-solid fa-chart-simple text-base sm:text-lg sm:mr-2 group-hover:rotate-12 transition-transform"></i>
-                    <span class="hidden sm:inline stats-text text-sm font-bold" x-text="currentLanguage === 'en' && i18nReady ? 'Statistics' : (currentLanguage === 'de' && i18nReady ? 'Statistiken' : (currentLanguage === 'uk' && i18nReady ? 'Статистика' : (currentLanguage === 'be' && i18nReady ? 'Статыстыка' : (currentLanguage === 'kk' && i18nReady ? 'Статистика' : 'Статистика'))))">Статистика</span>
+                    <span class="hidden sm:inline stats-text text-sm font-bold" x-text="currentLanguage === 'en' && i18nReady ? 'Statistics' : (currentLanguage === 'de' && i18nReady ? 'Statistiken' : (currentLanguage === 'uk' && i18nReady ? 'Статистика' : (currentLanguage === 'be' && i18nReady ? 'Статыстыка' : (currentLanguage === 'kk' && i18nReady ? 'Статистика' : (currentLanguage === 'fr' && i18nReady ? 'Statistiques' : 'Статистика')))))">Статистика</span>
                 </button>
 
                 <!-- GitHub -->

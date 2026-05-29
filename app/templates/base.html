@@ -6,12 +6,12 @@
         // Устанавливаем язык ДО рендера страницы
         (function() {
             const saved = localStorage.getItem('lang');
-            if (saved && ['ru', 'en', 'de', 'uk', 'be', 'kk'].includes(saved)) {
+            if (saved && ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr'].includes(saved)) {
                 document.documentElement.lang = saved;
             } else {
                 const browserLang = navigator.language || navigator.userLanguage;
                 const langCode = browserLang.split('-')[0].toLowerCase();
-                const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be', 'kk'];
+                const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr'];
                 document.documentElement.lang = supportedLanguages.includes(langCode) ? langCode : 'ru';
             }
         })();
@@ -527,13 +527,13 @@
           currentLanguage: (function() {
               // Сначала проверяем localStorage
               const saved = localStorage.getItem('lang');
-              if (saved && ['ru', 'en', 'de', 'uk', 'be', 'kk'].includes(saved)) {
+              if (saved && ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr'].includes(saved)) {
                   return saved;
               }
               // Если нет, определяем язык браузера
               const browserLang = navigator.language || navigator.userLanguage;
               const langCode = browserLang.split('-')[0].toLowerCase();
-              const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be', 'kk'];
+              const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr'];
               if (supportedLanguages.includes(langCode)) {
                   return langCode;
               }
@@ -717,7 +717,7 @@
           if (value && window.trackEvent) window.trackEvent('view_sources', { config_id: currentConfigId });
       }); $watch('currentLanguage', value => {
           document.documentElement.lang = value;
-          const localeMap = { 'ru': 'ru_RU', 'en': 'en_US', 'de': 'de_DE', 'uk': 'uk_UA', 'be': 'be_BY', 'kk': 'kk_KZ' };
+          const localeMap = { 'ru': 'ru_RU', 'en': 'en_US', 'de': 'de_DE', 'uk': 'uk_UA', 'be': 'be_BY', 'kk': 'kk_KZ', 'fr': 'fr_FR' };
           const ogLocale = document.getElementById('og-locale');
           if (ogLocale) ogLocale.content = localeMap[value] || 'ru_RU';
           if (window.trackEvent) window.trackEvent('change_language', { lang: value });
