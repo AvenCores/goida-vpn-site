@@ -581,6 +581,13 @@
                   window.i18n.setLanguage(lang);
               }
           },
+          t(key, fallback) {
+              const lang = this.currentLanguage;
+              if (window.i18n && this.i18nReady) {
+                  return window.i18n.t(key, fallback);
+              }
+              return fallback || key;
+          },
           activeTab: 'configs',
           showSourcesModal: false,
           showStatsModal: false,
@@ -1003,8 +1010,7 @@
                         <div class="flex items-center justify-between gap-4">
                             <div class="flex-1 min-w-0">
                                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover:text-orange-500 transition-colors">
-                                    <span data-i18n="tabs.source">Источник </span>
-                                    <span x-text="index + 1"></span>
+                                    <span x-text="t('tabs.source', 'Источник') + ' ' + (index + 1)"></span>
                                 </p>
                                 <p class="text-sm font-bold text-brand-blue dark:text-blue-400 truncate leading-relaxed" x-text="source"></p>
                             </div>
