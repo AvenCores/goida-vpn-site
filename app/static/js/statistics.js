@@ -263,7 +263,7 @@ async function loadGitHubStats() {
                 }
                 @media (min-width: 640px) {
                     .stats-scroll-area {
-                        height: 395px;
+                        height: 480px;
                     }
                 }
 
