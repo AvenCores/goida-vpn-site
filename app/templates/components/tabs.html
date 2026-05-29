@@ -275,8 +275,8 @@
                                 <i class="fa-solid transition-all duration-300"
                                    :class="copied ? 'fa-circle-check scale-110' : 'fa-copy group-hover/btn:scale-110'"></i>
                                 <span x-text="copied
-                                    ? (currentLanguage === 'de' && i18nReady ? 'Kopiert!' : (currentLanguage === 'en' && i18nReady ? 'Copied!' : (currentLanguage === 'uk' && i18nReady ? 'Скопійовано!' : (currentLanguage === 'be' && i18nReady ? 'Скапіявана!' : (currentLanguage === 'kk' && i18nReady ? 'Көшірілді!' : (currentLanguage === 'fr' && i18nReady ? 'Copié !' : 'Скопировано!'))))))
-                                    : (currentLanguage === 'de' && i18nReady ? 'Link kopieren' : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : (currentLanguage === 'uk' && i18nReady ? 'Копіювати посилання' : (currentLanguage === 'be' && i18nReady ? 'Капіяваць спасылку' : (currentLanguage === 'kk' && i18nReady ? 'Сілтемені көшіру' : (currentLanguage === 'fr' && i18nReady ? 'Copier le lien' : 'Копировать ссылку'))))))">
+                                    ? (currentLanguage === 'de' && i18nReady ? 'Kopiert!' : (currentLanguage === 'en' && i18nReady ? 'Copied!' : (currentLanguage === 'uk' && i18nReady ? 'Скопійовано!' : (currentLanguage === 'be' && i18nReady ? 'Скапіявана!' : (currentLanguage === 'kk' && i18nReady ? 'Көшірілді!' : (currentLanguage === 'fr' && i18nReady ? 'Copié !' : (currentLanguage === 'pl' && i18nReady ? 'Skopiowano!' : 'Скопировано!')))))))
+                                    : (currentLanguage === 'de' && i18nReady ? 'Link kopieren' : (currentLanguage === 'en' && i18nReady ? 'Copy Link' : (currentLanguage === 'uk' && i18nReady ? 'Копіювати посилання' : (currentLanguage === 'be' && i18nReady ? 'Капіяваць спасылку' : (currentLanguage === 'kk' && i18nReady ? 'Сілтемені көшіру' : (currentLanguage === 'fr' && i18nReady ? 'Copier le lien' : (currentLanguage === 'pl' && i18nReady ? 'Kopiuj link' : 'Копировать ссылку'))))))))">
                                 </span>
                             </button>
                         </div>
@@ -329,7 +329,7 @@
                             <template x-if="config.is_recommended">
                                 <span class="inline-flex items-center gap-1 bg-yellow-400 text-yellow-900 text-[8px] font-bold px-1.5 py-0.5 rounded-md shadow-sm uppercase tracking-wider">
                                     <i class="fa-solid fa-star text-[7px]"></i>
-                                    <span x-text="currentLanguage === 'de' && i18nReady ? 'Empf.' : (currentLanguage === 'en' && i18nReady ? 'Rec.' : (currentLanguage === 'uk' && i18nReady ? 'Рек.' : (currentLanguage === 'be' && i18nReady ? 'Рэк.' : (currentLanguage === 'kk' && i18nReady ? 'Ұсын.' : (currentLanguage === 'fr' && i18nReady ? 'Rec.' : 'Рек.')))))">Рек.</span>
+                                    <span x-text="currentLanguage === 'de' && i18nReady ? 'Empf.' : (currentLanguage === 'en' && i18nReady ? 'Rec.' : (currentLanguage === 'uk' && i18nReady ? 'Рек.' : (currentLanguage === 'be' && i18nReady ? 'Рэк.' : (currentLanguage === 'kk' && i18nReady ? 'Ұсын.' : (currentLanguage === 'fr' && i18nReady ? 'Rec.' : (currentLanguage === 'pl' && i18nReady ? 'Zalec.' : 'Рек.'))))))">Рек.</span>
                                 </span>
                             </template>
                             <template x-if="config.is_sni">
