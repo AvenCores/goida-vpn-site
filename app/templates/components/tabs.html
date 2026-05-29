@@ -71,6 +71,8 @@
                 <i class="fa-solid fa-magnifying-glass text-gray-400 dark:text-blue-400/60 group-focus-within:text-brand-blue dark:group-focus-within:text-blue-400 transition-colors"></i>
             </div>
             <input type="text"
+                   id="searchQuery"
+                   name="searchQuery"
                    x-model="searchQuery"
                    @input.debounce.500ms="if(window.trackEvent && searchQuery) window.trackEvent('search', { query: searchQuery })"
                    data-i18n-placeholder="tabs.search_placeholder"
