@@ -264,11 +264,33 @@
 
     <script>
         // Применить тему ДО отрисовки страницы чтобы избежать мигания
+        window.goidaThemeFrame = null;
+        window.applyGoidaTheme = function(isDark, options = {}) {
+            const root = document.documentElement;
+            const commit = () => {
+                root.classList.toggle('dark', isDark);
+                root.style.colorScheme = isDark ? 'dark' : 'light';
+                window.goidaThemeFrame = null;
+            };
+
+            if (options.immediate || !window.requestAnimationFrame) {
+                if (window.goidaThemeFrame !== null && window.cancelAnimationFrame) {
+                    window.cancelAnimationFrame(window.goidaThemeFrame);
+                    window.goidaThemeFrame = null;
+                }
+                commit();
+                return;
+            }
+
+            if (window.goidaThemeFrame !== null && window.cancelAnimationFrame) {
+                window.cancelAnimationFrame(window.goidaThemeFrame);
+            }
+            window.goidaThemeFrame = window.requestAnimationFrame(commit);
+        };
+
         (function() {
             const darkMode = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-            if (darkMode) {
-                document.documentElement.classList.add('dark');
-            }
+            window.applyGoidaTheme(darkMode, { immediate: true });
         })();
         
         window.tailwindFallbackConfig = {
@@ -544,9 +566,6 @@
           langOpen: false,
           toggleTheme() {
               this.darkMode = !this.darkMode;
-              localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
-              if (this.darkMode) document.documentElement.classList.add('dark');
-              else document.documentElement.classList.remove('dark');
           },
           toggleLanguage() {
               if (window.i18n) {
@@ -699,9 +718,10 @@
           }
       }"
       x-init="window.i18n && (currentLanguage = window.i18n.getLanguage()); $watch('darkMode', val => {
-          val ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', val ? 'dark' : 'light');
+          window.applyGoidaTheme ? window.applyGoidaTheme(val) : document.documentElement.classList.toggle('dark', val);
           if (window.trackEvent) window.trackEvent('toggle_theme', { theme: val ? 'dark' : 'light' });
-      }); if(darkMode) document.documentElement.classList.add('dark'); $watch('showStatsModal', value => { 
+      }); window.applyGoidaTheme ? window.applyGoidaTheme(darkMode, { immediate: true }) : (darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')); $watch('showStatsModal', value => { 
           lockBody(value); 
           if (value) {
               loadGitHubStats();
