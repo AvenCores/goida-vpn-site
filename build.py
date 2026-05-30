@@ -43,21 +43,16 @@ BRANCH = "gh-pages"
 PWA_ROOT_FILES = ("manifest.webmanifest", "sw.js")
 
 
-def minify_html(html: str) -> str:
-    """Perform a clean, robust minification of the HTML content by stripping comments and unnecessary indentations."""
+def prettify_html(html: str) -> str:
+    """Prettify the HTML content using BeautifulSoup to restore normal syntax and standard indentations."""
+    from bs4 import BeautifulSoup
     # 1. Remove HTML comments
     html = re.sub(r"<!--[\s\S]*?-->", "", html)
     # 2. Normalize line endings
     html = html.replace("\r\n", "\n").replace("\r", "\n")
-    # 3. Collapse multiple spaces and tabs inside lines
-    html = re.sub(r"[ \t]+", " ", html)
-    # 4. Remove trailing whitespace on each line
-    html = re.sub(r"[ \t]+$", "", html, flags=re.MULTILINE)
-    # 5. Strip all indentation for lines starting with HTML tags (saves massive bytes safely)
-    html = re.sub(r"^[ \t]+<", "<", html, flags=re.MULTILINE)
-    # 6. Collapse multiple blank lines
-    html = re.sub(r"\n{2,}", "\n", html)
-    return html.strip()
+    # 3. Prettify with BeautifulSoup
+    soup = BeautifulSoup(html, "html.parser")
+    return soup.prettify()
 
 
 def download_external_assets() -> None:
@@ -166,7 +161,7 @@ def build_site() -> None:
         )
 
         with open(os.path.join(DIST_DIR, "index.html"), "w", encoding="utf-8") as f:
-            f.write(minify_html(rendered_html))
+            f.write(prettify_html(rendered_html))
         print("Created index.html")
 
     api_path = os.path.join(DIST_DIR, "api")
