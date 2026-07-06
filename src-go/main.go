@@ -79,6 +79,56 @@ func main() {
 	// HTTP Server mode
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
+			// Handle SEO files at root
+			switch r.URL.Path {
+			case "/robots.txt":
+				w.Header().Set("Content-Type", "text/plain")
+				w.Write([]byte("User-agent: *\nAllow: /\nSitemap: " + getSiteUrl() + "sitemap.xml"))
+				return
+			case "/sitemap.xml":
+				w.Header().Set("Content-Type", "application/xml")
+				lastmod := time.Now().UTC().Format("2006-01-02")
+				w.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>` + getSiteUrl() + `</loc><lastmod>` + lastmod + `</lastmod></url></urlset>`))
+				return
+			case "/manifest.webmanifest":
+				http.ServeFile(w, r, "app/static/manifest.webmanifest")
+				return
+			case "/sw.js":
+				http.ServeFile(w, r, "app/static/sw.js")
+				return
+			case "/favicon.ico":
+				http.ServeFile(w, r, "app/static/images/favicon.png")
+				return
+			case "/LICENSE":
+				http.ServeFile(w, r, "app/static/LICENSE")
+				return
+			}
+			
+			// Handle API routes
+			if strings.HasPrefix(r.URL.Path, "/api/download-links") {
+				w.Header().Set("Content-Type", "application/json")
+				b, _ := json.Marshal(fetchDownloadLinks())
+				w.Write(b)
+				return
+			}
+			if strings.HasPrefix(r.URL.Path, "/api/vc-runtime-link") {
+				w.Header().Set("Content-Type", "application/json")
+				vcLink := fetchVcRuntimeLink()
+				if vcLink == "" {
+					vcLink = vcRuntimeFallback
+				}
+				b, _ := json.Marshal(map[string]string{"link": vcLink})
+				w.Write(b)
+				return
+			}
+			if strings.HasPrefix(r.URL.Path, "/api/github-stats") {
+				os.MkdirAll(filepath.Join("dist", "api"), 0755)
+				fetchGithubStats(filepath.Join("dist", "api"))
+				w.Header().Set("Content-Type", "application/json")
+				http.ServeFile(w, r, filepath.Join("dist", "api", "github-stats.json"))
+				return
+			}
+
 			// serve static
 			http.FileServer(http.Dir("app")).ServeHTTP(w, r)
 			return
