@@ -1,0 +1,4 @@
+flask
+waitress
+requests
+beautifulsoup4

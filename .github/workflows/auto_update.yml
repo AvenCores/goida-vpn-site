@@ -18,18 +18,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: 3.x
-
       - name: Set up Node
         uses: actions/setup-node@v6
         with:
           node-version: 22
-
-      - name: Install dependencies
-        run: pip install --no-cache-dir -r requirements.txt
 
       - name: Build Tailwind CSS
         run: |
@@ -43,4 +35,4 @@ jobs:
           GA_ID: ${{ secrets.GA_ID || vars.GA_ID }}
           YM_ID: ${{ secrets.YM_ID || vars.YM_ID }}
           YANDEX_AUTOPLACEMENT_ID: ${{ secrets.YANDEX_AUTOPLACEMENT_ID || vars.YANDEX_AUTOPLACEMENT_ID }}
-        run: python build.py --deploy
+        run: cd src-go && chmod +x ../loader/goida-builder && ../loader/goida-builder --deploy

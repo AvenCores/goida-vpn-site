@@ -48,32 +48,14 @@
 
 ```text
 goida-vpn-site/
-├── app/                              # Основной пакет веб-приложения
-│   ├── __init__.py                  # Фабрика приложений (create_app), регистрация Blueprints
-│   ├── config.py                    # Глобальные настройки, SEO-дефолты, fallback-ссылки и источники
-│   ├── utils.py                     # Утилиты генерации robots.txt, sitemap.xml и нормализации URL
-│   ├── routes/                      # Контроллеры и маршрутизация (Blueprints)
-│   │   ├── views.py                 # Рендеринг основного UI (главная страница `/`)
-│   │   ├── api.py                   # API эндпоинты с кэшированием (скачивания, статистика, VC++)
-│   │   └── seo.py                   # SEO и PWA-файлы (sitemap, robots, sw.js, manifest)
-│   ├── services/                    # Бизнес-логика и сбор данных из внешних источников
-│   │   ├── vpn.py                   # Скрапинг VPN-конфигураций и времени их обновлений
-│   │   ├── github.py                # Работа с GitHub API (загрузка бейджей, ссылки, статистика)
-│   │   └── vc_runtime.py            # Парсинг VC++ Redistributable с comss.ru
-│   ├── templates/                   # HTML-шаблоны (Jinja2)
-│   │   ├── base.html                # Основной лэйаут с Alpine.js (модалки, темы, меню)
-│   │   ├── index.html               # Точка сборки главной страницы
-│   │   └── components/              # Модульные компоненты UI (header, footer, hero, tabs, bypass, video, instructions)
-│   └── static/                      # Статические ресурсы фронтенда
-│       ├── css/                     # Tailwind CSS стили (tailwind.css, tailwind.input.css)
-│       ├── js/                      # Скрипты (i18n.js, statistics.js, update-download-links.js, link-confirmation.js)
-│       ├── i18n/                    # Переводы (translations.json на 5 языках)
-│       ├── images/                  # Картинки, фавиконы, QR-коды и папка badges/
-│       ├── manifest.webmanifest     # Манифест PWA-приложения
-│       └── sw.js                    # Сервис-воркер PWA-кэширования
-├── dist/                             # Папка компиляции статического сайта (генерируется сборщиком)
-├── build.py                          # Скрипт сборки статического HTML/JSON сайта и деплоя в Pages
-├── main.py                           # Точка входа для локального запуска сервера (Flask / Waitress)
+├── loader/                           # Скомпилированные бинарники
+│   ├── goida-builder                 # Linux бинарник (для GitHub Actions)
+│   └── goida-builder.exe             # Windows бинарник (для локального тестирования)
+├── src-go/                           # Основной код веб-приложения на Go
+│   ├── main.go                       # Точка входа для веб-сервера и сборки
+│   ├── build.bat / build.sh          # Скрипты для компиляции проекта в папку loader
+│   └── app/                          # Статика и HTML-шаблоны (pongo2)
+├── src-python/                       # Оригинальный код на Python (архив)
 ├── tailwind.config.js                # Конфигурация сканирования контента Tailwind CSS
 └── package.json                      # Зависимости Tailwind (JIT/CLI компилятор)
 ```
@@ -82,7 +64,7 @@ goida-vpn-site/
 
 ## 🛠️ Технологии
 
-- **Backend:** Python 3.10+, Flask, Waitress, Requests, BeautifulSoup4.
+- **Backend:** Go 1.20+, pongo2, goquery.
 - **Frontend:** TailwindCSS (CLI), Alpine.js, FontAwesome, Vanilla JS.
 - **Интернационализация:** Собственная JS-реализация на базе JSON-файла переводов.
 - **PWA:** Service Workers, Web App Manifest.
@@ -104,18 +86,7 @@ git clone https://github.com/AvenCores/goida-vpn-site.git
 cd goida-vpn-site
 ```
 
-2. **Настройте виртуальное окружение**:
-```bash
-python -m venv .env
-# Windows:
-.env\Scripts\activate
-# Linux/macOS:
-source .env/bin/activate
-# Установите зависимости:
-pip install -r requirements.txt
-```
-
-3. **Сборка стилей (опционально)**:
+2. **Сборка стилей (опционально)**:
 ```bash
 npm install
 npm run build:css
@@ -126,31 +97,31 @@ npm run build:css
 ## 📝 Разработка и обслуживание
 
 ### Локальный запуск
-* **Режим отладки (со всеми заглушками API)**:
-  ```bash
-  python main.py --debug
-  ```
-  *Сайт будет доступен на `http://localhost:5000` с включенным автоперезагрузчиком при изменении кода.*
-* **Режим продакшена (через Waitress)**:
-  ```bash
-  python main.py
-  ```
+Вы можете запустить встроенный веб-сервер, который будет отдавать страницы и статику:
+```bash
+cd src-go
+go run main.go
+# Или с помощью скомпилированного бинарника в Windows:
+# ..\loader\goida-builder.exe
+```
+*Сайт будет доступен на `http://localhost:5000`*
 
 ### Сборка статической версии
-* **Простая локальная компиляция** (по умолчанию):
-  ```bash
-  python build.py
-  ```
-  или с явным указанием флага:
-  ```bash
-  python build.py --build-only
-  ```
-  *Результат компилируется в папку `dist/`.*
+* **Простая локальная компиляция** (собирает статический сайт в `src-go/dist/`):
+```bash
+cd src-go
+go run main.go --build-only
+# Или:
+# ..\loader\goida-builder.exe --build-only
+```
 * **Компиляция и деплой на GitHub Pages**:
-  ```bash
-  python build.py --deploy
-  ```
-  *(Требуется наличие `MY_TOKEN` или `GITHUB_TOKEN` в переменных окружения).*
+```bash
+cd src-go
+go run main.go --deploy
+# Или:
+# ..\loader\goida-builder.exe --deploy
+```
+*(Требуется наличие `MY_TOKEN` или `GITHUB_TOKEN` в переменных окружения).*
 
 ### Обслуживание контента
 * **Обновление конфигураций VPN**: Все конфигурации подтягиваются динамически. Любые изменения вносите напрямую в исходный репозиторий `AvenCores/goida-vpn-configs`.

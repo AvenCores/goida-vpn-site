@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build:css": "tailwindcss -i ./app/static/css/tailwind.input.css -o ./app/static/css/tailwind.css --minify",
-    "watch:css": "tailwindcss -i ./app/static/css/tailwind.input.css -o ./app/static/css/tailwind.css --watch"
+    "build:css": "tailwindcss -i ./src-go/app/static/css/tailwind.input.css -o ./src-go/app/static/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./src-go/app/static/css/tailwind.input.css -o ./src-go/app/static/css/tailwind.css --watch"
   },
   "devDependencies": {
     "autoprefixer": "10.4.20",

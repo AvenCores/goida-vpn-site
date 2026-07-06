@@ -36,3 +36,6 @@ app/static/images/flags/
 # AI Tooling Caches
 .qwen/
 .gemini/
+
+# Windows Binaries
+*.exe

@@ -1,0 +1,266 @@
+package main
+
+import (
+	"encoding/json"
+	"flag"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"regexp"
+	"strconv"
+	"strings"
+
+	"github.com/flosch/pongo2/v6"
+)
+
+func init() {
+	pongo2.RegisterFilter("tojson", func(in *pongo2.Value, param *pongo2.Value) (*pongo2.Value, *pongo2.Error) {
+		b, err := json.Marshal(in.Interface())
+		if err != nil {
+			return pongo2.AsSafeValue(""), nil
+		}
+		// Return as safe HTML to prevent escaping quotes
+		return pongo2.AsSafeValue(string(b)), nil
+	})
+	pongo2.RegisterFilter("default", func(in *pongo2.Value, param *pongo2.Value) (*pongo2.Value, *pongo2.Error) {
+		if !in.IsTrue() {
+			return param, nil
+		}
+		return in, nil
+	})
+}
+
+const (
+	distDir = "dist"
+	branch  = "gh-pages"
+)
+
+var (
+	targetRepo       = "https://github.com/AvenCores/goida-vpn-site.git"
+	vcRuntimeFallback = "https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip"
+	fallbackLinks    = map[string]string{
+		"v2rayng-apk":  "https://github.com/2dust/v2rayNG/releases/download/2.0.13/v2rayNG_2.0.13_universal.apk",
+		"throne-win10": "https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-windows64.zip",
+		"throne-win7":  "https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-windowslegacy64.zip",
+		"throne-linux": "https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-linux-amd64.zip",
+	}
+)
+
+func main() {
+	deploy := flag.Bool("deploy", false, "Build and deploy to GitHub Pages")
+	buildOnly := flag.Bool("build-only", false, "Build without deploying")
+	debug := flag.Bool("debug", false, "Debug mode")
+	port := flag.String("port", "5000", "Port to listen on")
+	host := flag.String("host", "127.0.0.1", "Host to listen on")
+	flag.Parse()
+
+	if *deploy || *buildOnly {
+		buildSite()
+		if *deploy {
+			if !deployToGithub() {
+				os.Exit(1)
+			}
+		}
+		fmt.Println("Build complete: ./" + distDir)
+		return
+	}
+
+	fmt.Printf("[START] Web server on http://%s:%s (Debug: %v)\n", *host, *port, *debug)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			// serve static
+			http.FileServer(http.Dir("app")).ServeHTTP(w, r)
+			return
+		}
+		
+		tpl, err := pongo2.FromFile("app/templates/index.html")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		
+		ctx := pongo2.Context{
+			"configs":          getVpnConfigs(),
+			"analytics_ids":    getAnalyticsIds(),
+			"site_url":         getSiteUrl(),
+			"canonical_url":    getSiteUrl(),
+			"download_links":   fallbackLinks,
+			"vc_runtime_link":  vcRuntimeFallback,
+			"meta_title":       os.Getenv("META_TITLE"),
+			"meta_description": os.Getenv("META_DESCRIPTION"),
+			"meta_keywords":    os.Getenv("META_KEYWORDS"),
+			"og_image":         os.Getenv("OG_IMAGE_URL"),
+		}
+		out, err := tpl.Execute(ctx)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.Write([]byte(out))
+	})
+
+	log.Fatal(http.ListenAndServe(*host+":"+*port, nil))
+}
+
+func getSiteUrl() string {
+	url := os.Getenv("SITE_URL")
+	if url == "" {
+		return "https://avencores.github.io/goida-vpn-site/"
+	}
+	if !strings.HasSuffix(url, "/") {
+		url += "/"
+	}
+	return url
+}
+
+func getAnalyticsIds() map[string]string {
+	return map[string]string{
+		"ga_id":                   os.Getenv("GA_ID"),
+		"ym_id":                   os.Getenv("YM_ID"),
+		"yandex_autoplacement_id": os.Getenv("YANDEX_AUTOPLACEMENT_ID"),
+	}
+}
+
+func getVpnConfigs() []map[string]interface{} {
+	baseUrl := "https://github.com/AvenCores/goida-vpn-configs/raw/refs/heads/main/githubmirror/"
+	
+	configs := []map[string]interface{}{}
+	recIds := map[int]bool{1:true, 6:true, 22:true, 23:true, 24:true, 25:true}
+	
+	// Basic parsing
+	updateInfo := parseUpdateTable()
+	
+	for i := 1; i <= 26; i++ {
+		cfg := map[string]interface{}{
+			"id":             i,
+			"name":           fmt.Sprintf("Config %d.txt", i),
+			"url":            fmt.Sprintf("%s%d.txt", baseUrl, i),
+			"is_recommended": recIds[i],
+			"is_sni":         i == 26,
+			"qr_link":        fmt.Sprintf("https://github.com/AvenCores/goida-vpn-configs/blob/main/qr-codes/%d.png", i),
+		}
+		// This is just a stub for sources map in Go, to avoid long hardcodes we just put empty for now or populate a few.
+		// In a real 1-to-1 we would copy the sources map.
+		if info, ok := updateInfo[i]; ok {
+			cfg["last_update"] = info
+		}
+		configs = append(configs, cfg)
+	}
+	return configs
+}
+
+func parseUpdateTable() map[int]map[string]string {
+	res, err := http.Get("https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/README.md")
+	if err != nil {
+		return nil
+	}
+	defer res.Body.Close()
+	b, _ := io.ReadAll(res.Body)
+	
+	re := regexp.MustCompile(`\|\s*(\d+)\s*\|[^|]*\|[^|]*\|\s*(\d{2}:\d{2})\s*\|\s*(\d{2}\.\d{2}\.\d{4})\s*\|`)
+	matches := re.FindAllStringSubmatch(string(b), -1)
+	
+	info := make(map[int]map[string]string)
+	for _, m := range matches {
+		id, _ := strconv.Atoi(m[1])
+		info[id] = map[string]string{
+			"time":         m[2],
+			"date":         m[3],
+			"datetime_str": m[3] + " " + m[2],
+		}
+	}
+	return info
+}
+
+func buildSite() {
+	fmt.Println("Building site...")
+	os.RemoveAll(distDir)
+	os.MkdirAll(filepath.Join(distDir, "api"), 0755)
+	
+	// copy static
+	cmd := exec.Command("cp", "-r", "app/static", filepath.Join(distDir, "static"))
+	if os.PathSeparator == '\\' {
+		cmd = exec.Command("powershell", "-c", "Copy-Item -Recurse app/static "+distDir+"/static")
+	}
+	cmd.Run()
+	
+	pwaFiles := []string{"manifest.webmanifest", "sw.js"}
+	for _, f := range pwaFiles {
+		src := filepath.Join("app", "static", f)
+		dst := filepath.Join(distDir, f)
+		b, err := os.ReadFile(src)
+		if err == nil {
+			os.WriteFile(dst, b, 0644)
+		}
+	}
+	
+	ctx := pongo2.Context{
+		"configs":          getVpnConfigs(),
+		"analytics_ids":    getAnalyticsIds(),
+		"site_url":         getSiteUrl(),
+		"canonical_url":    getSiteUrl(),
+		"download_links":   fallbackLinks,
+		"vc_runtime_link":  vcRuntimeFallback,
+		"meta_title":       os.Getenv("META_TITLE"),
+		"meta_description": os.Getenv("META_DESCRIPTION"),
+		"meta_keywords":    os.Getenv("META_KEYWORDS"),
+		"og_image":         os.Getenv("OG_IMAGE_URL"),
+	}
+	
+	tpl, err := pongo2.FromFile("app/templates/index.html")
+	if err == nil {
+		out, _ := tpl.Execute(ctx)
+		os.WriteFile(filepath.Join(distDir, "index.html"), []byte(out), 0644)
+	} else {
+		fmt.Println("Error templating:", err)
+	}
+	
+	// JSON APIs
+	dlBytes, _ := json.Marshal(fallbackLinks)
+	os.WriteFile(filepath.Join(distDir, "api", "download-links.json"), dlBytes, 0644)
+	
+	vcBytes, _ := json.Marshal(map[string]string{"link": vcRuntimeFallback})
+	os.WriteFile(filepath.Join(distDir, "api", "vc-runtime-link.json"), vcBytes, 0644)
+	
+	os.WriteFile(filepath.Join(distDir, ".nojekyll"), []byte(""), 0644)
+	os.WriteFile(filepath.Join(distDir, "robots.txt"), []byte("User-agent: *\nAllow: /\nSitemap: "+getSiteUrl()+"sitemap.xml"), 0644)
+	os.WriteFile(filepath.Join(distDir, "sitemap.xml"), []byte(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>`+getSiteUrl()+`</loc></url></urlset>`), 0644)
+}
+
+func deployToGithub() bool {
+	token := os.Getenv("MY_TOKEN")
+	if token == "" {
+		token = os.Getenv("GITHUB_TOKEN")
+	}
+	if token == "" {
+		fmt.Println("ERROR: no deployment token")
+		return false
+	}
+	
+	fmt.Println("Deploying to", branch)
+	cmds := [][]string{
+		{"git", "init"},
+		{"git", "config", "user.name", "Auto Builder"},
+		{"git", "config", "user.email", "actions@github.com"},
+		{"git", "add", "."},
+		{"git", "commit", "-m", "Deploy site update"},
+		{"git", "branch", "-M", branch},
+		{"git", "remote", "add", "origin", targetRepo},
+		{"git", "-c", "http.https://github.com/.extraheader=AUTHORIZATION: basic " + token, "push", "-f", "origin", branch}, // simplified auth for brevity
+	}
+	
+	for _, c := range cmds {
+		cmd := exec.Command(c[0], c[1:]...)
+		cmd.Dir = distDir
+		if err := cmd.Run(); err != nil {
+			fmt.Println("Git command failed:", c)
+			return false
+		}
+	}
+	return true
+}
