@@ -14,6 +14,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/flosch/pongo2/v6"
@@ -128,6 +129,14 @@ func main() {
 				return
 			}
 
+			// Tailwind fallback
+			if r.URL.Path == "/static/css/tailwind.css" {
+				if _, err := os.Stat("app/static/css/tailwind.css"); os.IsNotExist(err) {
+					http.ServeFile(w, r, "app/static/css/tailwind.input.css")
+					return
+				}
+			}
+
 			// serve static
 			http.FileServer(http.Dir("app")).ServeHTTP(w, r)
 			return
@@ -228,10 +237,31 @@ func getVpnConfigs() []map[string]interface{} {
 	return configs
 }
 
-func parseUpdateTable() map[int]map[string]string {
+var (
+	updateTableCache     map[int]map[string]string
+	updateTableCacheTime time.Time
+	updateTableMutex     sync.Mutex
+	isUpdatingTable      bool
+)
+
+func fetchAndParseUpdateTable() {
+	updateTableMutex.Lock()
+	if isUpdatingTable {
+		updateTableMutex.Unlock()
+		return
+	}
+	isUpdatingTable = true
+	updateTableMutex.Unlock()
+
+	defer func() {
+		updateTableMutex.Lock()
+		isUpdatingTable = false
+		updateTableMutex.Unlock()
+	}()
+
 	res, err := http.Get("https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/README.md")
 	if err != nil {
-		return nil
+		return
 	}
 	defer res.Body.Close()
 	b, _ := io.ReadAll(res.Body)
@@ -248,7 +278,37 @@ func parseUpdateTable() map[int]map[string]string {
 			"datetime_str": m[3] + " " + m[2],
 		}
 	}
-	return info
+	
+	updateTableMutex.Lock()
+	updateTableCache = info
+	updateTableCacheTime = time.Now()
+	updateTableMutex.Unlock()
+}
+
+func parseUpdateTable() map[int]map[string]string {
+	updateTableMutex.Lock()
+	cache := updateTableCache
+	cacheTime := updateTableCacheTime
+	updateTableMutex.Unlock()
+
+	if cache != nil && !cacheTime.IsZero() {
+		if time.Since(cacheTime) < time.Hour {
+			return cache
+		}
+		// Stale cache, return it but start background update
+		go fetchAndParseUpdateTable()
+		return cache
+	}
+
+	// No cache, start background update
+	go fetchAndParseUpdateTable()
+	
+	updateTableMutex.Lock()
+	defer updateTableMutex.Unlock()
+	if updateTableCache == nil {
+		return make(map[int]map[string]string)
+	}
+	return updateTableCache
 }
 
 func buildSite() {
