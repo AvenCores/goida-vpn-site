@@ -16,9 +16,15 @@
             }
         })();
     </script>
-    {% set ga_id = analytics_ids.ga_id if analytics_ids else None %}
-    {% set ym_id = analytics_ids.ym_id if analytics_ids else None %}
-    {% set yandex_autoplacement_id = analytics_ids.yandex_autoplacement_id if analytics_ids else None %}
+    {% if analytics_ids %}
+      {% set ga_id = analytics_ids.ga_id %}
+      {% set ym_id = analytics_ids.ym_id %}
+      {% set yandex_autoplacement_id = analytics_ids.yandex_autoplacement_id %}
+    {% else %}
+      {% set ga_id = None %}
+      {% set ym_id = None %}
+      {% set yandex_autoplacement_id = None %}
+    {% endif %}
     {% if yandex_autoplacement_id %}
     <!-- Yandex Autoplacement -->
     <script src="https://yandex.ru/ads/system/context.js" async></script>
@@ -71,13 +77,7 @@
     {% endif %}
 
 
-    {% set meta_title = meta_title|default("Goida VPN Configs - Автоматические VPN-конфиги", true) %}
-    {% set meta_description = meta_description|default("Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. Обновление каждые 9 минут, удобные ссылки и QR-коды.", true) %}
-    {% set meta_keywords = meta_keywords|default("vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок, автоматичні vpn конфіги, обхід блокувань", true) %}
-    {% set site_name = meta_site_name|default("Goida VPN Configs", true) %}
-    {% set site_url = site_url|default("", true) %}
-    {% set canonical_url = canonical_url|default(site_url, true) %}
-    {% set og_image = og_image|default("", true) %}
+
     <script>
         window.copyTextSafely = async function(text) {
             if (navigator.clipboard && window.isSecureContext) {
