@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -83,18 +84,32 @@ func main() {
 			return
 		}
 		
-		ctx := pongo2.Context{
-			"configs":          getVpnConfigs(),
-			"analytics_ids":    getAnalyticsIds(),
-			"site_url":         getSiteUrl(),
-			"canonical_url":    getSiteUrl(),
-			"download_links":   fallbackLinks,
-			"vc_runtime_link":  vcRuntimeFallback,
-			"meta_title":       os.Getenv("META_TITLE"),
-			"meta_description": os.Getenv("META_DESCRIPTION"),
-			"meta_keywords":    os.Getenv("META_KEYWORDS"),
-			"og_image":         os.Getenv("OG_IMAGE_URL"),
-		}
+	metaTitle := os.Getenv("META_TITLE")
+	if metaTitle == "" {
+		metaTitle = "Goida VPN Configs - Автоматические VPN-конфиги"
+	}
+	metaDesc := os.Getenv("META_DESCRIPTION")
+	if metaDesc == "" {
+		metaDesc = "Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. Обновление каждые 9 минут, удобные ссылки и QR-коды."
+	}
+	metaKeywords := os.Getenv("META_KEYWORDS")
+	if metaKeywords == "" {
+		metaKeywords = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок, автоматичні vpn конфіги, обхід блокувань"
+	}
+	
+	ctx := pongo2.Context{
+		"configs":          getVpnConfigs(),
+		"analytics_ids":    getAnalyticsIds(),
+		"site_url":         getSiteUrl(),
+		"canonical_url":    getSiteUrl(),
+		"download_links":   fallbackLinks,
+		"vc_runtime_link":  vcRuntimeFallback,
+		"meta_title":       metaTitle,
+		"meta_description": metaDesc,
+		"meta_keywords":    metaKeywords,
+		"site_name":        "Goida VPN Configs",
+		"og_image":         os.Getenv("OG_IMAGE_URL"),
+	}
 		out, err := tpl.Execute(ctx)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -199,6 +214,19 @@ func buildSite() {
 		}
 	}
 	
+	metaTitle := os.Getenv("META_TITLE")
+	if metaTitle == "" {
+		metaTitle = "Goida VPN Configs - Автоматические VPN-конфиги"
+	}
+	metaDesc := os.Getenv("META_DESCRIPTION")
+	if metaDesc == "" {
+		metaDesc = "Автоматические VPN-конфиги для V2Ray, VLESS, Hysteria, Trojan, VMess, Reality и Shadowsocks. Обновление каждые 9 минут, удобные ссылки и QR-коды."
+	}
+	metaKeywords := os.Getenv("META_KEYWORDS")
+	if metaKeywords == "" {
+		metaKeywords = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок, автоматичні vpn конфіги, обхід блокувань"
+	}
+	
 	ctx := pongo2.Context{
 		"configs":          getVpnConfigs(),
 		"analytics_ids":    getAnalyticsIds(),
@@ -206,9 +234,10 @@ func buildSite() {
 		"canonical_url":    getSiteUrl(),
 		"download_links":   fallbackLinks,
 		"vc_runtime_link":  vcRuntimeFallback,
-		"meta_title":       os.Getenv("META_TITLE"),
-		"meta_description": os.Getenv("META_DESCRIPTION"),
-		"meta_keywords":    os.Getenv("META_KEYWORDS"),
+		"meta_title":       metaTitle,
+		"meta_description": metaDesc,
+		"meta_keywords":    metaKeywords,
+		"site_name":        "Goida VPN Configs",
 		"og_image":         os.Getenv("OG_IMAGE_URL"),
 	}
 	
@@ -243,6 +272,12 @@ func deployToGithub() bool {
 	}
 	
 	fmt.Println("Deploying to", branch)
+	
+	// Prepare basic auth header
+	authStr := "x-access-token:" + token
+	authEncoded := base64.StdEncoding.EncodeToString([]byte(authStr))
+	authHeader := "AUTHORIZATION: basic " + authEncoded
+	
 	cmds := [][]string{
 		{"git", "init"},
 		{"git", "config", "user.name", "Auto Builder"},
@@ -251,7 +286,7 @@ func deployToGithub() bool {
 		{"git", "commit", "-m", "Deploy site update"},
 		{"git", "branch", "-M", branch},
 		{"git", "remote", "add", "origin", targetRepo},
-		{"git", "-c", "http.https://github.com/.extraheader=AUTHORIZATION: basic " + token, "push", "-f", "origin", branch}, // simplified auth for brevity
+		{"git", "-c", "http.https://github.com/.extraheader=" + authHeader, "push", "-f", "origin", branch},
 	}
 	
 	for _, c := range cmds {
