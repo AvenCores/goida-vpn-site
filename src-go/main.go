@@ -71,6 +71,11 @@ func main() {
 	}
 
 	fmt.Printf("[START] Web server on http://%s:%s (Debug: %v)\n", *host, *port, *debug)
+	// Initialize assets
+	fmt.Println("Downloading external assets if needed...")
+	downloadExternalAssets()
+
+	// HTTP Server mode
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			// serve static
@@ -194,6 +199,8 @@ func parseUpdateTable() map[int]map[string]string {
 
 func buildSite() {
 	fmt.Println("Building site...")
+	downloadExternalAssets()
+	
 	os.RemoveAll(distDir)
 	os.MkdirAll(filepath.Join(distDir, "api"), 0755)
 	
@@ -243,7 +250,10 @@ func buildSite() {
 	
 	tpl, err := pongo2.FromFile("app/templates/index.html")
 	if err == nil {
-		out, _ := tpl.Execute(ctx)
+		out, execErr := tpl.Execute(ctx)
+		if execErr != nil {
+			fmt.Println("Error executing template:", execErr)
+		}
 		os.WriteFile(filepath.Join(distDir, "index.html"), []byte(out), 0644)
 	} else {
 		fmt.Println("Error templating:", err)
@@ -299,3 +309,48 @@ func deployToGithub() bool {
 	}
 	return true
 }
+
+func downloadExternalAssets() {
+	assets := map[string]string{
+		"https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js":        "app/static/js/alpine-collapse.min.js",
+		"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js":                  "app/static/js/alpine.min.js",
+		"https://cdn.tailwindcss.com":                                                  "app/static/js/tailwind.min.js",
+		"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css":      "app/static/css/all.min.css",
+		"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-solid-900.woff2": "app/static/webfonts/fa-solid-900.woff2",
+		"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-regular-400.woff2": "app/static/webfonts/fa-regular-400.woff2",
+		"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-brands-400.woff2": "app/static/webfonts/fa-brands-400.woff2",
+		"https://flagcdn.com/w20/ru.png": "app/static/images/flags/ru.png",
+		"https://flagcdn.com/w40/ru.png": "app/static/images/flags/ru@2x.png",
+		"https://flagcdn.com/w20/gb.png": "app/static/images/flags/gb.png",
+		"https://flagcdn.com/w40/gb.png": "app/static/images/flags/gb@2x.png",
+		"https://flagcdn.com/w20/de.png": "app/static/images/flags/de.png",
+		"https://flagcdn.com/w40/de.png": "app/static/images/flags/de@2x.png",
+		"https://flagcdn.com/w20/ua.png": "app/static/images/flags/ua.png",
+		"https://flagcdn.com/w40/ua.png": "app/static/images/flags/ua@2x.png",
+		"https://flagcdn.com/w20/by.png": "app/static/images/flags/by.png",
+		"https://flagcdn.com/w40/by.png": "app/static/images/flags/by@2x.png",
+		"https://flagcdn.com/w20/kz.png": "app/static/images/flags/kz.png",
+		"https://flagcdn.com/w40/kz.png": "app/static/images/flags/kz@2x.png",
+		"https://flagcdn.com/w20/fr.png": "app/static/images/flags/fr.png",
+		"https://flagcdn.com/w40/fr.png": "app/static/images/flags/fr@2x.png",
+		"https://flagcdn.com/w20/pl.png": "app/static/images/flags/pl.png",
+		"https://flagcdn.com/w40/pl.png": "app/static/images/flags/pl@2x.png",
+	}
+
+	for url, path := range assets {
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			os.MkdirAll(filepath.Dir(path), 0755)
+			fmt.Println("Downloading", url, "to", path)
+			resp, err := http.Get(url)
+			if err == nil {
+				defer resp.Body.Close()
+				f, _ := os.Create(path)
+				io.Copy(f, resp.Body)
+				f.Close()
+			} else {
+				fmt.Println("Failed to download", url, err)
+			}
+		}
+	}
+}
+
