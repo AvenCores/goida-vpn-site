@@ -189,12 +189,17 @@ func fetchGithubStats(apiPath string) {
 		resp, err := client.Do(req)
 		if err == nil && resp.StatusCode == 200 {
 			defer resp.Body.Close()
-			var data map[string]interface{}
-			json.NewDecoder(resp.Body).Decode(&data)
+			var data interface{}
+			err = json.NewDecoder(resp.Body).Decode(&data)
+			if err != nil {
+				continue
+			}
 			if field == "clones" || field == "views" {
-				stats[field] = map[string]interface{}{
-					"count":   data["count"],
-					"uniques": data["uniques"],
+				if m, ok := data.(map[string]interface{}); ok {
+					stats[field] = map[string]interface{}{
+						"count":   m["count"],
+						"uniques": m["uniques"],
+					}
 				}
 			} else {
 				stats[field] = data
