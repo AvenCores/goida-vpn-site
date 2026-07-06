@@ -83,12 +83,11 @@ func main() {
 			switch r.URL.Path {
 			case "/robots.txt":
 				w.Header().Set("Content-Type", "text/plain")
-				w.Write([]byte("User-agent: *\nAllow: /\nSitemap: " + getSiteUrl() + "sitemap.xml"))
+				w.Write([]byte(generateRobotsTxt(getSiteUrl())))
 				return
 			case "/sitemap.xml":
 				w.Header().Set("Content-Type", "application/xml")
-				lastmod := time.Now().UTC().Format("2006-01-02")
-				w.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>` + getSiteUrl() + `</loc><lastmod>` + lastmod + `</lastmod></url></urlset>`))
+				w.Write([]byte(generateSitemapXml(getSiteUrl())))
 				return
 			case "/manifest.webmanifest":
 				http.ServeFile(w, r, "app/static/manifest.webmanifest")
@@ -329,9 +328,8 @@ func buildSite() {
 	fetchGithubStats(filepath.Join(distDir, "api"))
 	
 	os.WriteFile(filepath.Join(distDir, ".nojekyll"), []byte(""), 0644)
-	os.WriteFile(filepath.Join(distDir, "robots.txt"), []byte("User-agent: *\nAllow: /\nSitemap: "+getSiteUrl()+"sitemap.xml"), 0644)
-	lastmod := time.Now().UTC().Format("2006-01-02")
-	os.WriteFile(filepath.Join(distDir, "sitemap.xml"), []byte(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>`+getSiteUrl()+`</loc><lastmod>`+lastmod+`</lastmod></url></urlset>`), 0644)
+	os.WriteFile(filepath.Join(distDir, "robots.txt"), []byte(generateRobotsTxt(getSiteUrl())), 0644)
+	os.WriteFile(filepath.Join(distDir, "sitemap.xml"), []byte(generateSitemapXml(getSiteUrl())), 0644)
 }
 
 func deployToGithub() bool {
@@ -416,5 +414,44 @@ func downloadExternalAssets() {
 			}
 		}
 	}
+}
+
+
+func generateRobotsTxt(siteUrl string) string {
+	lines := []string{
+		"User-agent: *",
+		"Allow: /",
+		"Disallow: /api/",
+		"",
+		"# Yandex-specific optimization",
+		"User-agent: Yandex",
+		"Allow: /",
+		"Disallow: /api/",
+		"Clean-param: utm_source&utm_medium&utm_campaign",
+	}
+	if siteUrl != "" {
+		lines = append(lines, "")
+		lines = append(lines, "Sitemap: "+siteUrl+"sitemap.xml")
+		cleanHost := strings.TrimRight(strings.Split(siteUrl, "://")[1], "/")
+		lines = append(lines, "Host: "+cleanHost)
+	}
+	return strings.Join(lines, "\n") + "\n"
+}
+
+func generateSitemapXml(siteUrl string) string {
+	lastmod := time.Now().UTC().Format("2006-01-02")
+	return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>` + siteUrl + `</loc>
+    <lastmod>` + lastmod + `</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+`
 }
 
