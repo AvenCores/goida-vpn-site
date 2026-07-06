@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -205,5 +206,22 @@ var sourcesMap = map[int]interface{}{
 		"https://github.com/zieng2/wl",
 		"https://etoneya.a9fm.site/",
 	},
+}
+
+func fetchVcRuntimeLink() string {
+	resp, err := http.Get("https://www.comss.ru/download/page.php?id=6271")
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+	b, _ := io.ReadAll(resp.Body)
+	html := string(b)
+	
+	re := regexp.MustCompile(`https://dl\.comss\.org/download/Visual-C-Runtimes[^"'\s>]+`)
+	match := re.FindString(html)
+	if match != "" {
+		return match
+	}
+	return ""
 }
 

@@ -14,6 +14,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/flosch/pongo2/v6"
 )
@@ -103,13 +104,17 @@ func main() {
 	}
 	
 	downloadLinks := fetchDownloadLinks()
+	vcLink := fetchVcRuntimeLink()
+	if vcLink == "" {
+		vcLink = vcRuntimeFallback
+	}
 	ctx := pongo2.Context{
 		"configs":          getVpnConfigs(),
 		"analytics_ids":    getAnalyticsIds(),
 		"site_url":         getSiteUrl(),
 		"canonical_url":    getSiteUrl(),
 		"download_links":   downloadLinks,
-		"vc_runtime_link":  vcRuntimeFallback,
+		"vc_runtime_link":  vcLink,
 		"meta_title":       metaTitle,
 		"meta_description": metaDesc,
 		"meta_keywords":    metaKeywords,
@@ -235,13 +240,17 @@ func buildSite() {
 	}
 	
 	downloadLinks := fetchDownloadLinks()
+	vcLink := fetchVcRuntimeLink()
+	if vcLink == "" {
+		vcLink = vcRuntimeFallback
+	}
 	ctx := pongo2.Context{
 		"configs":          getVpnConfigs(),
 		"analytics_ids":    getAnalyticsIds(),
 		"site_url":         getSiteUrl(),
 		"canonical_url":    getSiteUrl(),
 		"download_links":   downloadLinks,
-		"vc_runtime_link":  vcRuntimeFallback,
+		"vc_runtime_link":  vcLink,
 		"meta_title":       metaTitle,
 		"meta_description": metaDesc,
 		"meta_keywords":    metaKeywords,
@@ -264,14 +273,15 @@ func buildSite() {
 	dlBytes, _ := json.Marshal(downloadLinks)
 	os.WriteFile(filepath.Join(distDir, "api", "download-links.json"), dlBytes, 0644)
 	
-	vcBytes, _ := json.Marshal(map[string]string{"link": vcRuntimeFallback})
+	vcBytes, _ := json.Marshal(map[string]string{"link": vcLink})
 	os.WriteFile(filepath.Join(distDir, "api", "vc-runtime-link.json"), vcBytes, 0644)
 	
 	fetchGithubStats(filepath.Join(distDir, "api"))
 	
 	os.WriteFile(filepath.Join(distDir, ".nojekyll"), []byte(""), 0644)
 	os.WriteFile(filepath.Join(distDir, "robots.txt"), []byte("User-agent: *\nAllow: /\nSitemap: "+getSiteUrl()+"sitemap.xml"), 0644)
-	os.WriteFile(filepath.Join(distDir, "sitemap.xml"), []byte(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>`+getSiteUrl()+`</loc></url></urlset>`), 0644)
+	lastmod := time.Now().UTC().Format("2006-01-02")
+	os.WriteFile(filepath.Join(distDir, "sitemap.xml"), []byte(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>`+getSiteUrl()+`</loc><lastmod>`+lastmod+`</lastmod></url></urlset>`), 0644)
 }
 
 func deployToGithub() bool {
