@@ -41,6 +41,52 @@ func downloadBadges() {
 	}
 }
 
+type GHAsset struct {
+	Name               string `json:"name"`
+	BrowserDownloadUrl string `json:"browser_download_url"`
+}
+
+func selectV2rayngApk(assets []GHAsset) *GHAsset {
+	// 1. Try universal.apk (excluding fdroid / sig)
+	for i := range assets {
+		nameLower := strings.ToLower(assets[i].Name)
+		if strings.HasSuffix(nameLower, ".apk") &&
+			strings.Contains(nameLower, "universal") &&
+			!strings.Contains(nameLower, "f-droid") &&
+			!strings.Contains(nameLower, "fdroid") {
+			return &assets[i]
+		}
+	}
+	// 2. Try universal (any format except .sig)
+	for i := range assets {
+		nameLower := strings.ToLower(assets[i].Name)
+		if strings.Contains(nameLower, "universal") &&
+			!strings.HasSuffix(nameLower, ".sig") {
+			return &assets[i]
+		}
+	}
+	// 3. Try arm64-v8a.apk (excluding fdroid / sig) - most common standard architecture
+	for i := range assets {
+		nameLower := strings.ToLower(assets[i].Name)
+		if strings.HasSuffix(nameLower, ".apk") &&
+			strings.Contains(nameLower, "arm64-v8a") &&
+			!strings.Contains(nameLower, "f-droid") &&
+			!strings.Contains(nameLower, "fdroid") {
+			return &assets[i]
+		}
+	}
+	// 4. Try any apk (excluding fdroid / sig)
+	for i := range assets {
+		nameLower := strings.ToLower(assets[i].Name)
+		if strings.HasSuffix(nameLower, ".apk") &&
+			!strings.Contains(nameLower, "f-droid") &&
+			!strings.Contains(nameLower, "fdroid") {
+			return &assets[i]
+		}
+	}
+	return nil
+}
+
 func fetchDownloadLinks() map[string]string {
 	links := make(map[string]string)
 	for k, v := range fallbackLinks {
@@ -52,19 +98,11 @@ func fetchDownloadLinks() map[string]string {
 	if err == nil {
 		defer resp.Body.Close()
 		var data struct {
-			Assets []struct {
-				Name               string `json:"name"`
-				BrowserDownloadUrl string `json:"browser_download_url"`
-			} `json:"assets"`
+			Assets []GHAsset `json:"assets"`
 		}
 		if json.NewDecoder(resp.Body).Decode(&data) == nil {
-			for _, a := range data.Assets {
-				if strings.Contains(strings.ToLower(a.Name), "universal.apk") &&
-					!strings.Contains(strings.ToLower(a.Name), "f-droid") &&
-					!strings.Contains(strings.ToLower(a.Name), "fdroid") {
-					links["v2rayng-apk"] = a.BrowserDownloadUrl
-					break
-				}
+			if apk := selectV2rayngApk(data.Assets); apk != nil {
+				links["v2rayng-apk"] = apk.BrowserDownloadUrl
 			}
 		}
 	}
