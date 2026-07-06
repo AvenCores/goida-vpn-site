@@ -41,7 +41,7 @@ const (
 )
 
 var (
-	targetRepo       = "https://github.com/AvenCores/goida-vpn-site.git"
+	targetRepo        = "https://github.com/AvenCores/goida-vpn-site.git"
 	vcRuntimeFallback = "https://cf.comss.org/download/Visual-C-Runtimes-All-in-One-Dec-2025.zip"
 	fallbackLinks    = map[string]string{
 		"v2rayng-apk":  "https://github.com/2dust/v2rayNG/releases/download/2.0.13/v2rayNG_2.0.13_universal.apk",
@@ -102,12 +102,13 @@ func main() {
 		metaKeywords = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок, автоматичні vpn конфіги, обхід блокувань"
 	}
 	
+	downloadLinks := fetchDownloadLinks()
 	ctx := pongo2.Context{
 		"configs":          getVpnConfigs(),
 		"analytics_ids":    getAnalyticsIds(),
 		"site_url":         getSiteUrl(),
 		"canonical_url":    getSiteUrl(),
-		"download_links":   fallbackLinks,
+		"download_links":   downloadLinks,
 		"vc_runtime_link":  vcRuntimeFallback,
 		"meta_title":       metaTitle,
 		"meta_description": metaDesc,
@@ -163,9 +164,8 @@ func getVpnConfigs() []map[string]interface{} {
 			"is_recommended": recIds[i],
 			"is_sni":         i == 26,
 			"qr_link":        fmt.Sprintf("https://github.com/AvenCores/goida-vpn-configs/blob/main/qr-codes/%d.png", i),
+			"sources":        sourcesMap[i],
 		}
-		// This is just a stub for sources map in Go, to avoid long hardcodes we just put empty for now or populate a few.
-		// In a real 1-to-1 we would copy the sources map.
 		if info, ok := updateInfo[i]; ok {
 			cfg["last_update"] = info
 		}
@@ -234,12 +234,13 @@ func buildSite() {
 		metaKeywords = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess, reality, vpn configs, free vpn, goida vpn, обход блокировок, автоматичні vpn конфіги, обхід блокувань"
 	}
 	
+	downloadLinks := fetchDownloadLinks()
 	ctx := pongo2.Context{
 		"configs":          getVpnConfigs(),
 		"analytics_ids":    getAnalyticsIds(),
 		"site_url":         getSiteUrl(),
 		"canonical_url":    getSiteUrl(),
-		"download_links":   fallbackLinks,
+		"download_links":   downloadLinks,
 		"vc_runtime_link":  vcRuntimeFallback,
 		"meta_title":       metaTitle,
 		"meta_description": metaDesc,
@@ -260,11 +261,13 @@ func buildSite() {
 	}
 	
 	// JSON APIs
-	dlBytes, _ := json.Marshal(fallbackLinks)
+	dlBytes, _ := json.Marshal(downloadLinks)
 	os.WriteFile(filepath.Join(distDir, "api", "download-links.json"), dlBytes, 0644)
 	
 	vcBytes, _ := json.Marshal(map[string]string{"link": vcRuntimeFallback})
 	os.WriteFile(filepath.Join(distDir, "api", "vc-runtime-link.json"), vcBytes, 0644)
+	
+	fetchGithubStats(filepath.Join(distDir, "api"))
 	
 	os.WriteFile(filepath.Join(distDir, ".nojekyll"), []byte(""), 0644)
 	os.WriteFile(filepath.Join(distDir, "robots.txt"), []byte("User-agent: *\nAllow: /\nSitemap: "+getSiteUrl()+"sitemap.xml"), 0644)
@@ -311,6 +314,7 @@ func deployToGithub() bool {
 }
 
 func downloadExternalAssets() {
+	downloadBadges()
 	assets := map[string]string{
 		"https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js":        "app/static/js/alpine-collapse.min.js",
 		"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js":                  "app/static/js/alpine.min.js",

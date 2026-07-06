@@ -1,8 +1,5 @@
 #!/bin/bash
-export GOOS=linux
-export GOARCH=amd64
-go build -o ../loader/goida-builder main.go
-export GOOS=windows
-export GOARCH=amd64
-go build -o ../loader/goida-builder.exe main.go
+GOOS=linux GOARCH=amd64 go build -o ../loader/goida-builder .
+GOOS=windows GOARCH=amd64 go build -o ../loader/goida-builder.exe .
 echo "Built successfully into ../loader/"
+
