@@ -1,3 +1,4 @@
+
 # Python / Environments
 .env/
 .venv/
@@ -24,14 +25,24 @@ github_stats_cache.json
 vc_runtime_link_cache.json
 
 # App-specific generated/downloaded assets
-app/static/css/tailwind.css
-app/static/images/badges/
-app/static/js/alpine-collapse.min.js
-app/static/js/alpine.min.js
-app/static/js/tailwind.min.js
-app/static/css/all.min.css
-app/static/webfonts/
-app/static/images/flags/
+src-go/app/static/css/tailwind.css
+src-go/app/static/images/badges/
+src-go/app/static/js/alpine-collapse.min.js
+src-go/app/static/js/alpine.min.js
+src-go/app/static/js/tailwind.min.js
+src-go/app/static/css/all.min.css
+src-go/app/static/webfonts/
+src-go/app/static/images/flags/
+
+# Old Python generated assets
+src-python/app/static/css/tailwind.css
+src-python/app/static/images/badges/
+src-python/app/static/js/alpine-collapse.min.js
+src-python/app/static/js/alpine.min.js
+src-python/app/static/js/tailwind.min.js
+src-python/app/static/css/all.min.css
+src-python/app/static/webfonts/
+src-python/app/static/images/flags/
 
 # AI Tooling Caches
 .qwen/
@@ -39,3 +50,4 @@ app/static/images/flags/
 
 # Windows Binaries
 *.exe
+
