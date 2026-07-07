@@ -36,6 +36,18 @@ def select_v2rayng_apk(assets):
 
     return None
 
+def select_v2rayng_tv_apk(assets):
+    """Выбирает APK для Android TV (armv7)."""
+    for asset in assets:
+        name_lower = asset.get('name', '').lower()
+        if name_lower.endswith('.apk') and 'armeabi-v7a' in name_lower and 'f-droid' not in name_lower and 'fdroid' not in name_lower:
+            return asset
+    for asset in assets:
+        name_lower = asset.get('name', '').lower()
+        if name_lower.endswith('.apk') and 'v7a' in name_lower and 'f-droid' not in name_lower and 'fdroid' not in name_lower:
+            return asset
+    return select_v2rayng_apk(assets)
+
 def get_cached_links():
     """Получить кэшированные ссылки если они актуальны"""
     if os.path.exists(DOWNLOAD_CACHE_FILE):
@@ -83,6 +95,11 @@ def fetch_download_links():
             if apk:
                 links['v2rayng-apk'] = apk['browser_download_url']
                 print(f"v2rayNG ссылка: {links['v2rayng-apk']}")
+                
+            tv_apk = select_v2rayng_tv_apk(releases.get('assets', []))
+            if tv_apk:
+                links['v2rayng-tv-apk'] = tv_apk['browser_download_url']
+                print(f"v2rayNG TV ссылка: {links['v2rayng-tv-apk']}")
         else:
             print(f"Ошибка GitHub API для v2rayNG: {response.status_code}")
     except Exception as e:
