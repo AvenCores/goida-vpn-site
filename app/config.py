@@ -22,7 +22,8 @@ DEFAULT_META_KEYWORDS = "vpn, vless, v2ray, shadowsocks, hysteria, trojan, vmess
 
 # Fallback ссылки на случай, если GitHub API недоступен
 FALLBACK_LINKS = {
-    'v2rayng-apk': 'https://github.com/2dust/v2rayNG/releases/download/2.0.13/v2rayNG_2.0.13_universal.apk',
+    'v2rayng-apk': 'https://github.com/2dust/v2rayNG/releases/download/2.2.6/v2rayNG_2.2.6_arm64-v8a.apk',
+    'v2rayng-tv-apk': 'https://github.com/2dust/v2rayNG/releases/download/2.2.6/v2rayNG_2.2.6_armeabi-v7a.apk',
     'throne-win10': 'https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-windows64.zip',
     'throne-win7': 'https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-windowslegacy64.zip',
     'throne-linux': 'https://github.com/throneproj/Throne/releases/download/1.0.13/Throne-1.0.13-linux-amd64.zip',

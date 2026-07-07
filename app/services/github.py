@@ -9,26 +9,20 @@ from app.config import (
 import app.config as config_module
 
 def select_v2rayng_apk(assets):
-    """Выбирает обычный universal APK для v2rayNG, а не F-Droid сборку."""
-    # 1. Try universal.apk (excluding fdroid / sig)
-    for asset in assets:
-        name_lower = asset.get('name', '').lower()
-        if name_lower.endswith('.apk') and 'universal' in name_lower and 'f-droid' not in name_lower and 'fdroid' not in name_lower:
-            return asset
-
-    # 2. Try universal (any format except .sig)
-    for asset in assets:
-        name_lower = asset.get('name', '').lower()
-        if 'universal' in name_lower and not name_lower.endswith('.sig'):
-            return asset
-
-    # 3. Try arm64-v8a.apk (excluding fdroid / sig) - most common standard architecture
+    """Выбирает APK (arm64-v8a) для обычного Android."""
+    # 1. Try arm64-v8a.apk (excluding fdroid / sig) - most common standard architecture
     for asset in assets:
         name_lower = asset.get('name', '').lower()
         if name_lower.endswith('.apk') and 'arm64-v8a' in name_lower and 'f-droid' not in name_lower and 'fdroid' not in name_lower:
             return asset
 
-    # 4. Try any apk (excluding fdroid / sig)
+    # 2. Try universal as fallback just in case
+    for asset in assets:
+        name_lower = asset.get('name', '').lower()
+        if name_lower.endswith('.apk') and 'universal' in name_lower and 'f-droid' not in name_lower and 'fdroid' not in name_lower:
+            return asset
+
+    # 3. Try any apk (excluding fdroid / sig)
     for asset in assets:
         name_lower = asset.get('name', '').lower()
         if name_lower.endswith('.apk') and 'f-droid' not in name_lower and 'fdroid' not in name_lower:
