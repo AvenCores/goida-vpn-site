@@ -86,8 +86,8 @@ SOURCES_MAP = {
     26: [
         "https://github.com/igareck/vpn-configs-for-russia",
         "https://github.com/ByeWhiteLists/ByeWhiteLists2",
-        "https://gitverse.ru/cid-uskoritel/cid-white",
         "https://github.com/zieng2/wl",
         "https://etoneya.su/",
+        "https://wlrus.lol/",
     ]
 }
