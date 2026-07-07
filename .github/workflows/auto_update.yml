@@ -29,14 +29,16 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: pip install --no-cache-dir -r requirements.txt
+        run: pip install --no-cache-dir -r source/requirements.txt
 
       - name: Build Tailwind CSS
+        working-directory: ./source
         run: |
           npm install
           npm run build:css
 
       - name: Build and deploy site
+        working-directory: ./source
         env:
           MY_TOKEN: ${{ secrets.MY_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}

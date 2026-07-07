@@ -44,38 +44,39 @@
 
 ## 🏗️ Структура проекта
 
-Кодовая база спроектирована по канонам разработки на Flask с использованием фабрики приложений (`Application Factory`), разделением роутинга на синие страницы (`Blueprints`) и инкапсуляцией логики в слой сервисов (`Services`).
+Кодовая база спроектирована по канонам разработки на Flask с использованием фабрики приложений (`Application Factory`), разделением роутинга на синие страницы (`Blueprints`) и инкапсуляцией логики в слой сервисов (`Services`). Все исходные файлы проекта перенесены в папку `source`.
 
 ```text
 goida-vpn-site/
-├── app/                              # Основной пакет веб-приложения
-│   ├── __init__.py                  # Фабрика приложений (create_app), регистрация Blueprints
-│   ├── config.py                    # Глобальные настройки, SEO-дефолты, fallback-ссылки и источники
-│   ├── utils.py                     # Утилиты генерации robots.txt, sitemap.xml и нормализации URL
-│   ├── routes/                      # Контроллеры и маршрутизация (Blueprints)
-│   │   ├── views.py                 # Рендеринг основного UI (главная страница `/`)
-│   │   ├── api.py                   # API эндпоинты с кэшированием (скачивания, статистика, VC++)
-│   │   └── seo.py                   # SEO и PWA-файлы (sitemap, robots, sw.js, manifest)
-│   ├── services/                    # Бизнес-логика и сбор данных из внешних источников
-│   │   ├── vpn.py                   # Скрапинг VPN-конфигураций и времени их обновлений
-│   │   ├── github.py                # Работа с GitHub API (загрузка бейджей, ссылки, статистика)
-│   │   └── vc_runtime.py            # Парсинг VC++ Redistributable с comss.ru
-│   ├── templates/                   # HTML-шаблоны (Jinja2)
-│   │   ├── base.html                # Основной лэйаут с Alpine.js (модалки, темы, меню)
-│   │   ├── index.html               # Точка сборки главной страницы
-│   │   └── components/              # Модульные компоненты UI (header, footer, hero, tabs, bypass, video, instructions)
-│   └── static/                      # Статические ресурсы фронтенда
-│       ├── css/                     # Tailwind CSS стили (tailwind.css, tailwind.input.css)
-│       ├── js/                      # Скрипты (i18n.js, statistics.js, update-download-links.js, link-confirmation.js)
-│       ├── i18n/                    # Переводы (translations.json на 5 языках)
-│       ├── images/                  # Картинки, фавиконы, QR-коды и папка badges/
-│       ├── manifest.webmanifest     # Манифест PWA-приложения
-│       └── sw.js                    # Сервис-воркер PWA-кэширования
-├── dist/                             # Папка компиляции статического сайта (генерируется сборщиком)
-├── build.py                          # Скрипт сборки статического HTML/JSON сайта и деплоя в Pages
-├── main.py                           # Точка входа для локального запуска сервера (Flask / Waitress)
-├── tailwind.config.js                # Конфигурация сканирования контента Tailwind CSS
-└── package.json                      # Зависимости Tailwind (JIT/CLI компилятор)
+├── source/                           # Папка с исходными файлами проекта
+│   ├── app/                          # Основной пакет веб-приложения
+│   │   ├── __init__.py              # Фабрика приложений (create_app), регистрация Blueprints
+│   │   ├── config.py                # Глобальные настройки, SEO-дефолты, fallback-ссылки и источники
+│   │   ├── utils.py                 # Утилиты генерации robots.txt, sitemap.xml и нормализации URL
+│   │   ├── routes/                  # Контроллеры и маршрутизация (Blueprints)
+│   │   │   ├── views.py             # Рендеринг основного UI (главная страница `/`)
+│   │   │   ├── api.py               # API эндпоинты с кэшированием (скачивания, статистика, VC++)
+│   │   │   └── seo.py               # SEO и PWA-файлы (sitemap, robots, sw.js, manifest)
+│   │   ├── services/                # Бизнес-логика и сбор данных из внешних источников
+│   │   │   ├── vpn.py               # Скрапинг VPN-конфигураций и времени их обновлений
+│   │   │   ├── github.py            # Работа с GitHub API (загрузка бейджей, ссылки, статистика)
+│   │   │   └── vc_runtime.py        # Парсинг VC++ Redistributable с comss.ru
+│   │   ├── templates/               # HTML-шаблоны (Jinja2)
+│   │   │   ├── base.html            # Основной лэйаут с Alpine.js (модалки, темы, меню)
+│   │   │   ├── index.html           # Точка сборки главной страницы
+│   │   │   └── components/          # Модульные компоненты UI (header, footer, hero, tabs, bypass, video, instructions)
+│   │   └── static/                  # Статические ресурсы фронтенда
+│   │       ├── css/                 # Tailwind CSS стили (tailwind.css, tailwind.input.css)
+│   │       ├── js/                  # Скрипты (i18n.js, statistics.js, update-download-links.js, link-confirmation.js)
+│   │       ├── i18n/                # Переводы (translations.json на 5 языках)
+│   │       ├── images/              # Картинки, фавиконы, QR-коды и папка badges/
+│   │       ├── manifest.webmanifest # Манифест PWA-приложения
+│   │       └── sw.js                # Сервис-воркер PWA-кэширования
+│   ├── build.py                      # Скрипт сборки статического HTML/JSON сайта и деплоя в Pages
+│   ├── main.py                       # Точка входа для локального запуска сервера (Flask / Waitress)
+│   ├── tailwind.config.js            # Конфигурация сканирования контента Tailwind CSS
+│   ├── package.json                  # Зависимости Tailwind (JIT/CLI компилятор)
+│   └── requirements.txt              # Зависимости Python-приложения
 ```
 
 ---
@@ -112,11 +113,12 @@ python -m venv .env
 # Linux/macOS:
 source .env/bin/activate
 # Установите зависимости:
-pip install -r requirements.txt
+pip install -r source/requirements.txt
 ```
 
 3. **Сборка стилей (опционально)**:
 ```bash
+cd source
 npm install
 npm run build:css
 ```
@@ -128,24 +130,26 @@ npm run build:css
 ### Локальный запуск
 * **Режим отладки (со всеми заглушками API)**:
   ```bash
-  python main.py --debug
+  python source/main.py --debug
   ```
   *Сайт будет доступен на `http://localhost:5000` с включенным автоперезагрузчиком при изменении кода.*
 * **Режим продакшена (через Waitress)**:
   ```bash
-  python main.py
+  python source/main.py
   ```
 
 ### Сборка статической версии
 * **Простая локальная компиляция** (по умолчанию):
   ```bash
+  # Перейдите в папку source, так как скрипты завязаны на относительные пути
+  cd source
   python build.py
   ```
   или с явным указанием флага:
   ```bash
   python build.py --build-only
   ```
-  *Результат компилируется в папку `dist/`.*
+  *Результат компилируется в папку `source/dist/`.*
 * **Компиляция и деплой на GitHub Pages**:
   ```bash
   python build.py --deploy
@@ -154,8 +158,8 @@ npm run build:css
 
 ### Обслуживание контента
 * **Обновление конфигураций VPN**: Все конфигурации подтягиваются динамически. Любые изменения вносите напрямую в исходный репозиторий `AvenCores/goida-vpn-configs`.
-* **Редактирование локализации**: Для изменения текстов, добавления новых строк или исправления перевода редактируйте файл перевода: `app/static/i18n/translations.json`.
-* **Изменение дизайна и стилей**: После изменения шаблонов или файла `app/static/css/tailwind.input.css` запустите сборку стилей через `npm run build:css`.
+* **Редактирование локализации**: Для изменения текстов, добавления новых строк или исправления перевода редактируйте файл перевода: `source/app/static/i18n/translations.json`.
+* **Изменение дизайна и стилей**: После изменения шаблонов или файла `source/app/static/css/tailwind.input.css` перейдите в папку `source` и запустите сборку стилей через `npm run build:css`.
 
 ---
 
