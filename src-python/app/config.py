@@ -83,11 +83,9 @@ SOURCES_MAP = {
     24: "https://github.com/Mr-Meshky/vify",
     25: "https://github.com/V2RayRoot/V2RayConfig",
     26: [
-        "https://github.com/EtoNeYaProject/etoneyaproject.github.io",
         "https://github.com/igareck/vpn-configs-for-russia",
         "https://github.com/ByeWhiteLists/ByeWhiteLists2",
         "https://gitverse.ru/cid-uskoritel/cid-white",
         "https://github.com/zieng2/wl",
-        "https://etoneya.a9fm.site/"
     ]
 }

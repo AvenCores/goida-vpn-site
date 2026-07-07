@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -12,8 +11,6 @@ import (
 	"strings"
 	"time"
 )
-
-
 
 func downloadBadges() {
 	badges := map[string]string{
@@ -242,12 +239,10 @@ var sourcesMap = map[int]interface{}{
 	24: "https://github.com/Mr-Meshky/vify",
 	25: "https://github.com/V2RayRoot/V2RayConfig",
 	26: []string{
-		"https://github.com/EtoNeYaProject/etoneyaproject.github.io",
 		"https://github.com/igareck/vpn-configs-for-russia",
 		"https://github.com/ByeWhiteLists/ByeWhiteLists2",
 		"https://gitverse.ru/cid-uskoritel/cid-white",
 		"https://github.com/zieng2/wl",
-		"https://etoneya.a9fm.site/",
 	},
 }
 
@@ -259,7 +254,7 @@ func fetchVcRuntimeLink() string {
 	defer resp.Body.Close()
 	b, _ := io.ReadAll(resp.Body)
 	html := string(b)
-	
+
 	re := regexp.MustCompile(`https://dl\.comss\.org/download/Visual-C-Runtimes[^"'\s>]+`)
 	match := re.FindString(html)
 	if match != "" {
@@ -267,4 +262,3 @@ func fetchVcRuntimeLink() string {
 	}
 	return ""
 }
-
