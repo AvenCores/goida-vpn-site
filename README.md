@@ -17,6 +17,7 @@
 <p align="center">
   <a href="https://github.com/AvenCores/goida-vpn-site"><img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=for-the-badge" alt="GPL-3.0 License"></a>
+  <a href="https://avencores.github.io/goida-vpn-site/"><img src="https://img.shields.io/badge/Website-Goida%20VPN-207e5c?style=for-the-badge&logo=firefox" alt="Website"></a>
   <a href="https://github.com/AvenCores/goida-vpn-site/stargazers"><img src="https://img.shields.io/github/stars/AvenCores/goida-vpn-site?style=for-the-badge" alt="GitHub stars"></a>
   <img src="https://img.shields.io/github/forks/AvenCores/goida-vpn-site?style=for-the-badge" alt="GitHub forks">
   <a href="https://github.com/AvenCores/goida-vpn-site/watchers">
