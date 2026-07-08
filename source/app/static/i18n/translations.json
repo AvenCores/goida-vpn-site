@@ -20,6 +20,7 @@
       "license_badge_alt": "Лицензия GPL-3.0",
       "stars_alt": "Звёзды GitHub",
       "forks_alt": "Форки GitHub",
+      "watchers_alt": "Наблюдатели GitHub",
       "prs_alt": "Pull-запросы GitHub",
       "issues_alt": "Issues GitHub"
     },
@@ -244,6 +245,7 @@
       "license_badge_alt": "GPL-3.0-Lizenz",
       "stars_alt": "GitHub Sterne",
       "forks_alt": "GitHub Forks",
+      "watchers_alt": "GitHub Beobachter",
       "prs_alt": "GitHub Pull Requests",
       "issues_alt": "GitHub Issues"
     },
@@ -468,6 +470,7 @@
       "license_badge_alt": "GPL-3.0 License",
       "stars_alt": "GitHub Stars",
       "forks_alt": "GitHub Forks",
+      "watchers_alt": "GitHub Watchers",
       "prs_alt": "GitHub Pull Requests",
       "issues_alt": "GitHub Issues"
     },
@@ -692,6 +695,7 @@
       "license_badge_alt": "Ліцэнзія GPL-3.0",
       "stars_alt": "Зоркі GitHub",
       "forks_alt": "Форкі GitHub",
+      "watchers_alt": "Назіральнікі GitHub",
       "prs_alt": "Pull-запыты GitHub",
       "issues_alt": "Issues GitHub"
     },
@@ -916,6 +920,7 @@
       "license_badge_alt": "Ліцензія GPL-3.0",
       "stars_alt": "Зірки GitHub",
       "forks_alt": "Форки GitHub",
+      "watchers_alt": "Спостерігачі GitHub",
       "prs_alt": "Pull-запити GitHub",
       "issues_alt": "Issues GitHub"
     },
@@ -1140,6 +1145,7 @@
       "license_badge_alt": "GPL-3.0 лицензиясы",
       "stars_alt": "GitHub жұлдыздары",
       "forks_alt": "GitHub форктары",
+      "watchers_alt": "GitHub бақылаушылары",
       "prs_alt": "GitHub Pull-сұраныстары",
       "issues_alt": "GitHub мәселелері (Issues)"
     },
@@ -1364,6 +1370,7 @@
       "license_badge_alt": "Licence GPL-3.0",
       "stars_alt": "Étoiles GitHub",
       "forks_alt": "Forks GitHub",
+      "watchers_alt": "Observateurs GitHub",
       "prs_alt": "Pull Requests GitHub",
       "issues_alt": "Issues GitHub"
     },
@@ -1588,6 +1595,7 @@
       "license_badge_alt": "Licencja GPL-3.0",
       "stars_alt": "Gwiazdki GitHub",
       "forks_alt": "Forki GitHub",
+      "watchers_alt": "Obserwujący GitHub",
       "prs_alt": "Pull Requests GitHub",
       "issues_alt": "Issues GitHub"
     },

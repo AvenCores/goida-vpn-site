@@ -44,6 +44,7 @@ BADGES = {
     'license.svg': 'https://img.shields.io/badge/License-GPL--3.0-blue?style=for-the-badge',
     'stars.svg': 'https://img.shields.io/github/stars/AvenCores/goida-vpn-configs?style=for-the-badge',
     'forks.svg': 'https://img.shields.io/github/forks/AvenCores/goida-vpn-configs?style=for-the-badge',
+    'watchers.svg': 'https://img.shields.io/github/watchers/AvenCores/goida-vpn-configs?style=for-the-badge',
     'prs.svg': 'https://img.shields.io/github/issues-pr/AvenCores/goida-vpn-configs?style=for-the-badge',
     'issues.svg': 'https://img.shields.io/github/issues/AvenCores/goida-vpn-configs?style=for-the-badge'
 }
