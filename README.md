@@ -14,13 +14,16 @@
 </div>
 
 ## 📝 Описание проекта
-
-[![GPL-3.0 License](https://img.shields.io/badge/License-GPL--3.0-blue?style=for-the-badge)](./LICENSE)
-[![Website](https://img.shields.io/badge/Website-Goida%20VPN-207e5c?style=for-the-badge&logo=firefox)](https://avencores.github.io/goida-vpn-site/)
-[![GitHub stars](https://img.shields.io/github/stars/AvenCores/goida-vpn-site?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/stargazers)
-![GitHub forks](https://img.shields.io/github/forks/AvenCores/goida-vpn-site?style=for-the-badge)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/AvenCores/goida-vpn-site?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/pulls)
-[![GitHub issues](https://img.shields.io/github/issues/AvenCores/goida-vpn-site?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/issues)
+<p align="center">
+  <a href="https://github.com/AvenCores/goida-vpn-site"><img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=for-the-badge" alt="GPL-3.0 License"></a>
+  <a href="https://github.com/AvenCores/goida-vpn-site/stargazers"><img src="https://img.shields.io/github/stars/AvenCores/goida-vpn-site?style=for-the-badge" alt="GitHub stars"></a>
+  <img src="https://img.shields.io/github/forks/AvenCores/goida-vpn-site?style=for-the-badge" alt="GitHub forks">
+  <a href="https://github.com/AvenCores/goida-vpn-site/watchers">
+  <img src="https://img.shields.io/github/watchers/AvenCores/goida-vpn-site?style=for-the-badge" alt="GitHub Watchers"></a>
+  <a href="https://github.com/AvenCores/goida-vpn-site/pulls"><img src="https://img.shields.io/github/issues-pr/AvenCores/goida-vpn-site?style=for-the-badge" alt="GitHub pull requests"></a>
+  <a href="https://github.com/AvenCores/goida-vpn-site/issues"><img src="https://img.shields.io/github/issues/AvenCores/goida-vpn-site?style=for-the-badge" alt="GitHub issues"></a>
+</p>
 
 Это современный веб-интерфейс для проекта [**goida-vpn-configs**](https://github.com/AvenCores/goida-vpn-configs/). 
 Сайт автоматически парсит актуальные конфигурации (`V2Ray` / `VLESS` / `Hysteria` / `Trojan` / `VMess` / `Reality` / `Shadowsocks`), генерирует удобные ссылки для копирования, QR-коды и предоставляет исчерпывающие инструкции по настройке.
