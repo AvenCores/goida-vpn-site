@@ -1,5 +1,6 @@
 import argparse
 import base64
+import concurrent.futures
 import json
 import os
 import re
@@ -23,8 +24,16 @@ from app.services.github import (
     download_badges,
     fetch_download_links,
     fetch_github_stats_data,
+    get_cached_links,
+    get_cached_stats,
+    save_links_cache,
+    save_stats_cache,
 )
-from app.services.vc_runtime import fetch_vc_runtime_link
+from app.services.vc_runtime import (
+    fetch_vc_runtime_link,
+    get_cached_vc_runtime_link,
+    save_vc_runtime_link_cache,
+)
 from app.services.vpn import get_vpn_configs
 from app.utils import (
     generate_robots_txt,
@@ -55,8 +64,32 @@ def prettify_html(html: str) -> str:
     return soup.prettify()
 
 
+def _download_single_asset(args: tuple[str, str]) -> None:
+    """Download a single external asset if it does not already exist locally."""
+    url, path = args
+    dir_name = os.path.dirname(path)
+    if dir_name:
+        os.makedirs(dir_name, exist_ok=True)
+
+    if os.path.exists(path):
+        return
+
+    import requests
+    print(f"Downloading {url} -> {path}...")
+    try:
+        r = requests.get(url, timeout=15)
+        if r.status_code == 200:
+            with open(path, "wb") as f:
+                f.write(r.content)
+            print(f"Successfully downloaded {path}")
+        else:
+            print(f"ERROR: Failed to download {url}: HTTP {r.status_code}")
+    except Exception as e:
+        print(f"ERROR: Failed to download {url}: {e}")
+
+
 def download_external_assets() -> None:
-    """Download all required external frontend assets to make the website completely self-hosted."""
+    """Download all required external frontend assets in parallel."""
     assets = [
         # Alpine JS
         ("https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js", "app/static/js/alpine-collapse.min.js"),
@@ -88,25 +121,9 @@ def download_external_assets() -> None:
         ("https://flagcdn.com/w40/pl.png", "app/static/images/flags/pl@2x.png"),
     ]
 
-    import requests
     print("Checking and downloading external assets...")
-    for url, path in assets:
-        dir_name = os.path.dirname(path)
-        if dir_name:
-            os.makedirs(dir_name, exist_ok=True)
-        
-        if not os.path.exists(path):
-            print(f"Downloading {url} -> {path}...")
-            try:
-                r = requests.get(url, timeout=15)
-                if r.status_code == 200:
-                    with open(path, "wb") as f:
-                        f.write(r.content)
-                    print(f"Successfully downloaded {path}")
-                else:
-                    print(f"ERROR: Failed to download {url}: HTTP {r.status_code}")
-            except Exception as e:
-                print(f"ERROR: Failed to download {url}: {e}")
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        list(executor.map(_download_single_asset, assets))
 
 
 def build_site() -> None:
@@ -167,7 +184,13 @@ def build_site() -> None:
     api_path = os.path.join(DIST_DIR, "api")
 
     print("Fetching download links...")
-    fetched_links = fetch_download_links()
+    fetched_links = get_cached_links()
+    if fetched_links:
+        print("Using cached download links")
+    else:
+        fetched_links = fetch_download_links()
+        if fetched_links:
+            save_links_cache(fetched_links)
     download_links = FALLBACK_LINKS.copy()
     if fetched_links:
         download_links.update(fetched_links)
@@ -179,7 +202,13 @@ def build_site() -> None:
     print("Created download-links.json")
 
     print("Fetching Visual C++ Runtime link...")
-    vc_runtime_link = fetch_vc_runtime_link() or VC_RUNTIME_FALLBACK
+    vc_runtime_link = get_cached_vc_runtime_link()
+    if vc_runtime_link:
+        print("Using cached Visual C++ Runtime link")
+    else:
+        vc_runtime_link = fetch_vc_runtime_link() or VC_RUNTIME_FALLBACK
+        if vc_runtime_link:
+            save_vc_runtime_link_cache(vc_runtime_link)
     with open(os.path.join(api_path, "vc-runtime-link.json"), "w", encoding="utf-8") as f:
         json.dump({"link": vc_runtime_link}, f, ensure_ascii=False)
     print("Created vc-runtime-link.json")
@@ -199,7 +228,13 @@ def build_site() -> None:
 
 
 def fetch_and_save_github_stats(api_path: str) -> None:
-    stats = fetch_github_stats_data(os.getenv("MY_TOKEN") or os.getenv("GITHUB_TOKEN"))
+    stats = get_cached_stats()
+    if stats:
+        print("Using cached GitHub stats")
+    else:
+        stats = fetch_github_stats_data(os.getenv("MY_TOKEN") or os.getenv("GITHUB_TOKEN"))
+        if stats:
+            save_stats_cache(stats)
     with open(os.path.join(api_path, "github-stats.json"), "w", encoding="utf-8") as f:
         json.dump(stats, f, ensure_ascii=False)
     print("Saved github-stats.json")

@@ -51,6 +51,18 @@ jobs:
             source/app/static/images/flags
           key: external-assets-${{ hashFiles('source/build.py') }}
 
+      # Кэш API-данных, которые build.py получает из GitHub API и comss.ru.
+      # Это позволяет пропускать сетевые запросы между запусками, если TTL
+      # кэша ещё не истёк (download links / VC runtime — 24 ч, stats — 1 ч).
+      - name: Cache API data
+        uses: actions/cache@v5.1.0
+        with:
+          path: |
+            source/download_links_cache.json
+            source/vc_runtime_link_cache.json
+            source/github_stats_cache.json
+          key: api-data-${{ hashFiles('source/build.py', 'source/app/services/*.py') }}
+
       - name: Install dependencies
         run: pip install -r source/requirements.txt
 

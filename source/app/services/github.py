@@ -1,3 +1,4 @@
+import concurrent.futures
 import os
 import requests
 import json
@@ -70,16 +71,10 @@ def save_links_cache(links):
     except Exception as e:
         print(f"Ошибка при сохранении кэша: {e}")
 
-def fetch_download_links():
-    """Получить актуальные ссылки с GitHub API"""
-    if config_module.DEBUG_MODE:
-        print("[DEBUG] DEBUG MODE: Используем заглушки для ссылок на скачивание")
-        return FALLBACK_LINKS.copy()
-    
+def _fetch_v2rayng_links() -> dict:
+    """Получить ссылки на актуальные APK v2rayNG."""
     links = {}
-
     try:
-        # v2rayNG
         print("Получение v2rayNG...")
         response = requests.get('https://api.github.com/repos/2dust/v2rayNG/releases/latest', timeout=10)
         print(f"v2rayNG ответ: {response.status_code}")
@@ -89,7 +84,7 @@ def fetch_download_links():
             if apk:
                 links['v2rayng-apk'] = apk['browser_download_url']
                 print(f"v2rayNG ссылка: {links['v2rayng-apk']}")
-                
+
             tv_apk = select_v2rayng_tv_apk(releases.get('assets', []))
             if tv_apk:
                 links['v2rayng-tv-apk'] = tv_apk['browser_download_url']
@@ -98,9 +93,13 @@ def fetch_download_links():
             print(f"Ошибка GitHub API для v2rayNG: {response.status_code}")
     except Exception as e:
         print(f"Ошибка при получении v2rayNG: {e}")
+    return links
 
+
+def _fetch_throne_links() -> dict:
+    """Получить ссылки на актуальные релизы Throne."""
+    links = {}
     try:
-        # Throne
         print("Получение Throne...")
         response = requests.get('https://api.github.com/repos/throneproj/Throne/releases/latest', timeout=10)
         print(f"Throne ответ: {response.status_code}")
@@ -123,11 +122,41 @@ def fetch_download_links():
             print(f"Ошибка GitHub API для Throne: {response.status_code}")
     except Exception as e:
         print(f"Ошибка при получении Throne: {e}")
+    return links
+
+
+def fetch_download_links():
+    """Получить актуальные ссылки с GitHub API параллельно."""
+    if config_module.DEBUG_MODE:
+        print("[DEBUG] DEBUG MODE: Используем заглушки для ссылок на скачивание")
+        return FALLBACK_LINKS.copy()
+
+    links = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        futures = [executor.submit(_fetch_v2rayng_links), executor.submit(_fetch_throne_links)]
+        for future in concurrent.futures.as_completed(futures):
+            links.update(future.result())
 
     return links if links else None
 
+def _download_badge(item: tuple[str, str]) -> None:
+    """Скачивает один бэдж в указанную директорию."""
+    filename, url = item
+    badges_dir = os.path.join(config_module.BASE_DIR, 'app', 'static', 'images', 'badges')
+    try:
+        response = requests.get(url, timeout=10)
+        if response.status_code == 200:
+            with open(os.path.join(badges_dir, filename), 'wb') as f:
+                f.write(response.content)
+            print(f"[OK] Бэдж {filename} обновлен")
+        else:
+            print(f"[WARN] Не удалось загрузить бэдж {filename}: {response.status_code}")
+    except Exception as e:
+        print(f"[ERROR] Ошибка при загрузке бэджа {filename}: {e}")
+
+
 def download_badges():
-    """Скачивает бэджи локально для кэширования"""
+    """Скачивает бэджи локально для кэширования в параллельном режиме."""
     if config_module.DEBUG_MODE:
         print("[DEBUG] DEBUG MODE: Пропуск загрузки бэджей")
         return
@@ -135,19 +164,10 @@ def download_badges():
     badges_dir = os.path.join(config_module.BASE_DIR, 'app', 'static', 'images', 'badges')
     if not os.path.exists(badges_dir):
         os.makedirs(badges_dir, exist_ok=True)
-    
+
     print("Загрузка бэджей...")
-    for filename, url in BADGES.items():
-        try:
-            response = requests.get(url, timeout=10)
-            if response.status_code == 200:
-                with open(os.path.join(badges_dir, filename), 'wb') as f:
-                    f.write(response.content)
-                print(f"[OK] Бэдж {filename} обновлен")
-            else:
-                print(f"[WARN] Не удалось загрузить бэдж {filename}: {response.status_code}")
-        except Exception as e:
-            print(f"[ERROR] Ошибка при загрузке бэджа {filename}: {e}")
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        list(executor.map(_download_badge, BADGES.items()))
 
 def create_github_stats_payload(error: str | None = None) -> dict:
     return {
@@ -196,12 +216,13 @@ def fetch_github_stats_data(token: str | None = None) -> dict:
         ('popular/paths', 'popular_content'),
     )
 
-    for endpoint, field in traffic_requests:
+    def _fetch_traffic(endpoint_field: tuple[str, str]) -> None:
+        endpoint, field = endpoint_field
         try:
             response = requests.get(f'{base_url}/traffic/{endpoint}', headers=auth_headers, timeout=10)
             if not response.ok:
                 print(f"Warning: GitHub traffic API /{endpoint} returned {response.status_code}")
-                continue
+                return
             payload = response.json()
             if field in ('clones', 'views'):
                 stats[field]['count'] = payload.get('count', 0)
@@ -210,6 +231,9 @@ def fetch_github_stats_data(token: str | None = None) -> dict:
                 stats[field] = payload
         except requests.exceptions.RequestException as e:
             print(f"Warning: GitHub traffic API /{endpoint} failed: {e}")
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        list(executor.map(_fetch_traffic, traffic_requests))
 
     return stats
 
