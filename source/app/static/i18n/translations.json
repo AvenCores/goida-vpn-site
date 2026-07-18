@@ -64,6 +64,9 @@
       "affinity_patcher_desc": "Интерактивный патчер libaffinity.dll для отключения принудительной авторизации и офлайн-работы в Affinity.",
       "platform_win": "Windows 10/11",
       "platform_android": "Android - Magisk / KernelSU",
+      "platform_cross": "Кроссплатформа",
+      "vt_gui_title": "VT GUI",
+      "vt_gui_desc": "Кроссплатформенное GUI-приложение для VirusTotal, объединяющее утилиту vt-cli и прямые запросы к API v3.",
       "github_link": "GitHub"
     },
     "video": {
@@ -289,6 +292,9 @@
       "affinity_patcher_desc": "Interaktiver libaffinity.dll-Patcher für Windows zum Deaktivieren der erzwungenen Anmeldung und für Offline-Arbeit in Affinity.",
       "platform_win": "Windows 10/11",
       "platform_android": "Android - Magisk / KernelSU",
+      "platform_cross": "Multiplattform",
+      "vt_gui_title": "VT GUI",
+      "vt_gui_desc": "Plattformübergreifende GUI-Anwendung für VirusTotal, die das vt-cli-Tool und direkte API-v3-Anfragen kombiniert.",
       "github_link": "GitHub"
     },
     "video": {
@@ -514,6 +520,9 @@
       "affinity_patcher_desc": "Interactive Windows patcher for libaffinity.dll that disables forced authorization and enables offline work in Affinity.",
       "platform_win": "Windows 10/11",
       "platform_android": "Android - Magisk / KernelSU",
+      "platform_cross": "Cross-platform",
+      "vt_gui_title": "VT GUI",
+      "vt_gui_desc": "Cross-platform GUI application for VirusTotal, combining the vt-cli utility and direct API v3 requests.",
       "github_link": "GitHub"
     },
     "video": {
@@ -739,6 +748,9 @@
       "affinity_patcher_desc": "Інтэрактыўны патчар libaffinity.dll для Windows для адключэння прымусовай аўтарызацыі і афлайн-працы ў Affinity.",
       "platform_win": "Windows 10/11",
       "platform_android": "Android - Magisk / KernelSU",
+      "platform_cross": "Кросплатформа",
+      "vt_gui_title": "VT GUI",
+      "vt_gui_desc": "Кросплатформеннае GUI-прыкладанне для VirusTotal, якое аб'ядноўвае ўтыліту vt-cli і прамыя запыты да API v3.",
       "github_link": "GitHub"
     },
     "video": {
@@ -964,6 +976,9 @@
       "affinity_patcher_desc": "Інтерактивний патчер libaffinity.dll для Windows для вимкнення примусової авторизації та офлайн-роботи в Affinity.",
       "platform_win": "Windows 10/11",
       "platform_android": "Android - Magisk / KernelSU",
+      "platform_cross": "Кросплатформа",
+      "vt_gui_title": "VT GUI",
+      "vt_gui_desc": "Кросплатформений GUI-додаток для VirusTotal, що об'єднує утиліту vt-cli та прямі запити до API v3.",
       "github_link": "GitHub"
     },
     "video": {
@@ -1189,6 +1204,9 @@
       "affinity_patcher_desc": "Affinity бағдарламасында міндетті авторландыруды өшіруге және офлайн жұмыс істеуге арналған Windows-қа арналған интерактивті libaffinity.dll патчері.",
       "platform_win": "Windows 10/11",
       "platform_android": "Android - Magisk / KernelSU",
+      "platform_cross": "Кроссплатформалық",
+      "vt_gui_title": "VT GUI",
+      "vt_gui_desc": "vt-cli утилитасын және тікелей API v3 сұраныстарын біріктіретін VirusTotal-ға арналған кроссплатформалық GUI қосымшасы.",
       "github_link": "GitHub"
     },
     "video": {
@@ -1414,6 +1432,9 @@
       "affinity_patcher_desc": "Patcher interactif de libaffinity.dll pour Windows afin de désactiver l'authentification obligatoire et travailler hors ligne dans Affinity.",
       "platform_win": "Windows 10/11",
       "platform_android": "Android - Magisk / KernelSU",
+      "platform_cross": "Multiplateforme",
+      "vt_gui_title": "VT GUI",
+      "vt_gui_desc": "Application GUI multiplateforme pour VirusTotal, combinant l'utilitaire vt-cli et des requêtes directes à l'API v3.",
       "github_link": "GitHub"
     },
     "video": {
@@ -1639,6 +1660,9 @@
       "affinity_patcher_desc": "Interaktywny patcher libaffinity.dll dla Windows do wyłączenia wymuszonej autoryzacji i pracy offline w Affinity.",
       "platform_win": "Windows 10/11",
       "platform_android": "Android - Magisk / KernelSU",
+      "platform_cross": "Wieloplatformowy",
+      "vt_gui_title": "VT GUI",
+      "vt_gui_desc": "Wieloplatformowa aplikacja GUI dla VirusTotal, łącząca narzędzie vt-cli i bezpośrednie zapytania do API v3.",
       "github_link": "GitHub"
     },
     "video": {
