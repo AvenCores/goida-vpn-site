@@ -199,5 +199,41 @@
                 </div>
             </div>
         </a>
+
+        <!-- 6. Cookie Backup & Restore -->
+        <a href="https://github.com/AvenCores/cookies-backup-chrome"
+           target="_blank"
+           rel="noopener noreferrer"
+           @click="if(window.trackEvent) window.trackEvent('other_project_click', { project: 'cookies-backup-chrome' })"
+           class="group relative h-full flex flex-col justify-between bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md border border-gray-200 dark:border-white/5 rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-xl hover:shadow-amber-500/10 dark:hover:shadow-amber-500/5 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+            <!-- Glow background decoration -->
+            <div class="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition-colors duration-500 pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col h-full">
+                <!-- Header with Icon & Platform Badge -->
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-200 dark:border-amber-800/30 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                        <i class="fa-solid fa-cookie-bite text-xl"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h3 class="text-lg font-black text-gray-900 dark:text-white leading-tight group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors duration-500" data-i18n="projects.cookies_backup_title">Cookie Backup &amp; Restore</h3>
+                        <p class="inline-flex items-center px-2 py-0.5 mt-2 text-xs font-bold rounded-md bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800/30" data-i18n="projects.platform_browsers">Chrome / Firefox</p>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-500" data-i18n="projects.cookies_backup_desc">
+                    Расширение для шифрованного бэкапа и восстановления cookies (.ckz/.json) с тёмной темой и поддержкой 25 языков.
+                </p>
+
+                <!-- Footer Action -->
+                <div class="mt-auto flex items-center justify-between border-t border-gray-200/80 dark:border-gray-700/50" style="padding-top: 1.5rem;">
+                    <span class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue dark:text-blue-400 group-hover:text-blue-500 dark:group-hover:text-blue-300 transition-colors">
+                        <span data-i18n="projects.github_link">GitHub</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:scale-110 transition-transform"></i>
+                    </span>
+                </div>
+            </div>
+        </a>
     </div>
 </section>

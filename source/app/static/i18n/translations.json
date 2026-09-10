@@ -67,6 +67,9 @@
       "platform_cross": "Кроссплатформа",
       "vt_gui_title": "VT GUI",
       "vt_gui_desc": "Кроссплатформенное GUI-приложение для VirusTotal, объединяющее утилиту vt-cli и прямые запросы к API v3.",
+      "cookies_backup_title": "Cookie Backup & Restore",
+      "cookies_backup_desc": "Расширение для шифрованного бэкапа и восстановления cookies (.ckz/.json) с тёмной темой и поддержкой 25 языков.",
+      "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub"
     },
     "video": {
@@ -295,6 +298,9 @@
       "platform_cross": "Multiplattform",
       "vt_gui_title": "VT GUI",
       "vt_gui_desc": "Plattformübergreifende GUI-Anwendung für VirusTotal, die das vt-cli-Tool und direkte API-v3-Anfragen kombiniert.",
+      "cookies_backup_title": "Cookie Backup & Restore",
+      "cookies_backup_desc": "Chrome- und Firefox-Erweiterung für verschlüsseltes Cookie-Backup und Wiederherstellung (.ckz/.json) mit Dark Mode und 25 Sprachen.",
+      "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub"
     },
     "video": {
@@ -523,6 +529,9 @@
       "platform_cross": "Cross-platform",
       "vt_gui_title": "VT GUI",
       "vt_gui_desc": "Cross-platform GUI application for VirusTotal, combining the vt-cli utility and direct API v3 requests.",
+      "cookies_backup_title": "Cookie Backup & Restore",
+      "cookies_backup_desc": "Chrome and Firefox extension for encrypted cookie backup and restore (.ckz/.json) with dark theme and 25 languages.",
+      "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub"
     },
     "video": {
@@ -751,6 +760,9 @@
       "platform_cross": "Кросплатформа",
       "vt_gui_title": "VT GUI",
       "vt_gui_desc": "Кросплатформеннае GUI-прыкладанне для VirusTotal, якое аб'ядноўвае ўтыліту vt-cli і прамыя запыты да API v3.",
+      "cookies_backup_title": "Cookie Backup & Restore",
+      "cookies_backup_desc": "Пашырэнне для Chrome і Firefox для шыфраванага бэкапа і аднаўлення cookies (.ckz/.json) з цёмнай тэмай і падтрымкай 25 моў.",
+      "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub"
     },
     "video": {
@@ -979,6 +991,9 @@
       "platform_cross": "Кросплатформа",
       "vt_gui_title": "VT GUI",
       "vt_gui_desc": "Кросплатформений GUI-додаток для VirusTotal, що об'єднує утиліту vt-cli та прямі запити до API v3.",
+      "cookies_backup_title": "Cookie Backup & Restore",
+      "cookies_backup_desc": "Розширення для Chrome і Firefox для шифрованого бекапа та відновлення cookies (.ckz/.json) з темною темою та підтримкою 25 мов.",
+      "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub"
     },
     "video": {
@@ -1207,6 +1222,9 @@
       "platform_cross": "Кроссплатформалық",
       "vt_gui_title": "VT GUI",
       "vt_gui_desc": "vt-cli утилитасын және тікелей API v3 сұраныстарын біріктіретін VirusTotal-ға арналған кроссплатформалық GUI қосымшасы.",
+      "cookies_backup_title": "Cookie Backup & Restore",
+      "cookies_backup_desc": "Қараңғы тақырып және 25 тіл қолдауымен cookies шифрланған сақтық көшірмесін жасауға және қалпына келтіруге арналған Chrome және Firefox кеңейтімі (.ckz/.json).",
+      "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub"
     },
     "video": {
@@ -1435,6 +1453,9 @@
       "platform_cross": "Multiplateforme",
       "vt_gui_title": "VT GUI",
       "vt_gui_desc": "Application GUI multiplateforme pour VirusTotal, combinant l'utilitaire vt-cli et des requêtes directes à l'API v3.",
+      "cookies_backup_title": "Cookie Backup & Restore",
+      "cookies_backup_desc": "Extension Chrome et Firefox pour la sauvegarde chiffrée et la restauration des cookies (.ckz/.json) avec thème sombre et 25 langues.",
+      "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub"
     },
     "video": {
@@ -1663,6 +1684,9 @@
       "platform_cross": "Wieloplatformowy",
       "vt_gui_title": "VT GUI",
       "vt_gui_desc": "Wieloplatformowa aplikacja GUI dla VirusTotal, łącząca narzędzie vt-cli i bezpośrednie zapytania do API v3.",
+      "cookies_backup_title": "Cookie Backup & Restore",
+      "cookies_backup_desc": "Rozszerzenie dla Chrome i Firefoksa do szyfrowanego tworzenia kopii zapasowych i przywracania plików cookie (.ckz/.json) z ciemnym motywem i obsługą 25 języków.",
+      "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub"
     },
     "video": {
