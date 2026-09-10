@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 import json
@@ -6,6 +7,8 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 from app.config import VC_RUNTIME_CACHE_FILE, VC_RUNTIME_CACHE_DURATION, VC_RUNTIME_FALLBACK
 import app.config as config_module
+
+log = logging.getLogger(__name__)
 
 def get_cached_vc_runtime_link():
     """Получить кэшированную ссылку на Visual C++ Runtimes если она актуальна"""
@@ -20,7 +23,7 @@ def get_cached_vc_runtime_link():
                 if datetime.now() - cache_time < VC_RUNTIME_CACHE_DURATION:
                     return cache.get('link')
         except Exception as e:
-            print(f"Ошибка при чтении кэша VC Runtime: {e}")
+            log.warning(f"Ошибка при чтении кэша VC Runtime: {e}")
     return None
 
 def save_vc_runtime_link_cache(link):
@@ -36,18 +39,18 @@ def save_vc_runtime_link_cache(link):
         with open(VC_RUNTIME_CACHE_FILE, 'w') as f:
             json.dump(cache, f)
     except Exception as e:
-        print(f"Ошибка при сохранении кэша VC Runtime: {e}")
+        log.warning(f"Ошибка при сохранении кэша VC Runtime: {e}")
 
 def fetch_vc_runtime_link():
     """Получить актуальную ссылку на Visual C++ Runtimes с comss.ru"""
     if config_module.DEBUG_MODE:
-        print("[DEBUG] DEBUG MODE: Используем заглушку для VC Runtime ссылки")
+        log.debug("[DEBUG] DEBUG MODE: Используем заглушку для VC Runtime ссылки")
         return VC_RUNTIME_FALLBACK
-    
+
     url = 'https://www.comss.ru/download/page.php?id=6271'
-    
+
     try:
-        print(f"Получение ссылки на Visual C++ Runtimes с {url}...")
+        log.debug(f"Получение ссылки на Visual C++ Runtimes с {url}...")
         response = requests.get(url, timeout=15)
         response.raise_for_status()
         
@@ -94,12 +97,12 @@ def fetch_vc_runtime_link():
                         break
         
         if download_link:
-            print(f"Найдена ссылка на Visual C++ Runtimes: {download_link}")
+            log.debug(f"Найдена ссылка на Visual C++ Runtimes: {download_link}")
             return download_link
         else:
-            print("Не удалось найти ссылку на Visual C++ Runtimes, используем fallback")
+            log.warning("Не удалось найти ссылку на Visual C++ Runtimes, используем fallback")
             return VC_RUNTIME_FALLBACK
-            
+
     except Exception as e:
-        print(f"Ошибка при получении Visual C++ Runtimes: {e}")
+        log.warning(f"Ошибка при получении Visual C++ Runtimes: {e}")
         return VC_RUNTIME_FALLBACK

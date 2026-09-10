@@ -5,7 +5,7 @@ from waitress import serve
 
 from app import create_app
 from app.config import set_debug_mode
-from app.services.github import download_badges
+from app.services.assets import ensure_local_assets
 
 if __name__ == '__main__':
     # Настройка логгера
@@ -28,9 +28,9 @@ if __name__ == '__main__':
     # Проверка: выполняется ли код в дочернем процессе релоадера Flask
     is_reloader_child = os.environ.get('WERKZEUG_RUN_MAIN') in ('true', '1')
 
-    # Инициализация (загрузка бейджей) только в родительском процессе
+    # Инициализация (локальные ассеты) только в родительском процессе
     if not is_reloader_child:
-        download_badges()
+        ensure_local_assets()
         if args.debug:
             log.info("[DEBUG] Запуск в режиме ОТЛАДКИ (auto-reload & debugger включены)")
             log.info(f"[URL] Сайт доступен на http://{args.host}:{args.port}")

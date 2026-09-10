@@ -1,9 +1,12 @@
+import logging
 import requests
 import re
 import threading
 from datetime import datetime
 from app.config import SOURCES_MAP, VPN_CACHE_DURATION
 import app.config as config_module
+
+log = logging.getLogger(__name__)
 
 # Кэш для таблицы обновлений
 UPDATE_TABLE_CACHE = None
@@ -42,7 +45,7 @@ def _fetch_and_parse_update_table():
             UPDATE_TABLE_CACHE = update_info
             UPDATE_TABLE_CACHE_TIME = datetime.now()
     except Exception as e:
-        print(f"Ошибка при фоновом парсинге таблицы обновлений: {e}")
+        log.warning(f"Ошибка при фоновом парсинге таблицы обновлений: {e}")
     finally:
         with UPDATE_LOCK:
             IS_UPDATING = False
@@ -53,7 +56,7 @@ def parse_update_table():
 
     # В режиме отладки используем заглушку
     if config_module.DEBUG_MODE:
-        print("[DEBUG] DEBUG MODE: Используем заглушку для таблицы обновлений")
+        log.debug("[DEBUG] DEBUG MODE: Используем заглушку для таблицы обновлений")
         fallback_update_info = {}
         now = datetime.now()
         for i in range(1, 27):

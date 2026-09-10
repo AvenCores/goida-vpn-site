@@ -325,7 +325,9 @@
                 document.head.appendChild(fallback);
             }
         });
-
+    </script>
+    {% if not config.DEBUG %}
+    <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js', { scope: './' }).catch((error) => {
@@ -334,6 +336,7 @@
             });
         }
     </script>
+    {% endif %}
     <style>
         html {
             transition: background-color 0.3s ease;

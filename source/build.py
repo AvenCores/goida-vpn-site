@@ -1,6 +1,5 @@
 import argparse
 import base64
-import concurrent.futures
 import json
 import os
 import re
@@ -35,6 +34,7 @@ from app.services.vc_runtime import (
     save_vc_runtime_link_cache,
 )
 from app.services.vpn import get_vpn_configs
+from app.services.assets import download_external_assets
 from app.utils import (
     generate_robots_txt,
     generate_sitemap_xml,
@@ -62,68 +62,6 @@ def prettify_html(html: str) -> str:
     # 3. Prettify with BeautifulSoup
     soup = BeautifulSoup(html, "html.parser")
     return soup.prettify()
-
-
-def _download_single_asset(args: tuple[str, str]) -> None:
-    """Download a single external asset if it does not already exist locally."""
-    url, path = args
-    dir_name = os.path.dirname(path)
-    if dir_name:
-        os.makedirs(dir_name, exist_ok=True)
-
-    if os.path.exists(path):
-        return
-
-    import requests
-    print(f"Downloading {url} -> {path}...")
-    try:
-        r = requests.get(url, timeout=15)
-        if r.status_code == 200:
-            with open(path, "wb") as f:
-                f.write(r.content)
-            print(f"Successfully downloaded {path}")
-        else:
-            print(f"ERROR: Failed to download {url}: HTTP {r.status_code}")
-    except Exception as e:
-        print(f"ERROR: Failed to download {url}: {e}")
-
-
-def download_external_assets() -> None:
-    """Download all required external frontend assets in parallel."""
-    assets = [
-        # Alpine JS
-        ("https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js", "app/static/js/alpine-collapse.min.js"),
-        ("https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js", "app/static/js/alpine.min.js"),
-        # Tailwind Fallback
-        ("https://cdn.tailwindcss.com", "app/static/js/tailwind.min.js"),
-        # FontAwesome CSS
-        ("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css", "app/static/css/all.min.css"),
-        # FontAwesome Fonts
-        ("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-solid-900.woff2", "app/static/webfonts/fa-solid-900.woff2"),
-        ("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-regular-400.woff2", "app/static/webfonts/fa-regular-400.woff2"),
-        ("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/webfonts/fa-brands-400.woff2", "app/static/webfonts/fa-brands-400.woff2"),
-        # Flags
-        ("https://flagcdn.com/w20/ru.png", "app/static/images/flags/ru.png"),
-        ("https://flagcdn.com/w40/ru.png", "app/static/images/flags/ru@2x.png"),
-        ("https://flagcdn.com/w20/gb.png", "app/static/images/flags/gb.png"),
-        ("https://flagcdn.com/w40/gb.png", "app/static/images/flags/gb@2x.png"),
-        ("https://flagcdn.com/w20/de.png", "app/static/images/flags/de.png"),
-        ("https://flagcdn.com/w40/de.png", "app/static/images/flags/de@2x.png"),
-        ("https://flagcdn.com/w20/ua.png", "app/static/images/flags/ua.png"),
-        ("https://flagcdn.com/w40/ua.png", "app/static/images/flags/ua@2x.png"),
-        ("https://flagcdn.com/w20/by.png", "app/static/images/flags/by.png"),
-        ("https://flagcdn.com/w40/by.png", "app/static/images/flags/by@2x.png"),
-        ("https://flagcdn.com/w20/kz.png", "app/static/images/flags/kz.png"),
-        ("https://flagcdn.com/w40/kz.png", "app/static/images/flags/kz@2x.png"),
-        ("https://flagcdn.com/w20/fr.png", "app/static/images/flags/fr.png"),
-        ("https://flagcdn.com/w40/fr.png", "app/static/images/flags/fr@2x.png"),
-        ("https://flagcdn.com/w20/pl.png", "app/static/images/flags/pl.png"),
-        ("https://flagcdn.com/w40/pl.png", "app/static/images/flags/pl@2x.png"),
-    ]
-
-    print("Checking and downloading external assets...")
-    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-        list(executor.map(_download_single_asset, assets))
 
 
 def build_site() -> None:

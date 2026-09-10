@@ -10,6 +10,7 @@ from app.config import (
 views_bp = Blueprint('views', __name__)
 
 @views_bp.route('/')
+@views_bp.route('/index.html')
 def home():
     configs = get_vpn_configs()
     analytics_ids = get_analytics_ids()

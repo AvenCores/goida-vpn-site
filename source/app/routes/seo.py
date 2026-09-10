@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, Response, send_from_directory, current_app
+from flask import Blueprint, Response, jsonify, send_from_directory, current_app
 from app.utils import get_site_url, generate_robots_txt, generate_sitemap_xml
 
 seo_bp = Blueprint('seo', __name__)
@@ -37,3 +37,8 @@ def favicon():
 def serve_license():
     # Ищет файл в папке static
     return send_from_directory(current_app.static_folder, 'LICENSE')
+
+@seo_bp.route('/.well-known/appspecific/com.chrome.devtools.json')
+def chrome_devtools():
+    # Заглушка для авто-запроса Chrome DevTools, чтобы не спамить 404 в логах
+    return jsonify({})
