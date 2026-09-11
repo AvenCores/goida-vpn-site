@@ -1,4 +1,7 @@
-const CACHE_VERSION = 'goida-vpn-v3';
+// ВАЖНО: версию менять только при изменении логики SW или списка precache.
+// Свежесть UI-кода (CSS/JS/переводы) после деплоев обеспечивает стратегия
+// networkFirstFresh ниже, а не bump версии.
+const CACHE_VERSION = 'goida-vpn-v4';
 const APP_CACHE = `${CACHE_VERSION}-app`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -155,6 +158,23 @@ async function networkFirst(request, fallbackToJson = false) {
   }
 }
 
+// UI-код (CSS/JS/переводы): всегда сначала сеть, кэш — только для офлайна.
+// Иначе после деплоя свежий HTML встречается со старым CSS из кэша
+// и страница рассыпается (светлая панель в тёмной теме, плоские кнопки,
+// схлопнувшаяся подложка табов). Жёсткая перезагрузка это маскировала,
+// т.к. обходила кэш.
+async function networkFirstFresh(request) {
+  try {
+    return await fromNetwork(request);
+  } catch (error) {
+    const cached = await caches.match(request, { ignoreSearch: true });
+    if (cached) {
+      return cached;
+    }
+    return new Response('', { status: 504, statusText: 'Offline' });
+  }
+}
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') {
@@ -178,6 +198,14 @@ self.addEventListener('fetch', (event) => {
   const isQrCode = sameOrigin && url.pathname.includes('/static/qr-codes/');
   const isNavigation = request.mode === 'navigate';
 
+  // UI-код обязан быть свежим: CSS, скрипты и переводы всегда тянем из сети.
+  // Картинки, шрифты, QR и медиа — наоборот, стабильны и остаются cache-first.
+  const isFreshAsset = sameOrigin && (
+    url.pathname.endsWith('/static/css/tailwind.css') ||
+    url.pathname.includes('/static/js/') ||
+    url.pathname.includes('/static/i18n/')
+  );
+
   if (isNavigation) {
     event.respondWith(networkFirst(request));
     return;
@@ -185,6 +213,11 @@ self.addEventListener('fetch', (event) => {
 
   if (isApi) {
     event.respondWith(networkFirst(request, true));
+    return;
+  }
+
+  if (isFreshAsset) {
+    event.respondWith(networkFirstFresh(request));
     return;
   }
 
