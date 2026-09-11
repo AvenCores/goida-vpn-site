@@ -164,7 +164,9 @@
                 "name": "{{ site_name }}",
                 "logo": {
                     "@type": "ImageObject",
-                    "url": "{{ structured_url }}static/images/favicon.png"
+                    "url": "{{ structured_url }}static/images/favicon-512x512.png",
+                    "width": 512,
+                    "height": 512
                 }
             }
         }
@@ -241,9 +243,16 @@
             ]
         }
     </script>
-    <link rel="icon" type="image/png" href="static/images/favicon.png">
-    <link rel="apple-touch-icon" href="static/images/favicon.png">
-    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/x-icon" href="{{ site_url }}favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ site_url }}favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ site_url }}static/images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ site_url }}static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ site_url }}static/images/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ site_url }}static/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ site_url }}static/images/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ site_url }}static/images/favicon-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site_url }}static/images/favicon-180x180.png">
+    <link rel="manifest" href="{{ site_url }}manifest.webmanifest">
     <link rel="stylesheet" href="static/css/tailwind.css">
     <meta name="application-name" content="Goida VPN">
     <meta name="apple-mobile-web-app-title" content="Goida VPN">

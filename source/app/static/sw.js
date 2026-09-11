@@ -1,7 +1,7 @@
 // ВАЖНО: версию менять только при изменении логики SW или списка precache.
 // Свежесть UI-кода (CSS/JS/переводы) после деплоев обеспечивает стратегия
 // networkFirstFresh ниже, а не bump версии.
-const CACHE_VERSION = 'goida-vpn-v4';
+const CACHE_VERSION = 'goida-vpn-v5';
 const APP_CACHE = `${CACHE_VERSION}-app`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -10,7 +10,16 @@ const PRECACHE_URLS = [
   './',
   'index.html',
   'manifest.webmanifest',
+  'favicon.ico',
   'static/css/tailwind.css',
+  'static/images/favicon.ico',
+  'static/images/favicon-16x16.png',
+  'static/images/favicon-32x32.png',
+  'static/images/favicon-48x48.png',
+  'static/images/favicon-96x96.png',
+  'static/images/favicon-180x180.png',
+  'static/images/favicon-192x192.png',
+  'static/images/favicon-512x512.png',
   'static/images/favicon.png',
   'static/LICENSE',
   'static/i18n/translations.json',

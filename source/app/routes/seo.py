@@ -31,7 +31,7 @@ def service_worker():
 @seo_bp.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(current_app.static_folder, 'images'),
-                               'favicon.png', mimetype='image/png')
+                               'favicon.ico', mimetype='image/x-icon')
 
 @seo_bp.route('/LICENSE')
 def serve_license():

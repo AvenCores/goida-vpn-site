@@ -50,6 +50,7 @@ TARGET_REPO = f"https://github.com/{REPO_USER}/{REPO_NAME}.git"
 DIST_DIR = "dist"
 BRANCH = "gh-pages"
 PWA_ROOT_FILES = ("manifest.webmanifest", "sw.js")
+FAVICON_ROOT_SRC = os.path.join("app", "static", "images", "favicon.ico")
 
 
 def prettify_html(html: str) -> str:
@@ -83,6 +84,10 @@ def build_site() -> None:
         if os.path.exists(src_path):
             shutil.copy2(src_path, os.path.join(DIST_DIR, filename))
             print(f"Copied {filename}")
+
+    if os.path.exists(FAVICON_ROOT_SRC):
+        shutil.copy2(FAVICON_ROOT_SRC, os.path.join(DIST_DIR, "favicon.ico"))
+        print("Copied favicon.ico to site root")
 
     translations_src = "app/static/i18n/translations.json"
     if os.path.exists(translations_src):
