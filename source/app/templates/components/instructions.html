@@ -1,13 +1,19 @@
 {% set download_links = download_links|default({}, true) %}
 {% set vc_runtime_link = vc_runtime_link|default("", true) %}
 
-<section>
-    <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="instructions.title">📚 Подробные гайды по использованию</h2>
+<section class="scroll-mt-24">
+    <div class="mx-auto mb-6 max-w-2xl text-center sm:mb-8">
+        <p class="mb-2 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
+            <i class="fa-solid fa-book-open text-[10px] text-brand-blue dark:text-blue-400"></i>
+            <span data-i18n="instructions.eyebrow">Гайды</span>
+        </p>
+        <h2 class="text-balance text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-3xl" data-i18n="instructions.title">📚 Подробные гайды по использованию</h2>
+    </div>
     
     <div class="space-y-4 max-w-4xl mx-auto" x-data="{ activeGuide: null }">
 
         <!-- 1. ANDROID (V2RayNG) -->
-        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'android' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
+        <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-slate-300 dark:border-white/10 dark:bg-brand-panel/70 dark:hover:border-white/15" :class="activeGuide === 'android' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'android' ? null : 'android'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'android' })"
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
@@ -170,7 +176,7 @@
         </div>
 
         <!-- 2. ANDROID TV (V2RayNG) -->
-        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'androidtv' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
+        <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-slate-300 dark:border-white/10 dark:bg-brand-panel/70 dark:hover:border-white/15" :class="activeGuide === 'androidtv' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'androidtv' ? null : 'androidtv'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'androidtv' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
@@ -246,7 +252,7 @@
         </div>
 
         <!-- 3. WINDOWS / LINUX (Throne) -->
-        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'windows' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
+        <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-slate-300 dark:border-white/10 dark:bg-brand-panel/70 dark:hover:border-white/15" :class="activeGuide === 'windows' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'windows' ? null : 'windows'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'windows' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
@@ -338,7 +344,7 @@
         </div>
 
         <!-- 4. iOS / iPadOS (V2Box) -->
-        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'ios' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
+        <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-slate-300 dark:border-white/10 dark:bg-brand-panel/70 dark:hover:border-white/15" :class="activeGuide === 'ios' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'ios' ? null : 'ios'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'ios' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">
@@ -396,7 +402,7 @@
         </div>
 
         <!-- 5. MacOS (Hiddify) -->
-        <div class="border border-gray-200 dark:border-white/5 rounded-2xl bg-white/60 dark:bg-brand-panel/60 backdrop-blur-md overflow-hidden transition-all duration-300 shadow-sm" :class="activeGuide === 'mac' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
+        <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-slate-300 dark:border-white/10 dark:bg-brand-panel/70 dark:hover:border-white/15" :class="activeGuide === 'mac' ? 'ring-2 ring-blue-500/20 shadow-xl' : ''">
             <button @click="activeGuide = activeGuide === 'mac' ? null : 'mac'; if(activeGuide && window.trackEvent) window.trackEvent('open_guide', { guide: 'mac' })" 
                     class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-all z-10 relative group">
                 <span class="font-black text-lg flex items-center gap-4 text-gray-800 dark:text-gray-100">

@@ -5,7 +5,8 @@
       "stats": "Статистика",
       "theme_light": "Светлая",
       "theme_dark": "Тёмная",
-      "github": "GitHub"
+      "github": "GitHub",
+      "tagline": "Бесплатно · Обновление каждые 9 мин"
     },
     "hero": {
       "title": "Автоматические VPN конфиги",
@@ -22,7 +23,10 @@
       "forks_alt": "Форки GitHub",
       "watchers_alt": "Наблюдатели GitHub",
       "prs_alt": "Pull-запросы GitHub",
-      "issues_alt": "Issues GitHub"
+      "issues_alt": "Issues GitHub",
+      "status_live": "Онлайн · автообновление",
+      "status_update": "Каждые 9 минут",
+      "status_free": "100% бесплатно"
     },
     "tabs": {
       "tab_lists": "Списки",
@@ -70,7 +74,8 @@
       "cookies_backup_title": "Cookie Backup & Restore",
       "cookies_backup_desc": "Расширение для шифрованного бэкапа и восстановления cookies (.ckz/.json) с тёмной темой и поддержкой 25 языков.",
       "platform_browsers": "Chrome / Firefox",
-      "github_link": "GitHub"
+      "github_link": "GitHub",
+      "eyebrow": "Экосистема"
     },
     "video": {
       "title": "Видео инструкция",
@@ -170,7 +175,8 @@
         "Для смены сервера (при включенном VPN) перейдите во вкладку <strong>«Прокси»</strong>."
       ],
       "mac_update_title": "Как обновить конфиги?",
-      "mac_update_desc": "Выберите профиль и нажмите на иконку обновления <strong class=\"text-blue-700 dark:text-blue-400\">слева от названия профиля</strong>."
+      "mac_update_desc": "Выберите профиль и нажмите на иконку обновления <strong class=\"text-blue-700 dark:text-blue-400\">слева от названия профиля</strong>.",
+      "eyebrow": "Гайды"
     },
     "footer": {
       "support_title": "Поддержка",
@@ -236,7 +242,8 @@
       "stats": "Statistiken",
       "theme_light": "Hell",
       "theme_dark": "Dunkel",
-      "github": "GitHub"
+      "github": "GitHub",
+      "tagline": "Kostenlos · Alle 9 Min aktualisiert"
     },
     "hero": {
       "title": "Automatische VPN-Konfigurationen",
@@ -253,7 +260,10 @@
       "forks_alt": "GitHub Forks",
       "watchers_alt": "GitHub Beobachter",
       "prs_alt": "GitHub Pull Requests",
-      "issues_alt": "GitHub Issues"
+      "issues_alt": "GitHub Issues",
+      "status_live": "Online · automatische Updates",
+      "status_update": "Alle 9 Minuten",
+      "status_free": "100% kostenlos"
     },
     "tabs": {
       "tab_lists": "Listen",
@@ -301,7 +311,8 @@
       "cookies_backup_title": "Cookie Backup & Restore",
       "cookies_backup_desc": "Chrome- und Firefox-Erweiterung für verschlüsseltes Cookie-Backup und Wiederherstellung (.ckz/.json) mit Dark Mode und 25 Sprachen.",
       "platform_browsers": "Chrome / Firefox",
-      "github_link": "GitHub"
+      "github_link": "GitHub",
+      "eyebrow": "Ökosystem"
     },
     "video": {
       "title": "Videoanleitung",
@@ -401,7 +412,8 @@
         "Um den Server zu wechseln (bei aktiviertem VPN), gehen Sie zum Tab <strong>\"Proxy\"</strong>."
       ],
       "mac_update_title": "Wie aktualisiert man Konfigurationen?",
-      "mac_update_desc": "Wählen Sie ein Profil und klicken Sie auf das Aktualisierungssymbol <strong class=\"text-blue-700 dark:text-blue-400\">links neben dem Profilnamen</strong>."
+      "mac_update_desc": "Wählen Sie ein Profil und klicken Sie auf das Aktualisierungssymbol <strong class=\"text-blue-700 dark:text-blue-400\">links neben dem Profilnamen</strong>.",
+      "eyebrow": "Anleitungen"
     },
     "footer": {
       "support_title": "Support",
@@ -467,7 +479,8 @@
       "stats": "Statistics",
       "theme_light": "Light",
       "theme_dark": "Dark",
-      "github": "GitHub"
+      "github": "GitHub",
+      "tagline": "Free · Updates every 9 min"
     },
     "hero": {
       "title": "Automatic VPN Configs",
@@ -484,7 +497,10 @@
       "forks_alt": "GitHub Forks",
       "watchers_alt": "GitHub Watchers",
       "prs_alt": "GitHub Pull Requests",
-      "issues_alt": "GitHub Issues"
+      "issues_alt": "GitHub Issues",
+      "status_live": "Online · auto-updating",
+      "status_update": "Every 9 minutes",
+      "status_free": "100% free"
     },
     "tabs": {
       "tab_lists": "Lists",
@@ -532,7 +548,8 @@
       "cookies_backup_title": "Cookie Backup & Restore",
       "cookies_backup_desc": "Chrome and Firefox extension for encrypted cookie backup and restore (.ckz/.json) with dark theme and 25 languages.",
       "platform_browsers": "Chrome / Firefox",
-      "github_link": "GitHub"
+      "github_link": "GitHub",
+      "eyebrow": "Ecosystem"
     },
     "video": {
       "title": "Video Tutorial",
@@ -632,7 +649,8 @@
         "To change server (with VPN on), go to the <strong>\"Proxy\"</strong> tab."
       ],
       "mac_update_title": "How to update configs?",
-      "mac_update_desc": "Select a profile and click the refresh icon <strong class=\"text-blue-700 dark:text-blue-400\">to the left of the profile name</strong>."
+      "mac_update_desc": "Select a profile and click the refresh icon <strong class=\"text-blue-700 dark:text-blue-400\">to the left of the profile name</strong>.",
+      "eyebrow": "Guides"
     },
     "footer": {
       "support_title": "Support",
@@ -698,7 +716,8 @@
       "stats": "Статыстыка",
       "theme_light": "Светлая",
       "theme_dark": "Цёмная",
-      "github": "GitHub"
+      "github": "GitHub",
+      "tagline": "Бясплатна · Абнаўленне кожныя 9 хв"
     },
     "hero": {
       "title": "Аўтаматычныя VPN канфігі",
@@ -715,7 +734,10 @@
       "forks_alt": "Форкі GitHub",
       "watchers_alt": "Назіральнікі GitHub",
       "prs_alt": "Pull-запыты GitHub",
-      "issues_alt": "Issues GitHub"
+      "issues_alt": "Issues GitHub",
+      "status_live": "Анлайн · аўтаабнаўленне",
+      "status_update": "Кожныя 9 хвілін",
+      "status_free": "100% бясплатна"
     },
     "tabs": {
       "tab_lists": "Спісы",
@@ -726,7 +748,7 @@
       "filter_recommended": "Рэкамендаваныя",
       "filter_sni": "Абыход SNI/CIDR",
       "badge_recommended": "Рэкамендаваны",
-      "badge_recommended_short": "Рэк.",
+      "badge_recommended_short": "Рэкам.",
       "badge_sni": "Абыход SNI/CIDR",
       "sources": "Крыніцы",
       "source": "Крыніца",
@@ -763,7 +785,8 @@
       "cookies_backup_title": "Cookie Backup & Restore",
       "cookies_backup_desc": "Пашырэнне для Chrome і Firefox для шыфраванага бэкапа і аднаўлення cookies (.ckz/.json) з цёмнай тэмай і падтрымкай 25 моў.",
       "platform_browsers": "Chrome / Firefox",
-      "github_link": "GitHub"
+      "github_link": "GitHub",
+      "eyebrow": "Экасістэма"
     },
     "video": {
       "title": "Відэа інструкцыя",
@@ -863,7 +886,8 @@
         "Для змены сервера (пры ўключаным VPN) перайдзіце ва ўкладку <strong>«Проксі</strong>»."
       ],
       "mac_update_title": "Як абнавіць канфігі?",
-      "mac_update_desc": "Выберыце профіль і націсніце на іконку абнаўлення <strong class=\"text-blue-700 dark:text-blue-400\">злева ад назвы профілю</strong>."
+      "mac_update_desc": "Выберыце профіль і націсніце на іконку абнаўлення <strong class=\"text-blue-700 dark:text-blue-400\">злева ад назвы профілю</strong>.",
+      "eyebrow": "Гайды"
     },
     "footer": {
       "support_title": "Падтрымка",
@@ -929,7 +953,8 @@
       "stats": "Статистика",
       "theme_light": "Світла",
       "theme_dark": "Темна",
-      "github": "GitHub"
+      "github": "GitHub",
+      "tagline": "Безкоштовно · Оновлення кожні 9 хв"
     },
     "hero": {
       "title": "Автоматичні VPN конфіги",
@@ -946,7 +971,10 @@
       "forks_alt": "Форки GitHub",
       "watchers_alt": "Спостерігачі GitHub",
       "prs_alt": "Pull-запити GitHub",
-      "issues_alt": "Issues GitHub"
+      "issues_alt": "Issues GitHub",
+      "status_live": "Онлайн · автооновлення",
+      "status_update": "Кожні 9 хвилин",
+      "status_free": "100% безкоштовно"
     },
     "tabs": {
       "tab_lists": "Списки",
@@ -957,7 +985,7 @@
       "filter_recommended": "Рекомендовані",
       "filter_sni": "Обхід SNI/CIDR",
       "badge_recommended": "Рекомендований",
-      "badge_recommended_short": "Рек.",
+      "badge_recommended_short": "Реком.",
       "badge_sni": "Обхід SNI/CIDR",
       "sources": "Джерела",
       "source": "Джерело",
@@ -994,7 +1022,8 @@
       "cookies_backup_title": "Cookie Backup & Restore",
       "cookies_backup_desc": "Розширення для Chrome і Firefox для шифрованого бекапа та відновлення cookies (.ckz/.json) з темною темою та підтримкою 25 мов.",
       "platform_browsers": "Chrome / Firefox",
-      "github_link": "GitHub"
+      "github_link": "GitHub",
+      "eyebrow": "Екосистема"
     },
     "video": {
       "title": "Відео інструкція",
@@ -1094,7 +1123,8 @@
         "Для зміни сервера (при увімкненому VPN) перейдіть у вкладку <strong>«Проксі»</strong>."
       ],
       "mac_update_title": "Як оновити конфіги?",
-      "mac_update_desc": "Виберіть профіль і натисніть на іконку оновлення <strong class=\"text-blue-700 dark:text-blue-400\">зліва від назви профілю</strong>."
+      "mac_update_desc": "Виберіть профіль і натисніть на іконку оновлення <strong class=\"text-blue-700 dark:text-blue-400\">зліва від назви профілю</strong>.",
+      "eyebrow": "Гайди"
     },
     "footer": {
       "support_title": "Підтримка",
@@ -1160,7 +1190,8 @@
       "stats": "Статистика",
       "theme_light": "Ашық",
       "theme_dark": "Қараңғы",
-      "github": "GitHub"
+      "github": "GitHub",
+      "tagline": "Тегін · Әр 9 минут сайын жаңартылады"
     },
     "hero": {
       "title": "Автоматты VPN конфигтері",
@@ -1177,7 +1208,10 @@
       "forks_alt": "GitHub форктары",
       "watchers_alt": "GitHub бақылаушылары",
       "prs_alt": "GitHub Pull-сұраныстары",
-      "issues_alt": "GitHub мәселелері (Issues)"
+      "issues_alt": "GitHub мәселелері (Issues)",
+      "status_live": "Онлайн · авто жаңарту",
+      "status_update": "Әр 9 минут сайын",
+      "status_free": "100% тегін"
     },
     "tabs": {
       "tab_lists": "Тізімдер",
@@ -1225,7 +1259,8 @@
       "cookies_backup_title": "Cookie Backup & Restore",
       "cookies_backup_desc": "Қараңғы тақырып және 25 тіл қолдауымен cookies шифрланған сақтық көшірмесін жасауға және қалпына келтіруге арналған Chrome және Firefox кеңейтімі (.ckz/.json).",
       "platform_browsers": "Chrome / Firefox",
-      "github_link": "GitHub"
+      "github_link": "GitHub",
+      "eyebrow": "Экожүйе"
     },
     "video": {
       "title": "Бейне нұсқаулық",
@@ -1325,7 +1360,8 @@
         "Серверді өзгерту үшін (VPN қосулы кезде) <strong>«Прокси»</strong> қойындысына өтіңіз."
       ],
       "mac_update_title": "Конфигтерді қалай жаңартуға болады?",
-      "mac_update_desc": "Профильді таңдап, <strong class=\"text-blue-700 dark:text-blue-400\">профиль атауының сол жағындағы</strong> жаңарту белгішесін басыңыз."
+      "mac_update_desc": "Профильді таңдап, <strong class=\"text-blue-700 dark:text-blue-400\">профиль атауының сол жағындағы</strong> жаңарту белгішесін басыңыз.",
+      "eyebrow": "Нұсқаулықтар"
     },
     "footer": {
       "support_title": "Қолдау көрсету",
@@ -1391,7 +1427,8 @@
       "stats": "Statistiques",
       "theme_light": "Clair",
       "theme_dark": "Sombre",
-      "github": "GitHub"
+      "github": "GitHub",
+      "tagline": "Gratuit · Actualisé toutes les 9 min"
     },
     "hero": {
       "title": "Configs VPN Automatiques",
@@ -1408,7 +1445,10 @@
       "forks_alt": "Forks GitHub",
       "watchers_alt": "Observateurs GitHub",
       "prs_alt": "Pull Requests GitHub",
-      "issues_alt": "Issues GitHub"
+      "issues_alt": "Issues GitHub",
+      "status_live": "En ligne · mise à jour auto",
+      "status_update": "Toutes les 9 minutes",
+      "status_free": "100% gratuit"
     },
     "tabs": {
       "tab_lists": "Listes",
@@ -1419,7 +1459,7 @@
       "filter_recommended": "Recommandés",
       "filter_sni": "Contournement SNI/CIDR",
       "badge_recommended": "Recommandé",
-      "badge_recommended_short": "Rec.",
+      "badge_recommended_short": "Recom.",
       "badge_sni": "Contournement SNI/CIDR",
       "sources": "Sources",
       "source": "Source",
@@ -1456,7 +1496,8 @@
       "cookies_backup_title": "Cookie Backup & Restore",
       "cookies_backup_desc": "Extension Chrome et Firefox pour la sauvegarde chiffrée et la restauration des cookies (.ckz/.json) avec thème sombre et 25 langues.",
       "platform_browsers": "Chrome / Firefox",
-      "github_link": "GitHub"
+      "github_link": "GitHub",
+      "eyebrow": "Écosystème"
     },
     "video": {
       "title": "Tutoriel Vidéo",
@@ -1556,7 +1597,8 @@
         "Pour changer de serveur (VPN activé), allez dans l'onglet <strong>« Proxy »</strong>."
       ],
       "mac_update_title": "Comment mettre à jour les configurations ?",
-      "mac_update_desc": "Sélectionnez un profil et cliquez sur l'icône de rafraîchissement <strong class=\"text-blue-700 dark:text-blue-400\">à gauche du nom du profil</strong>."
+      "mac_update_desc": "Sélectionnez un profil et cliquez sur l'icône de rafraîchissement <strong class=\"text-blue-700 dark:text-blue-400\">à gauche du nom du profil</strong>.",
+      "eyebrow": "Guides"
     },
     "footer": {
       "support_title": "Support",
@@ -1622,7 +1664,8 @@
       "stats": "Statystyki",
       "theme_light": "Jasny",
       "theme_dark": "Ciemny",
-      "github": "GitHub"
+      "github": "GitHub",
+      "tagline": "Za darmo · Aktualizacja co 9 min"
     },
     "hero": {
       "title": "Automatyczne Konfiguracje VPN",
@@ -1639,7 +1682,10 @@
       "forks_alt": "Forki GitHub",
       "watchers_alt": "Obserwujący GitHub",
       "prs_alt": "Pull Requests GitHub",
-      "issues_alt": "Issues GitHub"
+      "issues_alt": "Issues GitHub",
+      "status_live": "Online · autoaktualizacja",
+      "status_update": "Co 9 minut",
+      "status_free": "100% za darmo"
     },
     "tabs": {
       "tab_lists": "Listy",
@@ -1650,7 +1696,7 @@
       "filter_recommended": "Zalecane",
       "filter_sni": "Obejście SNI/CIDR",
       "badge_recommended": "Zalecane",
-      "badge_recommended_short": "Zalec.",
+      "badge_recommended_short": "Polec.",
       "badge_sni": "Obejście SNI/CIDR",
       "sources": "Źródła",
       "source": "Źródło",
@@ -1687,7 +1733,8 @@
       "cookies_backup_title": "Cookie Backup & Restore",
       "cookies_backup_desc": "Rozszerzenie dla Chrome i Firefoksa do szyfrowanego tworzenia kopii zapasowych i przywracania plików cookie (.ckz/.json) z ciemnym motywem i obsługą 25 języków.",
       "platform_browsers": "Chrome / Firefox",
-      "github_link": "GitHub"
+      "github_link": "GitHub",
+      "eyebrow": "Ekosystem"
     },
     "video": {
       "title": "Instrukcja Wideo",
@@ -1787,7 +1834,8 @@
         "Aby zmienić serwer (przy włączonym VPN), przejdź do zakładki <strong>„Proxy”</strong>."
       ],
       "mac_update_title": "Jak zaktualizować konfiguracje?",
-      "mac_update_desc": "Wybierz profil i kliknij ikonę odświeżania <strong class=\"text-blue-700 dark:text-blue-400\">po lewej stronie nazwy profilu</strong>."
+      "mac_update_desc": "Wybierz profil i kliknij ikonę odświeżania <strong class=\"text-blue-700 dark:text-blue-400\">po lewej stronie nazwy profilu</strong>.",
+      "eyebrow": "Poradniki"
     },
     "footer": {
       "support_title": "Wsparcie",

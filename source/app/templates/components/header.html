@@ -1,75 +1,81 @@
-<!-- Индикатор загрузки -->
-<div x-cloak class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-blue via-blue-600 to-brand-blue animate-pulse z-50"></div>
-
-<header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-brand-dark/80 border-b border-gray-200 dark:border-gray-700 transition-colors shadow-sm">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl transition-colors dark:border-white/10 dark:bg-brand-dark/85">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:px-6 lg:px-8">
 
         <!-- Логотип -->
         <a href="{{ canonical_url or site_url or '/' }}"
            @click="if(window.trackEvent) window.trackEvent('header_brand_click', { target: 'goida_vpn_site' })"
            data-no-confirm
            aria-label="Goida VPN Configs"
-           class="flex items-center gap-2 sm:gap-3 group cursor-pointer min-w-0">
-            <div class="relative">
-                <div class="absolute inset-0 bg-brand-blue/20 blur-lg rounded-full scale-0 group-hover:scale-150 transition-transform duration-500"></div>
-                <img src="static/images/favicon.png" alt="Логотип Goida VPN - Автоматические конфиги" class="w-8 h-8 sm:w-9 sm:h-9 object-contain relative z-10 group-hover:rotate-12 transition-transform duration-300" data-i18n-alt="header.logo_alt">
-            </div>
-            <span class="hidden min-[480px]:block max-w-[10rem] truncate font-black text-base leading-none tracking-tighter sm:max-w-none sm:text-xl">
-                Goida VPN <span class="bg-gradient-to-r from-blue-600 to-brand-blue bg-clip-text text-transparent">Configs</span>
+           class="group flex min-w-0 cursor-pointer items-center gap-2.5 rounded-xl px-1 py-1 sm:gap-3">
+            <span class="relative flex h-9 w-9 items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3 sm:h-10 sm:w-10">
+                <img src="static/images/favicon.png" alt="Логотип Goida VPN - Автоматические конфиги" class="h-6 w-6 object-contain sm:h-7 sm:w-7" data-i18n-alt="header.logo_alt">
+            </span>
+            <span class="hidden min-[480px]:block min-w-0">
+                <span class="block max-w-[11rem] truncate text-base font-black leading-none tracking-tight text-slate-900 dark:text-white sm:max-w-none sm:text-xl">
+                    Goida VPN <span class="bg-gradient-to-r from-blue-600 to-brand-blue bg-clip-text text-transparent dark:from-blue-400 dark:to-sky-300">Configs</span>
+                </span>
+                <span class="mt-1 hidden items-center gap-1.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 sm:flex">
+                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                    <span data-i18n="header.tagline">Бесплатно · Обновление каждые 9 мин</span>
+                </span>
             </span>
         </a>
 
         <!-- Правая часть -->
-        <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
+        <div class="flex min-w-0 items-center gap-1.5 sm:gap-2.5">
 
             <!-- Соцсети -->
-            <div class="flex items-center gap-1.5 sm:gap-3 border-r border-gray-200 dark:border-gray-600 pr-2 sm:pr-4 mr-0.5 sm:mr-1">
+            <nav aria-label="Social links" class="flex items-center gap-0.5 rounded-xl border border-slate-200/80 bg-slate-50/60 p-1 dark:border-white/10 dark:bg-white/5 sm:gap-1">
                 <a href="https://www.youtube.com/@avencores/" target="_blank"
                    rel="noopener noreferrer"
                    aria-label="YouTube"
+                   title="YouTube"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'youtube', location: 'header' })"
-                   class="text-red-600 hover:scale-125 transition-all duration-300 p-1 -m-1 touch-manipulation">
-                    <i class="fa-brands fa-youtube text-xl sm:text-2xl"></i>
+                   class="flex h-8 w-8 items-center justify-center rounded-lg text-red-600 transition-all duration-200 hover:bg-red-50 hover:scale-105 active:scale-95 dark:hover:bg-red-500/10">
+                    <i class="fa-brands fa-youtube text-lg"></i>
                 </a>
                 <a href="https://t.me/avencoresyt" target="_blank"
                    rel="noopener noreferrer"
                    aria-label="Telegram"
+                   title="Telegram"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'telegram', location: 'header' })"
-                   class="text-blue-500 hover:scale-125 transition-all duration-300 p-1 -m-1 touch-manipulation">
-                    <i class="fa-brands fa-telegram text-xl sm:text-2xl"></i>
+                   class="flex h-8 w-8 items-center justify-center rounded-lg text-sky-600 transition-all duration-200 hover:bg-sky-50 hover:scale-105 active:scale-95 dark:text-sky-400 dark:hover:bg-sky-500/10">
+                    <i class="fa-brands fa-telegram text-lg"></i>
                 </a>
                 <a href="https://vk.ru/avencoresreuploads" target="_blank"
                    rel="noopener noreferrer"
                    aria-label="VK"
+                   title="VK"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'vk', location: 'header' })"
-                   class="text-blue-700 hover:scale-125 transition-all duration-300 p-1 -m-1 touch-manipulation">
-                    <i class="fa-brands fa-vk text-xl sm:text-2xl"></i>
+                   class="hidden h-8 w-8 items-center justify-center rounded-lg text-blue-700 transition-all duration-200 hover:bg-blue-50 hover:scale-105 active:scale-95 min-[420px]:flex dark:text-blue-400 dark:hover:bg-blue-500/10">
+                    <i class="fa-brands fa-vk text-lg"></i>
                 </a>
                 <a href="https://www.dzen.ru/avencores" target="_blank"
                    rel="noopener noreferrer"
                    aria-label="Dzen"
+                   title="Dzen"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'dzen', location: 'header' })"
-                   class="hover:scale-125 transition-all duration-300 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center touch-manipulation">
-                    <img :src="darkMode ? 'static/media/dz-w.png' : 'static/media/dz-b.png'" alt="DZ" class="w-full h-full object-contain">
+                   class="hidden h-8 w-8 items-center justify-center rounded-lg transition-all duration-200 hover:bg-slate-100 hover:scale-105 active:scale-95 min-[560px]:flex dark:hover:bg-white/10">
+                    <img :src="darkMode ? 'static/media/dz-w.png' : 'static/media/dz-b.png'" alt="DZ" class="h-5 w-5 object-contain">
                 </a>
-            </div>
+            </nav>
 
             <!-- Кнопки управления -->
-            <div class="flex items-center gap-1 sm:gap-2">
+            <div class="flex items-center gap-1.5 sm:gap-2">
 
                 <!-- Переключатель языка -->
                 <div class="relative" @click.outside="langOpen = false">
                     <button @click="langOpen = !langOpen"
-                        class="group w-auto h-9 sm:h-10 flex items-center gap-1.5 px-2.5 sm:px-3 rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 hover:border-blue-300 dark:hover:border-blue-500/30 transition-all duration-200 touch-manipulation shrink-0"
-                        :class="langOpen ? 'bg-white dark:bg-white/10 border-blue-300 dark:border-blue-500/30 shadow-sm' : ''"
+                        class="group flex h-9 items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 transition-all duration-200 hover:border-blue-300 hover:shadow-sm active:scale-95 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-500/40 dark:hover:bg-white/10 sm:h-10 sm:px-3"
+                        :class="langOpen ? 'border-blue-400 shadow-md shadow-blue-500/10 dark:border-blue-500/50' : ''"
                         aria-haspopup="listbox"
                         :aria-expanded="langOpen.toString()"
                         aria-label="Select language"
                         id="lang-toggle-button">
-                        <i class="fa-solid fa-globe text-sm text-brand-blue dark:text-blue-400 group-hover:rotate-12 transition-transform duration-300"></i>
-                        <span class="font-black text-[10px] sm:text-xs text-brand-blue dark:text-blue-400 uppercase tracking-wider"
+                        <i class="fa-solid fa-globe text-sm text-brand-blue transition-transform duration-300 group-hover:rotate-12 dark:text-blue-400"></i>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-brand-blue dark:text-blue-300 sm:text-xs"
                               x-text="(currentLanguage || 'ru').toUpperCase()"></span>
-                        <i class="fa-solid fa-chevron-down text-[8px] sm:text-xs text-gray-400 dark:text-gray-500 transition-transform duration-200"
+                        <i class="fa-solid fa-chevron-down text-[9px] text-slate-400 transition-transform duration-200 dark:text-slate-500"
                            :class="langOpen ? 'rotate-180' : ''"></i>
                     </button>
 
@@ -81,122 +87,113 @@
                          x-transition:leave="transition ease-in duration-150"
                          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                          x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
-                         class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-brand-panel border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden"
+                         class="absolute right-0 top-full z-50 mt-2 max-h-[70vh] w-52 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-1.5 shadow-2xl shadow-slate-900/10 ring-1 ring-black/5 dark:border-white/10 dark:bg-brand-panel dark:ring-white/10"
                          style="display: none;"
-                         id="lang-dropdown">
+                         id="lang-dropdown"
+                         role="listbox">
                         <button @click="setLangWithAnim('ru')"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
-                                :class="currentLanguage === 'ru' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'ru' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
                             <span class="flex items-center gap-2.5">
-                                <img src="static/images/flags/ru.png" srcset="static/images/flags/ru.png 1x, static/images/flags/ru@2x.png 2x" alt="RU" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <img src="static/images/flags/ru.png" srcset="static/images/flags/ru.png 1x, static/images/flags/ru@2x.png 2x" alt="RU" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
                                 <span>Русский</span>
                             </span>
-                            <svg x-show="currentLanguage === 'ru'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="currentLanguage === 'ru'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="setLangWithAnim('en')"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
-                                :class="currentLanguage === 'en' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'en' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
                             <span class="flex items-center gap-2.5">
-                                <img src="static/images/flags/gb.png" srcset="static/images/flags/gb.png 1x, static/images/flags/gb@2x.png 2x" alt="GB" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <img src="static/images/flags/gb.png" srcset="static/images/flags/gb.png 1x, static/images/flags/gb@2x.png 2x" alt="GB" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
                                 <span>English</span>
                             </span>
-                            <svg x-show="currentLanguage === 'en'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="currentLanguage === 'en'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="setLangWithAnim('de')"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
-                                :class="currentLanguage === 'de' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'de' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
                             <span class="flex items-center gap-2.5">
-                                <img src="static/images/flags/de.png" srcset="static/images/flags/de.png 1x, static/images/flags/de@2x.png 2x" alt="DE" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <img src="static/images/flags/de.png" srcset="static/images/flags/de.png 1x, static/images/flags/de@2x.png 2x" alt="DE" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
                                 <span>Deutsch</span>
                             </span>
-                            <svg x-show="currentLanguage === 'de'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="currentLanguage === 'de'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="setLangWithAnim('uk')"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
-                                :class="currentLanguage === 'uk' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'uk' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
                             <span class="flex items-center gap-2.5">
-                                <img src="static/images/flags/ua.png" srcset="static/images/flags/ua.png 1x, static/images/flags/ua@2x.png 2x" alt="UA" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <img src="static/images/flags/ua.png" srcset="static/images/flags/ua.png 1x, static/images/flags/ua@2x.png 2x" alt="UA" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
                                 <span>Українська</span>
                             </span>
-                            <svg x-show="currentLanguage === 'uk'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="currentLanguage === 'uk'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="setLangWithAnim('be')"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
-                                :class="currentLanguage === 'be' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'be' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
                             <span class="flex items-center gap-2.5">
-                                <img src="static/images/flags/by.png" srcset="static/images/flags/by.png 1x, static/images/flags/by@2x.png 2x" alt="BY" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <img src="static/images/flags/by.png" srcset="static/images/flags/by.png 1x, static/images/flags/by@2x.png 2x" alt="BY" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
                                 <span>Беларуская</span>
                             </span>
-                            <svg x-show="currentLanguage === 'be'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="currentLanguage === 'be'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="setLangWithAnim('kk')"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
-                                :class="currentLanguage === 'kk' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'kk' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
                             <span class="flex items-center gap-2.5">
-                                <img src="static/images/flags/kz.png" srcset="static/images/flags/kz.png 1x, static/images/flags/kz@2x.png 2x" alt="KZ" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <img src="static/images/flags/kz.png" srcset="static/images/flags/kz.png 1x, static/images/flags/kz@2x.png 2x" alt="KZ" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
                                 <span>Қазақша</span>
                             </span>
-                            <svg x-show="currentLanguage === 'kk'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="currentLanguage === 'kk'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="setLangWithAnim('fr')"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
-                                :class="currentLanguage === 'fr' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'fr' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
                             <span class="flex items-center gap-2.5">
-                                <img src="static/images/flags/fr.png" srcset="static/images/flags/fr.png 1x, static/images/flags/fr@2x.png 2x" alt="FR" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <img src="static/images/flags/fr.png" srcset="static/images/flags/fr.png 1x, static/images/flags/fr@2x.png 2x" alt="FR" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
                                 <span>Français</span>
                             </span>
-                            <svg x-show="currentLanguage === 'fr'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="currentLanguage === 'fr'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button @click="setLangWithAnim('pl')"
-                                class="w-full px-4 py-2.5 text-left text-sm font-bold flex items-center gap-3 justify-between transition-colors hover:bg-gray-50 dark:hover:bg-white/5 border-t border-gray-100 dark:border-gray-700"
-                                :class="currentLanguage === 'pl' ? 'text-brand-blue dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300'">
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'pl' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
                             <span class="flex items-center gap-2.5">
-                                <img src="static/images/flags/pl.png" srcset="static/images/flags/pl.png 1x, static/images/flags/pl@2x.png 2x" alt="PL" class="w-5 h-3.5 rounded-sm shadow-sm object-cover" loading="lazy">
+                                <img src="static/images/flags/pl.png" srcset="static/images/flags/pl.png 1x, static/images/flags/pl@2x.png 2x" alt="PL" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
                                 <span>Polski</span>
                             </span>
-                            <svg x-show="currentLanguage === 'pl'" class="w-4 h-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="currentLanguage === 'pl'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                     </div>
                 </div>
 
                 <!-- Тема -->
-                <style>
-                    @media (min-width: 640px) {
-                        #theme-button {
-                            width: 120px !important;
-                            justify-content: center !important;
-                        }
-                        #theme-button .theme-text {
-                            white-space: nowrap !important;
-                        }
-                    }
-                </style>
                 <button @click="toggleTheme()"
-                    class="group w-9 h-9 sm:w-auto sm:h-10 sm:px-3 flex items-center justify-center sm:justify-start gap-0 sm:gap-2 rounded-xl bg-gray-100/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-200 active:scale-95 touch-manipulation shrink-0"
+                    class="group flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white transition-all duration-200 hover:border-slate-300 hover:shadow-sm active:scale-95 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:bg-white/10 sm:h-10 sm:w-10"
                     :aria-label="darkMode ? 'Switch to light theme' : 'Switch to dark theme'"
+                    :title="darkMode ? 'Светлая тема' : 'Тёмная тема'"
                     id="theme-button">
-                    <i class="fa-solid fa-fw flex-shrink-0 text-base sm:text-lg transition-all duration-300 group-hover:rotate-12" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-blue-600'"></i>
-                    <span class="hidden sm:inline theme-text text-sm font-bold text-gray-700 dark:text-gray-300" x-text="darkMode ? t('header.theme_light', 'Светлая') : t('header.theme_dark', 'Тёмная')"></span>
+                    <i class="fa-solid fa-fw text-base transition-all duration-300 group-hover:rotate-12 group-hover:scale-110" :class="darkMode ? 'fa-sun text-amber-400' : 'fa-moon text-blue-600 dark:text-slate-300'"></i>
                 </button>
 
                 <!-- Статистика -->
                 <button @click="showStatsModal = true"
-                    class="group bg-gradient-to-br from-blue-600 to-brand-blue text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-9 h-9 sm:w-auto sm:h-10 sm:px-5 border border-white/20 touch-manipulation shrink-0"
+                    class="group flex h-9 items-center justify-center gap-2 rounded-xl border border-blue-700/20 bg-gradient-to-br from-blue-600 to-brand-blue px-3 text-sm font-bold text-white shadow-md shadow-blue-500/25 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/35 hover:-translate-y-px active:translate-y-0 active:scale-95 sm:h-10 sm:px-4"
                     aria-label="Open repository statistics"
                     id="stats-button">
-                    <i class="fa-solid fa-chart-simple text-base sm:text-lg sm:mr-2 group-hover:rotate-12 transition-transform"></i>
-                    <span class="hidden sm:inline stats-text text-sm font-bold" x-text="t('header.stats', 'Статистика')">Статистика</span>
+                    <i class="fa-solid fa-chart-simple text-sm transition-transform group-hover:scale-110 sm:text-base"></i>
+                    <span class="hidden stats-text lg:inline" x-text="t('header.stats', 'Статистика')">Статистика</span>
                 </button>
 
                 <!-- GitHub -->
                 <a href="https://github.com/AvenCores/goida-vpn-configs" target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub repository"
+                    title="GitHub"
                     @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'github', location: 'header' })"
-                    class="group bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 text-white rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-black/30 transition-all duration-300 active:scale-95 flex items-center justify-center w-9 h-9 sm:w-auto sm:h-10 sm:px-5 border border-white/10 touch-manipulation shrink-0"
+                    class="group flex h-9 items-center justify-center gap-2 rounded-xl border border-white/10 bg-slate-900 px-3 text-sm font-bold text-white shadow-md shadow-slate-900/20 transition-all duration-200 hover:bg-slate-800 hover:shadow-lg hover:-translate-y-px active:translate-y-0 active:scale-95 dark:bg-white/10 dark:hover:bg-white/15 sm:h-10 sm:px-4"
                     id="github-button">
-                    <i class="fa-brands fa-github text-lg sm:text-xl sm:mr-2 group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden sm:inline text-sm font-bold">GitHub</span>
+                    <i class="fa-brands fa-github text-base transition-transform group-hover:scale-110 sm:text-lg"></i>
+                    <span class="hidden lg:inline">GitHub</span>
                 </a>
             </div>
         </div>
