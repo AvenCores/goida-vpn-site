@@ -20,7 +20,7 @@ UPDATE_TABLE_URL = 'https://raw.githubusercontent.com/AvenCores/goida-vpn-config
 
 def _parse_readme_table(readme_content):
     """Парсит таблицу обновлений из текста README.md репозитория"""
-    table_pattern = r'\|\s*(\d+)\s*\|[^|]*\|[^|]*\|\s*(\d{2}:\d{2})\s*\|\s*(\d{2}\.\d{2}\.\d{4})\s*\|'
+    table_pattern = r'\|\s*(\d+)\s*\|[^|]*\|[^|]*\|\s*(\d{2}:\d{2})(?:\s*\([^)]*\))?\s*\|\s*(\d{2}\.\d{2}\.\d{4})\s*\|'
     matches = re.findall(table_pattern, readme_content)
 
     update_info = {}
@@ -45,20 +45,23 @@ def fetch_update_table_sync(timeout=15):
     При успехе обновляет общий кэш. Возвращает dict (может быть пустым).
     """
     global UPDATE_TABLE_CACHE, UPDATE_TABLE_CACHE_TIME
-    try:
-        response = requests.get(UPDATE_TABLE_URL, timeout=timeout)
-        if response.status_code == 200:
-            update_info = _parse_readme_table(response.text)
-            if update_info:
-                with UPDATE_LOCK:
-                    UPDATE_TABLE_CACHE = update_info
-                    UPDATE_TABLE_CACHE_TIME = datetime.now()
-                return update_info
-            log.warning("Таблица обновлений пуста после парсинга README.md")
-        else:
-            log.warning(f"README.md вернул статус {response.status_code} при синхронной загрузке таблицы обновлений")
-    except Exception as e:
-        log.warning(f"Ошибка при синхронной загрузке таблицы обновлений: {e}")
+    last_error = None
+    for attempt in range(2):
+        try:
+            response = requests.get(UPDATE_TABLE_URL, timeout=timeout)
+            if response.status_code == 200:
+                update_info = _parse_readme_table(response.text)
+                if update_info:
+                    with UPDATE_LOCK:
+                        UPDATE_TABLE_CACHE = update_info
+                        UPDATE_TABLE_CACHE_TIME = datetime.now()
+                    return update_info
+                log.warning("Таблица обновлений пуста после парсинга README.md")
+                break
+            last_error = f"README.md вернул статус {response.status_code}"
+        except Exception as e:
+            last_error = e
+    log.warning(f"Ошибка при синхронной загрузке таблицы обновлений: {last_error}")
     return UPDATE_TABLE_CACHE or {}
 
 def _fetch_and_parse_update_table():
