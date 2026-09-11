@@ -1,5 +1,5 @@
 <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl transition-colors dark:border-white/10 dark:bg-brand-dark/85">
-    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:px-6 lg:px-8">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-2 sm:px-6 lg:px-8">
 
         <!-- Логотип -->
         <a href="{{ canonical_url or site_url or '/' }}"
@@ -7,10 +7,10 @@
            data-no-confirm
            aria-label="Goida VPN Configs"
            class="group flex min-w-0 cursor-pointer items-center gap-2.5 rounded-xl px-1 py-1 sm:gap-3">
-            <span class="relative flex h-9 w-9 items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3 sm:h-10 sm:w-10">
+            <span class="relative flex h-8 w-8 items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3 sm:h-10 sm:w-10">
                 <img src="static/images/favicon.png" alt="Логотип Goida VPN - Автоматические конфиги" class="h-6 w-6 object-contain sm:h-7 sm:w-7" data-i18n-alt="header.logo_alt">
             </span>
-            <span class="hidden min-[480px]:block min-w-0">
+            <span class="hidden min-w-0 sm:block">
                 <span class="block max-w-[11rem] truncate text-base font-black leading-none tracking-tight text-slate-900 dark:text-white sm:max-w-none sm:text-xl">
                     Goida VPN <span class="bg-gradient-to-r from-blue-600 to-brand-blue bg-clip-text text-transparent dark:from-blue-400 dark:to-sky-300">Configs</span>
                 </span>
@@ -22,51 +22,51 @@
         </a>
 
         <!-- Правая часть -->
-        <div class="flex min-w-0 items-center gap-1.5 sm:gap-2.5">
+        <div class="flex min-w-0 items-center gap-1 sm:gap-2.5">
 
-            <!-- Соцсети -->
-            <nav aria-label="Social links" class="flex items-center gap-0.5 rounded-xl border border-slate-200/80 bg-slate-50/60 p-1 dark:border-white/10 dark:bg-white/5 sm:gap-1">
+            <!-- Соцсети: все 4 иконки всегда видны; на мобильных — компактная пилюля -->
+            <nav aria-label="Social links" class="flex shrink-0 items-center gap-0 rounded-xl border border-slate-200/80 bg-slate-50/60 p-0.5 dark:border-white/10 dark:bg-white/5 sm:gap-1 sm:p-1">
                 <a href="https://www.youtube.com/@avencores/" target="_blank"
                    rel="noopener noreferrer"
                    aria-label="YouTube"
                    title="YouTube"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'youtube', location: 'header' })"
-                   class="flex h-8 w-8 items-center justify-center rounded-lg text-red-600 transition-all duration-200 hover:bg-red-50 hover:scale-105 active:scale-95 dark:hover:bg-red-500/10">
-                    <i class="fa-brands fa-youtube text-lg"></i>
+                   class="flex h-7 w-7 items-center justify-center rounded-lg text-red-600 transition-all duration-200 hover:bg-red-50 hover:scale-105 active:scale-95 dark:hover:bg-red-500/10 sm:h-8 sm:w-8">
+                    <i class="fa-brands fa-youtube text-base sm:text-lg"></i>
                 </a>
                 <a href="https://t.me/avencoresyt" target="_blank"
                    rel="noopener noreferrer"
                    aria-label="Telegram"
                    title="Telegram"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'telegram', location: 'header' })"
-                   class="flex h-8 w-8 items-center justify-center rounded-lg text-sky-600 transition-all duration-200 hover:bg-sky-50 hover:scale-105 active:scale-95 dark:text-sky-400 dark:hover:bg-sky-500/10">
-                    <i class="fa-brands fa-telegram text-lg"></i>
+                   class="flex h-7 w-7 items-center justify-center rounded-lg text-sky-600 transition-all duration-200 hover:bg-sky-50 hover:scale-105 active:scale-95 dark:text-sky-400 dark:hover:bg-sky-500/10 sm:h-8 sm:w-8">
+                    <i class="fa-brands fa-telegram text-base sm:text-lg"></i>
                 </a>
                 <a href="https://vk.ru/avencoresreuploads" target="_blank"
                    rel="noopener noreferrer"
                    aria-label="VK"
                    title="VK"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'vk', location: 'header' })"
-                   class="hidden h-8 w-8 items-center justify-center rounded-lg text-blue-700 transition-all duration-200 hover:bg-blue-50 hover:scale-105 active:scale-95 min-[420px]:flex dark:text-blue-400 dark:hover:bg-blue-500/10">
-                    <i class="fa-brands fa-vk text-lg"></i>
+                   class="flex h-7 w-7 items-center justify-center rounded-lg text-blue-700 transition-all duration-200 hover:bg-blue-50 hover:scale-105 active:scale-95 dark:text-blue-400 dark:hover:bg-blue-500/10 sm:h-8 sm:w-8">
+                    <i class="fa-brands fa-vk text-base sm:text-lg"></i>
                 </a>
                 <a href="https://www.dzen.ru/avencores" target="_blank"
                    rel="noopener noreferrer"
                    aria-label="Dzen"
                    title="Dzen"
                    @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'dzen', location: 'header' })"
-                   class="hidden h-8 w-8 items-center justify-center rounded-lg transition-all duration-200 hover:bg-slate-100 hover:scale-105 active:scale-95 min-[560px]:flex dark:hover:bg-white/10">
-                    <img :src="darkMode ? 'static/media/dz-w.png' : 'static/media/dz-b.png'" alt="DZ" class="h-5 w-5 object-contain">
+                   class="flex h-7 w-7 items-center justify-center rounded-lg transition-all duration-200 hover:bg-slate-100 hover:scale-105 active:scale-95 dark:hover:bg-white/10 sm:h-8 sm:w-8">
+                    <img :src="darkMode ? 'static/media/dz-w.png' : 'static/media/dz-b.png'" alt="DZ" class="h-4 w-4 object-contain sm:h-5 sm:w-5">
                 </a>
             </nav>
 
             <!-- Кнопки управления -->
-            <div class="flex items-center gap-1.5 sm:gap-2">
+            <div class="flex shrink-0 items-center gap-1.5 sm:gap-2">
 
                 <!-- Переключатель языка -->
                 <div class="relative" @click.outside="langOpen = false">
                     <button @click="langOpen = !langOpen"
-                        class="group flex h-9 items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 transition-all duration-200 hover:border-blue-300 hover:shadow-sm active:scale-95 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-500/40 dark:hover:bg-white/10 sm:h-10 sm:px-3"
+                        class="group flex h-8 items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2 transition-all duration-200 hover:border-blue-300 hover:shadow-sm active:scale-95 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-500/40 dark:hover:bg-white/10 sm:h-10 sm:px-3"
                         :class="langOpen ? 'border-blue-400 shadow-md shadow-blue-500/10 dark:border-blue-500/50' : ''"
                         aria-haspopup="listbox"
                         :aria-expanded="langOpen.toString()"
@@ -75,7 +75,7 @@
                         <i class="fa-solid fa-globe text-sm text-brand-blue transition-transform duration-300 group-hover:rotate-12 dark:text-blue-400"></i>
                         <span class="text-[11px] font-black uppercase tracking-wider text-brand-blue dark:text-blue-300 sm:text-xs"
                               x-text="(currentLanguage || 'ru').toUpperCase()"></span>
-                        <i class="fa-solid fa-chevron-down text-[9px] text-slate-400 transition-transform duration-200 dark:text-slate-500"
+                        <i class="fa-solid fa-chevron-down hidden text-[9px] text-slate-400 transition-transform duration-200 dark:text-slate-500 sm:inline"
                            :class="langOpen ? 'rotate-180' : ''"></i>
                     </button>
 
@@ -168,7 +168,7 @@
 
                 <!-- Тема -->
                 <button @click="toggleTheme()"
-                    class="group flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white transition-all duration-200 hover:border-slate-300 hover:shadow-sm active:scale-95 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:bg-white/10 sm:h-10 sm:w-10"
+                    class="group flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 bg-white transition-all duration-200 hover:border-slate-300 hover:shadow-sm active:scale-95 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:bg-white/10 sm:h-10 sm:w-10"
                     :aria-label="darkMode ? 'Switch to light theme' : 'Switch to dark theme'"
                     :title="darkMode ? 'Светлая тема' : 'Тёмная тема'"
                     id="theme-button">
@@ -177,7 +177,7 @@
 
                 <!-- Статистика -->
                 <button @click="showStatsModal = true"
-                    class="group flex h-9 items-center justify-center gap-2 rounded-xl border border-blue-700/20 bg-gradient-to-br from-blue-600 to-brand-blue px-3 text-sm font-bold text-white shadow-md shadow-blue-500/25 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/35 hover:-translate-y-px active:translate-y-0 active:scale-95 sm:h-10 sm:px-4"
+                    class="group flex h-8 items-center justify-center gap-2 rounded-xl border border-blue-700/20 bg-gradient-to-br from-blue-600 to-brand-blue px-2 text-sm font-bold text-white shadow-md shadow-blue-500/25 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/35 hover:-translate-y-px active:translate-y-0 active:scale-95 sm:h-10 sm:px-4"
                     aria-label="Open repository statistics"
                     id="stats-button">
                     <i class="fa-solid fa-chart-simple text-sm transition-transform group-hover:scale-110 sm:text-base"></i>
@@ -190,7 +190,7 @@
                     aria-label="GitHub repository"
                     title="GitHub"
                     @click="if(window.trackEvent) window.trackEvent('social_click', { platform: 'github', location: 'header' })"
-                    class="group flex h-9 items-center justify-center gap-2 rounded-xl border border-white/10 bg-slate-900 px-3 text-sm font-bold text-white shadow-md shadow-slate-900/20 transition-all duration-200 hover:bg-slate-800 hover:shadow-lg hover:-translate-y-px active:translate-y-0 active:scale-95 dark:bg-white/10 dark:hover:bg-white/15 sm:h-10 sm:px-4"
+                    class="group flex h-8 items-center justify-center gap-2 rounded-xl border border-white/10 bg-slate-900 px-2 text-sm font-bold text-white shadow-md shadow-slate-900/20 transition-all duration-200 hover:bg-slate-800 hover:shadow-lg hover:-translate-y-px active:translate-y-0 active:scale-95 dark:bg-white/10 dark:hover:bg-white/15 sm:h-10 sm:px-4"
                     id="github-button">
                     <i class="fa-brands fa-github text-base transition-transform group-hover:scale-110 sm:text-lg"></i>
                     <span class="hidden lg:inline">GitHub</span>
