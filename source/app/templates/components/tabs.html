@@ -174,9 +174,9 @@
                         <!-- Бейджи -->
                         <div class="flex max-w-[55%] shrink-0 flex-col items-end gap-1.5">
                             <template x-if="config.is_recommended">
-                                <span class="inline-flex max-w-full items-center justify-end gap-1 rounded-lg bg-amber-400 px-2 py-1 text-[10px] font-black uppercase tracking-wide text-amber-950 shadow-sm" :title="t('tabs.badge_recommended', 'Рекомендованный')">
-                                    <i class="fa-solid fa-star shrink-0 text-[9px]"></i>
-                                    <span class="min-w-0 truncate" data-i18n="tabs.badge_recommended">Рекомендованный</span>
+                                <span class="inline-flex shrink-0 items-center gap-1 rounded-lg bg-amber-400 px-2 py-1 text-[10px] font-black uppercase tracking-wide text-amber-950 shadow-sm" :title="t('tabs.badge_recommended', 'Рекомендованный')">
+                                    <i class="fa-solid fa-star text-[9px]"></i>
+                                    <span x-text="t('tabs.badge_recommended_short', 'Рек.')">Рек.</span>
                                 </span>
                             </template>
                             <template x-if="config.is_sni">
