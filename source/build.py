@@ -103,7 +103,7 @@ def build_site() -> None:
 
         rendered_html = render_template(
             "index.html",
-            configs=get_vpn_configs(),
+            configs=get_vpn_configs(wait_for_updates=True),
             analytics_ids=analytics_ids,
             site_url=site_url,
             canonical_url=site_url,
