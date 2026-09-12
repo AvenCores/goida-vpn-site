@@ -163,6 +163,159 @@
                             </span>
                             <svg x-show="currentLanguage === 'pl'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </button>
+                        <button @click="setLangWithAnim('es')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'es' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/es.png" srcset="static/images/flags/es.png 1x, static/images/flags/es@2x.png 2x" alt="ES" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Español</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'es'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('it')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'it' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/it.png" srcset="static/images/flags/it.png 1x, static/images/flags/it@2x.png 2x" alt="IT" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Italiano</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'it'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('pt')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'pt' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/pt.png" srcset="static/images/flags/pt.png 1x, static/images/flags/pt@2x.png 2x" alt="PT" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Português</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'pt'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('nl')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'nl' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/nl.png" srcset="static/images/flags/nl.png 1x, static/images/flags/nl@2x.png 2x" alt="NL" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Nederlands</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'nl'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('sv')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'sv' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/se.png" srcset="static/images/flags/se.png 1x, static/images/flags/se@2x.png 2x" alt="SE" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Svenska</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'sv'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('cs')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'cs' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/cz.png" srcset="static/images/flags/cz.png 1x, static/images/flags/cz@2x.png 2x" alt="CZ" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Čeština</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'cs'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('tr')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'tr' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/tr.png" srcset="static/images/flags/tr.png 1x, static/images/flags/tr@2x.png 2x" alt="TR" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Türkçe</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'tr'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('zh')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'zh' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/cn.png" srcset="static/images/flags/cn.png 1x, static/images/flags/cn@2x.png 2x" alt="CN" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>中文</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'zh'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('ja')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'ja' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/jp.png" srcset="static/images/flags/jp.png 1x, static/images/flags/jp@2x.png 2x" alt="JP" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>日本語</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'ja'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('ko')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'ko' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/kr.png" srcset="static/images/flags/kr.png 1x, static/images/flags/kr@2x.png 2x" alt="KR" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>한국어</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'ko'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('ar')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'ar' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/sa.png" srcset="static/images/flags/sa.png 1x, static/images/flags/sa@2x.png 2x" alt="SA" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>العربية</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'ar'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('hi')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'hi' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/in.png" srcset="static/images/flags/in.png 1x, static/images/flags/in@2x.png 2x" alt="IN" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>हिन्दी</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'hi'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('fa')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'fa' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/ir.png" srcset="static/images/flags/ir.png 1x, static/images/flags/ir@2x.png 2x" alt="IR" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>فارسی</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'fa'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('uz')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'uz' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/uz.png" srcset="static/images/flags/uz.png 1x, static/images/flags/uz@2x.png 2x" alt="UZ" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>O'zbekcha</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'uz'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('az')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'az' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/az.png" srcset="static/images/flags/az.png 1x, static/images/flags/az@2x.png 2x" alt="AZ" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Azərbaycanca</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'az'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('hy')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'hy' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/am.png" srcset="static/images/flags/am.png 1x, static/images/flags/am@2x.png 2x" alt="AM" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>Հայերեն</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'hy'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button @click="setLangWithAnim('ka')"
+                                class="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm font-bold transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+                                :class="currentLanguage === 'ka' ? 'bg-blue-50 text-brand-blue dark:bg-blue-500/15 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'">
+                            <span class="flex items-center gap-2.5">
+                                <img src="static/images/flags/ge.png" srcset="static/images/flags/ge.png 1x, static/images/flags/ge@2x.png 2x" alt="GE" class="h-3.5 w-5 rounded object-cover shadow-sm" loading="lazy">
+                                <span>ქართული</span>
+                            </span>
+                            <svg x-show="currentLanguage === 'ka'" class="h-4 w-4 text-brand-blue dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
                     </div>
                 </div>
 

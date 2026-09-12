@@ -1,7 +1,7 @@
 // ВАЖНО: версию менять только при изменении логики SW или списка precache.
 // Свежесть UI-кода (CSS/JS/переводы) после деплоев обеспечивает стратегия
 // networkFirstFresh ниже, а не bump версии.
-const CACHE_VERSION = 'goida-vpn-v5';
+const CACHE_VERSION = 'goida-vpn-v6';
 const APP_CACHE = `${CACHE_VERSION}-app`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -53,6 +53,46 @@ const PRECACHE_URLS = [
   'static/images/flags/ua@2x.png',
   'static/images/flags/by.png',
   'static/images/flags/by@2x.png',
+  'static/images/flags/kz.png',
+  'static/images/flags/kz@2x.png',
+  'static/images/flags/fr.png',
+  'static/images/flags/fr@2x.png',
+  'static/images/flags/pl.png',
+  'static/images/flags/pl@2x.png',
+  'static/images/flags/es.png',
+  'static/images/flags/es@2x.png',
+  'static/images/flags/it.png',
+  'static/images/flags/it@2x.png',
+  'static/images/flags/pt.png',
+  'static/images/flags/pt@2x.png',
+  'static/images/flags/nl.png',
+  'static/images/flags/nl@2x.png',
+  'static/images/flags/se.png',
+  'static/images/flags/se@2x.png',
+  'static/images/flags/cz.png',
+  'static/images/flags/cz@2x.png',
+  'static/images/flags/tr.png',
+  'static/images/flags/tr@2x.png',
+  'static/images/flags/cn.png',
+  'static/images/flags/cn@2x.png',
+  'static/images/flags/jp.png',
+  'static/images/flags/jp@2x.png',
+  'static/images/flags/kr.png',
+  'static/images/flags/kr@2x.png',
+  'static/images/flags/sa.png',
+  'static/images/flags/sa@2x.png',
+  'static/images/flags/in.png',
+  'static/images/flags/in@2x.png',
+  'static/images/flags/ir.png',
+  'static/images/flags/ir@2x.png',
+  'static/images/flags/uz.png',
+  'static/images/flags/uz@2x.png',
+  'static/images/flags/az.png',
+  'static/images/flags/az@2x.png',
+  'static/images/flags/am.png',
+  'static/images/flags/am@2x.png',
+  'static/images/flags/ge.png',
+  'static/images/flags/ge@2x.png',
   ...QR_CODES
 ];
 

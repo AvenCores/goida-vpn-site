@@ -66,7 +66,27 @@ async function loadGitHubStats() {
                 en: 'en-US',
                 de: 'de-DE',
                 uk: 'uk-UA',
-                be: 'be-BY'
+                be: 'be-BY',
+                kk: 'kk-KZ',
+                fr: 'fr-FR',
+                pl: 'pl-PL',
+                es: 'es-ES',
+                it: 'it-IT',
+                pt: 'pt-PT',
+                nl: 'nl-NL',
+                sv: 'sv-SE',
+                cs: 'cs-CZ',
+                tr: 'tr-TR',
+                zh: 'zh-CN',
+                ja: 'ja-JP',
+                ko: 'ko-KR',
+                ar: 'ar-SA',
+                hi: 'hi-IN',
+                fa: 'fa-IR',
+                uz: 'uz-UZ',
+                az: 'az-AZ',
+                hy: 'hy-AM',
+                ka: 'ka-GE'
             };
             dateString = dateObj.toLocaleString(localeMap[lang] || 'ru-RU', {
                 day: 'numeric',

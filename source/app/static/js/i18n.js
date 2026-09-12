@@ -1,5 +1,5 @@
 /**
- * I18n модуль для поддержки мультиязычности (RU/EN)
+ * I18n модуль для поддержки мультиязычности (25 языков)
  * Загружает переводы из static/i18n/translations.json и применяет их к элементам с data-i18n
  */
 (function() {
@@ -7,6 +7,9 @@
 
     let translations = {};
     let currentLang = 'ru';
+
+    // Все поддерживаемые языки (25)
+    const SUPPORTED_LANGUAGES = ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr', 'pl', 'es', 'it', 'pt', 'nl', 'sv', 'cs', 'tr', 'zh', 'ja', 'ko', 'ar', 'hi', 'fa', 'uz', 'az', 'hy', 'ka'];
 
     // Загрузка переводов
     let _translationsReady = false;
@@ -134,7 +137,7 @@
     // Установить язык (из localStorage или браузера)
     function initLanguage() {
         const savedLang = localStorage.getItem('lang');
-        if (savedLang && (savedLang === 'ru' || savedLang === 'en' || savedLang === 'de' || savedLang === 'uk' || savedLang === 'be' || savedLang === 'kk' || savedLang === 'fr' || savedLang === 'pl')) {
+        if (savedLang && SUPPORTED_LANGUAGES.includes(savedLang)) {
             currentLang = savedLang;
         } else {
             // Определяем язык браузера
@@ -142,7 +145,7 @@
             const langCode = browserLang.split('-')[0].toLowerCase(); // берём только код языка (например, 'en' из 'en-US')
 
             // Список поддерживаемых языков
-            const supportedLanguages = ['ru', 'uk', 'en', 'de', 'be', 'kk', 'fr', 'pl'];
+            const supportedLanguages = SUPPORTED_LANGUAGES;
 
             if (supportedLanguages.includes(langCode)) {
                 currentLang = langCode;
@@ -232,7 +235,7 @@
 
     // Переключить язык (циклически)
     function toggleLanguage() {
-        const languages = ['ru', 'uk', 'be', 'en', 'de', 'kk', 'fr', 'pl'];
+        const languages = SUPPORTED_LANGUAGES;
         const currentIndex = languages.indexOf(currentLang);
         currentLang = languages[(currentIndex + 1) % languages.length];
         localStorage.setItem('lang', currentLang);
@@ -253,7 +256,7 @@
 
     // Установить конкретный язык
     function setLanguage(lang) {
-        if (lang !== 'ru' && lang !== 'en' && lang !== 'de' && lang !== 'uk' && lang !== 'be' && lang !== 'kk' && lang !== 'fr' && lang !== 'pl') return;
+        if (!SUPPORTED_LANGUAGES.includes(lang)) return;
         currentLang = lang;
         localStorage.setItem('lang', currentLang);
         applyTranslations();
@@ -298,6 +301,7 @@
     window.i18n = {
         t,
         getLanguage,
+        getSupportedLanguages: () => [...SUPPORTED_LANGUAGES],
         isLoaded,
         toggleLanguage,
         setLanguage,

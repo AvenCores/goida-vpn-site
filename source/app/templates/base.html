@@ -5,13 +5,14 @@
     <script>
         // Устанавливаем язык ДО рендера страницы
         (function() {
+            const supported = ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr', 'pl', 'es', 'it', 'pt', 'nl', 'sv', 'cs', 'tr', 'zh', 'ja', 'ko', 'ar', 'hi', 'fa', 'uz', 'az', 'hy', 'ka'];
             const saved = localStorage.getItem('lang');
-            if (saved && ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr', 'pl'].includes(saved)) {
+            if (saved && supported.includes(saved)) {
                 document.documentElement.lang = saved;
             } else {
                 const browserLang = navigator.language || navigator.userLanguage;
                 const langCode = browserLang.split('-')[0].toLowerCase();
-                const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr', 'pl'];
+                const supportedLanguages = supported;
                 document.documentElement.lang = supportedLanguages.includes(langCode) ? langCode : 'ru';
             }
         })();
@@ -158,7 +159,7 @@
             "name": "{{ site_name }}",
             "url": "{{ structured_url }}",
             "description": "{{ meta_description }}",
-            "inLanguage": ["ru", "en", "de", "uk", "be"],
+            "inLanguage": ["ru", "en", "de", "uk", "be", "kk", "fr", "pl", "es", "it", "pt", "nl", "sv", "cs", "tr", "zh", "ja", "ko", "ar", "hi", "fa", "uz", "az", "hy", "ka"],
             "publisher": {
                 "@type": "Organization",
                 "name": "{{ site_name }}",
@@ -642,13 +643,13 @@
           currentLanguage: (function() {
               // Сначала проверяем localStorage
               const saved = localStorage.getItem('lang');
-              if (saved && ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr', 'pl'].includes(saved)) {
+              if (saved && ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr', 'pl', 'es', 'it', 'pt', 'nl', 'sv', 'cs', 'tr', 'zh', 'ja', 'ko', 'ar', 'hi', 'fa', 'uz', 'az', 'hy', 'ka'].includes(saved)) {
                   return saved;
               }
               // Если нет, определяем язык браузера
               const browserLang = navigator.language || navigator.userLanguage;
               const langCode = browserLang.split('-')[0].toLowerCase();
-              const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr', 'pl'];
+              const supportedLanguages = ['ru', 'en', 'de', 'uk', 'be', 'kk', 'fr', 'pl', 'es', 'it', 'pt', 'nl', 'sv', 'cs', 'tr', 'zh', 'ja', 'ko', 'ar', 'hi', 'fa', 'uz', 'az', 'hy', 'ka'];
               if (supportedLanguages.includes(langCode)) {
                   return langCode;
               }
@@ -837,7 +838,7 @@
           if (value && window.trackEvent) window.trackEvent('view_sources', { config_id: currentConfigId });
       }); $watch('currentLanguage', value => {
           document.documentElement.lang = value;
-          const localeMap = { 'ru': 'ru_RU', 'en': 'en_US', 'de': 'de_DE', 'uk': 'uk_UA', 'be': 'be_BY', 'kk': 'kk_KZ', 'fr': 'fr_FR', 'pl': 'pl_PL' };
+          const localeMap = { 'ru': 'ru_RU', 'en': 'en_US', 'de': 'de_DE', 'uk': 'uk_UA', 'be': 'be_BY', 'kk': 'kk_KZ', 'fr': 'fr_FR', 'pl': 'pl_PL', 'es': 'es_ES', 'it': 'it_IT', 'pt': 'pt_PT', 'nl': 'nl_NL', 'sv': 'sv_SE', 'cs': 'cs_CZ', 'tr': 'tr_TR', 'zh': 'zh_CN', 'ja': 'ja_JP', 'ko': 'ko_KR', 'ar': 'ar_SA', 'hi': 'hi_IN', 'fa': 'fa_IR', 'uz': 'uz_UZ', 'az': 'az_AZ', 'hy': 'hy_AM', 'ka': 'ka_GE' };
           const ogLocale = document.getElementById('og-locale');
           if (ogLocale) ogLocale.content = localeMap[value] || 'ru_RU';
           if (window.trackEvent) window.trackEvent('change_language', { lang: value });
