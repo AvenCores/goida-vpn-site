@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Goida VPN design system ─────────────────────────────── */
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+    background-color: #f8fafc;
+  }
+  html.dark {
+    background-color: #0b1220;
+  }
+  body {
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: rgba(54, 112, 160, 0.22);
+  }
+  html.dark ::selection {
+    background: rgba(255, 221, 84, 0.28);
+  }
+  :focus-visible {
+    outline: 2px solid #3670a0;
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+  html.dark :focus-visible {
+    outline-color: #7cb3dd;
+  }
+}
+
+@layer components {
+  /* Унифицированная карточка */
+  .goida-card {
+    @apply bg-white/75 dark:bg-brand-panel/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-3xl shadow-card transition-all duration-300;
+  }
+  .goida-card:hover {
+    @apply shadow-card-hover -translate-y-1 border-slate-200 dark:border-white/15;
+  }
+  /* Секционный заголовок с иконкой */
+  .goida-section-icon {
+    @apply w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center shadow-sm border shrink-0;
+  }
+  /* Primary / ghost кнопки */
+  .goida-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-white bg-gradient-to-br from-brand-blue to-blue-700 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-px active:translate-y-0 active:scale-[0.98] transition-all duration-200 border border-white/20;
+  }
+  .goida-btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-slate-700 dark:text-slate-200 bg-slate-100/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-all duration-200 active:scale-[0.98];
+  }
+  /* Бейдж статуса */
+  .goida-pill {
+    @apply inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold border backdrop-blur-md;
+  }
+  /* Моно-поле для ссылок */
+  .goida-mono {
+    @apply font-mono text-[11px] leading-relaxed break-all bg-slate-50/90 dark:bg-black/40 border border-slate-100 dark:border-white/10 rounded-xl;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Тонкие скроллбары */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Уважение к reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

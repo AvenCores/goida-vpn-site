@@ -1,0 +1,280 @@
+// ВАЖНО: версию менять только при изменении логики SW или списка precache.
+// Свежесть UI-кода (CSS/JS/переводы) после деплоев обеспечивает стратегия
+// networkFirstFresh ниже, а не bump версии.
+const CACHE_VERSION = 'goida-vpn-v6';
+const APP_CACHE = `${CACHE_VERSION}-app`;
+const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
+
+const QR_CODES = Array.from({ length: 26 }, (_, index) => `static/qr-codes/${index + 1}.png`);
+const PRECACHE_URLS = [
+  './',
+  'index.html',
+  'manifest.webmanifest',
+  'favicon.ico',
+  'static/css/tailwind.css',
+  'static/images/favicon.ico',
+  'static/images/favicon-16x16.png',
+  'static/images/favicon-32x32.png',
+  'static/images/favicon-48x48.png',
+  'static/images/favicon-96x96.png',
+  'static/images/favicon-180x180.png',
+  'static/images/favicon-192x192.png',
+  'static/images/favicon-512x512.png',
+  'static/images/favicon.png',
+  'static/LICENSE',
+  'static/i18n/translations.json',
+  'static/js/i18n.js',
+  'static/js/update-download-links.js',
+  'static/js/statistics.js',
+  'static/js/link-confirmation.js',
+  'static/media/video.jpg',
+  'static/media/bypass.png',
+  'static/media/sber-icon.png',
+  'static/media/dz-w.png',
+  'static/media/dz-b.png',
+  'api/download-links.json',
+  'api/vc-runtime-link.json',
+  'api/github-stats.json',
+  // Localized/Hosted external UI assets
+  'static/js/alpine-collapse.min.js',
+  'static/js/alpine.min.js',
+  'static/js/tailwind.min.js',
+  'static/css/all.min.css',
+  'static/webfonts/fa-solid-900.woff2',
+  'static/webfonts/fa-regular-400.woff2',
+  'static/webfonts/fa-brands-400.woff2',
+  'static/images/flags/ru.png',
+  'static/images/flags/ru@2x.png',
+  'static/images/flags/gb.png',
+  'static/images/flags/gb@2x.png',
+  'static/images/flags/de.png',
+  'static/images/flags/de@2x.png',
+  'static/images/flags/ua.png',
+  'static/images/flags/ua@2x.png',
+  'static/images/flags/by.png',
+  'static/images/flags/by@2x.png',
+  'static/images/flags/kz.png',
+  'static/images/flags/kz@2x.png',
+  'static/images/flags/fr.png',
+  'static/images/flags/fr@2x.png',
+  'static/images/flags/pl.png',
+  'static/images/flags/pl@2x.png',
+  'static/images/flags/es.png',
+  'static/images/flags/es@2x.png',
+  'static/images/flags/it.png',
+  'static/images/flags/it@2x.png',
+  'static/images/flags/pt.png',
+  'static/images/flags/pt@2x.png',
+  'static/images/flags/nl.png',
+  'static/images/flags/nl@2x.png',
+  'static/images/flags/se.png',
+  'static/images/flags/se@2x.png',
+  'static/images/flags/cz.png',
+  'static/images/flags/cz@2x.png',
+  'static/images/flags/tr.png',
+  'static/images/flags/tr@2x.png',
+  'static/images/flags/cn.png',
+  'static/images/flags/cn@2x.png',
+  'static/images/flags/jp.png',
+  'static/images/flags/jp@2x.png',
+  'static/images/flags/kr.png',
+  'static/images/flags/kr@2x.png',
+  'static/images/flags/sa.png',
+  'static/images/flags/sa@2x.png',
+  'static/images/flags/in.png',
+  'static/images/flags/in@2x.png',
+  'static/images/flags/ir.png',
+  'static/images/flags/ir@2x.png',
+  'static/images/flags/uz.png',
+  'static/images/flags/uz@2x.png',
+  'static/images/flags/az.png',
+  'static/images/flags/az@2x.png',
+  'static/images/flags/am.png',
+  'static/images/flags/am@2x.png',
+  'static/images/flags/ge.png',
+  'static/images/flags/ge@2x.png',
+  ...QR_CODES
+];
+
+// Домены рекламных сетей, аналитики и CDN — не перехватываем их запросы
+const IGNORED_HOSTS = [
+  'yandex.ru',
+  'yandex.net',
+  'yastatic.net',
+  'cdnjs.cloudflare.com',
+  'cdn.jsdelivr.net',
+  'flagcdn.com',
+  'googletagmanager.com',
+  'google-analytics.com',
+  'doubleclick.net',
+  'googleadservices.com',
+  'google.com',
+  'intent.ai',
+  'temu.com',
+  'shopnetic.com',
+  'silvermob.com',
+  'whiteboxdigital.ru',
+  'vk.com',
+  'facebook.com',
+  'fbcdn.net'
+];
+
+function isIgnoredHost(hostname) {
+  return IGNORED_HOSTS.some(host => hostname === host || hostname.endsWith('.' + host));
+}
+
+const scopeUrl = new URL(self.registration.scope);
+
+function toScopedUrl(path) {
+  return new URL(path, scopeUrl).toString();
+}
+
+async function precache() {
+  const cache = await caches.open(APP_CACHE);
+  const requests = PRECACHE_URLS.map((path) => new Request(toScopedUrl(path), { cache: 'reload' }));
+  const results = await Promise.allSettled(
+    requests.map(async (request) => {
+      const response = await fetch(request);
+      if (response.ok) {
+        await cache.put(request, response);
+      }
+    })
+  );
+
+  const failed = results.filter((result) => result.status === 'rejected').length;
+  if (failed > 0) {
+    console.warn(`[ServiceWorker] ${failed} precache request(s) failed`);
+  }
+}
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(precache().then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    const cacheNames = await caches.keys();
+    await Promise.all(
+      cacheNames
+        .filter((cacheName) => cacheName.startsWith('goida-vpn-') && !cacheName.startsWith(CACHE_VERSION))
+        .map((cacheName) => caches.delete(cacheName))
+    );
+    await self.clients.claim();
+  })());
+});
+
+async function fromNetwork(request, cacheName = RUNTIME_CACHE) {
+  const response = await fetch(request);
+  if (response && (response.ok || response.type === 'opaque')) {
+    const cache = await caches.open(cacheName);
+    await cache.put(request, response.clone());
+  }
+  return response;
+}
+
+async function cacheFirst(request, fallbackToShell = true) {
+  const cached = await caches.match(request, { ignoreSearch: true });
+  if (cached) {
+    return cached;
+  }
+
+  try {
+    return await fromNetwork(request);
+  } catch (error) {
+    if (fallbackToShell) {
+      return (await caches.match(toScopedUrl('index.html'))) || caches.match(toScopedUrl('./'));
+    }
+    return new Response('', { status: 504, statusText: 'Offline' });
+  }
+}
+
+async function networkFirst(request, fallbackToJson = false) {
+  try {
+    return await fromNetwork(request);
+  } catch (error) {
+    const cached = await caches.match(request, { ignoreSearch: true });
+    if (cached) {
+      return cached;
+    }
+    if (fallbackToJson) {
+      return new Response('{}', {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      });
+    }
+    return (await caches.match(toScopedUrl('index.html'))) || caches.match(toScopedUrl('./'));
+  }
+}
+
+// UI-код (CSS/JS/переводы): всегда сначала сеть, кэш — только для офлайна.
+// Иначе после деплоя свежий HTML встречается со старым CSS из кэша
+// и страница рассыпается (светлая панель в тёмной теме, плоские кнопки,
+// схлопнувшаяся подложка табов). Жёсткая перезагрузка это маскировала,
+// т.к. обходила кэш.
+async function networkFirstFresh(request) {
+  try {
+    return await fromNetwork(request);
+  } catch (error) {
+    const cached = await caches.match(request, { ignoreSearch: true });
+    if (cached) {
+      return cached;
+    }
+    return new Response('', { status: 504, statusText: 'Offline' });
+  }
+}
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET') {
+    return;
+  }
+
+  const url = new URL(request.url);
+
+  // 1. Игнорируем chrome-extension://, data:, blob: и т.д.
+  if (!url.protocol.startsWith('http')) {
+    return;
+  }
+
+  // 2. Не перехватываем рекламные/аналитические/CDN запросы — пусть грузятся напрямую
+  if (isIgnoredHost(url.hostname)) {
+    return;
+  }
+
+  const sameOrigin = url.origin === self.location.origin;
+  const isApi = sameOrigin && url.pathname.includes('/api/');
+  const isQrCode = sameOrigin && url.pathname.includes('/static/qr-codes/');
+  const isNavigation = request.mode === 'navigate';
+
+  // UI-код обязан быть свежим: CSS, скрипты и переводы всегда тянем из сети.
+  // Картинки, шрифты, QR и медиа — наоборот, стабильны и остаются cache-first.
+  const isFreshAsset = sameOrigin && (
+    url.pathname.endsWith('/static/css/tailwind.css') ||
+    url.pathname.includes('/static/js/') ||
+    url.pathname.includes('/static/i18n/')
+  );
+
+  if (isNavigation) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  if (isApi) {
+    event.respondWith(networkFirst(request, true));
+    return;
+  }
+
+  if (isFreshAsset) {
+    event.respondWith(networkFirstFresh(request));
+    return;
+  }
+
+  if (isQrCode || sameOrigin) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  // 3. Для остальных cross-origin запросов (если они не попали в IGNORED_HOSTS)
+  event.respondWith(cacheFirst(request, false));
+});
