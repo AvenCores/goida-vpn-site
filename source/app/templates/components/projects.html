@@ -240,5 +240,41 @@
                 </div>
             </div>
         </a>
+
+        <!-- 7. Zapret GUI -->
+        <a href="https://github.com/AvenCores/zapret-gui-nodejs"
+           target="_blank"
+           rel="noopener noreferrer"
+           @click="if(window.trackEvent) window.trackEvent('other_project_click', { project: 'zapret-gui-nodejs' })"
+           class="group relative h-full flex flex-col justify-between goida-card p-5 sm:p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+            <!-- Glow background decoration -->
+            <div class="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors duration-500 pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col h-full">
+                <!-- Header with Icon & Platform Badge -->
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0 border border-cyan-200 dark:border-cyan-800/30 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                        <i class="fa-solid fa-bolt text-xl"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h3 class="text-lg font-black text-gray-900 dark:text-white leading-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-500" data-i18n="projects.zapret_gui_title">Zapret GUI</h3>
+                        <p class="inline-flex items-center px-2 py-0.5 mt-2 text-xs font-bold rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800/30" data-i18n="projects.platform_win">Windows 10/11</p>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-500" data-i18n="projects.zapret_gui_desc">
+                    Десктопный GUI для zapret — обход DPI-блокировок Discord, YouTube и Telegram с 22 стратегиями, диагностикой и автообновлением.
+                </p>
+
+                <!-- Footer Action -->
+                <div class="mt-auto flex items-center justify-between border-t border-gray-200/80 dark:border-gray-700/50" style="padding-top: 1.5rem;">
+                    <span class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue dark:text-blue-400 group-hover:text-blue-500 dark:group-hover:text-blue-300 transition-colors">
+                        <span data-i18n="projects.github_link">GitHub</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:scale-110 transition-transform"></i>
+                    </span>
+                </div>
+            </div>
+        </a>
     </div>
 </section>

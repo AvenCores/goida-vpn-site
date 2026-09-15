@@ -75,7 +75,9 @@
       "cookies_backup_desc": "Расширение для шифрованного бэкапа и восстановления cookies (.ckz/.json) с тёмной темой и поддержкой 25 языков.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Экосистема"
+      "eyebrow": "Экосистема",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Десктопный GUI для zapret — обход DPI-блокировок Discord, YouTube и Telegram с 22 стратегиями, диагностикой и автообновлением."
     },
     "video": {
       "title": "Видео инструкция",
@@ -312,7 +314,9 @@
       "cookies_backup_desc": "Chrome- und Firefox-Erweiterung für verschlüsseltes Cookie-Backup und Wiederherstellung (.ckz/.json) mit Dark Mode und 25 Sprachen.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Ökosystem"
+      "eyebrow": "Ökosystem",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Desktop-GUI für zapret — umgeht DPI-Sperren von Discord, YouTube und Telegram mit 22 Strategien, Diagnose und Auto-Updates."
     },
     "video": {
       "title": "Videoanleitung",
@@ -549,7 +553,9 @@
       "cookies_backup_desc": "Chrome and Firefox extension for encrypted cookie backup and restore (.ckz/.json) with dark theme and 25 languages.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Ecosystem"
+      "eyebrow": "Ecosystem",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Desktop GUI for zapret — bypass DPI blocks of Discord, YouTube and Telegram with 22 strategies, diagnostics and auto-updates."
     },
     "video": {
       "title": "Video Tutorial",
@@ -786,7 +792,9 @@
       "cookies_backup_desc": "Пашырэнне для Chrome і Firefox для шыфраванага бэкапа і аднаўлення cookies (.ckz/.json) з цёмнай тэмай і падтрымкай 25 моў.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Экасістэма"
+      "eyebrow": "Экасістэма",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Дэсктопны GUI для zapret — абыход DPI-блакіровак Discord, YouTube і Telegram з 22 стратэгіямі, дыягностыкай і аўтаабнаўленнямі."
     },
     "video": {
       "title": "Відэа інструкцыя",
@@ -1023,7 +1031,9 @@
       "cookies_backup_desc": "Розширення для Chrome і Firefox для шифрованого бекапа та відновлення cookies (.ckz/.json) з темною темою та підтримкою 25 мов.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Екосистема"
+      "eyebrow": "Екосистема",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Десктопний GUI для zapret — обхід DPI-блокувань Discord, YouTube і Telegram з 22 стратегіями, діагностикою та автооновленнями."
     },
     "video": {
       "title": "Відео інструкція",
@@ -1260,7 +1270,9 @@
       "cookies_backup_desc": "Қараңғы тақырып және 25 тіл қолдауымен cookies шифрланған сақтық көшірмесін жасауға және қалпына келтіруге арналған Chrome және Firefox кеңейтімі (.ckz/.json).",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Экожүйе"
+      "eyebrow": "Экожүйе",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "zapret-ке арналған десктоп GUI — 22 стратегия, диагностика және автожаңарту арқылы Discord, YouTube және Telegram DPI бұғаттарын айналып өту."
     },
     "video": {
       "title": "Бейне нұсқаулық",
@@ -1497,7 +1509,9 @@
       "cookies_backup_desc": "Extension Chrome et Firefox pour la sauvegarde chiffrée et la restauration des cookies (.ckz/.json) avec thème sombre et 25 langues.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Écosystème"
+      "eyebrow": "Écosystème",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "GUI de bureau pour zapret — contourne les blocages DPI de Discord, YouTube et Telegram avec 22 stratégies, diagnostic et mises à jour auto."
     },
     "video": {
       "title": "Tutoriel Vidéo",
@@ -1734,7 +1748,9 @@
       "cookies_backup_desc": "Rozszerzenie dla Chrome i Firefoksa do szyfrowanego tworzenia kopii zapasowych i przywracania plików cookie (.ckz/.json) z ciemnym motywem i obsługą 25 języków.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Ekosystem"
+      "eyebrow": "Ekosystem",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Desktopowe GUI dla zapret — omijanie blokad DPI Discord, YouTube i Telegram z 22 strategiami, diagnostyką i autoaktualizacjami."
     },
     "video": {
       "title": "Instrukcja Wideo",
@@ -1971,7 +1987,9 @@
       "cookies_backup_desc": "Extensión para Chrome y Firefox para copia de seguridad y restauración cifrada de cookies (.ckz/.json) con tema oscuro y 25 idiomas.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Ecosistema"
+      "eyebrow": "Ecosistema",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "GUI de escritorio para zapret — evita bloqueos DPI de Discord, YouTube y Telegram con 22 estrategias, diagnóstico y autoactualizaciones."
     },
     "video": {
       "title": "Videotutorial",
@@ -2208,7 +2226,9 @@
       "cookies_backup_desc": "Estensione per Chrome e Firefox per backup e ripristino crittografato dei cookie (.ckz/.json) con tema scuro e 25 lingue.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Ecosistema"
+      "eyebrow": "Ecosistema",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "GUI desktop per zapret — aggira i blocchi DPI di Discord, YouTube e Telegram con 22 strategie, diagnostica e aggiornamenti automatici."
     },
     "video": {
       "title": "Video tutorial",
@@ -2445,7 +2465,9 @@
       "cookies_backup_desc": "Extensão para Chrome e Firefox para backup e restauro encriptado de cookies (.ckz/.json) com tema escuro e 25 idiomas.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Ecossistema"
+      "eyebrow": "Ecossistema",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "GUI de desktop para zapret — contorna bloqueios DPI do Discord, YouTube e Telegram com 22 estratégias, diagnóstico e atualizações automáticas."
     },
     "video": {
       "title": "Vídeo tutorial",
@@ -2682,7 +2704,9 @@
       "cookies_backup_desc": "Chrome- en Firefox-extensie voor versleutelde cookie-back-up en -herstel (.ckz/.json) met donker thema en 25 talen.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Ecosysteem"
+      "eyebrow": "Ecosysteem",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Desktop-GUI voor zapret — omzeilt DPI-blokkades van Discord, YouTube en Telegram met 22 strategieën, diagnostiek en auto-updates."
     },
     "video": {
       "title": "Videohandleiding",
@@ -2919,7 +2943,9 @@
       "cookies_backup_desc": "Chrome- och Firefox-tillägg för krypterad cookie-backup och återställning (.ckz/.json) med mörkt tema och 25 språk.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "Ekosystem"
+      "eyebrow": "Ekosystem",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Desktop-GUI för zapret — kringgår DPI-blockeringar av Discord, YouTube och Telegram med 22 strategier, diagnostik och autouppdateringar."
     },
     "video": {
       "title": "Videogenomgång",
@@ -3261,7 +3287,9 @@
       "unlock_ai_services_desc": "Modul pro obcházení regionálních blokací AI služeb, sociálních sítí, her a dalších zdrojů s OTA aktualizacemi.",
       "unlock_ai_services_title": "Unlock AI & EN Services",
       "vt_gui_desc": "Multiplatformní GUI aplikace pro VirusTotal, kombinující utilitu vt-cli a přímé dotazy na API v3.",
-      "vt_gui_title": "VT GUI"
+      "vt_gui_title": "VT GUI",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Desktopové GUI pro zapret — obchází DPI blokace Discordu, YouTube a Telegramu s 22 strategiemi, diagnostikou a autoaktualizacemi."
     },
     "stats": {
       "clones_14d": "Klony (14d)",
@@ -3498,7 +3526,9 @@
       "unlock_ai_services_desc": "OTA güncellemeli, yapay zeka hizmetleri, sosyal ağlar, oyunlar ve diğer kaynaklardaki bölgesel engelleri aşmak için modül.",
       "unlock_ai_services_title": "Unlock AI & EN Services",
       "vt_gui_desc": "vt-cli yardımcı programını ve doğrudan API v3 isteklerini birleştiren, VirusTotal için çok platformlu GUI uygulaması.",
-      "vt_gui_title": "VT GUI"
+      "vt_gui_title": "VT GUI",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "zapret için masaüstü GUI — 22 strateji, tanılama ve otomatik güncellemelerle Discord, YouTube ve Telegram DPI engellerini aşar."
     },
     "stats": {
       "clones_14d": "Klonlar (14g)",
@@ -3735,7 +3765,9 @@
       "unlock_ai_services_desc": "通过 OTA 更新绕过 AI 服务、社交网络、游戏及其他资源的地区封锁的模块。",
       "unlock_ai_services_title": "Unlock AI & EN Services",
       "vt_gui_desc": "适用于 VirusTotal 的跨平台 GUI 应用，结合 vt-cli 工具和直接的 API v3 请求。",
-      "vt_gui_title": "VT GUI"
+      "vt_gui_title": "VT GUI",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "适用于 zapret 的桌面 GUI — 通过 22 种策略、诊断和自动更新绕过 Discord、YouTube 和 Telegram 的 DPI 封锁。"
     },
     "stats": {
       "clones_14d": "克隆数（14天）",
@@ -3972,7 +4004,9 @@
       "unlock_ai_services_desc": "OTAアップデート付きで、AIサービス、SNS、ゲーム、その他のリソースの地域ブロックを回避するモジュール。",
       "unlock_ai_services_title": "Unlock AI & EN Services",
       "vt_gui_desc": "vt-cliユーティリティと直接のAPI v3リクエストを組み合わせた、VirusTotal用クロスプラットフォームGUIアプリ。",
-      "vt_gui_title": "VT GUI"
+      "vt_gui_title": "VT GUI",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "zapret用デスクトップGUI — 22の戦略、診断、自動更新でDiscord・YouTube・TelegramのDPIブロックを回避。"
     },
     "stats": {
       "clones_14d": "クローン数（14日）",
@@ -4104,7 +4138,9 @@
       "cookies_backup_desc": "다크 테마와 25개 언어를 지원하는 암호화 쿠키 백업 및 복원(.ckz/.json)용 Chrome 및 Firefox 확장 프로그램입니다.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "생태계"
+      "eyebrow": "생태계",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "zapret용 데스크톱 GUI — 22개 전략, 진단 및 자동 업데이트로 Discord, YouTube, Telegram DPI 차단을 우회."
     },
     "video": {
       "title": "영상 튜토리얼",
@@ -4341,7 +4377,9 @@
       "cookies_backup_desc": "إضافة لـ Chrome وFirefox للنسخ الاحتياطي المشفّر لملفات تعريف الارتباط واستعادتها (.ckz/.json) مع مظهر داكن و25 لغة.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "المنظومة"
+      "eyebrow": "المنظومة",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "واجهة سطح مكتب لـ zapret — تتجاوز حجب DPI لديسكورد ويوتيوب وتيليغرام مع 22 استراتيجية وتشخيص وتحديثات تلقائية."
     },
     "video": {
       "title": "شرح بالفيديو",
@@ -4578,7 +4616,9 @@
       "cookies_backup_desc": "एन्क्रिप्टेड कुकी बैकअप और रिस्टोर (.ckz/.json) के लिए Chrome और Firefox एक्सटेंशन, डार्क थीम और 25 भाषाओं के साथ।",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "इकोसिस्टम"
+      "eyebrow": "इकोसिस्टम",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "zapret के लिए डेस्कटॉप GUI — 22 रणनीतियों, डायग्नोस्टिक्स और ऑटो-अपडेट के साथ Discord, YouTube और Telegram के DPI ब्लॉक को बायपास करें।"
     },
     "video": {
       "title": "वीडियो ट्यूटोरियल",
@@ -4815,7 +4855,9 @@
       "cookies_backup_desc": "افزونه Chrome و Firefox برای پشتیبان‌گیری رمزنگاری‌شده و بازیابی کوکی‌ها (.ckz/.json) با تم تیره و ۲۵ زبان.",
       "platform_browsers": "Chrome / Firefox",
       "github_link": "GitHub",
-      "eyebrow": "اکوسیستم"
+      "eyebrow": "اکوسیستم",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "رابط گرافیکی دسکتاپ برای zapret — دور زدن مسدودیت‌های DPI دیسکورد، یوتیوب و تلگرام با ۲۲ استراتژی، تشخیص و به‌روزرسانی خودکار."
     },
     "video": {
       "title": "آموزش ویدیویی",
@@ -5157,7 +5199,9 @@
       "unlock_ai_services_desc": "OTA yangilanishlar bilan AI xizmatlari, ijtimoiy tarmoqlar, o'yinlar va boshqa resurslardagi mintaqaviy bloklarni chetlab o'tish moduli.",
       "unlock_ai_services_title": "Unlock AI & EN Services",
       "vt_gui_desc": "VirusTotal uchun vt-cli yordamchi dasturi va to'g'ridan-to'g'ri API v3 so'rovlarini birlashtirgan kross-platforma GUI ilova.",
-      "vt_gui_title": "VT GUI"
+      "vt_gui_title": "VT GUI",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "zapret uchun desktop GUI — 22 strategiya, diagnostika va avto-yangilanishlar bilan Discord, YouTube va Telegram DPI bloklarini chetlab o‘tish."
     },
     "stats": {
       "clones_14d": "Klonlar (14k)",
@@ -5394,7 +5438,9 @@
       "unlock_ai_services_desc": "OTA yenilənmələri ilə AI xidmətlərində, sosial şəbəkələrdə, oyunlarda və digər resurslarda regional bloklardan yayınma modulu.",
       "unlock_ai_services_title": "Unlock AI & EN Services",
       "vt_gui_desc": "vt-cli utilitini və birbaşa API v3 sorğularını birləşdirən VirusTotal üçün kross-platforma GUI tətbiqi.",
-      "vt_gui_title": "VT GUI"
+      "vt_gui_title": "VT GUI",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "zapret üçün masaüstü GUI — 22 strategiya, diaqnostika və avto-yeniləmələrlə Discord, YouTube və Telegram DPI bloklarını yan keçir."
     },
     "stats": {
       "clones_14d": "Klonlar (14g)",
@@ -5631,7 +5677,9 @@
       "unlock_ai_services_desc": "Մոդուլ՝ AI ծառայությունների, սոցցանցերի, խաղերի և այլ ռեսուրսների տարածաշրջանային արգելափակումները OTA թարմացումներով շրջանցելու համար։",
       "unlock_ai_services_title": "Unlock AI & EN Services",
       "vt_gui_desc": "Միջպլատֆորմային GUI հավելված VirusTotal-ի համար, որը համատեղում է vt-cli գործիքը և ուղիղ API v3 հարցումները։",
-      "vt_gui_title": "VT GUI"
+      "vt_gui_title": "VT GUI",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "Աշխատասեղանի GUI zapret-ի համար — շրջանցում է Discord-ի, YouTube-ի և Telegram-ի DPI արգելափակումները 22 ռազմավարությամբ, ախտորոշմամբ և ավտոթարմացումներով։"
     },
     "stats": {
       "clones_14d": "Կլոններ (14օ)",
@@ -5868,7 +5916,9 @@
       "unlock_ai_services_desc": "მოდული AI სერვისებზე, სოცქსელებზე, თამაშებსა და სხვა რესურსებზე რეგიონული ბლოკების გვერდის ავლისთვის OTA განახლებებით.",
       "unlock_ai_services_title": "Unlock AI & EN Services",
       "vt_gui_desc": "კროს-პლატფორმული GUI აპლიკაცია VirusTotal-ისთვის, რომელიც აერთიანებს vt-cli უტილიტსა და პირდაპირ API v3 მოთხოვნებს.",
-      "vt_gui_title": "VT GUI"
+      "vt_gui_title": "VT GUI",
+      "zapret_gui_title": "Zapret GUI",
+      "zapret_gui_desc": "დესკტოპ GUI zapret-ისთვის — Discord-ის, YouTube-ისა და Telegram-ის DPI ბლოკების გვერდის ავლა 22 სტრატეგიით, დიაგნოსტიკითა და ავტო-განახლებებით."
     },
     "stats": {
       "clones_14d": "კლონები (14დ)",
