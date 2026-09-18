@@ -77,7 +77,8 @@
       "github_link": "GitHub",
       "eyebrow": "Экосистема",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Десктопный GUI для zapret — обход DPI-блокировок Discord, YouTube и Telegram с 22 стратегиями, диагностикой и автообновлением."
+      "zapret_gui_desc": "Десктопный GUI для zapret: обход DPI Discord / YouTube / Telegram через winws.exe + WinDivert, 22 стратегии, встроенный MTProto-прокси, 17 проверок диагностики, 28 языков и автообновление.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Видео инструкция",
@@ -316,7 +317,8 @@
       "github_link": "GitHub",
       "eyebrow": "Ökosystem",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Desktop-GUI für zapret — umgeht DPI-Sperren von Discord, YouTube und Telegram mit 22 Strategien, Diagnose und Auto-Updates."
+      "zapret_gui_desc": "Desktop-GUI für zapret — umgeht DPI-Sperren von Discord, YouTube und Telegram mit 22 Strategien, Diagnose und Auto-Updates.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Videoanleitung",
@@ -555,7 +557,8 @@
       "github_link": "GitHub",
       "eyebrow": "Ecosystem",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Desktop GUI for zapret — bypass DPI blocks of Discord, YouTube and Telegram with 22 strategies, diagnostics and auto-updates."
+      "zapret_gui_desc": "Desktop GUI for zapret-discord-youtube: DPI bypass for Discord / YouTube / Telegram via winws.exe + WinDivert, 22 strategies, built-in MTProto proxy, 17 diagnostic checks, 28 languages and auto-updates.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Video Tutorial",
@@ -794,7 +797,8 @@
       "github_link": "GitHub",
       "eyebrow": "Экасістэма",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Дэсктопны GUI для zapret — абыход DPI-блакіровак Discord, YouTube і Telegram з 22 стратэгіямі, дыягностыкай і аўтаабнаўленнямі."
+      "zapret_gui_desc": "Дэсктопны GUI для zapret — абыход DPI-блакіровак Discord, YouTube і Telegram з 22 стратэгіямі, дыягностыкай і аўтаабнаўленнямі.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Відэа інструкцыя",
@@ -1033,7 +1037,8 @@
       "github_link": "GitHub",
       "eyebrow": "Екосистема",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Десктопний GUI для zapret — обхід DPI-блокувань Discord, YouTube і Telegram з 22 стратегіями, діагностикою та автооновленнями."
+      "zapret_gui_desc": "Десктопний GUI для zapret — обхід DPI-блокувань Discord, YouTube і Telegram з 22 стратегіями, діагностикою та автооновленнями.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Відео інструкція",
@@ -1272,7 +1277,8 @@
       "github_link": "GitHub",
       "eyebrow": "Экожүйе",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "zapret-ке арналған десктоп GUI — 22 стратегия, диагностика және автожаңарту арқылы Discord, YouTube және Telegram DPI бұғаттарын айналып өту."
+      "zapret_gui_desc": "zapret-ке арналған десктоп GUI — 22 стратегия, диагностика және автожаңарту арқылы Discord, YouTube және Telegram DPI бұғаттарын айналып өту.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Бейне нұсқаулық",
@@ -1511,7 +1517,8 @@
       "github_link": "GitHub",
       "eyebrow": "Écosystème",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "GUI de bureau pour zapret — contourne les blocages DPI de Discord, YouTube et Telegram avec 22 stratégies, diagnostic et mises à jour auto."
+      "zapret_gui_desc": "GUI de bureau pour zapret — contourne les blocages DPI de Discord, YouTube et Telegram avec 22 stratégies, diagnostic et mises à jour auto.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Tutoriel Vidéo",
@@ -1750,7 +1757,8 @@
       "github_link": "GitHub",
       "eyebrow": "Ekosystem",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Desktopowe GUI dla zapret — omijanie blokad DPI Discord, YouTube i Telegram z 22 strategiami, diagnostyką i autoaktualizacjami."
+      "zapret_gui_desc": "Desktopowe GUI dla zapret — omijanie blokad DPI Discord, YouTube i Telegram z 22 strategiami, diagnostyką i autoaktualizacjami.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Instrukcja Wideo",
@@ -1989,7 +1997,8 @@
       "github_link": "GitHub",
       "eyebrow": "Ecosistema",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "GUI de escritorio para zapret — evita bloqueos DPI de Discord, YouTube y Telegram con 22 estrategias, diagnóstico y autoactualizaciones."
+      "zapret_gui_desc": "GUI de escritorio para zapret — evita bloqueos DPI de Discord, YouTube y Telegram con 22 estrategias, diagnóstico y autoactualizaciones.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Videotutorial",
@@ -2228,7 +2237,8 @@
       "github_link": "GitHub",
       "eyebrow": "Ecosistema",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "GUI desktop per zapret — aggira i blocchi DPI di Discord, YouTube e Telegram con 22 strategie, diagnostica e aggiornamenti automatici."
+      "zapret_gui_desc": "GUI desktop per zapret — aggira i blocchi DPI di Discord, YouTube e Telegram con 22 strategie, diagnostica e aggiornamenti automatici.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Video tutorial",
@@ -2467,7 +2477,8 @@
       "github_link": "GitHub",
       "eyebrow": "Ecossistema",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "GUI de desktop para zapret — contorna bloqueios DPI do Discord, YouTube e Telegram com 22 estratégias, diagnóstico e atualizações automáticas."
+      "zapret_gui_desc": "GUI de desktop para zapret — contorna bloqueios DPI do Discord, YouTube e Telegram com 22 estratégias, diagnóstico e atualizações automáticas.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Vídeo tutorial",
@@ -2706,7 +2717,8 @@
       "github_link": "GitHub",
       "eyebrow": "Ecosysteem",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Desktop-GUI voor zapret — omzeilt DPI-blokkades van Discord, YouTube en Telegram met 22 strategieën, diagnostiek en auto-updates."
+      "zapret_gui_desc": "Desktop-GUI voor zapret — omzeilt DPI-blokkades van Discord, YouTube en Telegram met 22 strategieën, diagnostiek en auto-updates.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Videohandleiding",
@@ -2945,7 +2957,8 @@
       "github_link": "GitHub",
       "eyebrow": "Ekosystem",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Desktop-GUI för zapret — kringgår DPI-blockeringar av Discord, YouTube och Telegram med 22 strategier, diagnostik och autouppdateringar."
+      "zapret_gui_desc": "Desktop-GUI för zapret — kringgår DPI-blockeringar av Discord, YouTube och Telegram med 22 strategier, diagnostik och autouppdateringar.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "Videogenomgång",
@@ -3289,7 +3302,8 @@
       "vt_gui_desc": "Multiplatformní GUI aplikace pro VirusTotal, kombinující utilitu vt-cli a přímé dotazy na API v3.",
       "vt_gui_title": "VT GUI",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Desktopové GUI pro zapret — obchází DPI blokace Discordu, YouTube a Telegramu s 22 strategiemi, diagnostikou a autoaktualizacemi."
+      "zapret_gui_desc": "Desktopové GUI pro zapret — obchází DPI blokace Discordu, YouTube a Telegramu s 22 strategiemi, diagnostikou a autoaktualizacemi.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "stats": {
       "clones_14d": "Klony (14d)",
@@ -3528,7 +3542,8 @@
       "vt_gui_desc": "vt-cli yardımcı programını ve doğrudan API v3 isteklerini birleştiren, VirusTotal için çok platformlu GUI uygulaması.",
       "vt_gui_title": "VT GUI",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "zapret için masaüstü GUI — 22 strateji, tanılama ve otomatik güncellemelerle Discord, YouTube ve Telegram DPI engellerini aşar."
+      "zapret_gui_desc": "zapret için masaüstü GUI — 22 strateji, tanılama ve otomatik güncellemelerle Discord, YouTube ve Telegram DPI engellerini aşar.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "stats": {
       "clones_14d": "Klonlar (14g)",
@@ -3767,7 +3782,8 @@
       "vt_gui_desc": "适用于 VirusTotal 的跨平台 GUI 应用，结合 vt-cli 工具和直接的 API v3 请求。",
       "vt_gui_title": "VT GUI",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "适用于 zapret 的桌面 GUI — 通过 22 种策略、诊断和自动更新绕过 Discord、YouTube 和 Telegram 的 DPI 封锁。"
+      "zapret_gui_desc": "适用于 zapret 的桌面 GUI — 通过 22 种策略、诊断和自动更新绕过 Discord、YouTube 和 Telegram 的 DPI 封锁。",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "stats": {
       "clones_14d": "克隆数（14天）",
@@ -4006,7 +4022,8 @@
       "vt_gui_desc": "vt-cliユーティリティと直接のAPI v3リクエストを組み合わせた、VirusTotal用クロスプラットフォームGUIアプリ。",
       "vt_gui_title": "VT GUI",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "zapret用デスクトップGUI — 22の戦略、診断、自動更新でDiscord・YouTube・TelegramのDPIブロックを回避。"
+      "zapret_gui_desc": "zapret用デスクトップGUI — 22の戦略、診断、自動更新でDiscord・YouTube・TelegramのDPIブロックを回避。",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "stats": {
       "clones_14d": "クローン数（14日）",
@@ -4140,7 +4157,8 @@
       "github_link": "GitHub",
       "eyebrow": "생태계",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "zapret용 데스크톱 GUI — 22개 전략, 진단 및 자동 업데이트로 Discord, YouTube, Telegram DPI 차단을 우회."
+      "zapret_gui_desc": "zapret용 데스크톱 GUI — 22개 전략, 진단 및 자동 업데이트로 Discord, YouTube, Telegram DPI 차단을 우회.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "영상 튜토리얼",
@@ -4379,7 +4397,8 @@
       "github_link": "GitHub",
       "eyebrow": "المنظومة",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "واجهة سطح مكتب لـ zapret — تتجاوز حجب DPI لديسكورد ويوتيوب وتيليغرام مع 22 استراتيجية وتشخيص وتحديثات تلقائية."
+      "zapret_gui_desc": "واجهة سطح مكتب لـ zapret — تتجاوز حجب DPI لديسكورد ويوتيوب وتيليغرام مع 22 استراتيجية وتشخيص وتحديثات تلقائية.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "شرح بالفيديو",
@@ -4618,7 +4637,8 @@
       "github_link": "GitHub",
       "eyebrow": "इकोसिस्टम",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "zapret के लिए डेस्कटॉप GUI — 22 रणनीतियों, डायग्नोस्टिक्स और ऑटो-अपडेट के साथ Discord, YouTube और Telegram के DPI ब्लॉक को बायपास करें।"
+      "zapret_gui_desc": "zapret के लिए डेस्कटॉप GUI — 22 रणनीतियों, डायग्नोस्टिक्स और ऑटो-अपडेट के साथ Discord, YouTube और Telegram के DPI ब्लॉक को बायपास करें।",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "वीडियो ट्यूटोरियल",
@@ -4857,7 +4877,8 @@
       "github_link": "GitHub",
       "eyebrow": "اکوسیستم",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "رابط گرافیکی دسکتاپ برای zapret — دور زدن مسدودیت‌های DPI دیسکورد، یوتیوب و تلگرام با ۲۲ استراتژی، تشخیص و به‌روزرسانی خودکار."
+      "zapret_gui_desc": "رابط گرافیکی دسکتاپ برای zapret — دور زدن مسدودیت‌های DPI دیسکورد، یوتیوب و تلگرام با ۲۲ استراتژی، تشخیص و به‌روزرسانی خودکار.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "video": {
       "title": "آموزش ویدیویی",
@@ -5201,7 +5222,8 @@
       "vt_gui_desc": "VirusTotal uchun vt-cli yordamchi dasturi va to'g'ridan-to'g'ri API v3 so'rovlarini birlashtirgan kross-platforma GUI ilova.",
       "vt_gui_title": "VT GUI",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "zapret uchun desktop GUI — 22 strategiya, diagnostika va avto-yangilanishlar bilan Discord, YouTube va Telegram DPI bloklarini chetlab o‘tish."
+      "zapret_gui_desc": "zapret uchun desktop GUI — 22 strategiya, diagnostika va avto-yangilanishlar bilan Discord, YouTube va Telegram DPI bloklarini chetlab o‘tish.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "stats": {
       "clones_14d": "Klonlar (14k)",
@@ -5440,7 +5462,8 @@
       "vt_gui_desc": "vt-cli utilitini və birbaşa API v3 sorğularını birləşdirən VirusTotal üçün kross-platforma GUI tətbiqi.",
       "vt_gui_title": "VT GUI",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "zapret üçün masaüstü GUI — 22 strategiya, diaqnostika və avto-yeniləmələrlə Discord, YouTube və Telegram DPI bloklarını yan keçir."
+      "zapret_gui_desc": "zapret üçün masaüstü GUI — 22 strategiya, diaqnostika və avto-yeniləmələrlə Discord, YouTube və Telegram DPI bloklarını yan keçir.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "stats": {
       "clones_14d": "Klonlar (14g)",
@@ -5679,7 +5702,8 @@
       "vt_gui_desc": "Միջպլատֆորմային GUI հավելված VirusTotal-ի համար, որը համատեղում է vt-cli գործիքը և ուղիղ API v3 հարցումները։",
       "vt_gui_title": "VT GUI",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "Աշխատասեղանի GUI zapret-ի համար — շրջանցում է Discord-ի, YouTube-ի և Telegram-ի DPI արգելափակումները 22 ռազմավարությամբ, ախտորոշմամբ և ավտոթարմացումներով։"
+      "zapret_gui_desc": "Աշխատասեղանի GUI zapret-ի համար — շրջանցում է Discord-ի, YouTube-ի և Telegram-ի DPI արգելափակումները 22 ռազմավարությամբ, ախտորոշմամբ և ավտոթարմացումներով։",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "stats": {
       "clones_14d": "Կլոններ (14օ)",
@@ -5918,7 +5942,8 @@
       "vt_gui_desc": "კროს-პლატფორმული GUI აპლიკაცია VirusTotal-ისთვის, რომელიც აერთიანებს vt-cli უტილიტსა და პირდაპირ API v3 მოთხოვნებს.",
       "vt_gui_title": "VT GUI",
       "zapret_gui_title": "Zapret GUI",
-      "zapret_gui_desc": "დესკტოპ GUI zapret-ისთვის — Discord-ის, YouTube-ისა და Telegram-ის DPI ბლოკების გვერდის ავლა 22 სტრატეგიით, დიაგნოსტიკითა და ავტო-განახლებებით."
+      "zapret_gui_desc": "დესკტოპ GUI zapret-ისთვის — Discord-ის, YouTube-ისა და Telegram-ის DPI ბლოკების გვერდის ავლა 22 სტრატეგიით, დიაგნოსტიკითა და ავტო-განახლებებით.",
+      "platform_win_x64": "Windows 10/11 x64"
     },
     "stats": {
       "clones_14d": "კლონები (14დ)",
